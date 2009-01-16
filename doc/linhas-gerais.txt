@@ -19,3 +19,4 @@ gerenciamento de user stories e tarefas
 visualizacao user-friendly
 calculo automatico de velocidade da equipe e outras metricas
 utilizavel para muitas das metodologias ageis - modular para por novas (XP, scrum, lean, etc)
+integracao com outra ferramentas (cruisecontrol, etc)
