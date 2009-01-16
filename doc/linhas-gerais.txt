@@ -10,6 +10,9 @@ o que pretendemos fazer
 no que somos diferentes dos ja existentes
 pq tem chances de dar certo
 
+estimativa de horas a serem trabalhadas nesse projeto
+previsão: ~ julho -> projeto, ~ nov -> mono
+
 em java
 
 funcionalidades gerais

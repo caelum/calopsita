@@ -1,0 +1,8 @@
+*.aux
+*.log
+*.idx
+*.pdf
+*.classpath
+*.project
+*.settings
+*~
