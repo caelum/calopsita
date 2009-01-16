@@ -1,0 +1,21 @@
+TCC
+
+metodologias usadas
+padroes de projetos usados
+quem sao os clientes
+a quem o projeto visa
+
+ceci ateh domingo
+o que pretendemos fazer
+no que somos diferentes dos ja existentes
+pq tem chances de dar certo
+
+em java
+
+funcionalidades gerais
+flexibilidade para por graficos
+humorometro
+gerenciamento de user stories e tarefas
+visualizacao user-friendly
+calculo automatico de velocidade da equipe e outras metricas
+utilizavel para muitas das metodologias ageis - modular para por novas (XP, scrum, lean, etc)
