@@ -1,4 +1,4 @@
-package br.com.caelum.calopsita.modelo;
+package br.com.caelum.calopsita.model;
 
 public class Iteration {
 	private int number;
