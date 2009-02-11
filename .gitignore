@@ -7,3 +7,6 @@
 *.settings
 *.class
 *~
+target/*
+*.ser
+*.DS_Store
