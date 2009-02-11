@@ -1,0 +1,40 @@
+9
+
+dir
+8628
+svn+ssh://chguerra@192.168.0.2/svn/caelum/caelumweb2/trunk/build/artifacts_lib
+svn+ssh://chguerra@192.168.0.2/svn/caelum
+
+
+
+2008-10-28T12:50:05.014940Z
+6788
+david
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+eca667bb-7832-0410-8887-ae87efaa38ae
+
+jetty
+dir
+
+selenium
+dir
+
+cobertura
+dir
+
+trax
+dir
+
