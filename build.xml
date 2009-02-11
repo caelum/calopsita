@@ -29,7 +29,7 @@
 	</path>
 	<path id="tests.classpath">
 		<pathelement path="${tmp.classes.dir}" />
-		<pathelement path="${tests.resources.dir}" />
+		<!--<pathelement path="${tests.resources.dir}" />-->
 		<pathelement path="${resources.dir}" />
 		<path refid="compile.classpath" />
 	</path>
@@ -49,9 +49,9 @@
 			</copy>
 	
 		<javac destdir="${tmp.test-classes.dir}" srcdir="${test-src.dir}" classpathref="tests.classpath" debug="true" encoding="UTF-8" />
-		<copy todir="${tmp.test-classes.dir}">
+		<!--<copy todir="${tmp.test-classes.dir}">
 			<fileset dir="${tests.resources.dir}" />
-		</copy>
+		</copy>-->
 
 	</target>
 	<target name="test" depends="compile" description="--> run the tests">
