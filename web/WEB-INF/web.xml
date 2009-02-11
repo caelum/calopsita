@@ -1,12 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>calopsita</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+  
+  <!-- encoding e prelude pros jsps -->
+  <jsp-config>
+  	<jsp-property-group>
+  		<url-pattern>*.jsp</url-pattern>
+  		<page-encoding>UTF-8</page-encoding>
+  		<include-prelude>/WEB-INF/jsp/prelude.jspf</include-prelude>
+  	</jsp-property-group>
+  </jsp-config>
+
+  <!-- internacionalizacao -->
+  <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
+    <param-value>pt_BR</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
+    <param-value>pt_BR</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+    <param-value>messages</param-value>
+  </context-param>
+  
+  <!-- Mandatory filter; should be the last one in the chain -->
+  <filter>
+    <filter-name>vraptor-filter</filter-name>
+    <filter-class>
+      br.com.caelum.vraptor.plugin.niceurl.servlet.NiceURLFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>vraptor-filter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+
+  <!-- VRaptor overriden view locator -->
+  <context-param>
+    <param-name>org.vraptor.url.ViewLocator</param-name>
+    <param-value>br.com.caelum.calopsita.infra.vraptor.views.AnnotationViewLocator</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.vraptor.view.ViewManager</param-name>
+    <param-value>br.com.caelum.calopsita.infra.vraptor.views.AnnotationViewManager</param-value>
+  </context-param>
+
+  <!-- VRaptorServlet configuration with .logic suffix -->
+  <servlet>
+    <servlet-name>vraptor2</servlet-name>
+    <servlet-class>org.vraptor.VRaptorServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>vraptor2</servlet-name>
+    <url-pattern>*.logic</url-pattern>
+  </servlet-mapping>
 </web-app>
