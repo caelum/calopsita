@@ -10,3 +10,4 @@
 target/*
 *.ser
 *.DS_Store
+build/classes/*

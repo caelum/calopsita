@@ -24,7 +24,7 @@
 	<meta name="description" content="<c:out value="${description}" default="${defaultDescription}"/>" />
 	<meta name="keywords" content="<c:out value="${keywords}" default="${defaultKeywords}"/>" />
   
-    <title>${title} ${not fn:startsWith(title, 'Calopsita - Gerenciamento de softwares para equipes ágeis')? '- Calopsita - Gerenciamento de softwares para equipes ágeis':''}</title>
+    <title>${title} ${not fn:startsWith(title,'Calopsita - Gerenciamento de softwares para equipes ágeis')? '- Calopsita - Gerenciamento de softwares para equipes ágeis':''}</title>
 
 	<c:forTokens items="${javascript}" delims="," var="arquivo">
 		<script type="text/javascript" src="<calopsita:url value="${fn:startsWith(arquivo, 'http:')? '' : '/static'}${arquivo}"/>"></script>
