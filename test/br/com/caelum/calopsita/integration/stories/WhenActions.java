@@ -4,8 +4,10 @@ import br.com.caelum.seleniumdsl.Browser;
 
 public class WhenActions {
 
+    private final Browser browser;
+
     public WhenActions(Browser browser) {
-        // TODO Auto-generated constructor stub
+        this.browser = browser;
     }
 
     public void iAddAProject() {

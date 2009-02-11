@@ -4,8 +4,10 @@ import br.com.caelum.seleniumdsl.Browser;
 
 public class ThenAsserts {
 
+    private final Browser browser;
+
     public ThenAsserts(Browser browser) {
-        // TODO Auto-generated constructor stub
+        this.browser = browser;
     }
 
     public void projectAppearsOnList() {

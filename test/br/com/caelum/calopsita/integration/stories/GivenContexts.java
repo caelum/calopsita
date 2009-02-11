@@ -4,8 +4,10 @@ import br.com.caelum.seleniumdsl.Browser;
 
 public class GivenContexts {
 
+    private final Browser browser;
+
     public GivenContexts(Browser browser) {
-        // TODO Auto-generated constructor stub
+        this.browser = browser;
     }
 
     public void iAmOnTheRootPage() {
