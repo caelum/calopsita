@@ -1,0 +1,13 @@
+# novas paginas
+/   					   =>  home.index
+/project/:{logic}/		   =>  project.#{logic}
+
+# Direto pro JSP
+/:{pagina}/            ==> /WEB-INF/jsp/paginas/#{pagina}.jsp
+/:{pasta}/:{pagina}/   ==> /WEB-INF/jsp/paginas/#{pasta}/#{pagina}.jsp
+
+# Coloca barra no final antes de dar 404
+# TODO pattern matching deveria pegar pelo menos 1 caracter
+/:{a}           >>>  /#{a}/
+/:{a}/:{b}      >>>  /#{a}/#{b}/
+
