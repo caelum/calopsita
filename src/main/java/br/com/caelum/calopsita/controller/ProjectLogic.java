@@ -7,4 +7,8 @@ public class ProjectLogic {
     public void form() {
 
     }
+
+    public void save() {
+
+    }
 }

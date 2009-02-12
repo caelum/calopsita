@@ -7,7 +7,7 @@
 	<session-factory>
 		<property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
 		<property name="hibernate.connection.url">jdbc:hsqldb:mem:calopsita</property>
-		<property name="hibernate.connection.username">sa</property>
+		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password"></property>
 		<property name="hibernate.connection.pool_size">8</property>
 		<!-- em vez de alterar o show sql aqui, nao comite!!! -->

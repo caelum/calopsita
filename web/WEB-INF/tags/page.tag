@@ -1,5 +1,5 @@
 <%--
-	Define header e footer de uma pagina da caelum.
+	Define header e footer de uma pagina do calopsita.
 	(possui alguns atributos dinamicos)
 --%>
 <%@ tag body-content="scriptless" pageEncoding="UTF-8"%>
