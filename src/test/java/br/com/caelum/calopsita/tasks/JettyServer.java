@@ -29,7 +29,7 @@ public class JettyServer extends Task {
         jetty.setPort(Integer.parseInt(args[0]));
         jetty.setDatabasePort(args[1]);
         Context ctx = new Context();
-        ctx.setContext("/caelumweb2");
+        ctx.setContext("/calopsita");
         ctx.setWar(args[2]);
         jetty.addContext(ctx);
         jetty.execute();
