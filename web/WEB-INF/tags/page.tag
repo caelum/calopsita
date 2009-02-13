@@ -27,13 +27,13 @@
     <title>${title} ${not fn:startsWith(title,'Calopsita - Gerenciamento de softwares para equipes ágeis')? '- Calopsita - Gerenciamento de softwares para equipes ágeis':''}</title>
 
 	<c:forTokens items="${javascript}" delims="," var="arquivo">
-		<script type="text/javascript" src="<calopsita:url value="${fn:startsWith(arquivo, 'http:')? '' : '/static'}${arquivo}"/>"></script>
+		<script type="text/javascript" src="<c:url value="${arquivo}"/>"></script>
 	</c:forTokens>
 	<c:forTokens items="${css}" delims="," var="arquivo">
-		<link rel="stylesheet" type="text/css" media="screen" href="<calopsita:url value="${fn:startsWith(arquivo, 'http:')? '' : '/static'}${arquivo}"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="${arquivo}"/>" />
 	</c:forTokens>
 	
-	<link rel="shortcut icon" href="<calopsita:url value="/imagens/favicon.ico"/>" type="image/x-icon" />
+	<link rel="shortcut icon" href="<c:url value="/imagens/favicon.ico"/>" type="image/x-icon" />
 </head>
 <body class="${bodyClass}">
 
