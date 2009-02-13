@@ -2,8 +2,8 @@
 <calopsita:page title="Project" bodyClass="project">
 
 <form id="form" action="<c:url value="/project/save/"/>" method="post">
-  <p>Name: <input id="name" type="text" name="project.name"/></p>
-  <p>Description: <input id="description" type="text" name="project.description"/></p>
+  <p>Name: <input type="text" name="project.name"/></p>
+  <p>Description: <input type="text" name="project.description"/></p>
   <p><input class="buttons" type="submit" value="Create"/></p>
 </form>
 

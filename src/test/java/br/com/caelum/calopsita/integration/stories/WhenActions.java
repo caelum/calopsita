@@ -16,8 +16,8 @@ public class WhenActions {
         Page currentPage = browser.currentPage();
         currentPage.navigate("link=New Project");
         Form form = currentPage.form("form");
-        form.field("name").type("Calopsita");
-        form.field("description").type("Projeto para gerenciamento de projetos");
+        form.field("project.name").type("Calopsita");
+        form.field("project.description").type("Projeto para gerenciamento de projetos");
         form.submit();
     }
 }
