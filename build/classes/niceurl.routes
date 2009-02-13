@@ -11,3 +11,10 @@
 /:{a}           >>>  /#{a}/
 /:{a}/:{b}      >>>  /#{a}/#{b}/
 
+# HACK Retira jsessionid até 3 niveis
+/;jsessionid=*  >>> /
+/;JSESSIONID=*  >>> /
+/:{coisa}/;jsessionid=*  >>> /#{coisa}/
+/:{coisa}/;JSESSIONID=*  >>> /#{coisa}/
+/:{coisa}/:{maiscoisa}/;jsessionid=*  >>> /#{coisa}/#{maiscoisa}/
+/:{coisa}/:{maiscoisa}/;JSESSIONID=*  >>> /#{coisa}/#{maiscoisa}/
