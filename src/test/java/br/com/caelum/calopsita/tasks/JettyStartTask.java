@@ -42,7 +42,7 @@ public class JettyStartTask extends Task {
         task.setDatabasePort(args[1]);
         task.setWaitForShutdown(false);
         Context ctx = new Context();
-        ctx.setContext("/caelumweb2");
+        ctx.setContext("/calopsita");
         ctx.setWar(args[2]);
         task.addContext(ctx);
         Thread t = new Thread() {

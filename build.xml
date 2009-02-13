@@ -174,7 +174,7 @@
                 </classpath>
             </taskdef>
             <jetty-start waitForShutdown="false" port="@{port}" databasePort="@{databasePort}">
-                <context war="${artifacts.dir}/${war.file}" classes="${tmp.classes.dir}" base="${webapp.dir}" lib="${libs.dir}" context="calopsita" />
+                <context war="${artifacts.dir}/${war.file}" classes="${tmp.classes.dir}" base="${webapp.dir}" lib="${libs.dir}" context="/calopsita" />
             </jetty-start>
         </sequential>
     </macrodef>
@@ -182,6 +182,7 @@
     <target name="start-jettys" description="--> runs all jettys instances">
         <jetty port="9095" databasePort="9001" />
         <echo message="Jettys started" />
+    	<input message="duh!"></input>
     </target>
 
 </project>

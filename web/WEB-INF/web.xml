@@ -35,34 +35,11 @@
 
 	<!-- Mandatory filter; should be the last one in the chain -->
 	<filter>
-		<filter-name>vraptor-filter</filter-name>
-		<filter-class>
-			br.com.caelum.vraptor.plugin.niceurl.servlet.NiceURLFilter</filter-class>
-	</filter>
+        <filter-name>vraptor2</filter-name>
+        <filter-class>org.vraptor.plugin.niceurls.NiceURLFilter</filter-class>
+    </filter>
 	<filter-mapping>
-		<filter-name>vraptor-filter</filter-name>
+		<filter-name>vraptor2</filter-name>
 		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
-
-	<!-- VRaptor overriden view locator -->
-	<context-param>
-		<param-name>org.vraptor.url.ViewLocator</param-name>
-		<param-value>br.com.caelum.calopsita.infra.vraptor.views.AnnotationViewLocator</param-value>
-	</context-param>
-	<context-param>
-		<param-name>org.vraptor.view.ViewManager</param-name>
-		<param-value>br.com.caelum.calopsita.infra.vraptor.views.AnnotationViewManager</param-value>
-	</context-param>
-
-	<!-- VRaptorServlet configuration with .logic suffix -->
-	<servlet>
-		<servlet-name>vraptor2</servlet-name>
-		<servlet-class>org.vraptor.VRaptorServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>vraptor2</servlet-name>
-		<url-pattern>*.logic</url-pattern>
-	</servlet-mapping>
 </web-app>
