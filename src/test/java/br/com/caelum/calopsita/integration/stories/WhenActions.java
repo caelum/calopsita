@@ -15,12 +15,6 @@ public class WhenActions {
     public void iAddAProject() {
         Page currentPage = browser.currentPage();
         currentPage.navigate("link=New Project");
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         Form form = currentPage.form("form");
         form.field("project.name").type("Calopsita");
         form.field("project.description").type(
