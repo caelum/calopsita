@@ -11,6 +11,7 @@ import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.PicoContainer;
 
 import br.com.caelum.calopsita.persistence.dao.ProjectDao;
+import br.com.caelum.calopsita.persistence.dao.UserDao;
 
 public class DIStartupListener implements ServletContextListener {
 
@@ -26,8 +27,9 @@ public class DIStartupListener implements ServletContextListener {
                 new AnnotationConfiguration().configure().buildSessionFactory());
         pico.addAdapter(new SessionInjector());
 
-        // registra DAOs
+        // register DAOs
         pico.addComponent(ProjectDao.class);
+        pico.addComponent(UserDao.class);
 
         servletContext.setAttribute(PicoContainer.class.getName(), pico);
     }

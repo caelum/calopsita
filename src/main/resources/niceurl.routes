@@ -1,6 +1,7 @@
 # novas paginas
 /   					   =>  home.index
 /project/:{logic}/		   =>  project.#{logic}
+/user/:{logic}/		   	   =>  user.#{logic}
 
 # Direto pro JSP
 /:{pagina}/            ==> /WEB-INF/jsp/paginas/#{pagina}.jsp

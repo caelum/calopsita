@@ -15,4 +15,9 @@ public class ThenAsserts {
 
     }
 
+    public void iMustBeLoggedIn() {
+        // TODO Auto-generated method stub
+
+    }
+
 }
