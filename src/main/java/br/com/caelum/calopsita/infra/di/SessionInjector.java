@@ -9,9 +9,9 @@ import org.picocontainer.injectors.FactoryInjector;
 
 public class SessionInjector extends FactoryInjector<Session> {
 
-	@Override
-	public Session getComponentInstance(PicoContainer pico, Type type) {
-		return pico.getComponent(SessionFactory.class).getCurrentSession();
-	}
-	
+    @Override
+    public Session getComponentInstance(PicoContainer pico, Type type) {
+        return pico.getComponent(SessionFactory.class).getCurrentSession();
+    }
+
 }
