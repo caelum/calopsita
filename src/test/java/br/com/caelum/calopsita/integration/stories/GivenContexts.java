@@ -26,6 +26,7 @@ public class GivenContexts {
 		user.setName(login);
 		user.setPassword(login);
 		session.save(user);
+		session.flush();
 	}
 
 	public void iAmLoggedInAs(String string) {

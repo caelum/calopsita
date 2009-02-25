@@ -28,8 +28,8 @@ public class UserDao implements UserRepository {
     }
 
     @Override
-    public void find(String login) {
-        this.session.load(User.class, login);
+    public User find(String login) {
+        return (User) this.session.createQuery("from User where login = :login").setParameter("login", login).uniqueResult();
     }
 
 }

@@ -97,11 +97,17 @@ public class UserTest {
         mockery.checking(new Expectations() {
             {
                 one(session).setAttribute(User.class.getName(), user);
+                one(session).setAttribute("currentUser", user);
             }
         });
     }
 
     private void shouldSaveTheUser(final User user) {
+    	mockery.checking(new Expectations() {
+            {
+                one(repository).add(user);
+            }
+        });
     }
 
     private User givenAnyUser() {

@@ -4,6 +4,7 @@
 --%>
 <%@ tag body-content="scriptless" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="calopsita" %>
 
@@ -24,7 +25,7 @@
 	<meta name="description" content="<c:out value="${description}" default="${defaultDescription}"/>" />
 	<meta name="keywords" content="<c:out value="${keywords}" default="${defaultKeywords}"/>" />
   
-    <title>${title} ${fn:startsWith(title,'Calopsita - Gerenciamento de softwares para equipes ágeis')?'': '- Calopsita - Gerenciamento de softwares para equipes ágeis'}</title>
+    <title>${title} ${fn:startsWith(title, 'Calopsita - Gerenciamento de softwares para equipes ágeis')?'': '- Calopsita - Gerenciamento de softwares para equipes ágeis'}</title>
 
 	<c:forTokens items="${javascript}" delims="," var="arquivo">
 		<script type="text/javascript" src="<c:url value="${arquivo}"/>"></script>
@@ -40,12 +41,19 @@
 <div id="main">
 	<div id="header">
 	   <div id="user">
-        <c:if test="${empty user}">
+        <c:if test="${empty currentUser}">
           <a href="<c:url value="/user/form/"/>">Sign Up</a>
         </c:if>
-        <c:if test="${user}">
-          ${user.name} <a href="<c:url value="/user/logout/"/>">logout</a>
+        <c:if test="${not empty currentUser}">
+          ${currentUser.name} <a href="<c:url value="/user/logout/"/>">logout</a>
         </c:if>
+      </div>
+      <div id="errors">
+      	<c:if test="${not empty errors}">
+      		<c:forEach var="error" items="${errors.iterator}">
+				<fmt:message key="${error.key}" /><br />
+			</c:forEach>
+      	</c:if>
       </div>
 	</div>
 	

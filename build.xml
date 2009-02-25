@@ -100,7 +100,7 @@
 			<fileset dir="${resources.dir}" />
 			<fileset dir="${tests.resources.dir}" />
 		</copy>
-		<rename dest="${tmp.classes.dir}/hibernate.cfg.xml" src="${tmp.classes.dir}/hibernate.cfg.test.xml"/>
+		<move tofile="${tmp.classes.dir}/hibernate.cfg.xml" file="${tmp.classes.dir}/hibernate.cfg.test.xml"/>
 		
 		<war destfile="${artifacts.dir}/${war.file}" webxml="${webapp.dir}/WEB-INF/web.xml" compress="true">
 			<fileset dir="${webapp.dir}" excludes="WEB-INF/web.xml" />
@@ -181,12 +181,12 @@
 			<arg line="-dbname.0 calopsita" />
 			<arg line="-port 9001" />
 		</java>
-		<antcall target="wait" />
 	</target>
 	
-	<target name="wait" if="wait">
+	<target name="jetty" depends="clean, war, hsqldb, start-jettys">
 		<input message="Press Enter to Stop" />
 	</target>
+	
 	<macrodef name="jetty">
         <attribute name="port" default="9095" />
         <attribute name="databasePort" default="9001" />
