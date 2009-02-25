@@ -27,4 +27,9 @@ public class UserDao implements UserRepository {
     public void remove(User user) {
     }
 
+    @Override
+    public void find(String login) {
+        this.session.load(User.class, login);
+    }
+
 }

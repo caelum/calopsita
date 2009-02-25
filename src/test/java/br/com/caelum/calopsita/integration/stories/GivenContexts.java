@@ -15,8 +15,6 @@ public class GivenContexts {
     }
 
     public void iHaveAnUser(String string) {
-        // TODO Auto-generated method stub
-
     }
 
     public void iAmLoggedInAs(String string) {

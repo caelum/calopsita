@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
+import org.vraptor.validator.ValidationErrors;
 
 import br.com.caelum.calopsita.infra.hibernate.HibernateInterceptor;
 import br.com.caelum.calopsita.model.User;
@@ -27,5 +28,9 @@ public class UserLogic {
     public void save(User user) {
         this.repository.add(user);
         this.session.setAttribute(User.class.getName(), user);
+    }
+
+    public void validateSave(ValidationErrors errors, User user) {
+
     }
 }

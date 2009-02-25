@@ -30,4 +30,9 @@ public class ThenAsserts {
 
     }
 
+    public void iShouldSeeTheError(String string) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

@@ -6,10 +6,17 @@ import org.junit.Test;
 public class UserStory extends DefaultStory {
 
     @Test
-    public void signUp() {
+    public void signUpWithANewUser() {
         given.iAmOnTheRootPage();
         when.iSignUpAs("ceci");
         then.iMustBeLoggedInAs("ceci");
+    }
+
+    @Test
+    public void signUpWithAnExistingUser() {
+        given.iHaveAnUser("lucas");
+        when.iSignUpAs("lucas");
+        then.iShouldSeeTheError("User already exists");
     }
 
     @Test
