@@ -13,6 +13,11 @@
 			<include name="*.jar" />
 		</fileset>
 	</path>
+	<path id="test.libs.classpath" path=".">
+		<fileset dir="${test.lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
 	<path id="servlet-api.classpath">
         <fileset dir="${common.dir}">
             <include name="*.jar" />
@@ -31,6 +36,7 @@
 		<pathelement path="${tmp.classes.dir}" />
 		<!--<pathelement path="${tests.resources.dir}" />-->
 		<pathelement path="${resources.dir}" />
+		<path refid="test.libs.classpath" />
 		<path refid="compile.classpath" />
 	</path>
 
@@ -169,7 +175,7 @@
             <taskdef name="jetty-start" classname="br.com.caelum.calopsita.tasks.JettyStartTask">
                 <classpath>
 					<path refid="servlet-api.classpath" />
-                    <fileset dir="${libs.dir}" includes="jetty*.jar" />
+                    <fileset dir="${ant.lib.dir}" includes="jetty*.jar" />
                     <pathelement path="${tmp.test-classes.dir}" />
                 </classpath>
             </taskdef>
