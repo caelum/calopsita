@@ -2,9 +2,12 @@ package br.com.caelum.calopsita.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
+@Entity
 public class User {
     @Id
     @GeneratedValue
@@ -15,6 +18,7 @@ public class User {
     private String password;
     private String email;
 
+    @ManyToMany
     private List<Project> projects;
 
     public Long getId() {

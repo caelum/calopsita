@@ -2,9 +2,13 @@ package br.com.caelum.calopsita.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class Project {
     @Id
     @GeneratedValue
@@ -13,7 +17,10 @@ public class Project {
     private String name;
     private String description;
 
+    @ManyToOne
     private User owner;
+
+    @ManyToMany
     private List<User> colaborators;
 
     public Long getId() {

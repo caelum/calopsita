@@ -13,10 +13,10 @@ public class SessionInjector extends FactoryInjector<Session> {
     public Session getComponentInstance(PicoContainer pico, Type type) {
         return pico.getComponent(SessionFactory.class).getCurrentSession();
     }
-    
+
     @Override
     public Object getComponentKey() {
-    	return "org.hibernate.Session";
+        return "org.hibernate.Session";
     }
 
 }

@@ -7,7 +7,7 @@
 	<session-factory>
 		<property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
 		<property name="hibernate.connection.url">jdbc:hsqldb:mem:calopsita</property>
-		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.username">sa</property>
 		<property name="hibernate.connection.password"></property>
 		<property name="hibernate.connection.pool_size">8</property>
 		<!-- em vez de alterar o show sql aqui, nao comite!!! -->
@@ -15,6 +15,13 @@
 		<property name="format_sql">true</property>
 		<property name="dialect">org.hibernate.dialect.HSQLDialect</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
-		<property name="current_session_context_class">thread</property>
+        <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+        <property name="current_session_context_class">thread</property>
+        
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+    
+        <mapping class="br.com.caelum.calopsita.model.Project"/>
+        <mapping class="br.com.caelum.calopsita.model.User"/>
 	</session-factory>
 </hibernate-configuration>
