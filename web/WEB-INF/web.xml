@@ -27,6 +27,16 @@
 		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
 		<param-value>messages</param-value>
 	</context-param>
+  
+    <!-- VRaptor overriden view locator -->
+    <context-param>
+      <param-name>org.vraptor.url.ViewLocator</param-name>
+      <param-value>br.com.caelum.site.infra.vraptor.views.AnnotationViewLocator</param-value>
+    </context-param>
+    <context-param>
+      <param-name>org.vraptor.view.ViewManager</param-name>
+      <param-value>br.com.caelum.site.infra.vraptor.views.AnnotationViewManager</param-value>
+    </context-param>
 
 	<!-- Mandatory filter; should be the last one in the chain -->
 	<filter>
