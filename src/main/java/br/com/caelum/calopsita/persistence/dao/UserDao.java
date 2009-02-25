@@ -2,10 +2,10 @@ package br.com.caelum.calopsita.persistence.dao;
 
 import org.hibernate.Session;
 
-import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.repository.UserRepository;
 
-public class UserDao implements ProjectRepository {
+public class UserDao implements UserRepository {
 
     private final Session session;
 
@@ -14,17 +14,17 @@ public class UserDao implements ProjectRepository {
     }
 
     @Override
-    public void add(Project project) {
-        this.session.save(project);
+    public void add(User user) {
+        this.session.save(user);
     }
 
     @Override
-    public void update(Project project) {
-        this.session.merge(project);
+    public void update(User user) {
+        this.session.merge(user);
     }
 
     @Override
-    public void remove(Project project) {
+    public void remove(User user) {
     }
 
 }

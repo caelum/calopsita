@@ -14,11 +14,6 @@
 		</jsp-property-group>
 	</jsp-config>
 
-	<listener>
-		<display-name>Dependency Injection Listener</display-name>
-		<listener-class>br.com.caelum.calopsita.infra.di.DIStartupListener</listener-class>
-	</listener>
-
 	<!-- internacionalizacao -->
 	<context-param>
 		<param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
