@@ -15,6 +15,7 @@ public class UserStory extends DefaultStory {
     @Test
     public void signUpWithAnExistingUser() {
         given.iHaveAnUser("lucas");
+        given.iAmOnTheRootPage();
         when.iSignUpAs("lucas");
         then.iShouldSeeTheError("User already exists");
     }

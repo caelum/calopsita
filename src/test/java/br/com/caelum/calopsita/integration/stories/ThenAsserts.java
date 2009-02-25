@@ -30,9 +30,9 @@ public class ThenAsserts {
 
     }
 
-    public void iShouldSeeTheError(String string) {
-        // TODO Auto-generated method stub
-
+    public void iShouldSeeTheError(String error) {
+        String div = browser.currentPage().div("errors").innerHTML();
+        Assert.assertThat(div, containsString(error));
     }
 
 }
