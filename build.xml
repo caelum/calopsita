@@ -37,6 +37,9 @@
 		<!--<pathelement path="${tests.resources.dir}" />-->
 		<pathelement path="${resources.dir}" />
 		<path refid="test.libs.classpath" />
+		<fileset dir="${ant.lib.dir}">
+			<include name="*.jar"/>
+		</fileset>
 		<path refid="compile.classpath" />
 	</path>
 
@@ -50,9 +53,9 @@
 
 	<target name="compile" depends="prepare" description="--> compiles the classes">
 		<javac  destdir="${tmp.classes.dir}" srcdir="${src.dir}" classpathref="compile.classpath" debug="true" encoding="UTF-8" />
-			<copy todir="${tmp.classes.dir}">
-				<fileset dir="${resources.dir}" />
-			</copy>
+		<copy todir="${tmp.classes.dir}">
+			<fileset dir="${resources.dir}" />
+		</copy>
 	
 		<javac destdir="${tmp.test-classes.dir}" srcdir="${test-src.dir}" classpathref="tests.classpath" debug="true" encoding="UTF-8" />
 		<!--<copy todir="${tmp.test-classes.dir}">
@@ -95,6 +98,7 @@
 		<delete file="${artifacts.dir}/${war.file}" />
 		<copy todir="${tmp.classes.dir}">
 			<fileset dir="${resources.dir}" />
+			<fileset dir="${tests.resources.dir}" />
 		</copy>
 		<war destfile="${artifacts.dir}/${war.file}" webxml="${webapp.dir}/WEB-INF/web.xml" compress="true">
 			<fileset dir="${webapp.dir}" excludes="WEB-INF/web.xml" />
@@ -105,7 +109,7 @@
 		</war>
 	</target>
 
-	<target name="integration-tests" depends="war, start-jettys" description="--> runs integration tests">
+	<target name="integration-tests" depends="war, hsqldb, start-jettys" description="--> runs integration tests">
 		<echo message="Running integration tests..." />
 		<property name="pool.size" value="2"/>
 		<property name="server.port" value="9095"/>
@@ -166,6 +170,15 @@
 		<delete file="${war.file}" />
 		<delete dir="${artifacts.dir}" />
 		<delete dir="${tmp.dir}" />
+	</target>
+	
+	<target name="hsqldb">
+		<echo message="Starting HSQLDB on port 9001" />
+		<java classpath="${libs.dir}/hsqldb-1.8.0.7.jar" classname="org.hsqldb.Server" failonerror="true">
+			<arg line="-database.0 mem:calopsita" />
+			<arg line="-dbname.0 calopsita" />
+			<arg line="-port 9001" />
+		</java>
 	</target>
 	
 	<macrodef name="jetty">
