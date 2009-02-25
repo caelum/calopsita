@@ -26,5 +26,6 @@ public class UserLogic {
 
     public void save(User user) {
         this.repository.add(user);
+        this.session.setAttribute(User.class.getName(), user);
     }
 }

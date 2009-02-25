@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.User;
@@ -15,7 +16,9 @@ public class UserTest {
     private UserLogic logic;
     private UserRepository repository;
 
+    @Before
     public void setUp() throws Exception {
+        mockery = new Mockery();
         session = mockery.mock(HttpSession.class);
         repository = mockery.mock(UserRepository.class);
         logic = new UserLogic(repository, session);
@@ -31,7 +34,8 @@ public class UserTest {
 
         mockery.checking(new Expectations() {
             {
-                exactly(1).of(session).setAttribute(User.class.getName(), user);
+                one(repository).add(user);
+                one(session).setAttribute(User.class.getName(), user);
             }
         });
 
