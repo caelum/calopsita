@@ -28,7 +28,7 @@ public class PicoProvider implements BeanProvider {
     }
 
     private PicoContainer getRequestContainer(final LogicRequest context) {
-        Object containerInRequest = context.getRequestContext().getAttribute(
+        Object containerInRequest = context.getApplicationContext().getAttribute(
                 PicoContainerPlugin.APPLICATION_SCOPED_CONTAINER_KEY);
 
         if (containerInRequest == null) {
