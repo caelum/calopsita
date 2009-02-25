@@ -14,4 +14,14 @@ public class GivenContexts {
         browser.open("/calopsita");
     }
 
+    public void iHaveAnUser(String string) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void iAmLoggedInAs(String string) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

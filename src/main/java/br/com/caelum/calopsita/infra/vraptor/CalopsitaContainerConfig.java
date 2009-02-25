@@ -7,7 +7,9 @@ import org.picocontainer.MutablePicoContainer;
 
 import br.com.caelum.calopsita.infra.di.SessionInjector;
 import br.com.caelum.calopsita.persistence.dao.ProjectDao;
+import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.calopsita.repository.UserRepository;
 
 public class CalopsitaContainerConfig implements br.com.caelum.calopsita.infra.pico.ContainerConfig {
 
@@ -19,13 +21,10 @@ public class CalopsitaContainerConfig implements br.com.caelum.calopsita.infra.p
 
         // register DAOs
         container.addComponent(ProjectRepository.class.getName(), ProjectDao.class);
+        container.addComponent(UserRepository.class.getName(), UserDao.class);
     }
 
     public void configureRequestContainer(MutablePicoContainer container) {
-        container.addAdapter(new SessionInjector());
-
-        // register DAOs
-        container.addComponent(ProjectRepository.class, ProjectDao.class);
     }
 
 }

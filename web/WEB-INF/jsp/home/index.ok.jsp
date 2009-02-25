@@ -9,7 +9,7 @@
 	  equipes e clientes distribuidos.
 	</h3>
     <a href="<c:url value="/project/form/"/>">New Project</a>
-    <a href="<c:url value="/user/form/"/>">Sign Up</a>
+    
 </div>
 
 </calopsita:page>

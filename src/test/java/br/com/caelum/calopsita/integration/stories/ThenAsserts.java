@@ -1,5 +1,9 @@
 package br.com.caelum.calopsita.integration.stories;
 
+import static org.hamcrest.Matchers.containsString;
+
+import org.junit.Assert;
+
 import br.com.caelum.seleniumdsl.Browser;
 
 public class ThenAsserts {
@@ -15,7 +19,13 @@ public class ThenAsserts {
 
     }
 
-    public void iMustBeLoggedIn() {
+    public void iMustBeLoggedInAs(String login) {
+        String div = this.browser.currentPage().div("user").innerHTML();
+        Assert.assertThat(div, containsString(login));
+        Assert.assertThat(div, containsString("logout"));
+    }
+
+    public void iMustNotBeLoggedIn() {
         // TODO Auto-generated method stub
 
     }

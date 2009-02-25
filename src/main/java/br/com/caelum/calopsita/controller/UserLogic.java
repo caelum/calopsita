@@ -1,16 +1,23 @@
 package br.com.caelum.calopsita.controller;
 
-import org.vraptor.annotations.Component;
+import javax.servlet.http.HttpSession;
 
+import org.vraptor.annotations.Component;
+import org.vraptor.annotations.InterceptedBy;
+
+import br.com.caelum.calopsita.infra.hibernate.HibernateInterceptor;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 
 @Component
+@InterceptedBy(HibernateInterceptor.class)
 public class UserLogic {
     private final UserRepository repository;
+    private final HttpSession session;
 
-    public UserLogic(UserRepository repository) {
+    public UserLogic(UserRepository repository, HttpSession session) {
         this.repository = repository;
+        this.session = session;
     }
 
     public void form() {
@@ -18,10 +25,6 @@ public class UserLogic {
     }
 
     public void save(User user) {
-        if (user.getId() != null) {
-            this.repository.update(user);
-        } else {
-            this.repository.add(user);
-        }
+        this.repository.add(user);
     }
 }

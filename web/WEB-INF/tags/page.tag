@@ -39,7 +39,14 @@
 
 <div id="main">
 	<div id="header">
-	
+	   <div id="user">
+        <c:if test="${empty user}">
+          <a href="<c:url value="/user/form/"/>">Sign Up</a>
+        </c:if>
+        <c:if test="${user}">
+          ${user.name} <a href="<c:url value="/user/logout/"/>">logout</a>
+        </c:if>
+      </div>
 	</div>
 	
 	<hr class="separador"/>
