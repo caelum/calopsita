@@ -37,7 +37,7 @@
 	<link rel="shortcut icon" href="<c:url value="/imagens/favicon.ico"/>" type="image/x-icon" />
 </head>
 <body class="${bodyClass}">
-
+<script type="text/javascript" src="<c:url value="/js/jquery-1.3.2.min.js"/>" ></script>
 <div id="main">
 	<div id="header">
 	   <div id="user">
