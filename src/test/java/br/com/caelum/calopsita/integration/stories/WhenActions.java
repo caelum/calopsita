@@ -33,9 +33,13 @@ public class WhenActions {
         form.submit();
     }
 
-    public void iLoginAs(String string) {
-        // TODO Auto-generated method stub
-
+    public void iLoginAs(String login) {
+        Page currentPage = browser.currentPage();
+        currentPage.navigate("link=Login");
+        Form form = currentPage.form("form");
+        form.field("user.login").type(login);
+        form.field("user.password").type(login);
+        form.submit();
     }
 
     public void iLogout(String string) {

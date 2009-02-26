@@ -22,7 +22,11 @@ public class UserLogic {
         this.session = session;
     }
 
-    public void form() {
+    public void formSignUp() {
+
+    }
+
+    public void formLogin() {
 
     }
 
@@ -33,9 +37,21 @@ public class UserLogic {
     }
 
     public void validateSave(ValidationErrors errors, User user) {
-    	User found = repository.find(user.getLogin());
-    	if (found != null) {
-    		errors.add(new Message("user.login", "user.already.exists"));
-    	}
+        User found = repository.find(user.getLogin());
+        if (found != null) {
+            errors.add(new Message("user.save", "user.already.exists"));
+        }
+    }
+
+    public void login(User user) {
+        this.session.setAttribute(User.class.getName(), user);
+        this.session.setAttribute("currentUser", user);
+    }
+
+    public void validateLogin(ValidationErrors errors, User user) {
+        User found = repository.find(user.getLogin());
+        if (found == null || !found.getPassword().equals(user.getPassword())) {
+            errors.add(new Message("user.login", "login.invalid"));
+        }
     }
 }

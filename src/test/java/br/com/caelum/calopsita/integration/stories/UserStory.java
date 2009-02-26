@@ -21,9 +21,9 @@ public class UserStory extends DefaultStory {
     }
 
     @Test
-    @Ignore
     public void loginWithValidUser() {
         given.iHaveAnUser("lucas");
+        given.iAmOnTheRootPage();
         when.iLoginAs("lucas");
         then.iMustBeLoggedInAs("lucas");
     }
@@ -32,6 +32,7 @@ public class UserStory extends DefaultStory {
     @Ignore
     public void loginWithInvalidUser() {
         given.iHaveAnUser("lucas");
+        given.iAmOnTheRootPage();
         when.iLoginAs("caue");
         then.iMustNotBeLoggedIn();
     }

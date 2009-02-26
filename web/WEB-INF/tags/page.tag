@@ -43,10 +43,11 @@
 	<div id="header">
 	   <div id="user">
         <c:if test="${empty currentUser}">
-          <a href="<c:url value="/user/form/"/>">Sign Up</a>
+          <a href="<c:url value="/user/formSignUp/"/>">Sign Up</a>
+          <a href="<c:url value="/user/formLogin/"/>">Login</a>
         </c:if>
         <c:if test="${not empty currentUser}">
-          ${currentUser.name} <a href="<c:url value="/user/logout/"/>">logout</a>
+          ${currentUser.login} <a href="<c:url value="/user/logout/"/>">logout</a>
         </c:if>
       </div>
       <div id="errors">
