@@ -26,7 +26,8 @@
 	<meta name="keywords" content="<c:out value="${keywords}" default="${defaultKeywords}"/>" />
   
     <title>${title} ${fn:startsWith(title, 'Calopsita - Gerenciamento de softwares para equipes ágeis')?'': '- Calopsita - Gerenciamento de softwares para equipes ágeis'}</title>
-
+    <script type="text/javascript" src="<c:url value="/javascript/jquery-1.3.2.min.js"/>"></script>
+    
 	<c:forTokens items="${javascript}" delims="," var="arquivo">
 		<script type="text/javascript" src="<c:url value="${arquivo}"/>"></script>
 	</c:forTokens>
@@ -37,7 +38,7 @@
 	<link rel="shortcut icon" href="<c:url value="/imagens/favicon.ico"/>" type="image/x-icon" />
 </head>
 <body class="${bodyClass}">
-<script type="text/javascript" src="<c:url value="/js/jquery-1.3.2.min.js"/>" ></script>
+
 <div id="main">
 	<div id="header">
 	   <div id="user">
