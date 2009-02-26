@@ -48,7 +48,7 @@
           <a href="<c:url value="/user/formLogin/"/>">Login</a>
         </c:if>
         <c:if test="${not empty currentUser}">
-          ${currentUser.login} <a href="<c:url value="/user/logout/"/>">logout</a>
+          ${currentUser.login} <a href="<c:url value="/user/logout/"/>">Logout</a>
         </c:if>
       </div>
       <div id="errors">

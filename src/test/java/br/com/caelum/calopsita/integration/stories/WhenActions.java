@@ -42,8 +42,8 @@ public class WhenActions {
         form.submit();
     }
 
-    public void iLogout(String string) {
-        // TODO Auto-generated method stub
-
+    public void iLogout() {
+        Page currentPage = browser.currentPage();
+        currentPage.navigate("link=Logout");
     }
 }

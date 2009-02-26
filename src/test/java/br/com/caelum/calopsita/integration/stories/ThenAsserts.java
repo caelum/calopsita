@@ -22,12 +22,17 @@ public class ThenAsserts {
     public void iMustBeLoggedInAs(String login) {
         String div = this.browser.currentPage().div("user").innerHTML();
         Assert.assertThat(div, containsString(login));
-        Assert.assertThat(div, containsString("logout"));
+        Assert.assertThat(div, containsString("Logout"));
     }
 
     public void iShouldSeeTheError(String error) {
         String div = browser.currentPage().div("errors").innerHTML();
         Assert.assertThat(div, containsString(error));
+    }
+
+    public void iMustNotBeLoggedIn() {
+        String div = this.browser.currentPage().div("user").innerHTML();
+        Assert.assertThat(div, containsString("Login"));
     }
 
 }

@@ -54,4 +54,9 @@ public class UserLogic {
             errors.add(new Message("user.login", "login.invalid"));
         }
     }
+
+    public void logout() {
+        this.session.removeAttribute(User.class.getName());
+        this.session.removeAttribute("currentUser");
+    }
 }

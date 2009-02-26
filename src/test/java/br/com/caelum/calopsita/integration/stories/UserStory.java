@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class UserStory extends DefaultStory {
@@ -37,10 +36,9 @@ public class UserStory extends DefaultStory {
     }
 
     @Test
-    @Ignore
     public void logout() {
-        given.iAmLoggedInAs("caue");
-        when.iLogout("caue");
-        // then.iMustNotBeLoggedIn();
+        given.iAmLoggedInAs("lucas");
+        when.iLogout();
+        then.iMustNotBeLoggedIn();
     }
 }
