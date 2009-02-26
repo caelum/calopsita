@@ -15,6 +15,7 @@ import org.hibernate.validator.NotNull;
 @Entity
 public class User {
     @Id
+    @NotNull
     private String login;
 
     @NotNull

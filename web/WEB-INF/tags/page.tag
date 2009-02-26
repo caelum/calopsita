@@ -27,6 +27,7 @@
   
     <title>${title} ${fn:startsWith(title, 'Calopsita - Gerenciamento de softwares para equipes ágeis')?'': '- Calopsita - Gerenciamento de softwares para equipes ágeis'}</title>
     <script type="text/javascript" src="<c:url value="/javascript/jquery-1.3.2.min.js"/>"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/css/style.css"/>" />
     
 	<c:forTokens items="${javascript}" delims="," var="arquivo">
 		<script type="text/javascript" src="<c:url value="${arquivo}"/>"></script>
