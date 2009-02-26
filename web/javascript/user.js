@@ -3,11 +3,11 @@ $(document).ready( function() {
         rules : {
             "user.login" : {
                 required :true,
-                minlength :5
+                minlength :4
             },
             "user.name" : {
                 required :true,
-                minlength :5
+                minlength :4
             },
             "user.email" : {
                 required :true,
@@ -15,7 +15,7 @@ $(document).ready( function() {
             },
             "user.password" : {
                 required :true,
-                minlength :6
+                minlength :4
             },
             "user.confirmation" : {
                 required :true,
@@ -25,11 +25,11 @@ $(document).ready( function() {
         messages : {
             "user.login" : {
                 required :'You must choose a login',
-                minlength :'Your login size must be at least 5'
+                minlength :'Your login size must be at least 4'
             },
             "user.name" : {
                 required :'You must fill your name',
-                minlength :'Your name size must be at least 5'
+                minlength :'Your name size must be at least 4'
             },
             "user.email" : {
                 required :'You must fill your email',
@@ -37,7 +37,7 @@ $(document).ready( function() {
             },
             "user.password" : {
                 required :'You must fill your password',
-                minlength :'Your password size must be at least 6'
+                minlength :'Your password size must be at least 4'
             },
             "user.confirmation" : {
                 required :'You must fill your password confirmation',

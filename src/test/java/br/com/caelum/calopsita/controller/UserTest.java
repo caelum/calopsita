@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.vraptor.validator.BasicValidationErrors;
@@ -34,7 +35,7 @@ public class UserTest {
 
     @Test
     public void signUpWithNewUser() throws Exception {
-        final User user = givenAnyUser();
+        final User user = givenUser("caue");
 
         givenThatUserDoesntExist(user);
 
@@ -46,7 +47,7 @@ public class UserTest {
 
     @Test
     public void signUpWithExistingUser() throws Exception {
-        final User user = givenAnyUser();
+        final User user = givenUser("caue");
 
         givenThatUserExists(user);
 
@@ -55,6 +56,17 @@ public class UserTest {
         whenISaveTheUser(user);
 
         mockery.assertIsSatisfied();
+    }
+
+    @Test
+    public void hashPassword() throws Exception {
+        final User user = givenUser("caue");
+
+        shouldHavePasswordHashed(user, "caue");
+    }
+
+    private void shouldHavePasswordHashed(User user, String login) {
+        Assert.assertNotSame(user.getPassword(), login);
     }
 
     private void shouldNeitherSaveNorPutInSession(final User user) {
@@ -103,19 +115,19 @@ public class UserTest {
     }
 
     private void shouldSaveTheUser(final User user) {
-    	mockery.checking(new Expectations() {
+        mockery.checking(new Expectations() {
             {
                 one(repository).add(user);
             }
         });
     }
 
-    private User givenAnyUser() {
+    private User givenUser(String login) {
         final User user = new User();
-        user.setLogin("caue");
-        user.setEmail("caue.guerra@caelum.com.br");
-        user.setName("caue");
-        user.setPassword("caue");
+        user.setLogin(login);
+        user.setEmail(login + "@caelum.com.br");
+        user.setName(login);
+        user.setPassword(login);
         return user;
     }
 
