@@ -1,20 +1,50 @@
-function validate(form) {
-    $('.red').remove();
-    var result = true;
-    $(':input').each(
-            function() {
-                if (this.value == "") {
-                    result = false;
-                    $("<strong class='red'>Cannot be blank.</strong>")
-                            .insertAfter(this);
-                }
-            });
+$(document).ready( function() {
+    $("#form").validate( {
+        rules : {
+            "user.login" : {
+                required :true,
+                minlength :5
+            },
+            "user.name" : {
+                required :true,
+                minlength :5
+            },
+            "user.email" : {
+                required :true,
+                email :true
+            },
+            "user.password" : {
+                required :true,
+                minlength :6
+            },
+            "user.confirmation" : {
+                required :true,
+                equalTo :"#password"
+            }
+        },
+        messages : {
+            "user.login" : {
+                required :'You must choose a login',
+                minlength :'Your login size must be at least 5'
+            },
+            "user.name" : {
+                required :'You must fill your name',
+                minlength :'Your name size must be at least 5'
+            },
+            "user.email" : {
+                required :'You must fill your email',
+                email :'Email invalid'
+            },
+            "user.password" : {
+                required :'You must fill your password',
+                minlength :'Your password size must be at least 6'
+            },
+            "user.confirmation" : {
+                required :'You must fill your password confirmation',
+                equalTo :'Must match with your password'
+            }
+        }
 
-    if ($(':input[name="user.password"]').val() != $(
-            ':input[name="confirmation"]').val()) {
-        $("<strong class='red'>Confirmation doesn't match</strong>")
-                .insertAfter(':input[name="confirmation"]');
-    }
+    });
 
-    return result;
-}
+});
