@@ -69,11 +69,11 @@
 			<exclude name="**/integration/**/*Test.class" />
 		</fileset>
 
-		<delete file="cobertura.ser" verbose="false" />
+		<!--<delete file="cobertura.ser" verbose="false" />
 
 		<cobertura-instrument todir="${instrumentation.dir}">
 			<fileset dir="${tmp.classes.dir}" includes="**/*.class" />
-		</cobertura-instrument>
+		</cobertura-instrument>-->
 
 		<echo message="Running unit tests..." />
 		<junit fork="yes" forkmode="once" printsummary="false" showoutput="true" failureproperty="failed-test">
@@ -90,7 +90,7 @@
 				<fileset refid="unittests.fileset" />
 			</batchtest>
 		</junit>
-		<antcall target="cobertura-report" />
+		<!--<antcall target="cobertura-report" />-->
 		<antcall target="test-report" />
 	</target>
 
