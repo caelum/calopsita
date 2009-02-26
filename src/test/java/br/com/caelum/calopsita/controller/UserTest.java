@@ -59,6 +59,41 @@ public class UserTest {
     }
 
     @Test
+    public void loginWithValidUser() throws Exception {
+        final User user = givenUser("caue");
+
+        givenThatUserExists(user);
+
+        shouldPutUserInSession(user);
+
+        whenILoginWith(user);
+
+        mockery.assertIsSatisfied();
+    }
+
+    @Test
+    public void loginWithInvalidUser() throws Exception {
+        final User user = givenUser("caue");
+
+        givenThatUserDoesntExist(user);
+
+        shouldNeitherSaveNorPutInSession(user);
+
+        whenILoginWith(user);
+
+        mockery.assertIsSatisfied();
+    }
+
+    @Test
+    public void logout() throws Exception {
+        shouldRemoveFromSession();
+
+        whenILogout();
+
+        mockery.assertIsSatisfied();
+    }
+
+    @Test
     public void hashPassword() throws Exception {
         final User user = givenUser("caue");
 
@@ -74,9 +109,19 @@ public class UserTest {
             {
                 never(repository).add(user);
                 never(session).setAttribute(User.class.getName(), user);
+                never(session).setAttribute("currentUser", user);
             }
         });
 
+    }
+
+    private void shouldRemoveFromSession() {
+        mockery.checking(new Expectations() {
+            {
+                one(session).removeAttribute(User.class.getName());
+                one(session).removeAttribute("currentUser");
+            }
+        });
     }
 
     private void givenThatUserDoesntExist(final User user) {
@@ -92,7 +137,7 @@ public class UserTest {
         mockery.checking(new Expectations() {
             {
                 one(repository).find(user.getLogin());
-                will(returnValue(new User()));
+                will(returnValue(user));
             }
         });
     }
@@ -103,6 +148,18 @@ public class UserTest {
         if (errors.size() == 0) {
             logic.save(user);
         }
+    }
+
+    private void whenILoginWith(final User user) {
+        ValidationErrors errors = new BasicValidationErrors();
+        logic.validateLogin(errors, user);
+        if (errors.size() == 0) {
+            logic.login(user);
+        }
+    }
+
+    private void whenILogout() {
+        logic.logout();
     }
 
     private void shouldPutUserInSession(final User user) {
