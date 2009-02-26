@@ -6,7 +6,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
-		<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9001/calopsita</property>
+		<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9002/calopsita</property>
 		<property name="hibernate.connection.username">sa</property>
 		<property name="hibernate.connection.password"></property>
 		<property name="hibernate.connection.pool_size">8</property>
