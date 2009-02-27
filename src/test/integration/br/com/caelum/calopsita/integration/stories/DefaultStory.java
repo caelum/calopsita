@@ -38,7 +38,9 @@ public class DefaultStory {
 
     @After
     public void tearDown() {
-    	transaction.rollback();
+    	if (transaction != null) {
+			transaction.rollback();
+		}
         factory.close();
     }
 }
