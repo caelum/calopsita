@@ -54,8 +54,6 @@ public class UserTest {
         shouldNeitherSaveNorPutInSession(user);
 
         whenISaveTheUser(user);
-
-        mockery.assertIsSatisfied();
     }
 
     @Test
@@ -67,8 +65,6 @@ public class UserTest {
         shouldPutUserInSession(user);
 
         whenILoginWith(user);
-
-        mockery.assertIsSatisfied();
     }
 
     @Test
@@ -80,8 +76,6 @@ public class UserTest {
         shouldNeitherSaveNorPutInSession(user);
 
         whenILoginWith(user);
-
-        mockery.assertIsSatisfied();
     }
 
     @Test
@@ -89,8 +83,6 @@ public class UserTest {
         shouldRemoveFromSession();
 
         whenILogout();
-
-        mockery.assertIsSatisfied();
     }
 
     @Test
