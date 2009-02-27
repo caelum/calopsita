@@ -8,8 +8,15 @@ public class CreateNewProjectStory extends DefaultStory {
     @Test
     @Ignore
     public void createProjectWhenThereIsNoProjectYet() {
-        given.iAmOnTheRootPage();
+        given.iAmLoggedInAs("Caue");
         when.iAddAProject();
         then.projectAppearsOnList();
+    }
+    @Test
+    @Ignore
+    public void authentication() {
+    	given.iAmNotLogged();
+    	when.iOpenProjectPage();
+    	then.iAmBackToLoginPage();
     }
 }
