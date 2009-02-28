@@ -58,6 +58,7 @@
 		</copy>
 	
 		<javac destdir="${tmp.test-classes.dir}" srcdir="${test-src.dir}" classpathref="tests.classpath" debug="true" encoding="UTF-8" />
+		<javac destdir="${tmp.test-classes.dir}" srcdir="${test-integration.dir}" classpathref="integration-test.classpath" debug="true" encoding="UTF-8" />
 		<copy todir="${tmp.test-classes.dir}">
 			<fileset dir="${tests.resources.dir}" />
 		</copy>
@@ -66,7 +67,6 @@
 	<target name="test" depends="compile" description="--> run the tests">
 		<fileset dir="${tmp.test-classes.dir}" id="unittests.fileset">
 			<include name="**/*Test.class" />
-			<exclude name="**/integration/**/*Test.class" />
 		</fileset>
 
 		<!--<delete file="cobertura.ser" verbose="false" />
@@ -130,8 +130,8 @@
 			<formatter type="xml" />
 			<batchtest fork="yes" todir="${artifacts.dir}/reports">
 				<fileset dir="${tmp.test-classes.dir}" id="unittests.fileset">
-					<include name="**/integration/**/*Story.class" />
-					<exclude name="**/integration/**/DefaultStory.class" />
+					<include name="**/*Story.class" />
+					<exclude name="**/DefaultStory.class" />
 				</fileset>
 			</batchtest>
 		</junit>

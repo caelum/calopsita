@@ -35,4 +35,7 @@ public class ThenAsserts {
         Assert.assertThat(div, containsString("Login"));
     }
 
+	public void iAmBackToLoginPage() {
+	}
+
 }
