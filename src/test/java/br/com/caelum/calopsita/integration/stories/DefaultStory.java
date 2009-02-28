@@ -16,15 +16,17 @@ public class DefaultStory {
     protected WhenActions when;
     protected ThenAsserts then;
     private SeleniumFactory factory;
-	private static SessionFactory sessionFactory;
-	protected Session session;
-	private Transaction transaction;
+    private static SessionFactory sessionFactory;
+    protected Session session;
+    private Transaction transaction;
 
     @BeforeClass
     public static void prepare() {
-    	AnnotationConfiguration cfg = new AnnotationConfiguration().configure(DefaultStory.class.getResource("/hibernate.cfg.test.xml"));
-    	sessionFactory = cfg.buildSessionFactory();
+        AnnotationConfiguration cfg = new AnnotationConfiguration().configure(DefaultStory.class
+                .getResource("/hibernate.cfg.test.xml"));
+        sessionFactory = cfg.buildSessionFactory();
     }
+
     @Before
     public void setUp() {
         factory = new SeleniumFactory();
@@ -38,7 +40,7 @@ public class DefaultStory {
 
     @After
     public void tearDown() {
-    	transaction.rollback();
+        transaction.rollback();
         factory.close();
     }
 }
