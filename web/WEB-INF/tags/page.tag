@@ -37,6 +37,15 @@
 	</c:forTokens>
 	
 	<link rel="shortcut icon" href="<c:url value="/imagens/favicon.ico"/>" type="image/x-icon" />
+  
+    <script language="javascript" type="text/javascript">
+      $.extend($.validator.messages, {
+          required: "<fmt:message key="validation.required" />",
+          minlength: jQuery.format("<fmt:message key="validation.minlength" />"),
+          email: "<fmt:message key="validation.email" />",
+          equalTo: "<fmt:message key="validation.equalTo" />"
+      });
+    </script>
 </head>
 <body class="${bodyClass}">
 
