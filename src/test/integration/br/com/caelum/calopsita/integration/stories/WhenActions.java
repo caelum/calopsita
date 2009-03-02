@@ -42,12 +42,11 @@ public class WhenActions {
         iClickOn("Logout");
     }
 
-	public void iClickOn(String link) {
+    public void iClickOn(String link) {
         browser.currentPage().navigate("link=" + link);
-	}
+    }
 
-	public void iOpenProjectPage() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void iOpenProjectPage() {
+        browser.open("/calopsita/project/form");
+    }
 }

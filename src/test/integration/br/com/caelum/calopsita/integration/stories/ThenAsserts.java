@@ -35,7 +35,10 @@ public class ThenAsserts {
         Assert.assertThat(div, containsString("Login"));
     }
 
-	public void iAmBackToLoginPage() {
-	}
+    public void iAmBackToLoginPage() {
+        String div = this.browser.currentPage().div("login").innerHTML();
+        Assert.assertThat(div, containsString("Login"));
+        Assert.assertThat(div, containsString("Password"));
+    }
 
 }

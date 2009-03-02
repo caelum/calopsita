@@ -1,4 +1,4 @@
-package br.com.caelum.calopsita.infra.hibernate;
+package br.com.caelum.calopsita.infra.interceptor;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

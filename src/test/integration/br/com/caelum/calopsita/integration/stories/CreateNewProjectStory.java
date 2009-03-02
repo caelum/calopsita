@@ -12,11 +12,11 @@ public class CreateNewProjectStory extends DefaultStory {
         when.iAddAProject();
         then.projectAppearsOnList();
     }
+
     @Test
-    @Ignore
     public void authentication() {
-    	given.iAmNotLogged();
-    	when.iOpenProjectPage();
-    	then.iAmBackToLoginPage();
+        given.iAmNotLogged();
+        when.iOpenProjectPage();
+        then.iAmBackToLoginPage();
     }
 }

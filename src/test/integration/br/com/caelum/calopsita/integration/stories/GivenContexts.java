@@ -42,11 +42,11 @@ public class GivenContexts {
         form.submit();
     }
 
-	public void iAmNotLogged() {
-		if (browser.currentPage().div("user").contains("Logout")) {
-			browser.currentPage().click("link=Logout");
-		}
-		iAmOnTheRootPage();
-	}
+    public void iAmNotLogged() {
+        iAmOnTheRootPage();
+        if (browser.currentPage().div("user").contains("Logout")) {
+            browser.currentPage().click("link=Logout");
+        }
+    }
 
 }

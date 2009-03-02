@@ -8,7 +8,7 @@ import org.vraptor.i18n.Message;
 import org.vraptor.plugin.pico.PicoContainerInterceptor;
 import org.vraptor.validator.ValidationErrors;
 
-import br.com.caelum.calopsita.infra.hibernate.HibernateInterceptor;
+import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 
