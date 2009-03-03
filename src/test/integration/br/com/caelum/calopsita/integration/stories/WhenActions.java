@@ -11,14 +11,6 @@ public class WhenActions {
         this.browser = browser;
     }
 
-    public void iAddAProject() {
-        iClickOn("New Project");
-        Form form = browser.currentPage().form("form");
-        form.field("project.name").type("Calopsita");
-        form.field("project.description").type("Projeto para gerenciamento de projetos");
-        form.submit();
-    }
-
     public void iSignUpAs(String login) {
         iClickOn("Sign Up");
         Form form = browser.currentPage().form("form");
@@ -49,4 +41,16 @@ public class WhenActions {
     public void iOpenProjectPage() {
         browser.open("/calopsita/project/form");
     }
+
+	public void iListProjects() {
+		
+	}
+
+	public void iAddTheProject(String name) {
+		iClickOn("New Project");
+        Form form = browser.currentPage().form("form");
+        form.field("project.name").type(name);
+        form.field("project.description").type(name);
+        form.submit();
+	}
 }

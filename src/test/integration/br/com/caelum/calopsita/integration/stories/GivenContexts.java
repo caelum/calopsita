@@ -11,6 +11,7 @@ public class GivenContexts {
 
     private final Browser browser;
     private final Session session;
+	private String name;
 
     public GivenContexts(Browser browser, Session session) {
         this.browser = browser;
@@ -48,5 +49,14 @@ public class GivenContexts {
             browser.currentPage().click("link=Logout");
         }
     }
+
+	public GivenContexts iHaveGotTheProject(String name) {
+		this.name = name;
+		return this;
+	}
+
+	public void ownedBy(String user) {
+		
+	}
 
 }

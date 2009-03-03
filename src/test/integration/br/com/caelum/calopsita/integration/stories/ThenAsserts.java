@@ -9,14 +9,10 @@ import br.com.caelum.seleniumdsl.Browser;
 public class ThenAsserts {
 
     private final Browser browser;
+	private String name;
 
     public ThenAsserts(Browser browser) {
         this.browser = browser;
-    }
-
-    public void projectAppearsOnList() {
-        // TODO Auto-generated method stub
-
     }
 
     public void iMustBeLoggedInAs(String login) {
@@ -40,5 +36,15 @@ public class ThenAsserts {
         Assert.assertThat(div, containsString("Login"));
         Assert.assertThat(div, containsString("Password"));
     }
+
+	public ThenAsserts project(String name) {
+		this.name = name;
+		return this;
+	}
+
+	public void appearsOnList() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

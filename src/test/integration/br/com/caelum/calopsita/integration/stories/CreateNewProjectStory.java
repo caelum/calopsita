@@ -14,8 +14,16 @@ public class CreateNewProjectStory extends DefaultStory {
     @Ignore
     public void createProjectWhenThereIsNoProjectYet() {
         given.iAmLoggedInAs("Caue");
-        when.iAddAProject();
-        then.projectAppearsOnList();
+        when.iAddTheProject("Calopsita");
+        then.project("Calopsita").appearsOnList();
+    }
+    @Test
+    @Ignore
+    public void listingProjects() {
+    	given.iAmLoggedInAs("Caue");
+    	given.iHaveGotTheProject("calopsita").ownedBy("Caue");
+    	when.iListProjects();
+    	then.project("Calopsita").appearsOnList();
     }
 
     @Test
