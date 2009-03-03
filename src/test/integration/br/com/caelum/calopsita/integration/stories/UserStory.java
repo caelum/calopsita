@@ -2,6 +2,12 @@ package br.com.caelum.calopsita.integration.stories;
 
 import org.junit.Test;
 
+/**
+ * In order to join a project
+ * As a Developer or Client
+ * I want to create a user
+ *
+ */
 public class UserStory extends DefaultStory {
 
     @Test
