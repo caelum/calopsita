@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
 import org.vraptor.i18n.Message;
-import org.vraptor.plugin.pico.PicoContainerInterceptor;
 import org.vraptor.validator.ValidationErrors;
 
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
@@ -13,7 +12,7 @@ import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 
 @Component
-@InterceptedBy( { PicoContainerInterceptor.class, HibernateInterceptor.class })
+@InterceptedBy( { HibernateInterceptor.class })
 public class UserLogic {
     private final UserRepository repository;
     private final HttpSession session;
