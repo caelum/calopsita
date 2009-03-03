@@ -15,6 +15,7 @@ import br.com.caelum.calopsita.repository.ProjectRepository;
 public class ProjectLogic {
 
     private final ProjectRepository repository;
+	private List<Project> projects;
 
     public ProjectLogic(ProjectRepository repository) {
         this.repository = repository;
@@ -33,10 +34,10 @@ public class ProjectLogic {
     }
 
 	public List<Project> getProjects() {
-		return null;
+		return projects;
 	}
 
 	public void list() {
-		
+		this.projects = repository.listAll();
 	}
 }
