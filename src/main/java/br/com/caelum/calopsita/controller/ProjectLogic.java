@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.controller;
 
+import java.util.List;
+
 import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
 
@@ -29,4 +31,12 @@ public class ProjectLogic {
             this.repository.add(project);
         }
     }
+
+	public List<Project> getProjects() {
+		return null;
+	}
+
+	public void list() {
+		
+	}
 }

@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.persistence.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Project;
@@ -26,5 +28,10 @@ public class ProjectDao implements ProjectRepository {
     @Override
     public void remove(Project project) {
     }
+
+	@Override
+	public List<Project> listAll() {
+		return null;
+	}
 
 }
