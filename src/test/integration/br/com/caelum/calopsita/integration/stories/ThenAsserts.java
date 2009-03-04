@@ -9,7 +9,7 @@ import br.com.caelum.seleniumdsl.Browser;
 public class ThenAsserts {
 
     private final Browser browser;
-	private String name;
+    private String projectName;
 
     public ThenAsserts(Browser browser) {
         this.browser = browser;
@@ -37,14 +37,14 @@ public class ThenAsserts {
         Assert.assertThat(div, containsString("Password"));
     }
 
-	public ThenAsserts project(String name) {
-		this.name = name;
-		return this;
-	}
+    public ThenAsserts project(String projectName) {
+        this.projectName = projectName;
+        return this;
+    }
 
-	public void appearsOnList() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void appearsOnList() {
+        String div = this.browser.currentPage().div("projects").innerHTML();
+        Assert.assertThat(div, containsString(projectName));
+    }
 
 }

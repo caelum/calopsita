@@ -42,15 +42,15 @@ public class WhenActions {
         browser.open("/calopsita/project/form");
     }
 
-	public void iListProjects() {
-		
-	}
+    public void iListProjects() {
+        iClickOn("list");
+    }
 
-	public void iAddTheProject(String name) {
-		iClickOn("New Project");
+    public void iAddTheProject(String name) {
+        iClickOn("New Project");
         Form form = browser.currentPage().form("form");
         form.field("project.name").type(name);
         form.field("project.description").type(name);
         form.submit();
-	}
+    }
 }

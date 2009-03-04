@@ -8,12 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.NotNull;
+
 @Entity
 public class Project {
     @Id
     @GeneratedValue
     private Long id;
 
+    @NotNull
     private String name;
     private String description;
 

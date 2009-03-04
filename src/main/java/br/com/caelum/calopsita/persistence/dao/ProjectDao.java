@@ -29,9 +29,10 @@ public class ProjectDao implements ProjectRepository {
     public void remove(Project project) {
     }
 
-	@Override
-	public List<Project> listAll() {
-		return null;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Project> listAll() {
+        return (List<Project>) this.session.createQuery("from Project").list();
+    }
 
 }

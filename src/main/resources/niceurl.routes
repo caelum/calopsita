@@ -3,14 +3,6 @@
 /project/:{logic}/		   =>  project.#{logic}
 /user/:{logic}/		   	   =>  user.#{logic}
 
-# HACK Retira jsessionid até 3 niveis
-/;jsessionid=*  >>> /
-/;JSESSIONID=*  >>> /
-/:{coisa}/;jsessionid=*  >>> /#{coisa}/
-/:{coisa}/;JSESSIONID=*  >>> /#{coisa}/
-/:{coisa}/:{maiscoisa}/;jsessionid=*  >>> /#{coisa}/#{maiscoisa}/
-/:{coisa}/:{maiscoisa}/;JSESSIONID=*  >>> /#{coisa}/#{maiscoisa}/
-
 # Direto pro JSP
 #/:{pagina}/            ==> /WEB-INF/jsp/paginas/#{pagina}.jsp
 #/:{pasta}/:{pagina}/   ==> /WEB-INF/jsp/paginas/#{pasta}/#{pagina}.jsp

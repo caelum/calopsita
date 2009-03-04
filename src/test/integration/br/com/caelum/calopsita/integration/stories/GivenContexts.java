@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.integration.stories;
 
 import org.hibernate.Session;
 
+import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.Form;
@@ -11,7 +12,8 @@ public class GivenContexts {
 
     private final Browser browser;
     private final Session session;
-	private String name;
+    private Project project;
+    private User user;
 
     public GivenContexts(Browser browser, Session session) {
         this.browser = browser;
@@ -23,7 +25,7 @@ public class GivenContexts {
     }
 
     public void iHaveAnUser(String login) {
-        User user = new User();
+        user = new User();
         user.setLogin(login);
         user.setEmail(login + "@caelum.com.br");
         user.setName(login);
@@ -50,13 +52,19 @@ public class GivenContexts {
         }
     }
 
-	public GivenContexts iHaveGotTheProject(String name) {
-		this.name = name;
-		return this;
-	}
+    public GivenContexts iHaveGotTheProject(String name) {
+        project = new Project();
+        project.setId(1L);
+        project.setDescription(name);
+        project.setName(name);
+        return this;
+    }
 
-	public void ownedBy(String user) {
-		
-	}
+    public void ownedBy(String user) {
+        iHaveAnUser(user);
+        project.setOwner(this.user);
+        session.save(user);
+        session.flush();
+    }
 
 }

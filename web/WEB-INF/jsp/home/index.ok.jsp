@@ -8,7 +8,6 @@
 	  Gerenciamento do desenvolvimento de softwares ágeis para
 	  equipes e clientes distribuidos.
 	</h3>
-    <a href="<c:url value="/project/form/"/>">New Project</a>
     
 </div>
 
