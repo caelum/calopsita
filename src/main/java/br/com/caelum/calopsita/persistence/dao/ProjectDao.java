@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 
 public class ProjectDao implements ProjectRepository {
@@ -31,8 +32,9 @@ public class ProjectDao implements ProjectRepository {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Project> listAll() {
-        return (List<Project>) this.session.createQuery("from Project").list();
+    public List<Project> listAllFromOwner(User user) {
+        return (List<Project>) this.session.createQuery("from Project where owner = :user")
+                .setParameter("user", user).list();
     }
 
 }

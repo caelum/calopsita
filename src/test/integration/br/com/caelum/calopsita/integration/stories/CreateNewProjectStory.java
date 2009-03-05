@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -12,6 +11,7 @@ public class CreateNewProjectStory extends DefaultStory {
 
     @Test
     public void createProject() {
+        given.iHaveAnUser("Caue");
         given.iAmLoggedInAs("Caue");
         when.iAddTheProject("CalopsitaProject");
         then.project("CalopsitaProject").appearsOnList();
@@ -19,6 +19,7 @@ public class CreateNewProjectStory extends DefaultStory {
 
     @Test
     public void createTwoProjects() {
+        given.iHaveAnUser("Caue");
         given.iAmLoggedInAs("Caue");
         when.iAddTheProject("CalopsitaProject");
         when.iAddTheProject("TatameProject");
@@ -27,12 +28,12 @@ public class CreateNewProjectStory extends DefaultStory {
     }
 
     @Test
-    @Ignore
     public void listingProjects() {
+        given.iHaveAnUser("Caue");
         given.iAmLoggedInAs("Caue");
-        given.iHaveGotTheProject("calopsita").ownedBy("Caue");
+        given.iHaveAProject("CalopsitaProject").ownedBy("Caue");
         when.iListProjects();
-        then.project("Calopsita").appearsOnList();
+        then.project("CalopsitaProject").appearsOnList();
     }
 
     @Test

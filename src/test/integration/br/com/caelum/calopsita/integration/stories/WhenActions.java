@@ -43,7 +43,7 @@ public class WhenActions {
     }
 
     public void iListProjects() {
-        iClickOn("list");
+        browser.open("/calopsita/project/list");
     }
 
     public void iAddTheProject(String name) {
