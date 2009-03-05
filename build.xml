@@ -181,6 +181,7 @@
 			<arg line="-dbname.0 calopsita" />
 			<arg line="-port 9002" />
 		</java>
+		<input message="Press Enter to Stop" />
 	</target>
 	
 	<target name="jetty" depends="clean, war, hsqldb, start-jettys">
