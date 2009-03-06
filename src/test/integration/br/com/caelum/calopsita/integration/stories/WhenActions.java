@@ -6,6 +6,7 @@ import br.com.caelum.seleniumdsl.Form;
 public class WhenActions {
 
     private final Browser browser;
+	private String user;
 
     public WhenActions(Browser browser) {
         this.browser = browser;
@@ -53,4 +54,17 @@ public class WhenActions {
         form.field("project.description").type(name);
         form.submit();
     }
+
+	public void iOpenProjectPageOf(String string) {
+		
+	}
+
+	public WhenActions iAdd(String user) {
+		this.user = user;
+		return this;
+	}
+
+	public void asColaborator() {
+		
+	}
 }

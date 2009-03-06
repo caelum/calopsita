@@ -47,4 +47,8 @@ public class ThenAsserts {
         Assert.assertThat(div, containsString(projectName));
     }
 
+	public void thisUserAppearsOnColaboratorsList(String string) {
+		
+	}
+
 }

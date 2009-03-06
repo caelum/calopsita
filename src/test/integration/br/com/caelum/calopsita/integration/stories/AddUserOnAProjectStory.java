@@ -3,6 +3,13 @@ package br.com.caelum.calopsita.integration.stories;
 import org.junit.Ignore;
 import org.junit.Test;
 
+/**
+ * In order to have a development team
+ * As a Developer leader
+ * I want to add users on a project
+ * @author lucascs
+ *
+ */
 public class AddUserOnAProjectStory extends DefaultStory {
 
 	@Test
@@ -12,7 +19,9 @@ public class AddUserOnAProjectStory extends DefaultStory {
 		given.thereIsAnUserNamed("caue");
 		given.thereIsAProjectNamed("C4lopsita").ownedBy("caue");
 		given.iAmLoggedInAs("caue");
-		
+		when.iOpenProjectPageOf("C4lopsita");
+		when.iAdd("ceci").asColaborator();
+		then.thisUserAppearsOnColaboratorsList("ceci");
 	}
 	
 }
