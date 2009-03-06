@@ -181,6 +181,15 @@
 			<arg line="-dbname.0 calopsita" />
 			<arg line="-port 9002" />
 		</java>
+	</target>
+	
+	<target name="manualHsqldb">
+		<echo message="Starting HSQLDB on port 9002" />
+		<java classpath="${libs.dir}/hsqldb-1.8.0.7.jar" classname="org.hsqldb.Server" failonerror="true">
+			<arg line="-database.0 mem:calopsita" />
+			<arg line="-dbname.0 calopsita" />
+			<arg line="-port 9002" />
+		</java>
 		<input message="Press Enter to Stop" />
 	</target>
 	
