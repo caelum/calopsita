@@ -3,15 +3,16 @@ package br.com.caelum.calopsita.integration.stories;
 import org.junit.Test;
 
 /**
- * In order to have something to manage As a Developer leader I want to create a
- * project
+ * In order to have something to manage 
+ * As a Developer leader 
+ * I want to create a project
  * 
  */
 public class CreateNewProjectStory extends DefaultStory {
 
     @Test
     public void createProject() {
-        given.iHaveAnUser("Caue");
+        given.thereIsAnUserNamed("Caue");
         given.iAmLoggedInAs("Caue");
         when.iAddTheProject("CalopsitaProject");
         then.project("CalopsitaProject").appearsOnList();
@@ -19,7 +20,7 @@ public class CreateNewProjectStory extends DefaultStory {
 
     @Test
     public void createTwoProjects() {
-        given.iHaveAnUser("Caue");
+        given.thereIsAnUserNamed("Caue");
         given.iAmLoggedInAs("Caue");
         when.iAddTheProject("CalopsitaProject");
         when.iAddTheProject("TatameProject");
@@ -29,9 +30,9 @@ public class CreateNewProjectStory extends DefaultStory {
 
     @Test
     public void listingProjects() {
-        given.iHaveAnUser("Caue");
+        given.thereIsAnUserNamed("Caue");
         given.iAmLoggedInAs("Caue");
-        given.iHaveAProject("CalopsitaProject").ownedBy("Caue");
+        given.thereIsAProjectNamed("CalopsitaProject").ownedBy("Caue");
         when.iListProjects();
         then.project("CalopsitaProject").appearsOnList();
     }
@@ -39,7 +40,7 @@ public class CreateNewProjectStory extends DefaultStory {
     @Test
     public void authentication() {
         given.iAmNotLogged();
-        when.iOpenProjectPage();
+        when.iOpenProjectPageDirectly();
         then.iAmBackToLoginPage();
     }
 }

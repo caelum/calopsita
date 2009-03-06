@@ -3,7 +3,9 @@ package br.com.caelum.calopsita.integration.stories;
 import org.junit.Test;
 
 /**
- * In order to join a project As a Developer or Client I want to create a user
+ * In order to join a project 
+ * As a Developer or Client 
+ * I want to create a user
  * 
  */
 public class UserStory extends DefaultStory {
@@ -17,7 +19,7 @@ public class UserStory extends DefaultStory {
 
     @Test
     public void signUpWithAnExistingUser() {
-        given.iHaveAnUser("lucas");
+        given.thereIsAnUserNamed("lucas");
         given.iAmOnTheRootPage();
         when.iSignUpAs("lucas");
         then.iShouldSeeTheError("User already exists");
@@ -25,7 +27,7 @@ public class UserStory extends DefaultStory {
 
     @Test
     public void loginWithValidUser() {
-        given.iHaveAnUser("lucas");
+        given.thereIsAnUserNamed("lucas");
         given.iAmOnTheRootPage();
         when.iLoginAs("lucas");
         then.iMustBeLoggedInAs("lucas");
@@ -33,7 +35,7 @@ public class UserStory extends DefaultStory {
 
     @Test
     public void loginWithInvalidUser() {
-        given.iHaveAnUser("lucas");
+        given.thereIsAnUserNamed("lucas");
         given.iAmOnTheRootPage();
         when.iLoginAs("caue");
         then.iShouldSeeTheError("Login invalid");
@@ -41,7 +43,7 @@ public class UserStory extends DefaultStory {
 
     @Test
     public void logout() {
-        given.iHaveAnUser("lucas");
+        given.thereIsAnUserNamed("lucas");
         given.iAmLoggedInAs("lucas");
         when.iLogout();
         then.iMustNotBeLoggedIn();

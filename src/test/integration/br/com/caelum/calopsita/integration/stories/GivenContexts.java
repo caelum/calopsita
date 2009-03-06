@@ -24,7 +24,7 @@ public class GivenContexts {
         browser.open("/calopsita");
     }
 
-    public void iHaveAnUser(String login) {
+    public void thereIsAnUserNamed(String login) {
         User user = new User();
         user.setLogin(login);
         user.setEmail(login + "@caelum.com.br");
@@ -51,7 +51,7 @@ public class GivenContexts {
         }
     }
 
-    public GivenContexts iHaveAProject(String name) {
+    public GivenContexts thereIsAProjectNamed(String name) {
         project = new Project();
         project.setId(1L);
         project.setDescription(name);
