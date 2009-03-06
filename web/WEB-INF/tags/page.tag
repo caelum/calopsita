@@ -27,6 +27,8 @@
   
     <title>${title} ${fn:startsWith(title, 'Calopsita - Gerenciamento de softwares para equipes ágeis')?'': '- Calopsita - Gerenciamento de softwares para equipes ágeis'}</title>
     <script type="text/javascript" src="<c:url value="/javascript/jquery-1.3.2.min.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/javascript/jquery.validate.min.js"/>"></script>
+    
     <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/css/style.css"/>" />
     
 	<c:forTokens items="${javascript}" delims="," var="arquivo">
@@ -57,8 +59,12 @@
           <a href="<c:url value="/user/formLogin/"/>">Login</a>
         </c:if>
         <c:if test="${not empty currentUser}">
-          <a href="<c:url value="/project/form/"/>">New Project</a>
-          ${currentUser.login} <a href="<c:url value="/user/logout/"/>">Logout</a>
+          ${currentUser.login} 
+          <ul>
+          	<li><a href="<c:url value="/project/form/"/>">New Project</a></li>
+          	<li><a href="<c:url value="/project/list/"/>">List Projects</a></li>
+          	<li><a href="<c:url value="/user/logout/"/>">Logout</a></li>
+          </ul>
         </c:if>
       </div>
       <div id="errors">

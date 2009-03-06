@@ -38,12 +38,12 @@ public class WhenActions {
         browser.currentPage().navigate("link=" + link);
     }
 
-    public void iOpenProjectPage() {
+    public void iOpenProjectPageDirectly() {
         browser.open("/calopsita/project/form");
     }
 
     public void iListProjects() {
-        browser.open("/calopsita/project/list");
+    	iClickOn("List Projects");
     }
 
     public void iAddTheProject(String name) {

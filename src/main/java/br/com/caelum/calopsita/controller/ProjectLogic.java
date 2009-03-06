@@ -2,8 +2,6 @@ package br.com.caelum.calopsita.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
 
@@ -19,11 +17,11 @@ public class ProjectLogic {
 
     private final ProjectRepository repository;
     private List<Project> projects;
-    private final HttpSession session;
+    private final User currentUser;
 
-    public ProjectLogic(ProjectRepository repository, HttpSession session) {
+    public ProjectLogic(ProjectRepository repository, User user) {
         this.repository = repository;
-        this.session = session;
+        this.currentUser = user;
     }
 
     public void form() {
@@ -31,13 +29,8 @@ public class ProjectLogic {
     }
 
     public void save(Project project) {
-        if (project.getId() != null) {
-            this.repository.update(project);
-        } else {
-            User user = (User) this.session.getAttribute(User.class.getName());
-            project.setOwner(user);
-            this.repository.add(project);
-        }
+        project.setOwner(currentUser);
+        this.repository.add(project);
     }
 
     public List<Project> getProjects() {
@@ -45,7 +38,6 @@ public class ProjectLogic {
     }
 
     public void list() {
-        User user = (User) session.getAttribute(User.class.getName());
-        this.projects = repository.listAllFromOwner(user);
+        this.projects = repository.listAllFromOwner(currentUser);
     }
 }
