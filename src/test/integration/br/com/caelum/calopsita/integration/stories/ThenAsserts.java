@@ -1,6 +1,7 @@
 package br.com.caelum.calopsita.integration.stories;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 
 import org.junit.Assert;
 
@@ -47,4 +48,8 @@ public class ThenAsserts {
         Assert.assertThat(div, containsString(projectName));
     }
 
+    public void notAppearsOnList() {
+        String div = this.browser.currentPage().div("projects").innerHTML();
+        Assert.assertThat(div, not(containsString(projectName)));
+    }
 }

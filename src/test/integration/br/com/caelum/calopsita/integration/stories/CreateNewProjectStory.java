@@ -37,6 +37,16 @@ public class CreateNewProjectStory extends DefaultStory {
     }
 
     @Test
+    public void listingProjectsFromOtherPerson() {
+        given.iHaveAnUser("Caue");
+        given.iHaveAnUser("Ceci");
+        given.iAmLoggedInAs("Caue");
+        given.iHaveAProject("CalopsitaProject").ownedBy("Ceci");
+        when.iListProjects();
+        then.project("CalopsitaProject").notAppearsOnList();
+    }
+
+    @Test
     public void authentication() {
         given.iAmNotLogged();
         when.iOpenProjectPage();
