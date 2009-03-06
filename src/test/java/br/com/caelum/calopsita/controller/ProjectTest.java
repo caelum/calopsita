@@ -6,8 +6,6 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.Collections;
 
-import javax.servlet.http.HttpSession;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.After;
@@ -23,14 +21,14 @@ public class ProjectTest {
     private Mockery mockery;
     private ProjectLogic logic;
     private ProjectRepository repository;
-    private HttpSession session;
+	private User user;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
-        session = mockery.mock(HttpSession.class);
         repository = mockery.mock(ProjectRepository.class);
-        logic = new ProjectLogic(repository, session);
+        user = currentUser();
+        logic = new ProjectLogic(repository, user);
     }
 
     @After
@@ -40,13 +38,42 @@ public class ProjectTest {
 
     @Test
     public void listingAProject() throws Exception {
-        final User user = givenUser("caue");
-        Project project = givenThatOnlyExistsOneProjectForUser(user);
+        Project project = givenThatOnlyExistsOneProjectForCurrentUser();
         whenIListProjects();
         thenTheLogicShouldExposeOnlyTheProject(project);
     }
+    @Test
+    public void savAProject() throws Exception {
+    	Project project = givenAProject();
 
-    private void thenTheLogicShouldExposeOnlyTheProject(Project project) {
+    	shouldSaveTheProjectOnTheRepository(project);
+    	
+    	whenISaveTheProject(project);
+    	
+    	ensureThatCurrentUserIsTheOwnerOf(project);
+    }
+
+    private void ensureThatCurrentUserIsTheOwnerOf(Project project) {
+    	Assert.assertThat(project.getOwner(), is(user));
+	}
+
+	private void whenISaveTheProject(Project project) {
+    	logic.save(project);
+	}
+
+	private void shouldSaveTheProjectOnTheRepository(final Project project) {
+    	mockery.checking(new Expectations() {
+    		{
+    			one(repository).add(project);
+    		}
+    	});
+	}
+
+	private Project givenAProject() {
+		return new Project();
+	}
+
+	private void thenTheLogicShouldExposeOnlyTheProject(Project project) {
         Assert.assertThat(logic.getProjects(), is(notNullValue()));
         Assert.assertThat(logic.getProjects().size(), is(1));
         Assert.assertThat(logic.getProjects(), hasItem(project));
@@ -56,12 +83,10 @@ public class ProjectTest {
         logic.list();
     }
 
-    private Project givenThatOnlyExistsOneProjectForUser(final User user) {
+    private Project givenThatOnlyExistsOneProjectForCurrentUser() {
         final Project project = new Project();
         mockery.checking(new Expectations() {
             {
-                one(session).getAttribute(User.class.getName());
-                will(returnValue(user));
                 one(repository).listAllFromOwner(user);
                 will(returnValue(Collections.singletonList(project)));
             }
@@ -69,8 +94,9 @@ public class ProjectTest {
         return project;
     }
 
-    private User givenUser(String login) {
+    private User currentUser() {
         final User user = new User();
+        String login = "caue";
         user.setLogin(login);
         user.setEmail(login + "@caelum.com.br");
         user.setName(login);
