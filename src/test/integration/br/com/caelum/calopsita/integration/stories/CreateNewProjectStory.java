@@ -3,9 +3,8 @@ package br.com.caelum.calopsita.integration.stories;
 import org.junit.Test;
 
 /**
- * In order to have something to manage 
- * As a Developer leader 
- * I want to create a project
+ * In order to have something to manage As a Developer leader I want to create a
+ * project
  * 
  */
 public class CreateNewProjectStory extends DefaultStory {
@@ -35,16 +34,6 @@ public class CreateNewProjectStory extends DefaultStory {
         given.thereIsAProjectNamed("CalopsitaProject").ownedBy("Caue");
         when.iListProjects();
         then.project("CalopsitaProject").appearsOnList();
-    }
-
-    @Test
-    public void listingProjectsFromOtherPerson() {
-        given.iHaveAnUser("Caue");
-        given.iHaveAnUser("Ceci");
-        given.iAmLoggedInAs("Caue");
-        given.iHaveAProject("CalopsitaProject").ownedBy("Ceci");
-        when.iListProjects();
-        then.project("CalopsitaProject").notAppearsOnList();
     }
 
     @Test
