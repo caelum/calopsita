@@ -1,8 +1,0 @@
-<vraptor>
-  <regex-view-manager>/WEB-INF/jsp/$component/$logic.$result.jsp</regex-view-manager>
-  <plugin>org.vraptor.plugin.hibernate.HibernateValidatorPlugin</plugin>
-  <plugin>org.vraptor.plugin.niceurls.NiceURLPlugin</plugin>
-  <plugin type="org.vraptor.plugin.pico.PicoContainerPlugin">
-    <property name="container-config-class">br.com.caelum.calopsita.infra.vraptor.CalopsitaContainerConfig</property>
-  </plugin>
-</vraptor>

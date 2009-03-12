@@ -23,5 +23,15 @@ public class AddUserOnAProjectStory extends DefaultStory {
 		when.iAdd("ceci").asColaborator();
 		then.thisUserAppearsOnColaboratorsList("ceci");
 	}
+	@Test
+	@Ignore
+	public void authorization() throws Exception {
+		given.thereIsAnUserNamed("ceci");
+		given.thereIsAnUserNamed("caue");
+		given.thereIsAProjectNamed("C4lopsita").ownedBy("caue");
+		given.iAmLoggedInAs("ceci");
+		when.iOpenProjectPageOf("C4lopsita");
+		then.iShouldSeeTheError("not allowed to see the project");
+	}
 	
 }
