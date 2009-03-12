@@ -14,26 +14,25 @@ import org.vraptor.view.ViewException;
 import br.com.caelum.calopsita.model.User;
 
 public class AuthenticationInterceptor implements Interceptor {
-    private final HttpSession session;
-    private User user;
+	private final HttpSession session;
+	private User user;
 
-    public AuthenticationInterceptor(HttpSession session) {
-        this.session = session;
-    }
+	public AuthenticationInterceptor(HttpSession session) {
+		this.session = session;
+	}
 
-    public void intercept(LogicFlow flow) throws LogicException, ViewException {
-        this.user = (User) session.getAttribute(User.class.getName());
-        if (this.user == null) {
-            try {
-                LogicRequest logicRequest = flow.getLogicRequest();
-                HttpServletRequest request = logicRequest.getRequest();
-                logicRequest.getResponse().sendRedirect(
-                        request.getContextPath() + "/user/formLogin/");
-            } catch (IOException e) {
-                throw new LogicException(e);
-            }
-        } else {
-            flow.execute();
-        }
-    }
+	public void intercept(LogicFlow flow) throws LogicException, ViewException {
+		this.user = (User) session.getAttribute(User.class.getName());
+		if (this.user == null) {
+			try {
+				LogicRequest logicRequest = flow.getLogicRequest();
+				HttpServletRequest request = logicRequest.getRequest();
+				logicRequest.getResponse().sendRedirect(request.getContextPath() + "/user/formLogin/");
+			} catch (IOException e) {
+				throw new LogicException(e);
+			}
+		} else {
+			flow.execute();
+		}
+	}
 }

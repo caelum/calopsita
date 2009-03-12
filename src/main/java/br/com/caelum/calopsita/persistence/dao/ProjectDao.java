@@ -17,6 +17,10 @@ public class ProjectDao implements ProjectRepository {
     }
 
     @Override
+    public Project get(Long id) {
+    	return (Project) session.get(Project.class, id);
+    }
+    @Override
     public void add(Project project) {
         this.session.save(project);
     }
@@ -33,7 +37,7 @@ public class ProjectDao implements ProjectRepository {
     @SuppressWarnings("unchecked")
     @Override
     public List<Project> listAllFromOwner(User user) {
-        return (List<Project>) this.session.createQuery("from Project where owner = :user")
+        return this.session.createQuery("from Project where owner = :user")
                 .setParameter("user", user).list();
     }
 

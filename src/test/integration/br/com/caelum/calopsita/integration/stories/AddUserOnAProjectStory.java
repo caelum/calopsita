@@ -31,7 +31,7 @@ public class AddUserOnAProjectStory extends DefaultStory {
 		given.thereIsAProjectNamed("C4lopsita").ownedBy("caue");
 		given.iAmLoggedInAs("ceci");
 		when.iOpenProjectPageOf("C4lopsita");
-		then.iShouldSeeTheError("not allowed to see the project");
+		then.iAmNotAllowedToSeeTheProject();
 	}
 	
 }

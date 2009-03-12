@@ -56,4 +56,9 @@ public class ThenAsserts {
         String div = this.browser.currentPage().div("projects").innerHTML();
         Assert.assertThat(div, not(containsString(projectName)));
     }
+
+	public void iAmNotAllowedToSeeTheProject() {
+		String div = this.browser.currentPage().div("index").innerHTML();
+		Assert.assertThat(div, containsString("not allowed to see this project"));
+	}
 }

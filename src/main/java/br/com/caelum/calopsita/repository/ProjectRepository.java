@@ -9,4 +9,6 @@ public interface ProjectRepository extends BaseRepository<Project> {
 
     List<Project> listAllFromOwner(User user);
 
+	Project get(Long id);
+
 }
