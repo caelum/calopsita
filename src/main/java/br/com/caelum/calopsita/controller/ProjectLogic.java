@@ -5,14 +5,14 @@ import java.util.List;
 import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
 
-import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
+import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 
 @Component
-@InterceptedBy( { HibernateInterceptor.class, AuthorizationInterceptor.class })
+@InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class })
 public class ProjectLogic {
 
     private final ProjectRepository repository;

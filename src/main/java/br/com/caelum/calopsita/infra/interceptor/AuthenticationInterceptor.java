@@ -13,11 +13,11 @@ import org.vraptor.view.ViewException;
 
 import br.com.caelum.calopsita.model.User;
 
-public class AuthorizationInterceptor implements Interceptor {
+public class AuthenticationInterceptor implements Interceptor {
     private final HttpSession session;
     private User user;
 
-    public AuthorizationInterceptor(HttpSession session) {
+    public AuthenticationInterceptor(HttpSession session) {
         this.session = session;
     }
 
