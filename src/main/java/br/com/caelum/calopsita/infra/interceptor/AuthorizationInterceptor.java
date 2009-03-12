@@ -23,12 +23,12 @@ public class AuthorizationInterceptor implements Interceptor {
 	}
 
 	public void intercept(LogicFlow flow) throws LogicException, ViewException {
-		String id = flow.getLogicRequest().getRequest().getParameter("project.id");
+		LogicRequest logicRequest = flow.getLogicRequest();
+		String id = logicRequest.getRequest().getParameter("project.id");
 		if (id != null) {
 			Project loaded = repository.get(Long.valueOf(id));
 			if (loaded != null && !loaded.getOwner().equals(user)) {
 				try {
-					LogicRequest logicRequest = flow.getLogicRequest();
 					logicRequest.getResponse().sendRedirect(logicRequest.getRequest().getContextPath() + "/home/notAllowed/");
 				} catch (IOException e) {
 					throw new LogicException(e);
