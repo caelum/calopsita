@@ -24,7 +24,7 @@ public class AuthorizationInterceptor implements Interceptor {
 
 	public void intercept(LogicFlow flow) throws LogicException, ViewException {
 		LogicRequest logicRequest = flow.getLogicRequest();
-		String id = logicRequest.getRequest().getParameter("project.id");
+		String id = logicRequest.getRequest().getURLData().getParameter("project.id");
 		if (id != null) {
 			Project loaded = repository.get(Long.valueOf(id));
 			if (loaded != null && !loaded.getOwner().equals(user)) {

@@ -76,6 +76,6 @@ public class WhenActions {
 	public void iDirectlyOpenProjectPageOf(String projectName) {
 		Long id = (Long) session.createQuery("select id from Project p where p.name = :name")
 			.setParameter("name", projectName).uniqueResult();
-		browser.open("/calopsita/project/show/?project.id=" + id);
+		browser.open("/calopsita/project/show/" + id + "/");
 	}
 }
