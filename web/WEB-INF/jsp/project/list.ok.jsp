@@ -5,7 +5,7 @@
   <ul>
     <c:forEach var="project" items="${projects}">
       <li>
-        <p>Name: ${project.name}</p>
+        <p>Name: <a href="<c:url value="/project/view/?project.id=${project.id}"/>">${project.name}</a></p>
         <p>Description: ${project.description}</p>
       </li>
     </c:forEach>

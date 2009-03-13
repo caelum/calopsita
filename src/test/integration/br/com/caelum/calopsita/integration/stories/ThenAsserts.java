@@ -1,11 +1,15 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertThat;
 
-import org.junit.Assert;
+import org.hamcrest.Description;
+import org.hamcrest.Factory;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
 import br.com.caelum.seleniumdsl.Browser;
+import br.com.caelum.seleniumdsl.ContentTag;
 
 public class ThenAsserts {
 
@@ -17,25 +21,23 @@ public class ThenAsserts {
     }
 
     public void iMustBeLoggedInAs(String login) {
-        String div = this.browser.currentPage().div("user").innerHTML();
-        Assert.assertThat(div, containsString(login));
-        Assert.assertThat(div, containsString("Logout"));
+        ContentTag div = this.browser.currentPage().div("user");
+        assertThat(div, contains(login));
+        assertThat(div, contains("Logout"));
     }
 
     public void iShouldSeeTheError(String error) {
-        String div = browser.currentPage().div("errors").innerHTML();
-        Assert.assertThat(div, containsString(error));
+        assertThat(browser.currentPage().div("errors"), contains(error));
     }
 
     public void iMustNotBeLoggedIn() {
-        String div = this.browser.currentPage().div("user").innerHTML();
-        Assert.assertThat(div, containsString("Login"));
+        assertThat(this.browser.currentPage().div("user"), contains("Login"));
     }
 
     public void iAmBackToLoginPage() {
-        String div = this.browser.currentPage().div("login").innerHTML();
-        Assert.assertThat(div, containsString("Login"));
-        Assert.assertThat(div, containsString("Password"));
+        ContentTag div = this.browser.currentPage().div("login");
+        assertThat(div, contains("Login"));
+        assertThat(div, contains("Password"));
     }
 
     public ThenAsserts project(String projectName) {
@@ -44,8 +46,7 @@ public class ThenAsserts {
     }
 
     public void appearsOnList() {
-        String div = this.browser.currentPage().div("projects").innerHTML();
-        Assert.assertThat(div, containsString(projectName));
+        assertThat(this.browser.currentPage().div("projects"), contains(projectName));
     }
 
 	public void thisUserAppearsOnColaboratorsList(String string) {
@@ -53,12 +54,36 @@ public class ThenAsserts {
 	}
 
     public void notAppearsOnList() {
-        String div = this.browser.currentPage().div("projects").innerHTML();
-        Assert.assertThat(div, not(containsString(projectName)));
+        assertThat(this.browser.currentPage().div("projects"), not(contains(projectName)));
     }
 
 	public void iAmNotAllowedToSeeTheProject() {
-		String div = this.browser.currentPage().div("index").innerHTML();
-		Assert.assertThat(div, containsString("not allowed to see this project"));
+		assertThat(this.browser.currentPage().div("index"), contains("not allowed to see this project"));
+	}
+
+	public void appearsOnScreen() {
+		assertThat(browser.currentPage().div("project"), contains(projectName));
+	}
+	
+
+	@Factory
+	public static Matcher<ContentTag> contains(final String string) {
+		return new TypeSafeMatcher<ContentTag>() {
+			private String innerHTML;
+			@Override
+			public boolean matchesSafely(ContentTag item) {
+				innerHTML = item.innerHTML();
+				return innerHTML.contains(string);
+			}
+			@Override
+			public void describeTo(Description description) {
+				description
+					.appendText("the div '")
+					.appendText(innerHTML)
+					.appendText("' containing '")
+					.appendText(string)
+					.appendText("'");
+			}
+		};
 	}
 }

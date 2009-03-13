@@ -13,6 +13,14 @@ import org.junit.Test;
 public class AddUserOnAProjectStory extends DefaultStory {
 
 	@Test
+	public void openProjectPage() throws Exception {
+		given.thereIsAnUserNamed("lucas");
+		given.thereIsAProjectNamed("C4lopsita").ownedBy("lucas");
+		given.iAmLoggedInAs("lucas");
+		when.iOpenProjectPageOf("C4lopsita");
+		then.project("C4lopsita").appearsOnScreen();
+	}
+	@Test
 	@Ignore
 	public void addingColaborators() throws Exception {
 		given.thereIsAnUserNamed("ceci");

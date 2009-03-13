@@ -55,8 +55,9 @@ public class WhenActions {
         form.submit();
     }
 
-	public void iOpenProjectPageOf(String string) {
-		
+	public void iOpenProjectPageOf(String projectName) {
+		browser.currentPage().navigate("link=List Projects");
+		browser.currentPage().navigate("link=" + projectName);
 	}
 
 	public WhenActions iAdd(String user) {

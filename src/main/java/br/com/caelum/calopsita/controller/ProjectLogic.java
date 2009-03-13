@@ -19,6 +19,7 @@ public class ProjectLogic {
     private final ProjectRepository repository;
     private List<Project> projects;
     private final User currentUser;
+	private Project project;
 
     public ProjectLogic(ProjectRepository repository, User user) {
         this.repository = repository;
@@ -34,6 +35,14 @@ public class ProjectLogic {
         this.repository.add(project);
     }
 
+    public void view(Project project) {
+    	this.project = this.repository.get(project.getId());
+    }
+    
+    public Project getProject() {
+		return project;
+	}
+    
     public List<Project> getProjects() {
         return projects;
     }
