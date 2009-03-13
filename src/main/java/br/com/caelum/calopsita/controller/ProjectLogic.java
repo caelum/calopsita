@@ -35,7 +35,7 @@ public class ProjectLogic {
         this.repository.add(project);
     }
 
-    public void view(Project project) {
+    public void show(Project project) {
     	this.project = this.repository.get(project.getId());
     }
     

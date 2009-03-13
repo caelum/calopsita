@@ -33,7 +33,7 @@ public class DefaultStory {
         Browser browser = factory.getBrowser();
         session = sessionFactory.openSession();
         given = new GivenContexts(browser, session);
-        when = new WhenActions(browser);
+        when = new WhenActions(browser, session);
         then = new ThenAsserts(browser);
         transaction = session.beginTransaction();
     }

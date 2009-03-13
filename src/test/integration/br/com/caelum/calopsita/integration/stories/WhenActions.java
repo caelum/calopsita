@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.integration.stories;
 
+import org.hibernate.Session;
+
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.Form;
 
@@ -7,9 +9,11 @@ public class WhenActions {
 
     private final Browser browser;
 	private String user;
+	private final Session session;
 
-    public WhenActions(Browser browser) {
+    public WhenActions(Browser browser, Session session) {
         this.browser = browser;
+		this.session = session;
     }
 
     public void iSignUpAs(String login) {
@@ -67,5 +71,11 @@ public class WhenActions {
 
 	public void asColaborator() {
 		
+	}
+
+	public void iDirectlyOpenProjectPageOf(String projectName) {
+		Long id = (Long) session.createQuery("select id from Project p where p.name = :name")
+			.setParameter("name", projectName).uniqueResult();
+		browser.open("/calopsita/project/show/?project.id=" + id);
 	}
 }

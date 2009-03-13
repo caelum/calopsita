@@ -32,13 +32,12 @@ public class AddUserOnAProjectStory extends DefaultStory {
 		then.thisUserAppearsOnColaboratorsList("ceci");
 	}
 	@Test
-	@Ignore
 	public void authorization() throws Exception {
 		given.thereIsAnUserNamed("ceci");
 		given.thereIsAnUserNamed("caue");
 		given.thereIsAProjectNamed("C4lopsita").ownedBy("caue");
 		given.iAmLoggedInAs("ceci");
-		when.iOpenProjectPageOf("C4lopsita");
+		when.iDirectlyOpenProjectPageOf("C4lopsita");
 		then.iAmNotAllowedToSeeTheProject();
 	}
 	

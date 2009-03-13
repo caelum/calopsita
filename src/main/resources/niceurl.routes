@@ -1,6 +1,6 @@
 # novas paginas
 /								=>  home.index
-/project/view/:{project.id}/	=>  project.view
+/project/show/:{project.id}/	=>  project.show
 /:{component}/:{logic}/			=>  #{component}.#{logic}
 #/user/:{logic}/				=>  user.#{logic}
 
