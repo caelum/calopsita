@@ -3,13 +3,13 @@ package br.com.caelum.calopsita.controller;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 import java.util.Collections;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,14 +50,10 @@ public class ProjectTest {
     	
     	whenISaveTheProject(project);
     	
-    	ensureThatCurrentUserIsTheOwnerOf(project);
+    	assertThat(project.getOwner(), is(user));
     }
 
-    private void ensureThatCurrentUserIsTheOwnerOf(Project project) {
-    	Assert.assertThat(project.getOwner(), is(user));
-	}
-
-	private void whenISaveTheProject(Project project) {
+    private void whenISaveTheProject(Project project) {
     	logic.save(project);
 	}
 
@@ -74,9 +70,9 @@ public class ProjectTest {
 	}
 
 	private void thenTheLogicShouldExposeOnlyTheProject(Project project) {
-        Assert.assertThat(logic.getProjects(), is(notNullValue()));
-        Assert.assertThat(logic.getProjects().size(), is(1));
-        Assert.assertThat(logic.getProjects(), hasItem(project));
+        assertThat(logic.getProjects(), is(notNullValue()));
+        assertThat(logic.getProjects().size(), is(1));
+        assertThat(logic.getProjects(), hasItem(project));
     }
 
     private void whenIListProjects() {
