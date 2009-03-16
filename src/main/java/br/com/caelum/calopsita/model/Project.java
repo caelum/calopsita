@@ -2,11 +2,13 @@ package br.com.caelum.calopsita.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.validator.NotNull;
 
@@ -25,6 +27,9 @@ public class Project {
 
     @ManyToMany
     private List<User> colaborators;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<Iteraction> iteractions;
 
     public Long getId() {
         return id;
@@ -64,5 +69,13 @@ public class Project {
 
     public void setColaborators(List<User> colaborators) {
         this.colaborators = colaborators;
+    }
+
+    public List<Iteraction> getIteractions() {
+        return iteractions;
+    }
+
+    public void setIteractions(List<Iteraction> iteractions) {
+        this.iteractions = iteractions;
     }
 }

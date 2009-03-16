@@ -18,8 +18,9 @@
         
         <property name="hibernate.show_sql">false</property>
         <property name="hibernate.format_sql">true</property>
-    
+        
         <mapping class="br.com.caelum.calopsita.model.Project"/>
         <mapping class="br.com.caelum.calopsita.model.User"/>
+        <mapping class="br.com.caelum.calopsita.model.Iteraction"/>
 	</session-factory>
 </hibernate-configuration>
