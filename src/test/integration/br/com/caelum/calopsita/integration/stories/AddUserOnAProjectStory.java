@@ -20,6 +20,15 @@ public class AddUserOnAProjectStory extends DefaultStory {
 		then.project("C4lopsita").appearsOnScreen();
 	}
 	@Test
+	public void showColaborators() throws Exception {
+		given.thereIsAnUserNamed("ceci");
+		given.thereIsAnUserNamed("caue");
+		given.thereIsAProjectNamed("C4lopsita").ownedBy("caue").withColaborator("ceci");
+		given.iAmLoggedInAs("caue");
+		when.iOpenProjectPageOf("C4lopsita");
+		then.thisUserAppearsOnColaboratorsList("ceci");
+	}
+	@Test
 	public void addingColaborators() throws Exception {
 		given.thereIsAnUserNamed("ceci");
 		given.thereIsAnUserNamed("caue");

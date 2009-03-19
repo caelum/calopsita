@@ -78,9 +78,7 @@ public class ThenAsserts {
 			@Override
 			public void describeTo(Description description) {
 				description
-					.appendText("the div '")
-					.appendText(innerHTML)
-					.appendText("' containing '")
+					.appendText("a div containing '")
 					.appendText(string)
 					.appendText("'");
 			}

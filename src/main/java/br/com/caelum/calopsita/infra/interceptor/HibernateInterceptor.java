@@ -25,7 +25,9 @@ public class HibernateInterceptor implements Interceptor {
             logicFlow.execute();
             transaction.commit();
         } catch (Exception e) {
-            transaction.rollback();
+        	if (transaction != null) {
+				transaction.rollback();
+			}
             throw new LogicException(e);
         }
     }

@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.persistence.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.User;
@@ -30,6 +32,10 @@ public class UserDao implements UserRepository {
     @Override
     public User find(String login) {
         return (User) this.session.createQuery("from User where login = :login").setParameter("login", login).uniqueResult();
+    }
+    @Override
+    public List<User> listAll() {
+    	return session.createQuery("from User").list();
     }
 
 }

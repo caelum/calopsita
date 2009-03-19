@@ -16,19 +16,22 @@ import org.junit.Test;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.calopsita.repository.UserRepository;
 
 public class ProjectTest {
     private Mockery mockery;
     private ProjectLogic logic;
     private ProjectRepository repository;
 	private User user;
+	private UserRepository userRepository;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(ProjectRepository.class);
         user = currentUser();
-        logic = new ProjectLogic(repository, user);
+        userRepository = mockery.mock(UserRepository.class);
+		logic = new ProjectLogic(repository, userRepository, user);
     }
 
     @After
@@ -43,16 +46,52 @@ public class ProjectTest {
         thenTheLogicShouldExposeOnlyTheProject(project);
     }
     @Test
-    public void savAProject() throws Exception {
+    public void saveAProject() throws Exception {
     	Project project = givenAProject();
-
+    	
     	shouldSaveTheProjectOnTheRepository(project);
     	
     	whenISaveTheProject(project);
     	
     	assertThat(project.getOwner(), is(user));
     }
+    @Test
+    public void addingColaboratorsToAProject() throws Exception {
+    	Project project = givenAProject();
+    	
+    	User user = givenAUser();
+    	
+    	shouldReloadAndUpdateTheProject(project);
+    	
+    	whenIAddTheUserToTheProject(user, project);
+    	
+    	thenTheProjectWillContainTheUserAsColaborator(project, user);
+    }
 
+	private void shouldReloadAndUpdateTheProject(final Project project) {
+		
+		mockery.checking(new Expectations() {
+			{
+				one(repository).get(project.getId());
+				will(returnValue(project));
+
+				one(repository).update(project);
+			}
+		});
+	}
+
+	private void thenTheProjectWillContainTheUserAsColaborator(Project project, User user) {
+		assertThat(project.getColaborators(), hasItem(user));
+	}
+
+	private void whenIAddTheUserToTheProject(User user, Project project) {
+		logic.addColaborator(project, user);
+	}
+
+
+	private User givenAUser() {
+		return new User();
+	}
     private void whenISaveTheProject(Project project) {
     	logic.save(project);
 	}

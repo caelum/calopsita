@@ -61,16 +61,24 @@ public class GivenContexts {
         return this;
     }
 
-    public void ownedBy(String login) {
+    public GivenContexts ownedBy(String login) {
         UserDao userDao = new UserDao(session);
         User user = userDao.find(login);
         project.setOwner(user);
         session.save(user);
         session.flush();
+        return this;
     }
 
 	public void theUserDoesntExist(String name) {
 		session.createQuery("delete from User u where u.name = :name").setParameter("name", name).executeUpdate();
+	}
+
+	public void withColaborator(String login) {
+		UserDao userDao = new UserDao(session);
+        User user = userDao.find(login);
+        project.getColaborators().add(user);
+        session.flush();
 	}
 
 }

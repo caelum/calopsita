@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -64,6 +65,10 @@ public class Project {
     }
 
     public List<User> getColaborators() {
+    	if (colaborators == null) {
+			colaborators = new ArrayList<User>();
+		}
+
         return colaborators;
     }
 
