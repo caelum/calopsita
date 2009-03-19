@@ -15,6 +15,7 @@ import org.vraptor.LogicFlow;
 import org.vraptor.LogicRequest;
 import org.vraptor.http.VRaptorServletRequest;
 import org.vraptor.http.VRaptorServletResponse;
+import org.vraptor.plugin.niceurls.resolver.URLData;
 import org.vraptor.view.ViewException;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
@@ -32,6 +33,7 @@ public class AuthorizationInterceptorTest {
 	private LogicFlow flow;
 	private VRaptorServletRequest request;
 	private VRaptorServletResponse response;
+	private URLData urlData;
 
 	@Before
 	public void setUp() throws Exception {
@@ -47,6 +49,7 @@ public class AuthorizationInterceptorTest {
 		interceptor = new AuthorizationInterceptor(user, repository);
 		request = mockery.mock(VRaptorServletRequest.class);
 		response = mockery.mock(VRaptorServletResponse.class);
+		urlData = mockery.mock(URLData.class);
 		mockery.checking(new Expectations() {
 			{
 				LogicRequest logicRequest = mockery.mock(LogicRequest.class);
@@ -150,7 +153,10 @@ public class AuthorizationInterceptorTest {
 	private void givenThereIsAProjectOnRequest() {
 		mockery.checking(new Expectations() {
 			{
-				one(request).getParameter("project.id");
+				one(request).getURLData();
+				will(returnValue(urlData));
+				
+				one(urlData).getParameter("project.id");
 				will(returnValue("3"));
 			}
 		});
@@ -179,7 +185,10 @@ public class AuthorizationInterceptorTest {
 	private void givenThereIsNoProjectOnRequest() {
 		mockery.checking(new Expectations() {
 			{
-				one(request).getParameter("project.id");
+				one(request).getURLData();
+				will(returnValue(urlData));
+				
+				one(urlData).getParameter("project.id");
 				will(returnValue(null));
 			}
 		});

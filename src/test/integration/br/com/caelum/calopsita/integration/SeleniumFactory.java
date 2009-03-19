@@ -7,7 +7,7 @@ import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 import com.thoughtworks.selenium.SeleniumLogLevels;
 
-public class SeleniumFactory {
+public class SeleniumFactory implements BrowserFactory {
 
     private final Selenium selenium;
 
@@ -18,9 +18,9 @@ public class SeleniumFactory {
         String serverHost = System.getProperty("server.host", "localhost");
         String serverTimeout = System.getProperty("server.timeout", "5000");
         String port = System.getProperty("server.port", "9095");
-        selenium = new DefaultSelenium("localhost", Integer
-                .valueOf(seleniumPort), browser, "http://" + serverHost + ":"
-                + port);
+        String baseURL = "http://" + serverHost + ":" + port;
+		selenium = new DefaultSelenium("localhost", Integer
+                .valueOf(seleniumPort), browser, baseURL);
         selenium.start();
         selenium.setContext("Calopsita");
         selenium.setBrowserLogLevel(SeleniumLogLevels.WARN);

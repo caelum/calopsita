@@ -30,7 +30,7 @@ public class GivenContexts {
         user.setEmail(login + "@caelum.com.br");
         user.setName(login);
         user.setPassword(login);
-        session.save(user);
+        session.saveOrUpdate(user);
         session.flush();
     }
 
@@ -68,5 +68,9 @@ public class GivenContexts {
         session.save(user);
         session.flush();
     }
+
+	public void theUserDoesntExist(String name) {
+		session.createQuery("delete from User u where u.name = :name").setParameter("name", name).executeUpdate();
+	}
 
 }

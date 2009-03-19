@@ -12,6 +12,7 @@ public class UserStory extends DefaultStory {
 
     @Test
     public void signUpWithANewUser() {
+    	given.theUserDoesntExist("ceci");
         given.iAmOnTheRootPage();
         when.iSignUpAs("ceci");
         then.iMustBeLoggedInAs("ceci");

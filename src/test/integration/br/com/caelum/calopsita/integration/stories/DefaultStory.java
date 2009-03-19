@@ -8,14 +8,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import br.com.caelum.calopsita.integration.SeleniumFactory;
+import br.com.caelum.calopsita.integration.BrowserFactory;
+import br.com.caelum.calopsita.integration.HtmlUnitFactory;
 import br.com.caelum.seleniumdsl.Browser;
 
 public class DefaultStory {
     protected GivenContexts given;
     protected WhenActions when;
     protected ThenAsserts then;
-    private SeleniumFactory factory;
+    private BrowserFactory factory;
     private static SessionFactory sessionFactory;
     protected Session session;
     private Transaction transaction;
@@ -29,7 +30,7 @@ public class DefaultStory {
 
     @Before
     public void setUp() {
-        factory = new SeleniumFactory();
+        factory = new HtmlUnitFactory();
         Browser browser = factory.getBrowser();
         session = sessionFactory.openSession();
         given = new GivenContexts(browser, session);
