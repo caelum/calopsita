@@ -2,7 +2,7 @@
 <calopsita:page title="User" bodyClass="user" javascript="/javascript/user.js" css="/css/user.css">
 
 <div id="login">
-  <form id="form" action="<c:url value="/user/login/"/>" method="post">
+  <form name="login" action="<c:url value="/user/login/"/>" method="post">
     <p>
       <label for="user.login">Login</label>
       <input type="text" name="user.login">

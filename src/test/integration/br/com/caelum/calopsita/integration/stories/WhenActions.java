@@ -18,7 +18,7 @@ public class WhenActions {
 
     public void iSignUpAs(String login) {
         iClickOn("Sign Up");
-        Form form = browser.currentPage().form("form");
+        Form form = browser.currentPage().form("signUp");
         form.field("user.name").type(login);
         form.field("user.login").type(login);
         form.field("user.email").type(login + "@caelum.com.br");
@@ -29,7 +29,7 @@ public class WhenActions {
 
     public void iLoginAs(String login) {
         iClickOn("Login");
-        Form form = browser.currentPage().form("form");
+        Form form = browser.currentPage().form("login");
         form.field("user.login").type(login);
         form.field("user.password").type(login);
         form.submit();
@@ -53,7 +53,7 @@ public class WhenActions {
 
     public void iAddTheProject(String name) {
         iClickOn("New Project");
-        Form form = browser.currentPage().form("form");
+        Form form = browser.currentPage().form("addProject");
         form.field("project.name").type(name);
         form.field("project.description").type(name);
         form.submit();
@@ -70,12 +70,15 @@ public class WhenActions {
 	}
 
 	public void asColaborator() {
-		
+		browser.currentPage().navigate("link=Add Colaborator")
+			.form("addColaborator")
+				.select("colaborator.login").choose(user)
+				.submit();
 	}
 
 	public void iDirectlyOpenProjectPageOf(String projectName) {
 		Long id = (Long) session.createQuery("select id from Project p where p.name = :name")
-			.setParameter("name", projectName).uniqueResult();
+			.setParameter("name", projectName).setMaxResults(1).uniqueResult();
 		browser.open("/calopsita/project/show/" + id + "/");
 	}
 }

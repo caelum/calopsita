@@ -38,7 +38,7 @@ public class GivenContexts {
         iAmOnTheRootPage();
         Page currentPage = browser.currentPage();
         currentPage.navigate("link=Login");
-        Form form = currentPage.form("form");
+        Form form = currentPage.form("login");
         form.field("user.login").type(login);
         form.field("user.password").type(login);
         form.submit();

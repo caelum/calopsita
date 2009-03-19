@@ -47,6 +47,9 @@
           email: "<fmt:message key="validation.email" />",
           equalTo: "<fmt:message key="validation.equalTo" />"
       });
+      function toggle(id) {
+   		$("#" + id).toggle();
+   	  }
     </script>
 </head>
 <body class="${bodyClass}">

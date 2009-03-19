@@ -49,8 +49,8 @@ public class ThenAsserts {
         assertThat(this.browser.currentPage().div("projects"), containsString(projectName));
     }
 
-	public void thisUserAppearsOnColaboratorsList(String string) {
-		
+	public void thisUserAppearsOnColaboratorsList(String userName) {
+		assertThat(this.browser.currentPage().div("colaborators"), containsString(userName));
 	}
 
     public void notAppearsOnList() {

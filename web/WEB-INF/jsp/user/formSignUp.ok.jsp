@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <calopsita:page title="User" bodyClass="user" javascript="/javascript/jquery.validate.min.js,/javascript/user.js" css="/css/user.css">
 
-<form id="form" action="<c:url value="/user/save/"/>" method="post">
+<form name="signUp" action="<c:url value="/user/save/"/>" method="post">
   <p>
     <label for="user.name">Name</label>
     <em>*</em><input type="text" name="user.name"/>

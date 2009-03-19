@@ -2,6 +2,7 @@
 /								=>  home.index
 /javascript/:{file}				==> /javascript/#{file}
 /project/show/:{project.id}/	=>  project.show
+/add/colaborator/				=> 	project.addColaborator
 /:{component}/:{logic}/			=>  #{component}.#{logic}
 #/user/:{logic}/				=>  user.#{logic}
 
