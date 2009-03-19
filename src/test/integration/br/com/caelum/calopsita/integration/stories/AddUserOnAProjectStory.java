@@ -47,6 +47,15 @@ public class AddUserOnAProjectStory extends DefaultStory {
 		when.iDirectlyOpenProjectPageOf("C4lopsita");
 		then.iAmNotAllowedToSeeTheProject();
 	}
+	@Test
+	public void authorizationAsColaborator() throws Exception {
+		given.thereIsAnUserNamed("ceci");
+		given.thereIsAnUserNamed("caue");
+		given.thereIsAProjectNamed("C4lopsita").ownedBy("caue").withColaborator("ceci");
+		given.iAmLoggedInAs("ceci");
+		when.iDirectlyOpenProjectPageOf("C4lopsita");
+		then.project("C4lopsita").appearsOnScreen();
+	}
 	
 	@Test
 	public void listingProjectsAsColaborator() throws Exception {

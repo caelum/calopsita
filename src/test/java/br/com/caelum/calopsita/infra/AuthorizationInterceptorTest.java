@@ -98,6 +98,16 @@ public class AuthorizationInterceptorTest {
 		whenInterceptOccurs();
 	}
 	@Test
+	public void authorizeIfUserIsAColaboratorOfTheProject() throws Exception {
+		givenThereIsAProjectOnRequest();
+		Project project = givenThatThisProjectExist();
+		givenThatUserIsAColaboratorOfTheProject(project);
+		
+		shouldExecuteFlow();
+		
+		whenInterceptOccurs();
+	}
+	@Test
 	public void redirectIfUserIsNotTheOwnerOfTheProject() throws Exception {
 		givenThereIsAProjectOnRequest();
 		Project project = givenThatThisProjectExist();
@@ -108,6 +118,11 @@ public class AuthorizationInterceptorTest {
 		
 		whenInterceptOccurs();
 	}
+
+	private void givenThatUserIsAColaboratorOfTheProject(Project project) {
+		project.getColaborators().add(user);
+	}
+
 
 	private void shouldRedirectToNotAllowedPage() throws IOException {
 		

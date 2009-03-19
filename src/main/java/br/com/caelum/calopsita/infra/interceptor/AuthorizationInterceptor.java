@@ -27,7 +27,7 @@ public class AuthorizationInterceptor implements Interceptor {
 		String id = logicRequest.getRequest().getURLData().getParameter("project.id");
 		if (id != null) {
 			Project loaded = repository.get(Long.valueOf(id));
-			if (loaded != null && !loaded.getOwner().equals(user)) {
+			if (loaded != null && !user.equals(loaded.getOwner()) && !loaded.getColaborators().contains(user)) {
 				try {
 					logicRequest.getResponse().sendRedirect(logicRequest.getRequest().getContextPath() + "/home/notAllowed/");
 				} catch (IOException e) {
