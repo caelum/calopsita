@@ -34,10 +34,10 @@ public class ProjectDao implements ProjectRepository {
     public void remove(Project project) {
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public List<Project> listAllFromOwner(User user) {
-        return this.session.createQuery("from Project where owner = :user")
+    public List<Project> listAllFrom(User user) {
+        return this.session.createQuery("from Project p where p.owner = :user or " +
+        		":user in elements(p.colaborators)")
                 .setParameter("user", user).list();
     }
 

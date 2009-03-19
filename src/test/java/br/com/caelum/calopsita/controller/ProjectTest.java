@@ -122,7 +122,7 @@ public class ProjectTest {
         final Project project = new Project();
         mockery.checking(new Expectations() {
             {
-                one(repository).listAllFromOwner(user);
+                one(repository).listAllFrom(user);
                 will(returnValue(Collections.singletonList(project)));
             }
         });

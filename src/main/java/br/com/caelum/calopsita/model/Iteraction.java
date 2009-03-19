@@ -9,7 +9,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity
-public class Iteraction {
+public class Iteraction implements Identifiable {
     @Id
     @GeneratedValue
     private Long id;

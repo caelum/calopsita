@@ -57,7 +57,7 @@ public class ProjectLogic {
     }
 
     public void list() {
-        this.projects = repository.listAllFromOwner(currentUser);
+        this.projects = repository.listAllFrom(currentUser);
     }
 
 	public void addColaborator(Project project, @Parameter(key="colaborator") User colaborator) {

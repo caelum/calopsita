@@ -3,17 +3,15 @@ package br.com.caelum.calopsita.model;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 import org.hibernate.validator.Email;
 import org.hibernate.validator.NotNull;
 
 @Entity
-public class User {
+public class User implements Identifiable {
     @Id
     @NotNull
     private String login;
@@ -27,9 +25,6 @@ public class User {
     @Email
     @NotNull
     private String email;
-
-    @ManyToMany
-    private List<Project> projects;
 
     public String getName() {
         return name;
@@ -61,14 +56,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
     }
 
     private String hashPassword(String password) {
@@ -112,5 +99,10 @@ public class User {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String getId() {
+		return login;
 	}
 }

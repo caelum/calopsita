@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.validator.NotNull;
 
 @Entity
-public class Project {
+public class Project implements Identifiable {
     @Id
     @GeneratedValue
     private Long id;

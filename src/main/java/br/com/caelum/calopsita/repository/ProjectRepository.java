@@ -7,7 +7,7 @@ import br.com.caelum.calopsita.model.User;
 
 public interface ProjectRepository extends BaseRepository<Project> {
 
-    List<Project> listAllFromOwner(User user);
+    List<Project> listAllFrom(User user);
 
 	Project get(Long id);
 
