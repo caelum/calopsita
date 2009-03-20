@@ -81,4 +81,14 @@ public class WhenActions {
 			.setParameter("name", projectName).setMaxResults(1).uniqueResult();
 		browser.open("/calopsita/project/show/" + id + "/");
 	}
+
+	public WhenActions iAddTheStory(String storyName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void withDescription(String description) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -84,4 +84,8 @@ public class ThenAsserts {
 			}
 		};
 	}
+
+	public ThenAsserts theStory(String string) {
+		return null;
+	}
 }
