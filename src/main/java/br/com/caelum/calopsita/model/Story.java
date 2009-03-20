@@ -19,6 +19,9 @@ public class Story implements Identifiable {
 	@ManyToOne
 	private Project project;
 
+	@ManyToOne
+	private User owner;
+
 	public Long getId() {
 		return id;
 	}
@@ -49,5 +52,12 @@ public class Story implements Identifiable {
 	
 	public void setProject(Project project) {
 		this.project = project;
+	}
+
+	public User getOwner() {
+		return this.owner;
+	}
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 }

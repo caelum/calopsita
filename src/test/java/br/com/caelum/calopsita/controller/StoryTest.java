@@ -11,18 +11,21 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.StoryRepository;
 
 public class StoryTest {
     private Mockery mockery;
     private StoryLogic logic;
 	private StoryRepository repository;
+	private User currentUser;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(StoryRepository.class);
-		logic = new StoryLogic(repository);
+        currentUser = new User();
+		logic = new StoryLogic(currentUser, repository);
     }
 
     @After
@@ -40,6 +43,7 @@ public class StoryTest {
 		whenISaveTheStory(story, onThe(project));
 		
 		assertThat(story.getProject(), is(project));
+		assertThat(story.getOwner(), is(currentUser));
 	}
 
 	private void shouldSaveOnTheRepositoryTheStory(final Story story) {

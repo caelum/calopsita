@@ -8,6 +8,7 @@ import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.StoryRepository;
 
 @Component
@@ -16,14 +17,17 @@ public class StoryLogic {
 
 	private final StoryRepository repository;
 	private Project project;
+	private final User currentUser;
 
-	public StoryLogic(StoryRepository repository) {
+	public StoryLogic(User user, StoryRepository repository) {
+		this.currentUser = user;
 		this.repository = repository;
 	}
 
 	public void save(Story story, Project project) {
 		this.project = project;
 		story.setProject(project);
+		story.setOwner(currentUser);
 		repository.save(story);
 	}
 	
