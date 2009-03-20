@@ -27,12 +27,15 @@
 		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
 		<param-value>messages</param-value>
 	</context-param>
-  
+	<context-param>
+		<param-name>org.vraptor.component.ParameterInfoProvider</param-name>
+		<param-value>org.vraptor.component.ParanamerParameterInfoProvider</param-value>
+	</context-param>
 	<!-- Mandatory filter; should be the last one in the chain -->
 	<filter>
-        <filter-name>vraptor2</filter-name>
-        <filter-class>org.vraptor.plugin.niceurls.NiceURLFilter</filter-class>
-    </filter>
+		<filter-name>vraptor2</filter-name>
+		<filter-class>org.vraptor.plugin.niceurls.NiceURLFilter</filter-class>
+	</filter>
 	<filter-mapping>
 		<filter-name>vraptor2</filter-name>
 		<url-pattern>/*</url-pattern>

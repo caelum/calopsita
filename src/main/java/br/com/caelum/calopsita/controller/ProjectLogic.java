@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
-import org.vraptor.annotations.Parameter;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
@@ -60,7 +59,7 @@ public class ProjectLogic {
         this.projects = repository.listAllFrom(currentUser);
     }
 
-	public void addColaborator(Project project, @Parameter(key="colaborator") User colaborator) {
+	public void addColaborator(Project project, User colaborator) {
 		this.project = repository.get(project.getId());
 		this.project.getColaborators().add(colaborator);
 		repository.update(this.project);
