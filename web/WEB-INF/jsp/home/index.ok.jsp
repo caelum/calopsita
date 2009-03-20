@@ -5,8 +5,8 @@
 	<h2>Calopsita</h2>
 	<br /><br />
 	<h3>
-	  Gerenciamento do desenvolvimento de softwares ágeis para
-	  equipes e clientes distribuidos.
+		Management of agile software development for distributed 
+		teams and clients.
 	</h3>
     
 </div>

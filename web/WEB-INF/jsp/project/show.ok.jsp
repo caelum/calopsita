@@ -28,6 +28,6 @@
 	<input type="submit" value="Add"/>
 </form>
 </div>
-<a href="<c:url value="/"/>">Voltar</a>
+<a href="<c:url value="/"/>">Back</a>
 
 </calopsita:page>

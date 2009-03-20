@@ -7,6 +7,6 @@
   <p><input class="buttons" type="submit" value="Create"/></p>
 </form>
 
-<a href="<c:url value="/"/>">Voltar</a>
+<a href="<c:url value="/"/>">Back</a>
 
 </calopsita:page>
