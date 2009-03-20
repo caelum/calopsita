@@ -1,7 +1,7 @@
 package br.com.caelum.calopsita.integration;
 
 import br.com.caelum.seleniumdsl.Browser;
-import br.com.caelum.seleniumdsl.HtmlUnitBrowser;
+import br.com.caelum.seleniumdsl.htmlunit.HtmlUnitBrowser;
 
 public class HtmlUnitFactory implements BrowserFactory {
 
