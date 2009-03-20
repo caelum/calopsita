@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
 
 public class ProjectDaoTest {
@@ -69,6 +70,37 @@ public class ProjectDaoTest {
 		
 		assertThat(list, not(hasItem(hasSameId(project))));
 	}
+
+	@Test
+	public void onlyListStoriesFromTheGivenProject() throws Exception {
+		Project project = givenAProject();
+		Story storyFromOtherProject = givenAStory();
+		Story storyFromThisProject = givenAStoryOfProject(project);
+		
+		List<Story> list = dao.listStoriesFrom(project);
+		
+		assertThat(list, not(hasItem(hasSameId(storyFromOtherProject))));
+		assertThat(list, hasItem(hasSameId(storyFromThisProject)));
+	}
+	private Story givenAStoryOfProject(Project project) {
+		Story story = givenAStory();
+		story.setProject(project);
+		session.update(story);
+		session.flush();
+		return story;
+	}
+
+
+	private Story givenAStory() {
+		Story story = new Story();
+		story.setName("Snow White");
+		story.setDescription("She hangs out with the dwarves");
+		session.save(story);
+		session.flush();
+		return story;
+	}
+
+
 	private Project givenAProjectWithColaborator(User user) {
 		Project project = givenAProject();
 		project.getColaborators().add(user);

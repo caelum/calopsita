@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 
@@ -40,5 +41,11 @@ public class ProjectDao implements ProjectRepository {
         		":user in elements(p.colaborators)")
                 .setParameter("user", user).list();
     }
+
+	@Override
+	public List<Story> listStoriesFrom(Project project) {
+		return this.session.createQuery("from Story s where s.project = :project")
+			.setParameter("project", project).list();
+	}
 
 }

@@ -16,17 +16,37 @@
 		</ul>
 	</div>
 </c:if>
-<a href="javascript:toggle('form')">Add Colaborator</a>
-<div id="form" style="display: none;">
-<form name="addColaborator" action="<c:url value="/add/colaborator/"/>">
-	<input type="hidden" name="project.id" value="${project.id }" />
-	<select name="colaborator.login">
-		<c:forEach items="${users}" var="user">
-			<option value="${user.login}">${user.name}</option>
-		</c:forEach>		
-	</select>
-	<input type="submit" value="Add"/>
-</form>
+<c:if test="${not empty stories}">
+	<div id="stories">
+		<h2>Stories:</h2>
+		<ul>
+			<c:forEach items="${stories}" var="story">
+				<li>${story.name } - ${story.description }</li>
+			</c:forEach>
+		</ul>
+	</div>
+</c:if>
+<a href="javascript:toggle('story')">Add Story</a>
+
+<div id="story" style="display: none;">
+	<form name="addStory" action="<c:url value="/story/save/"/>" method="post">
+		<input type="hidden" name="project.id" value="${project.id }" />
+	  <p>Name: <input type="text" name="story.name"/></p>
+	  <p>Description: <input type="text" name="story.description"/></p>
+	  <p><input class="buttons" type="submit" value="Create"/></p>
+	</form>
+</div>
+<a href="javascript:toggle('colaborator')">Add Colaborator</a>
+<div id="colaborator" style="display: none;">
+	<form name="addColaborator" action="<c:url value="/add/colaborator/"/>">
+		<input type="hidden" name="project.id" value="${project.id }" />
+		<select name="colaborator.login">
+			<c:forEach items="${users}" var="user">
+				<option value="${user.login}">${user.name}</option>
+			</c:forEach>		
+		</select>
+		<input type="submit" value="Add"/>
+	</form>
 </div>
 <a href="<c:url value="/"/>">Back</a>
 

@@ -10,6 +10,7 @@ public class WhenActions {
     private final Browser browser;
 	private String user;
 	private final Session session;
+	private String storyName;
 
     public WhenActions(Browser browser, Session session) {
         this.browser = browser;
@@ -83,12 +84,16 @@ public class WhenActions {
 	}
 
 	public WhenActions iAddTheStory(String storyName) {
-		// TODO Auto-generated method stub
-		return null;
+		this.storyName = storyName;
+		return this;
 	}
 
 	public void withDescription(String description) {
-		// TODO Auto-generated method stub
-		
+		browser.currentPage().navigate("link=Add Story");
+		browser.currentPage()
+			.form("addStory")
+				.field("story.name").type(storyName)
+				.field("story.description").type(description)
+				.submit();
 	}
 }

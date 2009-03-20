@@ -14,7 +14,8 @@ import br.com.caelum.seleniumdsl.ContentTag;
 public class ThenAsserts {
 
     private final Browser browser;
-    private String projectName;
+    private String name;
+	private String divName;
 
     public ThenAsserts(Browser browser) {
         this.browser = browser;
@@ -41,12 +42,13 @@ public class ThenAsserts {
     }
 
     public ThenAsserts project(String projectName) {
-        this.projectName = projectName;
+        this.name = projectName;
+        this.divName = "projects";
         return this;
     }
 
     public void appearsOnList() {
-        assertThat(this.browser.currentPage().div("projects"), containsString(projectName));
+        assertThat(this.browser.currentPage().div(divName), containsString(name));
     }
 
 	public void thisUserAppearsOnColaboratorsList(String userName) {
@@ -54,7 +56,7 @@ public class ThenAsserts {
 	}
 
     public void notAppearsOnList() {
-        assertThat(this.browser.currentPage().div("projects"), not(containsString(projectName)));
+        assertThat(this.browser.currentPage().div("projects"), not(containsString(name)));
     }
 
 	public void iAmNotAllowedToSeeTheProject() {
@@ -62,7 +64,7 @@ public class ThenAsserts {
 	}
 
 	public void appearsOnScreen() {
-		assertThat(browser.currentPage().div("project"), containsString(projectName));
+		assertThat(browser.currentPage().div("project"), containsString(name));
 	}
 	
 
@@ -85,7 +87,9 @@ public class ThenAsserts {
 		};
 	}
 
-	public ThenAsserts theStory(String string) {
-		return null;
+	public ThenAsserts theStory(String storyName) {
+		this.name = storyName;
+		this.divName = "stories";
+		return this;
 	}
 }
