@@ -92,4 +92,10 @@ public class ThenAsserts {
 		this.divName = "stories";
 		return this;
 	}
+
+    public ThenAsserts theIteration(String iterationTarget) {
+        this.name = iterationTarget;
+        this.divName = "iterations";
+        return this;
+    }
 }

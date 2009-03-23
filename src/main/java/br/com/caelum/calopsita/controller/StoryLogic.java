@@ -28,7 +28,7 @@ public class StoryLogic {
 		this.project = project;
 		story.setProject(project);
 		story.setOwner(currentUser);
-		repository.save(story);
+		repository.add(story);
 	}
 	
 	public Project getProject() {

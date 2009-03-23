@@ -1,5 +1,8 @@
 package br.com.caelum.calopsita.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,7 +12,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity
-public class Iteraction implements Identifiable {
+public class Iteration implements Identifiable {
     @Id
     @GeneratedValue
     private Long id;
@@ -53,15 +56,15 @@ public class Iteraction implements Identifiable {
         return startDate;
     }
 
-    public void setStartDate(DateTime startDate) {
-        this.startDate = startDate;
+    public void setStartDate(String startDate) throws ParseException {
+        this.startDate = new DateTime(new SimpleDateFormat("dd/MM/yyyy").parse(startDate));
     }
 
     public DateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(DateTime endDate) {
-        this.endDate = endDate;
+    public void setEndDate(String endDate) throws ParseException {
+        this.endDate = new DateTime(new SimpleDateFormat("dd/MM/yyyy").parse(endDate));
     }
 }

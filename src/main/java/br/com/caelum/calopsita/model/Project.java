@@ -30,7 +30,7 @@ public class Project implements Identifiable {
     private List<User> colaborators;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Iteraction> iteractions;
+    private List<Iteration> iteractions;
 
     public Long getId() {
         return id;
@@ -76,11 +76,11 @@ public class Project implements Identifiable {
         this.colaborators = colaborators;
     }
 
-    public List<Iteraction> getIteractions() {
+    public List<Iteration> getIterations() {
         return iteractions;
     }
 
-    public void setIteractions(List<Iteraction> iteractions) {
+    public void setIteractions(List<Iteration> iteractions) {
         this.iteractions = iteractions;
     }
 }

@@ -12,9 +12,21 @@ public class StoryDao implements StoryRepository {
 	public StoryDao(Session session) {
 		this.session = session;
 	}
+	
 	@Override
-	public void save(Story story) {
+	public void add(Story story) {
 		session.save(story);
 	}
+
+	@Override
+    public void remove(Story t) {
+        // TODO Auto-generated method stub
+        
+    }
+    @Override
+    public void update(Story t) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }
