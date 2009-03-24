@@ -20,7 +20,7 @@ public class Iteration implements Identifiable {
     @ManyToOne
     private Project project;
 
-    private String target;
+    private String goal;
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
     private DateTime startDate;
@@ -44,12 +44,12 @@ public class Iteration implements Identifiable {
         this.project = project;
     }
 
-    public String getTarget() {
-        return target;
+    public String getGoal() {
+        return goal;
     }
 
-    public void setTarget(String target) {
-        this.target = target;
+    public void setGoal(String goal) {
+        this.goal = goal;
     }
 
     public DateTime getStartDate() {

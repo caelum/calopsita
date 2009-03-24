@@ -21,7 +21,7 @@
     <h2>Iterations:</h2>
     <ul>
       <c:forEach items="${project.iterations}" var="iteration">
-        <li>${iteration.target }</li>
+        <li>${iteration.goal }</li>
       </c:forEach>
     </ul>
   </div>
@@ -73,7 +73,7 @@
 <div id="iteration" style="display: none;">
   <form name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
     <input type="hidden" name="project.id" value="${project.id }" />
-    <p>Target: <input type="text" name="iteration.target"/></p>
+    <p>Goal: <input type="text" name="iteration.goal"/></p>
 	<p>Start Date: <input type="text" name="iteration.startDate"/></p>
     <p>End Date: <input type="text" name="iteration.endDate"/></p>
 	<p><input type="submit" value="Add"/></p>

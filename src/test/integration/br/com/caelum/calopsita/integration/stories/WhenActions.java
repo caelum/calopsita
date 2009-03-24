@@ -11,7 +11,7 @@ public class WhenActions {
 	private String user;
 	private final Session session;
 	private String storyName;
-    private String iterationTarget;
+    private String iterationGoal;
 
     public WhenActions(Browser browser, Session session) {
         this.browser = browser;
@@ -109,8 +109,8 @@ public class WhenActions {
 							.submit();
 	}
 
-	public WhenActions iAddTheIteration(String iterationTarget) {
-        this.iterationTarget = iterationTarget;
+	public WhenActions iAddTheIteration(String iterationGoal) {
+        this.iterationGoal = iterationGoal;
         return this;
     }
 
@@ -118,7 +118,7 @@ public class WhenActions {
         browser.currentPage().navigate("link=Add Iteration");
         browser.currentPage()
             .form("addIteration")
-                .field("iteration.target").type(iterationTarget)
+                .field("iteration.goal").type(iterationGoal)
                 .field("iteration.startDate").type(date);
         return this;
     }

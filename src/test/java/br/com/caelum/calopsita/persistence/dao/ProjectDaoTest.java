@@ -108,7 +108,7 @@ public class ProjectDaoTest {
 
     private Iteration givenAnIteration() throws ParseException {
 	    Iteration iteration = new Iteration();
-	    iteration.setTarget("Be ready");
+	    iteration.setGoal("Be ready");
 	    iteration.setStartDate("01/01/2000");
 	    iteration.setEndDate("10/01/2000");
 	    session.save(iteration);
