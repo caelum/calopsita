@@ -92,4 +92,8 @@ public class ThenAsserts {
 		this.divName = "stories";
 		return this;
 	}
+
+	public void hasDescription(String storyDescription) {
+		assertThat(browser.currentPage().div("stories"), containsString(storyDescription));
+	}
 }

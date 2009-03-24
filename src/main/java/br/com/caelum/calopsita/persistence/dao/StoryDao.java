@@ -16,5 +16,13 @@ public class StoryDao implements StoryRepository {
 	public void save(Story story) {
 		session.save(story);
 	}
+	@Override
+	public Story load(Story story) {
+		return (Story) session.load(Story.class, story.getId());
+	}
+	@Override
+	public void update(Story story) {
+		session.update(story);
+	}
 
 }

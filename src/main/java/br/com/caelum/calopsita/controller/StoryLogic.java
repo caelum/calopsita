@@ -30,6 +30,13 @@ public class StoryLogic {
 		story.setOwner(currentUser);
 		repository.save(story);
 	}
+
+	public void update(Story story, Project project) {
+		Story managedStory = repository.load(story);
+		managedStory.setName(story.getName());
+		managedStory.setDescription(story.getDescription());
+		repository.update(managedStory);
+	}
 	
 	public Project getProject() {
 		return project;

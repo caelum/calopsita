@@ -21,4 +21,19 @@ public class CreateAStoryStory extends DefaultStory {
 		
 		then.theStory("Incidents").appearsOnList();
 	}
+	
+	@Test
+	public void storyUpdate() throws Exception {
+		given.thereIsAnUserNamed("Sonson");
+		given.thereIsAProjectNamed("OpenMeetings")
+			 .ownedBy("Sonson")
+			 .withStoryNamed("Cinderella")
+			 .whichDescriptionIs("She loses her shoe.");
+		given.iAmLoggedInAs("Sonson");
+		
+		when.iOpenProjectPageOf("OpenMeetings");
+		when.iEditTheStory("Cinderella").changingDescriptionTo("Her sisters go blind.");
+		
+		then.theStory("Cinderella").hasDescription("Her sisters go blind.");
+	}
 }

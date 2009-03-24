@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.integration.stories;
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.seleniumdsl.Browser;
@@ -14,6 +15,7 @@ public class GivenContexts {
     private final Browser browser;
     private final Session session;
     private Project project;
+	private String storyName;
 
     public GivenContexts(Browser browser, Session session) {
         this.browser = browser;
@@ -79,6 +81,20 @@ public class GivenContexts {
         User user = userDao.find(login);
         project.getColaborators().add(user);
         session.flush();
+	}
+
+	public GivenContexts withStoryNamed(String storyName) {
+		this.storyName = storyName;
+		return this;
+	}
+
+	public void whichDescriptionIs(String storyDescription) {
+		Story story = new Story();
+		story.setName(storyName);
+		story.setDescription(storyDescription);
+		story.setProject(project);
+		session.save(story);
+		session.flush();
 	}
 
 }

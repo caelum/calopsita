@@ -96,4 +96,15 @@ public class WhenActions {
 				.field("story.description").type(description)
 				.submit();
 	}
+
+	public WhenActions iEditTheStory(String storyName) {
+		browser.currentPage().navigate("link=" + storyName);
+		return this;
+	}
+
+	public void changingDescriptionTo(String storyDescription) {
+		browser.currentPage().form("editStory")
+							.field("story.description").type(storyDescription)
+							.submit();
+	}
 }

@@ -21,7 +21,17 @@
 		<h2>Stories:</h2>
 		<ul>
 			<c:forEach items="${stories}" var="story">
-				<li>${story.name } - ${story.description }</li>
+				<li><a href="javascript:toggle('story_edit_${story.id }');">${story.name }</a> - ${story.description }<br />
+					<div id="story_edit_${story.id }">
+						<form name="editStory" action="<c:url value='/story/update/' />" method="post">
+							<input type="hidden" name="story.id" value="${story.id }"/>
+							<input type="hidden" name="project.id" value="${project.id }"/>
+							<p>Name: <input type="text" name="story.name" /></p>
+							<p>Description: <input type="text" name="story.description" /></p>
+							<p><input class="buttons" type="submit" value="Update"/></p>
+						</form>
+					</div>
+				</li>
 			</c:forEach>
 		</ul>
 	</div>

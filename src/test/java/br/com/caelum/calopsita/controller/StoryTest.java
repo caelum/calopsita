@@ -46,6 +46,7 @@ public class StoryTest {
 		assertThat(story.getOwner(), is(currentUser));
 	}
 
+    
 	private void shouldSaveOnTheRepositoryTheStory(final Story story) {
 		
 		mockery.checking(new Expectations() {
