@@ -12,8 +12,9 @@ public class StoryDao implements StoryRepository {
 	public StoryDao(Session session) {
 		this.session = session;
 	}
+	
 	@Override
-	public void save(Story story) {
+	public void add(Story story) {
 		session.save(story);
 	}
 	@Override
@@ -23,6 +24,11 @@ public class StoryDao implements StoryRepository {
 	@Override
 	public void update(Story story) {
 		session.update(story);
+	}
+
+	@Override
+	public void remove(Story story) {
+		session.delete(story);
 	}
 
 }

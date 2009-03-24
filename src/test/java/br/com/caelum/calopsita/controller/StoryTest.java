@@ -51,7 +51,7 @@ public class StoryTest {
 		
 		mockery.checking(new Expectations() {
 			{
-				one(repository).save(story);
+				one(repository).add(story);
 			}
 		});
 	}

@@ -96,4 +96,10 @@ public class ThenAsserts {
 	public void hasDescription(String storyDescription) {
 		assertThat(browser.currentPage().div("stories"), containsString(storyDescription));
 	}
+
+	public ThenAsserts theIteration(String iterationTarget) {
+        this.name = iterationTarget;
+        this.divName = "iterations";
+        return this;
+    }
 }

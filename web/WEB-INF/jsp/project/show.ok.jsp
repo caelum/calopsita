@@ -16,6 +16,16 @@
 		</ul>
 	</div>
 </c:if>
+<c:if test="${not empty project.iterations}">
+  <div id="iterations">
+    <h2>Iterations:</h2>
+    <ul>
+      <c:forEach items="${project.iterations}" var="iteration">
+        <li>${iteration.target }</li>
+      </c:forEach>
+    </ul>
+  </div>
+</c:if>
 <c:if test="${not empty stories}">
 	<div id="stories">
 		<h2>Stories:</h2>
@@ -48,7 +58,7 @@
 </div>
 <a href="javascript:toggle('colaborator')">Add Colaborator</a>
 <div id="colaborator" style="display: none;">
-	<form name="addColaborator" action="<c:url value="/add/colaborator/"/>">
+	<form name="addColaborator" action="<c:url value="/add/colaborator/"/>" method="post">
 		<input type="hidden" name="project.id" value="${project.id }" />
 		<select name="colaborator.login">
 			<c:forEach items="${users}" var="user">
@@ -57,6 +67,17 @@
 		</select>
 		<input type="submit" value="Add"/>
 	</form>
+</div>
+
+<a href="javascript:toggle('iteration')">Add Iteration</a>
+<div id="iteration" style="display: none;">
+  <form name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
+    <input type="hidden" name="project.id" value="${project.id }" />
+    <p>Target: <input type="text" name="iteration.target"/></p>
+	<p>Start Date: <input type="text" name="iteration.startDate"/></p>
+    <p>End Date: <input type="text" name="iteration.endDate"/></p>
+	<p><input type="submit" value="Add"/></p>
+  </form>
 </div>
 <a href="<c:url value="/"/>">Back</a>
 

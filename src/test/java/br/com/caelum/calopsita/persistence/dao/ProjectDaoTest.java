@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.hibernate.Transaction;
@@ -14,6 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
@@ -72,17 +74,50 @@ public class ProjectDaoTest {
 	}
 
 	@Test
-	public void onlyListStoriesFromTheGivenProject() throws Exception {
-		Project project = givenAProject();
-		Story storyFromOtherProject = givenAStory();
-		Story storyFromThisProject = givenAStoryOfProject(project);
-		
-		List<Story> list = dao.listStoriesFrom(project);
-		
-		assertThat(list, not(hasItem(hasSameId(storyFromOtherProject))));
-		assertThat(list, hasItem(hasSameId(storyFromThisProject)));
-	}
-	private Story givenAStoryOfProject(Project project) {
+    public void onlyListStoriesFromTheGivenProject() throws Exception {
+        Project project = givenAProject();
+        Story storyFromOtherProject = givenAStory();
+        Story storyFromThisProject = givenAStoryOfProject(project);
+        
+        List<Story> list = dao.listStoriesFrom(project);
+        
+        assertThat(list, not(hasItem(hasSameId(storyFromOtherProject))));
+        assertThat(list, hasItem(hasSameId(storyFromThisProject)));
+    }
+	
+	@Test
+    public void onlyListIterationsFromTheGivenProject() throws Exception {
+        Project project = givenAProject();
+        Iteration iterationFromOtherProject = givenAnIteration();
+        Iteration iterationFromThisProject = givenAnIterationOfProject(project);
+        
+        List<Iteration> list = dao.listIterationsFrom(project);
+        
+        assertThat(list, not(hasItem(hasSameId(iterationFromOtherProject))));
+        assertThat(list, hasItem(hasSameId(iterationFromThisProject)));
+    }
+	
+	private Iteration givenAnIterationOfProject(Project project) throws ParseException {
+        Iteration iteration = givenAnIteration();
+        iteration.setProject(project);
+        session.update(iteration);
+        session.flush();
+        return iteration;
+    }
+
+
+    private Iteration givenAnIteration() throws ParseException {
+	    Iteration iteration = new Iteration();
+	    iteration.setTarget("Be ready");
+	    iteration.setStartDate("01/01/2000");
+	    iteration.setEndDate("10/01/2000");
+	    session.save(iteration);
+	    session.flush();
+	    return iteration;
+    }
+
+
+    private Story givenAStoryOfProject(Project project) {
 		Story story = givenAStory();
 		story.setProject(project);
 		session.update(story);

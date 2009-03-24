@@ -22,6 +22,6 @@
         <mapping class="br.com.caelum.calopsita.model.Project"/>
         <mapping class="br.com.caelum.calopsita.model.Story"/>
         <mapping class="br.com.caelum.calopsita.model.User"/>
-        <mapping class="br.com.caelum.calopsita.model.Iteraction"/>
+        <mapping class="br.com.caelum.calopsita.model.Iteration"/>
 	</session-factory>
 </hibernate-configuration>

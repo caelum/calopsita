@@ -8,6 +8,7 @@ import org.vraptor.annotations.InterceptedBy;
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
+import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
@@ -25,6 +26,7 @@ public class ProjectLogic {
 	private final UserRepository userRepository;
 	private List<User> users;
 	private List<Story> stories;
+    private List<Iteration> iterations;
 
     public ProjectLogic(ProjectRepository repository, UserRepository userRepository, User user) {
         this.repository = repository;
@@ -45,6 +47,7 @@ public class ProjectLogic {
     	this.project = this.repository.get(project.getId());
     	this.users = this.userRepository.listAll();
     	this.stories = this.repository.listStoriesFrom(project);
+    	this.iterations = this.repository.listIterationsFrom(project);
     }
     
     public List<User> getUsers() {
@@ -54,6 +57,11 @@ public class ProjectLogic {
     public List<Story> getStories() {
     	return stories;
     }
+    
+    public List<Iteration> getIterations() {
+        return iterations;
+    }
+    
     public Project getProject() {
 		return project;
 	}
@@ -66,9 +74,9 @@ public class ProjectLogic {
         this.projects = repository.listAllFrom(currentUser);
     }
 
-	public void addColaborator(Project project, User colaborator) {
-		this.project = repository.get(project.getId());
-		this.project.getColaborators().add(colaborator);
-		repository.update(this.project);
-	}
+    public void addColaborator(Project project, User colaborator) {
+        this.project = repository.get(project.getId());
+        this.project.getColaborators().add(colaborator);
+        repository.update(this.project);
+    }
 }
