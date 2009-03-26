@@ -221,6 +221,7 @@
 
 	<property name="staging.ip" value="localhost" />
 	<property name="staging.port" value="8080" />
+	<property name="staging.user" value="staging" />
 	<target name="staging">
 		<echo message="http://${staging.ip}:${staging.port}/calopsita"/>
 		<condition property="can.stage" value="anything">
@@ -231,9 +232,9 @@
 	
 	<target name="do-stage" if="can.stage">
 		<echo message="Copying stuff"></echo>
-		<scp file="${artifacts.dir}/${war.file}" todir="staging:staging@${staging.ip}:~/webapps/${war.filename}-staging.war" failonerror="false"/>
-		<sshexec host="${staging.ip}" username="staging" password="staging" command="jetty/bin/jetty.sh stop" failonerror="false"/>
-		<sshexec host="${staging.ip}" username="staging" password="staging" command="jetty/bin/jetty.sh start" failonerror="false"/>
+		<sshexec host="${staging.ip}" username="${staging.user}" password="${staging.user}" command="jetty/bin/jetty.sh stop" failonerror="false"/>
+		<scp file="${artifacts.dir}/${war.file}" todir="${staging.user}:${staging.user}@${staging.ip}:~/webapps/${war.filename}-staging.war" failonerror="false"/>
+		<sshexec host="${staging.ip}" username="${staging.user}" password="${staging.user}" command="jetty/bin/jetty.sh start" failonerror="false"/>
 		<!--sshexec host="${staging.ip}" username="staging" password="staging" command="unzip -o ~/${war.filename}-staging.war -d ~/calopsita" failonerror="false"/-->
 	</target>
 </project>
