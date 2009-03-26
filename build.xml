@@ -204,7 +204,11 @@
             <taskdef name="jetty-start" classname="br.com.caelum.calopsita.tasks.JettyStartTask">
                 <classpath>
 					<path refid="servlet-api.classpath" />
-                    <fileset dir="${ant.lib.dir}" includes="jetty*.jar" />
+                    <fileset dir="${ant.lib.dir}">
+                    	<include name="jstl*.jar"/>
+                    	<include name="standard*.jar"/>
+                    	<include name="jetty*.jar"/>
+                    </fileset>
                     <pathelement path="${tmp.test-classes.dir}" />
                 </classpath>
             </taskdef>
