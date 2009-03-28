@@ -3,9 +3,9 @@ package br.com.caelum.calopsita.integration.stories;
 import org.junit.Test;
 
 /**
- * In order to plan what has to be done
- * As a project client
- * I want to create and edit stories (with name and description)
+ * <b>In order to</b> plan what has to be done <br>
+ * <b>As a</b> project client <br>
+ * <b>I want to</b> create and edit stories (with name and description) <br>
  * @author ceci
  */
 public class CreateAStoryStory extends DefaultStory {
