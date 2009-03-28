@@ -107,6 +107,8 @@
 			<classes dir="${tmp.classes.dir}" />
 			<lib dir="${libs.dir}">
 				<exclude name="servlet*.jar" />
+				<exclude name="jstl*.jar" />
+				<exclude name="standard*.jar" />
 			</lib>
 		</war>
 	</target>
@@ -205,8 +207,6 @@
                 <classpath>
 					<path refid="servlet-api.classpath" />
                     <fileset dir="${ant.lib.dir}">
-                    	<include name="jstl*.jar"/>
-                    	<include name="standard*.jar"/>
                     	<include name="jetty*.jar"/>
                     </fileset>
                     <pathelement path="${tmp.test-classes.dir}" />
