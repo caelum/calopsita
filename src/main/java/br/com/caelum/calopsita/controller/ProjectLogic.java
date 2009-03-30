@@ -46,23 +46,10 @@ public class ProjectLogic {
 
     public void show(Project project) {
     	this.project = this.repository.get(project.getId());
-    	this.users = this.userRepository.listAllButOwnerAndColaborators(getIdsFromColaboratorsAndOwner());
+    	this.users = this.userRepository.listUnrelatedUsers(this.project);
     	this.stories = this.repository.listStoriesFrom(project);
     	this.iterations = this.repository.listIterationsFrom(project);
     }
-    
-    private List<String> getIdsFromColaboratorsAndOwner() {
-    	List<User> users = this.project.getColaborators();
-    	User owner = this.project.getOwner();
-    	
-		List<String> ids = new ArrayList<String>();
-		for (User user : users) {
-			ids.add(user.getId());
-		}
-		ids.add(owner.getId());
-		
-		return ids;
-	}
 
 	public List<User> getUsers() {
 		return users;
