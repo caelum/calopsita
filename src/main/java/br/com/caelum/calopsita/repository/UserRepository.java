@@ -10,4 +10,6 @@ public interface UserRepository extends BaseRepository<User> {
 
 	List<User> listAll();
 
+	List<User> listAllButOwnerAndColaborators(List<String> ids);
+
 }

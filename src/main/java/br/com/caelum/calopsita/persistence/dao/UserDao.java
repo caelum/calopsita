@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.persistence.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
@@ -37,5 +38,10 @@ public class UserDao implements UserRepository {
     public List<User> listAll() {
     	return session.createQuery("from User").list();
     }
+
+	@Override
+	public List<User> listAllButOwnerAndColaborators(List<String> ids) {
+		return this.session.createQuery("from User where id not in (:ids)").setParameterList("ids", ids).list();
+	}
 
 }
