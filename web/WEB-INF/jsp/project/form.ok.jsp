@@ -3,7 +3,7 @@
 
 <form name="addProject" action="<c:url value="/project/save/"/>" method="post">
   <p>Name: <input type="text" name="project.name"/></p>
-  <p>Description: <input type="text" name="project.description"/></p>
+  <p>Description: <textarea name="project.description"></textarea></p>
   <p><input class="buttons" type="submit" value="Create"/></p>
 </form>
 
