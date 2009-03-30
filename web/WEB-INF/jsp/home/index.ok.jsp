@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Home" bodyClass="home" css="/css/style.css">
+<calopsita:page title="Home" bodyClass="home" css="/css/index.css">
 
 <div id="index">
 	<h2>Calopsita</h2>

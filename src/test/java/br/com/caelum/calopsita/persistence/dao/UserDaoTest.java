@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.persistence.dao;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
@@ -43,6 +44,18 @@ public class UserDaoTest {
 		assertThat(users, not(hasItem(owner)));
 		assertThat(users, not(hasItem(colaborator)));
 		
+	}
+	
+	@Test
+	public void findeUnreleatedUsersWhenThereIsNoColaborator() throws Exception {
+		Project project = givenAProject();
+		User owner = givenAnUserOwnerOf(project);
+		User user = givenAnUnrelatedUser("pedro");
+		
+		List<User> users = dao.listUnrelatedUsers(project);
+		
+		assertThat(users, hasItem(user));
+		assertThat(users, not(hasItem(owner)));
 	}
 	
 	private User givenAnUnrelatedUser(String name) {

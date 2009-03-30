@@ -4,7 +4,10 @@ import java.util.List;
 
 import br.com.caelum.calopsita.model.Project;
 
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
@@ -42,9 +45,17 @@ public class UserDao implements UserRepository {
 
 	@Override
 	public List<User> listUnrelatedUsers(Project project) {
-		return this.session.createQuery("from User u where u not in (:colaborators) and u != :owner")
-							.setParameterList("colaborators", project.getColaborators())
-							.setParameter("owner", project.getOwner()).list();
+
+		String hql = "from User u where u != :owner";
+		if (!project.getColaborators().isEmpty()) {
+			hql += " and u not in (:colaborators)";
+		}
+		Query query = session.createQuery(hql);
+		
+		if (!project.getColaborators().isEmpty()) {
+			query.setParameterList("colaborators", project.getColaborators());
+		}
+		return query.setParameter("owner", project.getOwner()).list();
 	}
 
 }
