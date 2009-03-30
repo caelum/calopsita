@@ -11,11 +11,12 @@
       <label for="user.password">Password</label>
       <input type="password" id="password" name="user.password"/>
     </p>
+    <p>
       <input class="submit" type="submit" value="Sign Up"/>
     </p>
   </form>
+  <a href="<c:url value="/"/>">Back</a>
 </div>
 
-<a href="<c:url value="/"/>">Back</a>
 
 </calopsita:page>
