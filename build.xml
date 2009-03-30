@@ -129,7 +129,7 @@
 			<sysproperty key="server.port" value="${server.port}" />
 			<sysproperty key="server.count" value="${server.count}" />
 			<sysproperty key="server.context" value="${server.context}" />
-			<sysproperty key="database.port" value="9002" />
+			<sysproperty key="database.port" value="9005" />
 			<sysproperty key="pool.size" value="${pool.size}" />
 			<sysproperty key="test.classes" value="${tmp.test-classes.dir}" />
 			<formatter type="xml" />
@@ -180,20 +180,20 @@
 	</target>
 	
 	<target name="hsqldb">
-		<echo message="Starting HSQLDB on port 9002" />
+		<echo message="Starting HSQLDB on port 9005" />
 		<java classpath="${libs.dir}/hsqldb-1.8.0.7.jar" classname="org.hsqldb.Server" failonerror="true">
 			<arg line="-database.0 mem:calopsita" />
 			<arg line="-dbname.0 calopsita" />
-			<arg line="-port 9002" />
+			<arg line="-port 9005" />
 		</java>
 	</target>
 	
 	<target name="manualHsqldb">
-		<echo message="Starting HSQLDB on port 9002" />
+		<echo message="Starting HSQLDB on port 9005" />
 		<java classpath="${libs.dir}/hsqldb-1.8.0.7.jar" classname="org.hsqldb.Server" failonerror="true">
 			<arg line="-database.0 mem:calopsita" />
 			<arg line="-dbname.0 calopsita" />
-			<arg line="-port 9002" />
+			<arg line="-port 9005" />
 		</java>
 		<input message="Press Enter to Stop" />
 	</target>
@@ -204,7 +204,7 @@
 	
 	<macrodef name="jetty">
         <attribute name="port" default="9095" />
-        <attribute name="databasePort" default="9002" />
+        <attribute name="databasePort" default="9005" />
         <sequential>
             <taskdef name="jetty-start" classname="br.com.caelum.calopsita.tasks.JettyStartTask">
                 <classpath>
@@ -222,7 +222,7 @@
     </macrodef>
 
     <target name="start-jettys" description="--> runs all jettys instances">
-        <jetty port="9095" databasePort="9002" />
+        <jetty port="9095" databasePort="9005" />
         <echo message="Jettys started" />
     </target>
 
@@ -242,6 +242,6 @@
 		<sshexec host="${staging.ip}" username="${staging.user}" password="${staging.user}" command="jetty/bin/jetty.sh stop" failonerror="false"/>
 		<scp file="${artifacts.dir}/${war.file}" todir="${staging.user}:${staging.user}@${staging.ip}:~/${war.filename}-staging.war" failonerror="false"/>
 		<scp file="${basedir}/deploy.sh" todir="${staging.user}:${staging.user}@${staging.ip}:~/deploy.sh" failonerror="false"/>
-		<sshexec host="${staging.ip}" username="${staging.user}" password="${staging.user}" command="sh ~/deploy.sh" failonerror="false"/>
+		<sshexec host="${staging.ip}" username="${staging.user}" password="${staging.user}" command="sh ~/deploy.sh &amp;" failonerror="false"/>
 	</target>
 </project>

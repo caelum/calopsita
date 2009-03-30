@@ -3,7 +3,7 @@
 killall -15 java
 
 cd hsqldb
-java -cp hsqldb.jar org.hsqldb.Server -database.0 file:calopsita -dbname.0 calopsita -port 9002 &
+java -cp hsqldb.jar org.hsqldb.Server -database.0 file:calopsita -dbname.0 calopsita -port 9005 &
 
 sleep 3
 rm -rf ~/calopsita/*
