@@ -103,13 +103,16 @@
 		<move tofile="${tmp.classes.dir}/hibernate.cfg.xml" file="${tmp.classes.dir}/hibernate.cfg.test.xml"/>
 		
 		<war destfile="${artifacts.dir}/${war.file}" webxml="${webapp.dir}/WEB-INF/web.xml" compress="true">
-			<fileset dir="${webapp.dir}" excludes="WEB-INF/web.xml" />
+			<fileset dir="${webapp.dir}">
+				<exclude name="WEB-INF/web.xml" />
+				<exclude name="**/servlet*.jar" />
+				<exclude name="jstl*.jar" if="staging" />
+				<exclude name="standard*.jar" if="staging" />
+			</fileset>
 			<classes dir="${tmp.classes.dir}" />
-			<lib dir="${libs.dir}">
+			<!--lib dir="${libs.dir}">
 				<exclude name="servlet*.jar" />
-				<exclude name="jstl*.jar" />
-				<exclude name="standard*.jar" />
-			</lib>
+			</lib-->
 		</war>
 	</target>
 
@@ -229,7 +232,7 @@
 	<target name="staging">
 		<echo message="http://${staging.ip}:${staging.port}/calopsita"/>
 		<condition property="can.stage" value="anything">
-			<socket server="${staging.ip}" port="${staging.port}"/>
+			<socket server="${staging.ip}" port="22"/>
 		</condition>
 		<antcall target="do-stage" />
 	</target>
@@ -237,8 +240,8 @@
 	<target name="do-stage" if="can.stage">
 		<echo message="Copying stuff"></echo>
 		<sshexec host="${staging.ip}" username="${staging.user}" password="${staging.user}" command="jetty/bin/jetty.sh stop" failonerror="false"/>
-		<scp file="${artifacts.dir}/${war.file}" todir="${staging.user}:${staging.user}@${staging.ip}:~/webapps/${war.filename}-staging.war" failonerror="false"/>
-		<sshexec host="${staging.ip}" username="${staging.user}" password="${staging.user}" command="jetty/bin/jetty.sh start" failonerror="false"/>
-		<!--sshexec host="${staging.ip}" username="staging" password="staging" command="unzip -o ~/${war.filename}-staging.war -d ~/calopsita" failonerror="false"/-->
+		<scp file="${artifacts.dir}/${war.file}" todir="${staging.user}:${staging.user}@${staging.ip}:~/${war.filename}-staging.war" failonerror="false"/>
+		<scp file="${basedir}/deploy.sh" todir="${staging.user}:${staging.user}@${staging.ip}:~/deploy.sh" failonerror="false"/>
+		<sshexec host="${staging.ip}" username="${staging.user}" password="${staging.user}" command="sh ~/deploy.sh" failonerror="false"/>
 	</target>
 </project>
