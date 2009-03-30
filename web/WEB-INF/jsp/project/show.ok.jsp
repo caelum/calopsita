@@ -32,13 +32,14 @@
 		<ul>
 			<c:forEach items="${stories}" var="story">
 				<li><a href="javascript:toggle('story_edit_${story.id }');">${story.name }</a> - ${story.description }<br />
-					<div id="story_edit_${story.id }">
+					<div id="story_edit_${story.id }" style="display: none;">
 						<form name="editStory" action="<c:url value='/story/update/' />" method="post">
 							<input type="hidden" name="story.id" value="${story.id }"/>
 							<input type="hidden" name="project.id" value="${project.id }"/>
-							<p>Name: <input type="text" name="story.name" /></p>
-							<p>Description: <input type="text" name="story.description" /></p>
-							<p><input class="buttons" type="submit" value="Update"/></p>
+							<p>Name: <input type="text" name="story.name" value="${story.name }"/></p>
+							<p>Description: <textarea name="story.description" >${story.description }</textarea></p>
+							<p> <input class="buttons" type="submit" value="Update"/>
+								<input class="buttons" type="button" value="Cancel" onclick="toggle('story_edit_${story.id }');"/></p>
 						</form>
 					</div>
 				</li>
@@ -52,8 +53,9 @@
 	<form name="addStory" action="<c:url value="/story/save/"/>" method="post">
 		<input type="hidden" name="project.id" value="${project.id }" />
 	  <p>Name: <input type="text" name="story.name"/></p>
-	  <p>Description: <input type="text" name="story.description"/></p>
-	  <p><input class="buttons" type="submit" value="Create"/></p>
+	  <p>Description: <textarea name="story.description"></textarea></p>
+	  <p><input class="buttons" type="submit" value="Create"/>
+	  	<input class="buttons" type="button" value="Cancel" onclick="toggle('story');"/></p>
 	</form>
 </div>
 <a href="javascript:toggle('colaborator')">Add Colaborator</a>
@@ -66,6 +68,7 @@
 			</c:forEach>		
 		</select>
 		<input type="submit" value="Add"/>
+		<input class="buttons" type="button" value="Cancel" onclick="toggle('colaborator');"/>
 	</form>
 </div>
 
@@ -76,7 +79,8 @@
     <p>Goal: <input type="text" name="iteration.goal"/></p>
 	<p>Start Date: <input type="text" name="iteration.startDate"/></p>
     <p>End Date: <input type="text" name="iteration.endDate"/></p>
-	<p><input type="submit" value="Add"/></p>
+	<p><input type="submit" value="Add"/>
+	   <input class="buttons" type="button" value="Cancel" onclick="toggle('iteration');"/></p>
   </form>
 </div>
 <a href="<c:url value="/"/>">Back</a>

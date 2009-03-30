@@ -3,9 +3,9 @@ package br.com.caelum.calopsita.integration.stories;
 import org.junit.Test;
 
 /**
- * In order to join a project 
- * As a Developer or Client 
- * I want to create a user
+ * <b>In order to</b> join a project <br> 
+ * <b>As a</b> Developer or Client <br>
+ * <b>I want to</b> create a user
  * 
  */
 public class UserStory extends DefaultStory {

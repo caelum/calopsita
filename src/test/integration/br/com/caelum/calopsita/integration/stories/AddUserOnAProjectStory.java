@@ -3,9 +3,9 @@ package br.com.caelum.calopsita.integration.stories;
 import org.junit.Test;
 
 /**
- * In order to have a development team
- * As a Developer leader
- * I want to add users on a project
+ * <b>In order to</b> have a development team <br>
+ * <b>As a</b> Developer leader <br>
+ * <b>I want to</b> add users on a project <br>
  * @author lucascs
  *
  */
