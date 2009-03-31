@@ -54,12 +54,12 @@
 </head>
 <body class="${bodyClass}">
 
-<div class="main">
+<div id="main">
 	<div id="header">
-	   <div class="logo">
+	   <div id="logo">
          <a href="http://www.calopsita.com"><img src="<c:url value="/images/logo.png"/>" alt="calopsita" /></a>
        </div>
-	   <div class="user">
+	   <div id="user">
         <c:if test="${empty currentUser}">
           <a href="<c:url value="/user/formSignUp/"/>">Sign Up</a>
           <a href="<c:url value="/user/formLogin/"/>">Login</a>
@@ -73,7 +73,7 @@
           </ul>
         </c:if>
       </div>
-      <div class="errors">
+      <div id="errors">
       	<c:if test="${not empty errors}">
       		<c:forEach var="error" items="${errors.iterator}">
 				<fmt:message key="${error.key}" /><br />
@@ -87,7 +87,7 @@
 	<jsp:doBody />
 
 	<hr class="separador"/>
-	<div class="footer">
+	<div id="footer">
 
 	</div>
 </div>
