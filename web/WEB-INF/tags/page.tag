@@ -29,7 +29,7 @@
     <script type="text/javascript" src="<c:url value="/javascript/jquery-1.2.3.min.js"/>"></script>
     <script type="text/javascript" src="<c:url value="/javascript/jquery.validate.min.js"/>"></script>
     
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/css/style.css"/>" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/css/index.css"/>" />
     
 	<c:forTokens items="${javascript}" delims="," var="arquivo">
 		<script type="text/javascript" src="<c:url value="${arquivo}"/>"></script>
@@ -38,7 +38,7 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="${arquivo}"/>" />
 	</c:forTokens>
 	
-	<link rel="shortcut icon" href="<c:url value="/imagens/favicon.ico"/>" type="image/x-icon" />
+	<link rel="shortcut icon" href="<c:url value="/images/icon.ico"/>" type="image/x-icon" />
   
     <script language="javascript" type="text/javascript">
       $.extend($.validator.messages, {
@@ -54,9 +54,12 @@
 </head>
 <body class="${bodyClass}">
 
-<div id="main">
+<div class="main">
 	<div id="header">
-	   <div id="user">
+	   <div class="logo">
+         <a href="http://www.calopsita.com"><img src="<c:url value="/images/logo.png"/>" alt="calopsita" /></a>
+       </div>
+	   <div class="user">
         <c:if test="${empty currentUser}">
           <a href="<c:url value="/user/formSignUp/"/>">Sign Up</a>
           <a href="<c:url value="/user/formLogin/"/>">Login</a>
@@ -70,7 +73,7 @@
           </ul>
         </c:if>
       </div>
-      <div id="errors">
+      <div class="errors">
       	<c:if test="${not empty errors}">
       		<c:forEach var="error" items="${errors.iterator}">
 				<fmt:message key="${error.key}" /><br />
@@ -84,7 +87,7 @@
 	<jsp:doBody />
 
 	<hr class="separador"/>
-	<div id="footer">
+	<div class="footer">
 
 	</div>
 </div>
