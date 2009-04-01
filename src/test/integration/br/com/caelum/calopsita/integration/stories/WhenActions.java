@@ -30,7 +30,6 @@ public class WhenActions {
     }
 
     public void iLoginAs(String login) {
-        iClickOn("Login");
         Form form = browser.currentPage().form("login");
         form.field("user.login").type(login);
         form.field("user.password").type(login);

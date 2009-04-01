@@ -27,7 +27,7 @@ public class AuthenticationInterceptor implements Interceptor {
 			try {
 				LogicRequest logicRequest = flow.getLogicRequest();
 				HttpServletRequest request = logicRequest.getRequest();
-				logicRequest.getResponse().sendRedirect(request.getContextPath() + "/user/formLogin/");
+				logicRequest.getResponse().sendRedirect(request.getContextPath() + "/");
 			} catch (IOException e) {
 				throw new LogicException(e);
 			}

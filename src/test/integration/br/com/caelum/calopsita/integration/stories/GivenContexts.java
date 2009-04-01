@@ -39,7 +39,6 @@ public class GivenContexts {
     public void iAmLoggedInAs(String login) {
         iAmOnTheRootPage();
         Page currentPage = browser.currentPage();
-        currentPage.navigate("link=Login");
         Form form = currentPage.form("login");
         form.field("user.login").type(login);
         form.field("user.password").type(login);

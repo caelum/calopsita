@@ -1,3 +1,15 @@
-#logo img {
+body {
+	font-family: verdana;	
+}
+
+#main #header #logo img {
 	border: 0;
+}
+
+#main #header #user {
+	margin-left: 90%;
+}
+
+#main #header #user #name {
+	font-weight: bold;
 }

@@ -26,10 +26,6 @@ public class UserLogic {
 
     }
 
-    public void formLogin() {
-
-    }
-
     public void save(User user) {
         this.repository.add(user);
         this.session.setAttribute(User.class.getName(), user);

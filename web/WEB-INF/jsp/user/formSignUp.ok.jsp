@@ -2,6 +2,8 @@
 <calopsita:page title="User" bodyClass="user" javascript="/javascript/jquery.validate.min.js,/javascript/user.js" css="/css/user.css">
 
 <div id="signUp">
+	Already on Calopsita? <a href="<c:url value="/"/>">Sign in</a>
+
 	<form name="signUp" action="<c:url value="/user/save/"/>" method="post">
 	  <p>
 	    <label for="user.name">Name</label>
@@ -28,7 +30,6 @@
 	  </p>
 	</form>
 	
-	<a href="<c:url value="/"/>">Back</a>
 </div>
 
 </calopsita:page>

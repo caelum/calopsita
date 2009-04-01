@@ -32,7 +32,7 @@ public class ThenAsserts {
     }
 
     public void iMustNotBeLoggedIn() {
-        assertThat(this.browser.currentPage().div("user"), containsString("Login"));
+        assertThat(this.browser.currentPage().div("login"), containsString("Login"));
     }
 
     public void iAmBackToLoginPage() {

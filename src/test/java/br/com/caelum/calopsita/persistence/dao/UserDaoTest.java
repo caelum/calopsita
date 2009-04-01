@@ -47,7 +47,7 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void findeUnreleatedUsersWhenThereIsNoColaborator() throws Exception {
+	public void findUnreleatedUsersWhenThereIsNoColaborator() throws Exception {
 		Project project = givenAProject();
 		User owner = givenAnUserOwnerOf(project);
 		User user = givenAnUnrelatedUser("pedro");
