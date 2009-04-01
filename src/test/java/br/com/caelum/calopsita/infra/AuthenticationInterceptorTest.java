@@ -84,7 +84,7 @@ public class AuthenticationInterceptorTest {
 	private void shouldRedirectToLoginPage() throws IOException {
 		mockery.checking(new Expectations() {
 			{
-				one(response).sendRedirect(with(containsString("/user/formLogin/")));
+				one(response).sendRedirect(with(containsString("/")));
 				allowing(request);
 			}
 		});		
