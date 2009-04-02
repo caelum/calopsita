@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Home" bodyClass="home" css="/css/index.css">
+<calopsita:page title="Home" bodyClass="home" css="/css/user.css">
 
 <div id="login">
   <form name="login" action="<c:url value="/user/login/"/>" method="post">
@@ -12,7 +12,8 @@
       <input type="password" id="password" name="user.password"/>
     </p>
     <p>
-      <input class="submit" type="submit" value="Sign Up"/>
+      <input class="submit" type="submit" value="Sign In"/>
+      or <a href="<c:url value="/user/formSignUp/"/>">Sign Up</a>
     </p>
   </form>
 </div>

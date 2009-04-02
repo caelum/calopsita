@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Project" bodyClass="project">
+<calopsita:page title="Project" bodyClass="project" css="/css/project.css">
 
 <div id="project">
     <p>Name: ${project.name}</p>

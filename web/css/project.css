@@ -18,6 +18,11 @@ input.error {
 	border: 2px solid red;
 }
 
+textarea {
+  width: 200px;
+  height: 80px;
+}
+
 p { 
   clear: both;
 }

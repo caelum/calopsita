@@ -2,14 +2,27 @@ body {
 	font-family: verdana;	
 }
 
-#main #header #logo img {
+#logo {
+	float: left;
+}
+
+#logo img {
 	border: 0;
 }
 
-#main #header #user {
-	margin-left: 90%;
+#header #user {
+	float: left;
+	margin-left: 300px;
 }
 
-#main #header #user #name {
+#header #user #name {
 	font-weight: bold;
+}
+
+#errors {
+	clear: both;	
+}
+
+.separador {
+	clear: both;
 }

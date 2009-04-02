@@ -60,14 +60,8 @@
          <a href="<c:url value="/"/>"><img src="<c:url value="/images/logo.png"/>" alt="calopsita" /></a>
        </div>
 	   <div id="user">
-        <c:if test="${empty currentUser}">
-          <a href="<c:url value="/"/>">Home</a>
-          <a href="<c:url value="/user/formSignUp/"/>">Sign Up</a>
-        </c:if>
         <c:if test="${not empty currentUser}">
           <div class="name">${currentUser.login}</div> 
-          <a href="<c:url value="/project/form/"/>">New Project</a>
-          <a href="<c:url value="/project/list/"/>">List Projects</a>
           <a href="<c:url value="/user/logout/"/>">Logout</a>
         </c:if>
       </div>
