@@ -49,7 +49,7 @@ public class WhenActions {
     }
 
     public void iListProjects() {
-    	iClickOn("List Projects");
+    	browser.open("/calopsita/project/list");
     }
 
     public void iAddTheProject(String name) {
@@ -61,8 +61,8 @@ public class WhenActions {
     }
 
 	public void iOpenProjectPageOf(String projectName) {
-		browser.currentPage().navigate("link=List Projects");
-		browser.currentPage().navigate("link=" + projectName);
+		iListProjects();
+		iClickOn(projectName);
 	}
 
 	public WhenActions iAdd(String user) {
@@ -89,7 +89,7 @@ public class WhenActions {
 	}
 
 	public void withDescription(String description) {
-		browser.currentPage().navigate("link=Add Story");
+		iClickOn("Add Story");
 		browser.currentPage()
 			.form("addStory")
 				.field("story.name").type(storyName)
@@ -98,7 +98,7 @@ public class WhenActions {
 	}
 
 	public WhenActions iEditTheStory(String storyName) {
-		browser.currentPage().navigate("link=" + storyName);
+		iClickOn(storyName);
 		return this;
 	}
 
@@ -114,7 +114,7 @@ public class WhenActions {
     }
 
     public WhenActions withStartDate(String date) {
-        browser.currentPage().navigate("link=Add Iteration");
+    	iClickOn("Add Iteration");
         browser.currentPage()
             .form("addIteration")
                 .field("iteration.goal").type(iterationGoal)

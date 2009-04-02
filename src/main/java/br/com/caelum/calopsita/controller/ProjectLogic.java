@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.vraptor.annotations.Component;
