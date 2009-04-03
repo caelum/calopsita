@@ -57,7 +57,11 @@ public class Iteration implements Identifiable {
     }
 
     public void setStartDate(String startDate) throws ParseException {
-        this.startDate = new DateTime(new SimpleDateFormat("dd/MM/yyyy").parse(startDate));
+    	if (startDate != null && !startDate.isEmpty()) {
+			this.startDate = new DateTime(new SimpleDateFormat("dd/MM/yyyy").parse(startDate));
+		} else {
+			this.startDate = null;
+		}
     }
 
     public DateTime getEndDate() {
@@ -65,6 +69,10 @@ public class Iteration implements Identifiable {
     }
 
     public void setEndDate(String endDate) throws ParseException {
-        this.endDate = new DateTime(new SimpleDateFormat("dd/MM/yyyy").parse(endDate));
+    	if (endDate != null && !endDate.isEmpty()) {
+			this.endDate = new DateTime(new SimpleDateFormat("dd/MM/yyyy").parse(endDate));
+		} else {
+			this.endDate = null;
+		}
     }
 }
