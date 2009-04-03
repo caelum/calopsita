@@ -12,6 +12,7 @@ import org.junit.Test;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.StoryRepository;
 
 public class StoryTest {
@@ -26,7 +27,14 @@ public class StoryTest {
         mockery = new Mockery();
         repository = mockery.mock(StoryRepository.class);
         currentUser = new User();
-		logic = new StoryLogic(currentUser, repository, null);
+		final ProjectRepository projectRepository = mockery.mock(ProjectRepository.class);
+		
+		mockery.checking(new Expectations() {
+			{
+				allowing(projectRepository);
+			}
+		});
+		logic = new StoryLogic(currentUser, repository, projectRepository);
     }
 
     @After

@@ -88,13 +88,14 @@ public class WhenActions {
 		return this;
 	}
 
-	public void withDescription(String description) {
+	public void withDescription(String description) throws InterruptedException {
 		iClickOn("Add Story");
 		browser.currentPage()
 			.form("addStory")
 				.field("story.name").type(storyName)
 				.field("story.description").type(description)
 				.submit();
+		browser.currentPage().waitUntil("$('#story').is(':hidden')", 1000);
 	}
 
 	public WhenActions iEditTheStory(String storyName) {
