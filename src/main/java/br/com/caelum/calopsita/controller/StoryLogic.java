@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.controller;
 
+import java.util.List;
+
 import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
 
@@ -9,6 +11,7 @@ import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.StoryRepository;
 
 @Component
@@ -18,10 +21,13 @@ public class StoryLogic {
 	private final StoryRepository repository;
 	private Project project;
 	private final User currentUser;
+	private final ProjectRepository projectRepository;
+	private List<Story> stories;
 
-	public StoryLogic(User user, StoryRepository repository) {
+	public StoryLogic(User user, StoryRepository repository, ProjectRepository projectRepository) {
 		this.currentUser = user;
 		this.repository = repository;
+		this.projectRepository = projectRepository;
 	}
 
 	public void save(Story story, Project project) {
@@ -29,6 +35,7 @@ public class StoryLogic {
 		story.setProject(project);
 		story.setOwner(currentUser);
 		repository.add(story);
+		this.stories = this.projectRepository.listStoriesFrom(project);
 	}
 
 	public void update(Story story) {
@@ -37,6 +44,11 @@ public class StoryLogic {
 		managedStory.setName(story.getName());
 		managedStory.setDescription(story.getDescription());
 		repository.update(managedStory);
+		this.stories = this.projectRepository.listStoriesFrom(project);
+	}
+	
+	public List<Story> getStories() {
+		return stories;
 	}
 	
 	public Project getProject() {

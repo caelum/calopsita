@@ -26,27 +26,26 @@
     </ul>
   </div>
 </c:if>
-<c:if test="${not empty stories}">
-	<div id="stories">
-		<h2>Stories:</h2>
-		<ul>
-			<c:forEach items="${stories}" var="story">
-				<li><a href="javascript:toggle('story_edit_${story.id }');">${story.name }</a> - ${story.description }<br />
-					<div id="story_edit_${story.id }" style="display: none;">
-						<form name="editStory" action="<c:url value='/story/update/' />" method="post">
-							<input type="hidden" name="story.id" value="${story.id }"/>
-							<input type="hidden" name="project.id" value="${project.id }"/>
-							<p>Name: <input type="text" name="story.name" value="${story.name }"/></p>
-							<p>Description: <textarea name="story.description" >${story.description }</textarea></p>
-							<p> <input class="buttons" type="submit" value="Update"/>
-								<input class="buttons" type="button" value="Cancel" onclick="toggle('story_edit_${story.id }');"/></p>
-						</form>
-					</div>
-				</li>
-			</c:forEach>
-		</ul>
-	</div>
-</c:if>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('form[name="addStory"]').submit(function() {
+			
+			$(this).ajaxSubmit({
+				target : '#stories',
+				success : function () {
+					toggle('story');
+					$('#story').clearForm();
+				}
+			});
+			return false;
+		});
+	});
+</script>
+<div id="stories">
+	<c:if test="${not empty stories}">
+		<%@include file="../story/update.ok.jsp" %>
+	</c:if>
+</div>
 <a href="javascript:toggle('story')">Add Story</a><br/>
 
 <div id="story" style="display: none;">

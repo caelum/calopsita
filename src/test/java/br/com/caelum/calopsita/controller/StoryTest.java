@@ -26,7 +26,7 @@ public class StoryTest {
         mockery = new Mockery();
         repository = mockery.mock(StoryRepository.class);
         currentUser = new User();
-		logic = new StoryLogic(currentUser, repository);
+		logic = new StoryLogic(currentUser, repository, null);
     }
 
     @After
