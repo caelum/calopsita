@@ -19,6 +19,7 @@ public class StoryTest {
     private StoryLogic logic;
 	private StoryRepository repository;
 	private User currentUser;
+	private Story currentStory;
 
     @Before
     public void setUp() throws Exception {
@@ -35,8 +36,8 @@ public class StoryTest {
 
     @Test
 	public void savingAStory() throws Exception {
+    	Project project = givenAProject();
 		Story story = givenAStory();
-		Project project = givenAProject();
 	
 		shouldSaveOnTheRepositoryTheStory(story);
 		
@@ -46,14 +47,77 @@ public class StoryTest {
 		assertThat(story.getOwner(), is(currentUser));
 	}
 
-    
-	private void shouldSaveOnTheRepositoryTheStory(final Story story) {
+    @Test
+	public void editingAStorysDescription() throws Exception {
+    	Story story = givenAStory();
+    	givenTheStory(story).withName("Huck Finn")
+    						.withDescription("He is Tom Sawyer's best mate.");
+
+    	Story loadedStory = shouldLoadTheStory(story);
+    	shouldUpdateOnTheRepositoryTheStory(loadedStory);
 		
+    	whenIEditTheStory(story, changingNameTo("Huckleberry Finn"), changingDescriptionTo("He has a drunk father."));
+		
+		assertThat(loadedStory.getName(), is("Huckleberry Finn"));
+		assertThat(loadedStory.getDescription(), is("He has a drunk father."));
+	}
+
+	private StoryTest givenTheStory(Story story) {
+		currentStory = story;
+		return this;
+	}
+
+	private StoryTest withName(String storyName) {
+		currentStory.setName(storyName);
+		return this;
+	}
+
+	private StoryTest withDescription(String storyDescription) {
+		currentStory.setDescription(storyDescription);
+		return this;
+	}
+	
+	private Story shouldLoadTheStory(final Story story) {
+		final Story newStory = new Story();
+		
+		mockery.checking(new Expectations() {
+			{
+				one(repository).load(story);
+				will(returnValue(newStory));
+			}
+		});
+		return newStory;
+	}
+	
+	private void shouldUpdateOnTheRepositoryTheStory(final Story story) {
+		mockery.checking(new Expectations() {
+			{
+				one(repository).update(story);
+			}
+		});
+	}
+	
+	private String changingNameTo(String storyName) {
+		return storyName;
+	}
+	
+	private String changingDescriptionTo(String newDescription) {
+		return newDescription;
+	}
+	
+	private void whenIEditTheStory(Story story, String newName, String newDescription) {
+		story.setName(newName);
+		story.setDescription(newDescription);
+		logic.update(story);
+	}
+	
+	private void shouldSaveOnTheRepositoryTheStory(final Story story) {
 		mockery.checking(new Expectations() {
 			{
 				one(repository).add(story);
 			}
 		});
+		
 	}
 
 	private Project onThe(Project project) {

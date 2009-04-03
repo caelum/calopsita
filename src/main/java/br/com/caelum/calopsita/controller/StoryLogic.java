@@ -31,9 +31,9 @@ public class StoryLogic {
 		repository.add(story);
 	}
 
-	public void update(Story story, Project project) {
-		this.project = project;
+	public void update(Story story) {
 		Story managedStory = repository.load(story);
+		this.project = managedStory.getProject();
 		managedStory.setName(story.getName());
 		managedStory.setDescription(story.getDescription());
 		repository.update(managedStory);

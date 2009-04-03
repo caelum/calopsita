@@ -60,4 +60,5 @@ public class Story implements Identifiable {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
+
 }
