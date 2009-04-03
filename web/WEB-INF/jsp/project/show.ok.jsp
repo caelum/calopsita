@@ -47,7 +47,7 @@
 		</ul>
 	</div>
 </c:if>
-<a href="javascript:toggle('story')">Add Story</a>
+<a href="javascript:toggle('story')">Add Story</a><br/>
 
 <div id="story" style="display: none;">
 	<form name="addStory" action="<c:url value="/story/save/"/>" method="post">
@@ -58,7 +58,7 @@
 	  	<input class="buttons" type="button" value="Cancel" onclick="toggle('story');"/></p>
 	</form>
 </div>
-<a href="javascript:toggle('colaborator')">Add Colaborator</a>
+<a href="javascript:toggle('colaborator')">Add Colaborator</a><br/>
 <div id="colaborator" style="display: none;">
 	<form name="addColaborator" action="<c:url value="/add/colaborator/"/>" method="post">
 		<input type="hidden" name="project.id" value="${project.id }" />
@@ -72,7 +72,7 @@
 	</form>
 </div>
 
-<a href="javascript:toggle('iteration')">Add Iteration</a>
+<a href="javascript:toggle('iteration')">Add Iteration</a><br/>
 <div id="iteration" style="display: none;">
   <form name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
     <input type="hidden" name="project.id" value="${project.id }" />

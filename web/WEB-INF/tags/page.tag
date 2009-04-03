@@ -26,7 +26,7 @@
 	<meta name="keywords" content="<c:out value="${keywords}" default="${defaultKeywords}"/>" />
   
     <title>${title} ${fn:startsWith(title, 'Calopsita - Gerenciamento de softwares para equipes ágeis')?'': '- Calopsita - Gerenciamento de softwares para equipes ágeis'}</title>
-    <script type="text/javascript" src="<c:url value="/javascript/jquery-1.2.3.min.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/javascript/jquery-1.2.6.min.js"/>"></script>
     <script type="text/javascript" src="<c:url value="/javascript/jquery.validate.min.js"/>"></script>
     
     <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/css/index.css"/>" />
@@ -48,7 +48,7 @@
           equalTo: "<fmt:message key="validation.equalTo" />"
       });
       function toggle(id) {
-   		$("#" + id).toggle();
+   		$("#" + id).slideToggle("normal");
    	  }
     </script>
 </head>
