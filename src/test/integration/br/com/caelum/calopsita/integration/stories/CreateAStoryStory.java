@@ -27,7 +27,7 @@ public class CreateAStoryStory extends DefaultStory {
 		given.thereIsAnUserNamed("Sonson");
 		given.thereIsAProjectNamed("OpenMeetings")
 			 .ownedBy("Sonson")
-			 .withStoryNamed("Cinderella")
+			 .withAStoryNamed("Cinderella")
 			 .whichDescriptionIs("She loses her shoe.");
 		given.iAmLoggedInAs("Sonson");
 		

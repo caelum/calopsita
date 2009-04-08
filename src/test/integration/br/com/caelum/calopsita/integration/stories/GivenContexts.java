@@ -26,7 +26,7 @@ public class GivenContexts {
         browser.open("/calopsita");
     }
 
-    public void thereIsAnUserNamed(String login) {
+    public GivenContexts thereIsAnUserNamed(String login) {
         User user = new User();
         user.setLogin(login);
         user.setEmail(login + "@caelum.com.br");
@@ -34,8 +34,12 @@ public class GivenContexts {
         user.setPassword(login);
         session.saveOrUpdate(user);
         session.flush();
+        return this;
     }
 
+    public GivenContexts and() {
+    	return this;
+    }
     public void iAmLoggedInAs(String login) {
         iAmOnTheRootPage();
         Page currentPage = browser.currentPage();
@@ -82,18 +86,24 @@ public class GivenContexts {
         session.flush();
 	}
 
-	public GivenContexts withStoryNamed(String storyName) {
+	public GivenContexts withAStoryNamed(String storyName) {
 		this.storyName = storyName;
 		return this;
 	}
 
-	public void whichDescriptionIs(String storyDescription) {
+	public GivenContexts whichDescriptionIs(String storyDescription) {
 		Story story = new Story();
 		story.setName(storyName);
 		story.setDescription(storyDescription);
 		story.setProject(project);
 		session.save(story);
 		session.flush();
+		return this;
+	}
+
+	public GivenContexts withAnIterationWhichGoalIs(String goal) {
+		// TODO
+		return null;
 	}
 
 }

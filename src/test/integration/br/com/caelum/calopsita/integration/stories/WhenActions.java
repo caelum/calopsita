@@ -60,9 +60,10 @@ public class WhenActions {
         form.submit();
     }
 
-	public void iOpenProjectPageOf(String projectName) {
+	public WhenActions iOpenProjectPageOf(String projectName) {
 		iListProjects();
 		iClickOn(projectName);
+		return this;
 	}
 
 	public WhenActions iAdd(String user) {
@@ -129,5 +130,14 @@ public class WhenActions {
             .field("iteration.endDate").type(date)
             .submit();
     }
+
+	public WhenActions iOpenThePageOfIterationWithGoal(String string) {
+		// TODO Auto-generated method stub
+		return this;
+	}
+	
+	public WhenActions and() {
+		return this;
+	}
 
 }
