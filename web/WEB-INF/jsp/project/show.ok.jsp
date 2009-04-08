@@ -76,8 +76,8 @@
   <form id="addIteration" name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
     <input type="hidden" name="project.id" value="${project.id }" />
     <p>Goal: <input type="text" name="iteration.goal"/></p>
-	<p>Start Date: <input type="text" name="iteration.startDate"/></p>
-    <p>End Date: <input type="text" name="iteration.endDate"/></p>
+	<p>Start Date: <input type="text" name="iteration.startDate" class="datepicker"/></p>
+    <p>End Date: <input type="text" name="iteration.endDate" class="datepicker"/></p>
 	<p><input type="submit" value="Add"/>
 	   <input class="buttons" type="button" value="Cancel" onclick="toggle('iteration');"/></p>
   </form>
