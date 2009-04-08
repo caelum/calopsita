@@ -95,7 +95,7 @@ public class WhenActions {
 				.field("story.name").type(storyName)
 				.field("story.description").type(description)
 				.submit();
-		browser.currentPage().waitUntil("$('#story').is(':hidden')", 1000);
+		browser.currentPage().waitUntil("!($('#stories').is(':empty'))", 1000);
 	}
 
 	public WhenActions iEditTheStory(String storyName) {
