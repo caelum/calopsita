@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Project" bodyClass="project" css="/css/project.css">
+<calopsita:page title="Project" bodyClass="project" javascript="/javascript/project.js" css="/css/project.css">
 
 <div id="project">
     <p>Name: ${project.name}</p>
@@ -49,7 +49,7 @@
 <a href="javascript:toggle('story')">Add Story</a><br/>
 
 <div id="story" style="display: none;">
-	<form name="addStory" action="<c:url value="/story/save/"/>" method="post">
+	<form id="addStory" name="addStory" action="<c:url value="/story/save/"/>" method="post">
 		<input type="hidden" name="project.id" value="${project.id }" />
 	  <p>Name: <input type="text" name="story.name"/></p>
 	  <p>Description: <textarea name="story.description"></textarea></p>
@@ -59,7 +59,7 @@
 </div>
 <a href="javascript:toggle('colaborator')">Add Colaborator</a><br/>
 <div id="colaborator" style="display: none;">
-	<form name="addColaborator" action="<c:url value="/add/colaborator/"/>" method="post">
+	<form id="addColaborator" name="addColaborator" action="<c:url value="/add/colaborator/"/>" method="post">
 		<input type="hidden" name="project.id" value="${project.id }" />
 		<select name="colaborator.login">
 			<c:forEach items="${users}" var="user">
@@ -73,7 +73,7 @@
 
 <a href="javascript:toggle('iteration')">Add Iteration</a><br/>
 <div id="iteration" style="display: none;">
-  <form name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
+  <form id="addIteration" name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
     <input type="hidden" name="project.id" value="${project.id }" />
     <p>Goal: <input type="text" name="iteration.goal"/></p>
 	<p>Start Date: <input type="text" name="iteration.startDate"/></p>

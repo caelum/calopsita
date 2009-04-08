@@ -23,6 +23,10 @@ textarea {
   height: 80px;
 }
 
+textarea.error {
+  border: 2px solid red;
+}
+
 p { 
   clear: both;
 }

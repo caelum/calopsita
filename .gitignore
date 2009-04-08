@@ -11,3 +11,4 @@ target/*
 *.ser
 *.DS_Store
 build/classes/*
+junitvmwatcher*.properties

@@ -1,10 +1,10 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="User" bodyClass="user" javascript="/javascript/jquery.validate.min.js,/javascript/user.js" css="/css/user.css">
+<calopsita:page title="User" bodyClass="user" javascript="/javascript/user.js" css="/css/user.css">
 
 <div id="signUp">
 	Already on Calopsita? <a href="<c:url value="/"/>">Sign in</a>
 
-	<form name="signUp" action="<c:url value="/user/save/"/>" method="post">
+	<form id="form" name="signUp" action="<c:url value="/user/save/"/>" method="post">
 	  <p>
 	    <label for="user.name">Name</label>
 	    <em>*</em><input type="text" name="user.name"/>
