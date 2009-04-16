@@ -142,9 +142,12 @@ public class WhenActions {
 		return this;
 	}
 
+	public void iChangeTheUrlToCalopsitasRoot() {
+		browser.open("/calopsita/");
+	}
+	
 	public void inThisIteration() {
 		browser.currentPage().click(storyName);
 		browser.currentPage().navigate("add-story");
 	}
-
 }

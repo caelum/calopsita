@@ -1,7 +1,7 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
@@ -23,22 +23,22 @@ public class ThenAsserts {
 
     public void iMustBeLoggedInAs(String login) {
         ContentTag div = this.browser.currentPage().div("user");
-        assertThat(div, containsString(login));
-        assertThat(div, containsString("Logout"));
+        assertThat(div, divContainsString(login));
+        assertThat(div, divContainsString("Logout"));
     }
 
     public void iShouldSeeTheError(String error) {
-        assertThat(browser.currentPage().div("errors"), containsString(error));
+        assertThat(browser.currentPage().div("errors"), divContainsString(error));
     }
 
     public void iMustNotBeLoggedIn() {
-        assertThat(this.browser.currentPage().div("login"), containsString("Login"));
+        assertThat(this.browser.currentPage().div("login"), divContainsString("Login"));
     }
 
     public void iAmBackToLoginPage() {
         ContentTag div = this.browser.currentPage().div("login");
-        assertThat(div, containsString("Login"));
-        assertThat(div, containsString("Password"));
+        assertThat(div, divContainsString("Login"));
+        assertThat(div, divContainsString("Password"));
     }
 
     public ThenAsserts project(String projectName) {
@@ -48,28 +48,28 @@ public class ThenAsserts {
     }
 
     public void appearsOnList() {
-        assertThat(this.browser.currentPage().div(divName), containsString(name));
+        assertThat(this.browser.currentPage().div(divName), divContainsString(name));
     }
 
 	public void thisUserAppearsOnColaboratorsList(String userName) {
-		assertThat(this.browser.currentPage().div("colaborators"), containsString(userName));
+		assertThat(this.browser.currentPage().div("colaborators"), divContainsString(userName));
 	}
 
     public void notAppearsOnList() {
-        assertThat(this.browser.currentPage().div("projects"), not(containsString(name)));
+        assertThat(this.browser.currentPage().div("projects"), not(divContainsString(name)));
     }
 
 	public void iAmNotAllowedToSeeTheProject() {
-		assertThat(this.browser.currentPage().div("index"), containsString("not allowed to see this project"));
+		assertThat(this.browser.currentPage().div("index"), divContainsString("not allowed to see this project"));
 	}
 
 	public void appearsOnScreen() {
-		assertThat(browser.currentPage().div("project"), containsString(name));
+		assertThat(browser.currentPage().div("project"), divContainsString(name));
 	}
 	
 
 	@Factory
-	public static Matcher<ContentTag> containsString(final String string) {
+	public static Matcher<ContentTag> divContainsString(final String string) {
 		return new TypeSafeMatcher<ContentTag>() {
 			private String innerHTML;
 			@Override
@@ -94,7 +94,7 @@ public class ThenAsserts {
 	}
 
 	public void hasDescription(String storyDescription) {
-		assertThat(browser.currentPage().div("stories"), containsString(storyDescription));
+		assertThat(browser.currentPage().div("stories"), divContainsString(storyDescription));
 	}
 
 	public ThenAsserts theIteration(String iterationGoal) {
@@ -103,13 +103,17 @@ public class ThenAsserts {
         return this;
     }
 
+	public void iMustBeInMyMainPage() {
+		assertThat(browser.currentPage().title(), containsString("Project"));
+	}
+	
 	public ThenAsserts appearsOnStoriesListAtPosition(int i) {
-		assertThat(browser.currentPage().div("stories"+i), containsString(name));
+		assertThat(browser.currentPage().div("stories"+i), divContainsString(name));
 		return this;
 	}
 	
 	public ThenAsserts appearsOnOtherStoriesListAtPosition(int i) {
-		assertThat(browser.currentPage().div("otherStories"+i), containsString(name));
+		assertThat(browser.currentPage().div("otherStories"+i), divContainsString(name));
 		return this;
 	}
 }
