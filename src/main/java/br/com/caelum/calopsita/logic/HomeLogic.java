@@ -1,4 +1,4 @@
-package br.com.caelum.calopsita.controller;
+package br.com.caelum.calopsita.logic;
 
 import org.vraptor.annotations.Component;
 

@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.calopsita.logic.IterationLogic;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.IterationRepository;
