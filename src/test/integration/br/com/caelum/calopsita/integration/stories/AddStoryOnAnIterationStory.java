@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -13,7 +12,6 @@ import org.junit.Test;
 public class AddStoryOnAnIterationStory extends DefaultStory {
 	
 	@Test
-	@Ignore
 	public void addAStoryInAnIteration() {
 		given.thereIsAnUserNamed("sergio").and()
 			.thereIsAProjectNamed("IEs4Linux")
@@ -23,7 +21,7 @@ public class AddStoryOnAnIterationStory extends DefaultStory {
 			.iAmLoggedInAs("sergio");
 		when.iOpenProjectPageOf("IEs4Linux").and()
 			.iOpenThePageOfIterationWithGoal("new release").and()
-			.iAddTheStory("support IE8");
+			.iAddTheStory("support IE8").inThisIteration();
 		then.theStory("support IE8").appearsOnList();
 	}
 }

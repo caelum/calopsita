@@ -104,8 +104,12 @@ public class GivenContexts {
 	}
 
 	public GivenContexts withAnIterationWhichGoalIs(String goal) {
-		// TODO
-		return null;
+		Iteration iteration = new Iteration();
+		iteration.setGoal(goal);
+		iteration.setProject(project);
+		session.save(iteration);
+		session.flush();
+		return this;
 	}
 
 	public GivenContexts withPriority(int priority) {
