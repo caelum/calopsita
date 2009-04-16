@@ -3,6 +3,8 @@ package br.com.caelum.calopsita.controller;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.After;
@@ -12,6 +14,7 @@ import org.junit.Test;
 import br.com.caelum.calopsita.logic.IterationLogic;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.StoryRepository;
 
@@ -46,7 +49,38 @@ public class IterationTest {
         assertThat(iteration.getProject(), is(project));
     }
 
-    private void shouldSaveOnTheRepositoryTheIteration(final Iteration iteration) {
+    @Test
+	public void addingAStoryInAnIteration() throws Exception {
+		Iteration iteration = givenAnIteration();
+		Story story = givenAStory();
+		
+		shouldUpdateTheStory(story);
+		
+		whenIAddTheStoryToIteration(story, iteration);
+		
+		assertThat(story.getIteration(), is(iteration));
+	}
+    private void shouldUpdateTheStory(final Story story) {
+    	
+		mockery.checking(new Expectations() {
+			{
+				one(storyRepository).update(story);
+				
+				one(storyRepository).load(story);
+				will(returnValue(story));
+			}
+		});
+	}
+
+	private void whenIAddTheStoryToIteration(Story story, Iteration iteration) {
+    	logic.addStories(iteration, Arrays.asList(story));
+	}
+
+	private Story givenAStory() {
+		return new Story();
+	}
+
+	private void shouldSaveOnTheRepositoryTheIteration(final Iteration iteration) {
         
         mockery.checking(new Expectations() {
             {
