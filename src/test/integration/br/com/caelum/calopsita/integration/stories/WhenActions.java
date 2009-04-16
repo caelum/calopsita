@@ -41,7 +41,7 @@ public class WhenActions {
     }
 
     public void iClickOn(String link) {
-        browser.currentPage().navigateLink(link);
+        browser.currentPage().clickLink(link);
     }
 
     public void iOpenProjectPageDirectly() {
@@ -142,6 +142,8 @@ public class WhenActions {
 	}
 
 	public void inThisIteration() {
+		browser.currentPage().click(storyName);
+		browser.currentPage().navigate("add-story");
 	}
 
 }

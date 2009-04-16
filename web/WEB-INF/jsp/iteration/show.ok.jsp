@@ -17,6 +17,16 @@
 			filter:'li'
 		});
 	});
+	
+	function add_stories() {
+		var params = "";
+		$('#otherStories .ui-selected').each(function(c, e) {
+			params = params + 'stories[' + c + '].id=' + $('.hidden', e).text() + '&';
+		});
+		params = params + 'iteration.id=' + ${iteration.id};
+
+		window.location = '<c:url value="/iteration/addStories/"/>?' + params;
+	}
 </script>
 <div id="stories">
 	<c:if test="${not empty iteration.stories}">
@@ -34,11 +44,11 @@
 
 		<ul id="otherStories" class="selectable">
 			<c:forEach items="${otherStories}" var="story">
-				<li>${story.name }</li>
+				<li name="${story.name }">${story.name }<span class="hidden">${story.id }</span></li>
 			</c:forEach>
 		</ul>
+		<input id="add-story" type="button" value="Add" onclick="add_stories()"/>
 	</c:if>
-	<input id="add-story" type="button" value="Add" onclick="add_stories()"/>
 </div>
 
 <a href="<c:url value="/project/show/${iteration.project.id }/"/>">Back</a>

@@ -20,6 +20,9 @@
 	border-width: thin;
 	border-style: solid;
 }
+.hidden {
+	display: none;	
+}
 
 .selectable li {
 	margin: 3px;
