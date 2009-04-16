@@ -41,7 +41,7 @@ public class WhenActions {
     }
 
     public void iClickOn(String link) {
-        browser.currentPage().navigate("link=" + link);
+        browser.currentPage().clickLink(link);
     }
 
     public void iOpenProjectPageDirectly() {
@@ -72,16 +72,18 @@ public class WhenActions {
 	}
 
 	public void asColaborator() {
-		browser.currentPage().navigate("link=Add Colaborator")
+		iClickOn("Add Colaborator");
+		browser.currentPage()
 			.form("addColaborator")
 				.select("colaborator.login").choose(user)
 				.submit();
 	}
 
-	public void iDirectlyOpenProjectPageOf(String projectName) {
+	public WhenActions iDirectlyOpenProjectPageOf(String projectName) {
 		Long id = (Long) session.createQuery("select id from Project p where p.name = :name")
 			.setParameter("name", projectName).setMaxResults(1).uniqueResult();
 		browser.open("/calopsita/project/show/" + id + "/");
+		return this;
 	}
 
 	public WhenActions iAddTheStory(String storyName) {
@@ -126,13 +128,13 @@ public class WhenActions {
 
     public void withEndDate(String date) {
         browser.currentPage()
-        .form("addIteration")
-            .field("iteration.endDate").type(date)
-            .submit();
+	        .form("addIteration")
+	            .field("iteration.endDate").type(date)
+	            .submit();
     }
 
-	public WhenActions iOpenThePageOfIterationWithGoal(String string) {
-		// TODO Auto-generated method stub
+	public WhenActions iOpenThePageOfIterationWithGoal(String goal) {
+		iClickOn(goal);
 		return this;
 	}
 	
@@ -143,5 +145,9 @@ public class WhenActions {
 	public void iChangeTheUrlToCalopsitasRoot() {
 		browser.open("/calopsita/");
 	}
-
+	
+	public void inThisIteration() {
+		browser.currentPage().click(storyName);
+		browser.currentPage().navigate("add-story");
+	}
 }

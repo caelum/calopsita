@@ -1,0 +1,35 @@
+#feedback {
+	font-size: 1.4em;
+}
+
+.ui-selecting {
+	background: #FECA40;
+}
+
+.ui-selected {
+	background: #F39814;
+	color: white;
+}
+
+.selectable {
+	list-style-type: none;
+	margin: 0;
+	padding: 10px;
+	width: 50%;
+	border-color: gray;
+	border-width: thin;
+	border-style: solid;
+}
+.hidden {
+	display: none;	
+}
+
+.selectable li {
+	margin: 3px;
+	padding: 0.4em;
+	font-size: 1.4em;
+	height: 18px;
+	border-style: solid;
+	border-width: thin;
+	border-color: gray;
+}

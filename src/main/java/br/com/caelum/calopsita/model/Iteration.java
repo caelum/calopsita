@@ -2,11 +2,15 @@ package br.com.caelum.calopsita.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -21,6 +25,10 @@ public class Iteration implements Identifiable {
     private Project project;
 
     private String goal;
+    
+    @OneToMany(mappedBy="iteration")
+    @OrderBy("priority")
+    private List<Story> stories;
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
     private DateTime startDate;
@@ -75,4 +83,19 @@ public class Iteration implements Identifiable {
 			this.endDate = null;
 		}
     }
+    
+    public void addStory(Story story){
+    	if (this.stories == null) {
+    		this.stories = new ArrayList<Story>();
+    	}
+    	this.stories.add(story);
+    }
+
+	public void setStories(List<Story> stories) {
+		this.stories = stories;
+	}
+
+	public List<Story> getStories() {
+		return stories;
+	}
 }

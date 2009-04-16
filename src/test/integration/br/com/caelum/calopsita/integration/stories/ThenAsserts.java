@@ -106,4 +106,14 @@ public class ThenAsserts {
 	public void iMustBeInMyMainPage() {
 		assertThat(browser.currentPage().title(), containsString("Project"));
 	}
+	
+	public ThenAsserts appearsOnStoriesListAtPosition(int i) {
+		assertThat(browser.currentPage().div("stories"+i), divContainsString(name));
+		return this;
+	}
+	
+	public ThenAsserts appearsOnOtherStoriesListAtPosition(int i) {
+		assertThat(browser.currentPage().div("otherStories"+i), divContainsString(name));
+		return this;
+	}
 }

@@ -20,8 +20,13 @@ public class Story implements Identifiable {
 	private Project project;
 
 	@ManyToOne
-	private User owner;
+	private Iteration iteration;
 
+	@ManyToOne
+	private User owner;
+	
+	private int priority;
+	
 	public Long getId() {
 		return id;
 	}
@@ -59,6 +64,22 @@ public class Story implements Identifiable {
 	}
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+	
+	public void setIteration(Iteration iteration) {
+		this.iteration = iteration;
+	}
+
+	public Iteration getIteration() {
+		return iteration;
 	}
 
 }

@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.persistence.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Story;
@@ -29,6 +31,11 @@ public class StoryDao implements StoryRepository {
 	@Override
 	public void remove(Story story) {
 		session.delete(story);
+	}
+	
+	@Override
+	public List<Story> storiesWithoutIteration() {
+		return session.createQuery("from Story s where s.iteration is null order by priority").list();
 	}
 
 }

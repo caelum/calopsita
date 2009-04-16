@@ -40,11 +40,9 @@ $(document).ready( function() {
                 minlength :4
             },
             "iteration.startDate" : {
-                required :true,
                 date: true
             },
             "iteration.endDate" : {
-                required :true,
                 date: true
             }
         }

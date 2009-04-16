@@ -1,10 +1,11 @@
 # novas paginas
-/								=>  project.list
-/javascript/:{file}				==> /javascript/#{file}
-/project/show/:{project.id}/	=>  project.show
-/add/colaborator/				=> 	project.addColaborator
-/:{component}/:{logic}/			=> #{component}.#{logic}
-#/user/:{logic}/				=>  user.#{logic}
+/									=>  project.list
+/javascript/:{file}					==> /javascript/#{file}
+/project/show/:{project.id}/		=>  project.show
+/iteration/show/:{iteration.id}/	=>  iteration.show
+/add/colaborator/					=> 	project.addColaborator
+/:{component}/:{logic}/				=> #{component}.#{logic}
+#/user/:{logic}/					=>  user.#{logic}
 
 # Direto pro JSP
 #/:{pagina}/            ==> /WEB-INF/jsp/paginas/#{pagina}.jsp
