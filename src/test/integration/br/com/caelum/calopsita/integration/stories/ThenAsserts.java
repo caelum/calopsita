@@ -109,7 +109,7 @@ public class ThenAsserts {
 	}
 	
 	public ThenAsserts appearsOnOtherStoriesListAtPosition(int i) {
-		assertThat(browser.currentPage().div("otherStories"+i), containsString(name));
+		assertThat(browser.currentPage().div("backlog_"+i), containsString(name));
 		return this;
 	}
 }

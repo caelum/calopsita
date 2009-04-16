@@ -1,6 +1,6 @@
 <%@include file="../javascripts.jspf" %>
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(function() {
 		$('form[name="editStory"]').ajaxForm({
 			target : '#stories',
 			beforeSubmit: function () {
@@ -13,8 +13,8 @@
 
 <ul>
 	<c:forEach items="${stories}" var="story" varStatus="s">
-		<li class="ui-widget-content" id="stories${s.count}">
-			<div class="draggable_story">
+		<li id="stories${s.count}">
+			<div>
 				<a href="javascript:toggle('story_edit_${story.id }');">${story.name }</a> - ${story.description }<br />
 				<div id="story_edit_${story.id }" style="display: none;">
 					<form name="editStory" action="<c:url value='/story/update/' />" method="post">
