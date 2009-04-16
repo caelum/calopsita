@@ -49,6 +49,14 @@
 			accept: '.story',
 			drop: remove_stories
 		});
+		$('.dialog').dialog({
+			autoOpen: false,
+			bgiframe: true,
+			modal: true,
+			width: 'auto',
+			show: 'highlight',
+			hide: 'highlight'
+		});
 	};
 	$(prepare);
 	function get_params(div) {
@@ -78,13 +86,31 @@
 	function remove_stories() {
 		modifyStories('#stories', '<c:url value="/iteration/removeStories/"/>');
 	}
+	function show_help() {
+		$('#help').dialog('open');
+		return false;
+	}
+	function open_dialog(id) {
+		$('#dialog_' + id).dialog('open');
+	}
 </script>
+<div id="help" class="dialog" title="Adding and Removing Stories">
+	Drag and drop stories from backlog to Stories to add the stories to iteration. <br/>
+	Drag and drop stories from Stories to Backlog to remove the stories from the iteration. <br/>
+	You can select more than one story at time.
+</div>
 <div id="stories">
-	<h2>Stories</h2>
+	<h2>Stories <a href="#" onclick="return show_help()">?</a></h2>
 	<ol class="selectable">
 		<c:if test="${not empty iteration.stories}">
 			<c:forEach items="${iteration.stories}" var="story" varStatus="s">
-				<li class="story" id="stories_${s.count}" name="${story.name }">${story.name }<span class="hidden">${story.id }</span></li>
+				<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
+					${story.name }
+					<span class="hidden">${story.id }</span>
+					<div id="dialog_${story.id }" class="dialog" title="${story.name }">
+						${story.description }						
+					</div>
+				</li>
 			</c:forEach>
 		</c:if>
 		<input id="remove-story" type="button" value="Remove" style="display: none;" onclick="remove_stories()"/>
@@ -96,7 +122,13 @@
 	<ol class="selectable">
 		<c:if test="${not empty otherStories}">
 			<c:forEach items="${otherStories}" var="story" varStatus="s">
-				<li class="backlog_story" id="backlog_${s.count}" name="${story.name }">${story.name }<span class="hidden">${story.id }</span></li>
+				<li class="backlog_story" id="backlog_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
+					${story.name }
+					<span class="hidden">${story.id }</span>
+					<div id="dialog_${story.id }" class="dialog" title="${story.name }">
+						${story.description }						
+					</div>
+				</li>
 			</c:forEach>
 		</c:if>
 	</ol>
