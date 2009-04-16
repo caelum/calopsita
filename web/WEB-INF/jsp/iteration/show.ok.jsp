@@ -72,7 +72,7 @@
 		<h2>BackLog</h2>
 
 		<ol class="selectable">
-			<c:forEach items="${otherStories}" var="story">
+			<c:forEach items="${otherStories}" var="story" varStatus="s">
 				<li class="backlog_story" id="backlog_${s.count}" name="${story.name }">${story.name }<span class="hidden">${story.id }</span></li>
 			</c:forEach>
 		</ol>
