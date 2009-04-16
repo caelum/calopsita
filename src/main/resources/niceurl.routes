@@ -1,5 +1,5 @@
 # novas paginas
-/								=>  home.index
+/								=>  project.list
 /javascript/:{file}				==> /javascript/#{file}
 /project/show/:{project.id}/	=>  project.show
 /add/colaborator/				=> 	project.addColaborator

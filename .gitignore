@@ -12,3 +12,4 @@ target/*
 *.DS_Store
 build/classes/*
 junitvmwatcher*.properties
+bin/

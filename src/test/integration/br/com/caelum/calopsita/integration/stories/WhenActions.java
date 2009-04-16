@@ -140,4 +140,8 @@ public class WhenActions {
 		return this;
 	}
 
+	public void iChangeTheUrlToCalopsitasRoot() {
+		browser.open("/calopsita/");
+	}
+
 }

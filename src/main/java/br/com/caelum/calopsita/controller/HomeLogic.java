@@ -4,7 +4,7 @@ import org.vraptor.annotations.Component;
 
 @Component
 public class HomeLogic {
-    public void index() {
+    public void login() {
     }
     
     public void notAllowed() {
