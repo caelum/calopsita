@@ -11,9 +11,9 @@
 </script>
 <h2>Stories:</h2>
 
-<ul>
+<ol>
 	<c:forEach items="${stories}" var="story" varStatus="s">
-		<li id="stories${s.count}">
+		<li id="stories_${s.count}">
 			<div>
 				<a href="javascript:toggle('story_edit_${story.id }');">${story.name }</a> - ${story.description }<br />
 				<div id="story_edit_${story.id }" style="display: none;">
@@ -29,4 +29,4 @@
 			</div>
 		</li>
 	</c:forEach>
-</ul>
+</ol>

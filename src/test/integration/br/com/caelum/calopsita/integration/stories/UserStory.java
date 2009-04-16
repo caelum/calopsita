@@ -49,4 +49,14 @@ public class UserStory extends DefaultStory {
         when.iLogout();
         then.iMustNotBeLoggedIn();
     }
+    
+    
+	@Test
+	public void loggedUserAccessingRootDirectoryIsRedirectedToUserMainPage() {
+		given.thereIsAnUserNamed("adriano");
+		given.iAmLoggedInAs("adriano");
+		when.iChangeTheUrlToCalopsitasRoot();
+		then.iMustBeInMyMainPage();
+		then.iMustBeLoggedInAs("adriano");
+	}
 }

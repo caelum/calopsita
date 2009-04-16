@@ -19,6 +19,7 @@ public class GivenContexts {
     private Project project;
 	private String storyName;
 	private Story story;
+	private Iteration iteration;
 
     public GivenContexts(Browser browser, Session session) {
         this.browser = browser;
@@ -105,7 +106,7 @@ public class GivenContexts {
 	}
 
 	public GivenContexts withAnIterationWhichGoalIs(String goal) {
-		Iteration iteration = new Iteration();
+		iteration = new Iteration();
 		iteration.setGoal(goal);
 		iteration.setProject(project);
 		session.save(iteration);
@@ -120,13 +121,10 @@ public class GivenContexts {
 		return this;
 	}
 
-	public GivenContexts insideIterationWithGoal(String goal) {
-		IterationDao iterationDao = new IterationDao(session);
-		Iteration iteration = iterationDao.find(goal);
-		iteration.addStory(story);
-		session.save(iteration);
+	public GivenContexts insideThisIteration() {
+		story.setIteration(iteration);
+		session.saveOrUpdate(story);
 		session.flush();
-		
 		return this;
 	}
 

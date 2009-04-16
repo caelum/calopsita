@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.vraptor.validator.BasicValidationErrors;
 import org.vraptor.validator.ValidationErrors;
 
+import br.com.caelum.calopsita.logic.UserLogic;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 
