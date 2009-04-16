@@ -32,8 +32,8 @@
 	<c:if test="${not empty iteration.stories}">
 		<h3>Stories</h3>
 		<ul id="iterationStories" class="selectable">
-			<c:forEach items="${iteration.stories}" var="story">
-				<li>${story.name }</li>
+			<c:forEach items="${iteration.stories}" var="story" varStatus="s">
+				<li id="story${s.count}">${story.name }</li>
 			</c:forEach>
 		</ul>
 	</c:if>
@@ -44,7 +44,7 @@
 
 		<ul id="otherStories" class="selectable">
 			<c:forEach items="${otherStories}" var="story">
-				<li name="${story.name }">${story.name }<span class="hidden">${story.id }</span></li>
+				<li id="otherStories${s.count}" name="${story.name }">${story.name }<span class="hidden">${story.id }</span></li>
 			</c:forEach>
 		</ul>
 		<input id="add-story" type="button" value="Add" onclick="add_stories()"/>

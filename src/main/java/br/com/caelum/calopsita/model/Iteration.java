@@ -80,6 +80,10 @@ public class Iteration implements Identifiable {
 			this.endDate = null;
 		}
     }
+    
+    public void addStory(Story story){
+    	this.stories.add(story);
+    }
 
 	public void setStories(List<Story> stories) {
 		this.stories = stories;
