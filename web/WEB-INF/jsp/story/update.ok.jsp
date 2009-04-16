@@ -11,7 +11,7 @@
 </script>
 <h2>Stories:</h2>
 
-<ul>
+<ol>
 	<c:forEach items="${stories}" var="story" varStatus="s">
 		<li class="ui-widget-content" id="stories${s.count}">
 			<div class="draggable_story">
@@ -29,4 +29,4 @@
 			</div>
 		</li>
 	</c:forEach>
-</ul>
+</ol>
