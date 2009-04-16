@@ -21,7 +21,7 @@
     <h2>Iterations:</h2>
     <ul>
       <c:forEach items="${project.iterations}" var="iteration">
-        <li>${iteration.goal }</li>
+        <li><a href="<c:url value="/iteration/show/${iteration.id }/"/>">${iteration.goal }</a></li>
       </c:forEach>
     </ul>
   </div>

@@ -2,13 +2,10 @@ package br.com.caelum.calopsita.persistence.dao;
 
 import java.util.List;
 
-import br.com.caelum.calopsita.model.Project;
-
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
+import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 

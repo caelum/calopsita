@@ -20,6 +20,7 @@ public class IterationDao implements IterationRepository{
 
     @Override
     public void remove(Iteration iteration) {
+    	throw new IllegalStateException("Method not implemented");
     }
 
     @Override
@@ -32,4 +33,8 @@ public class IterationDao implements IterationRepository{
 		return (Iteration) this.session.createQuery("from Iteration where goal = :goal").setParameter("goal", goal).uniqueResult();
 	}
 
+    @Override
+    public Iteration load(Iteration iteration) {
+    	return (Iteration) session.load(Iteration.class, iteration.getId());
+    }
 }
