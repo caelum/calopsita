@@ -6,6 +6,7 @@ import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.persistence.dao.IterationDao;
 import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.Form;
@@ -119,8 +120,13 @@ public class GivenContexts {
 		return this;
 	}
 
-	public GivenContexts insideIterationWithGoal(String string) {
-		// TODO Auto-generated method stub
+	public GivenContexts insideIterationWithGoal(String goal) {
+		IterationDao iterationDao = new IterationDao(session);
+		Iteration iteration = iterationDao.find(goal);
+		//iteration.
+		session.save(iteration);
+		session.flush();
+		
 		return this;
 	}
 
