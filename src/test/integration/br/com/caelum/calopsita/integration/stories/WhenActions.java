@@ -148,7 +148,8 @@ public class WhenActions {
 	
 	public void inThisIteration() {
 		browser.currentPage().click(storyName);
-		browser.currentPage().navigate("add-story");
+		browser.currentPage().click("add-story");
+		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
 	}
 
 	public WhenActions iRemoveTheStory(String name) {
@@ -158,6 +159,7 @@ public class WhenActions {
 
 	public void ofThisIteration() {
 		browser.currentPage().click(storyName);
-		browser.currentPage().navigate("remove-story");
+		browser.currentPage().click("remove-story");
+		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
 	}
 }

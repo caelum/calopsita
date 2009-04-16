@@ -12,7 +12,7 @@
 </div>
 
 <script type="text/javascript">
-	$(function() {
+	function prepare() {
 		$('.selectable').selectable({
 			filter:'li'
 		});
@@ -49,25 +49,34 @@
 			accept: '.story',
 			drop: remove_stories
 		});
-	});
-	
-	function add_stories() {
-		var params = "";
-		$('#backlog .ui-selected').each(function(c, e) {
-			params = params + 'stories[' + c + '].id=' + $('.hidden', e).text() + '&';
+	};
+	$(prepare);
+	function get_params(div) {
+		var params = {};
+		$(div + ' .ui-selected').each(function(c, e) {
+			params['stories[' + c + '].id'] = $('.hidden', e).text();
 		});
-		params = params + 'iteration.id=' + ${iteration.id};
+		params['iteration.id']=${iteration.id};
+		return params;
+	}
+	function modifyStories(div, logic) {
+		var params = get_params(div);
 
-		window.location = '<c:url value="/iteration/addStories/"/>?' + params;
+		$.ajax({
+			url: logic,
+			data: params,
+			success: function(data) {
+				$('#stories ol').html($('#stories ol', data).html());
+				$('#backlog ol').html($('#backlog ol', data).html());
+				prepare();
+			}
+		});
+	}
+	function add_stories() {
+		modifyStories('#backlog', '<c:url value="/iteration/addStories/"/>');	
 	}
 	function remove_stories() {
-		var params = "";
-		$('#stories .ui-selected').each(function(c, e) {
-			params = params + 'stories[' + c + '].id=' + $('.hidden', e).text() + '&';
-		});
-		params = params + 'iteration.id=' + ${iteration.id};
-
-		window.location = '<c:url value="/iteration/removeStories/"/>?' + params;
+		modifyStories('#stories', '<c:url value="/iteration/removeStories/"/>');
 	}
 </script>
 <div id="stories">
