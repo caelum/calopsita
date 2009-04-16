@@ -4,7 +4,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
@@ -20,12 +22,18 @@ public class DefaultStory {
     private static SessionFactory sessionFactory;
     protected Session session;
     private Transaction transaction;
+	private static AnnotationConfiguration cfg;
 
     @BeforeClass
     public static void prepare() {
-        AnnotationConfiguration cfg = new AnnotationConfiguration().configure(DefaultStory.class
+        cfg = new AnnotationConfiguration().configure(DefaultStory.class
                 .getResource("/hibernate.cfg.test.xml"));
         sessionFactory = cfg.buildSessionFactory();
+    }
+    
+    @AfterClass
+    public static void destroy() {
+    	new SchemaExport(cfg).create(false, true); //clearing database
     }
 
     @Before

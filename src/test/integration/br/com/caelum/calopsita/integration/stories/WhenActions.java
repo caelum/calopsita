@@ -143,6 +143,8 @@ public class WhenActions {
 	}
 
 	public void inThisIteration() {
+		browser.currentPage().click(storyName);
+		browser.currentPage().navigate("add-story");
 	}
 
 }
