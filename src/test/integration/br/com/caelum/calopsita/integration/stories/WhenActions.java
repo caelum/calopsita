@@ -41,7 +41,7 @@ public class WhenActions {
     }
 
     public void iClickOn(String link) {
-        browser.currentPage().navigate("link=" + link);
+        browser.currentPage().navigateLink(link);
     }
 
     public void iOpenProjectPageDirectly() {
@@ -72,7 +72,8 @@ public class WhenActions {
 	}
 
 	public void asColaborator() {
-		browser.currentPage().navigate("link=Add Colaborator")
+		iClickOn("Add Colaborator");
+		browser.currentPage()
 			.form("addColaborator")
 				.select("colaborator.login").choose(user)
 				.submit();
@@ -126,18 +127,21 @@ public class WhenActions {
 
     public void withEndDate(String date) {
         browser.currentPage()
-        .form("addIteration")
-            .field("iteration.endDate").type(date)
-            .submit();
+	        .form("addIteration")
+	            .field("iteration.endDate").type(date)
+	            .submit();
     }
 
-	public WhenActions iOpenThePageOfIterationWithGoal(String string) {
-		// TODO Auto-generated method stub
+	public WhenActions iOpenThePageOfIterationWithGoal(String goal) {
+		iClickOn(goal);
 		return this;
 	}
 	
 	public WhenActions and() {
 		return this;
+	}
+
+	public void inThisIteration() {
 	}
 
 }
