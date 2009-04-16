@@ -117,4 +117,9 @@ public class ThenAsserts {
 		assertThat(browser.currentPage().div("backlog_"+i), divContainsString(name));
 		return this;
 	}
+
+	public void appearsOnBacklog() {
+		this.divName = "backlog";
+		appearsOnList();
+	}
 }

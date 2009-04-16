@@ -1,6 +1,7 @@
 package br.com.caelum.calopsita.controller;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
@@ -60,7 +61,39 @@ public class IterationTest {
 		
 		assertThat(story.getIteration(), is(iteration));
 	}
-    private void shouldUpdateTheStory(final Story story) {
+    @Test
+    public void removingAStoryOfAnIteration() throws Exception {
+    	Iteration iteration = givenAnIteration();
+    	Story story = givenAStory();
+    	
+    	Story loaded = givenLoadedStoryContainsIteration(story, iteration);
+    	
+    	whenIRemoveTheStoryOfIteration(story, iteration);
+
+    	assertThat(loaded.getIteration(), is(nullValue()));
+    }
+
+	private void whenIRemoveTheStoryOfIteration(Story story, Iteration iteration) {
+		logic.removeStories(iteration, Arrays.asList(story));
+	}
+
+	private Story givenLoadedStoryContainsIteration(final Story story, final Iteration iteration) {
+		final Story loaded = new Story();
+		
+		mockery.checking(new Expectations() {
+			{
+				loaded.setIteration(iteration);
+				
+				one(storyRepository).load(story);
+				will(returnValue(loaded));
+				
+				one(storyRepository).update(loaded);
+			}
+		});
+		return loaded;
+	}
+
+	private void shouldUpdateTheStory(final Story story) {
     	
 		mockery.checking(new Expectations() {
 			{

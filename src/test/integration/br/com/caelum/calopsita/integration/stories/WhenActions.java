@@ -150,4 +150,14 @@ public class WhenActions {
 		browser.currentPage().click(storyName);
 		browser.currentPage().navigate("add-story");
 	}
+
+	public WhenActions iRemoveTheStory(String name) {
+		this.storyName = name; 
+		return this;
+	}
+
+	public void ofThisIteration() {
+		browser.currentPage().click(storyName);
+		browser.currentPage().navigate("remove-story");
+	}
 }

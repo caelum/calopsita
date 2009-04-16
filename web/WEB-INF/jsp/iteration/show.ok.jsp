@@ -45,6 +45,10 @@
 			accept: '.backlog_story',
 			drop: add_stories
 		});
+		$('#backlog').droppable({
+			accept: '.story',
+			drop: remove_stories
+		});
 	});
 	
 	function add_stories() {
@@ -56,28 +60,38 @@
 
 		window.location = '<c:url value="/iteration/addStories/"/>?' + params;
 	}
+	function remove_stories() {
+		var params = "";
+		$('#stories .ui-selected').each(function(c, e) {
+			params = params + 'stories[' + c + '].id=' + $('.hidden', e).text() + '&';
+		});
+		params = params + 'iteration.id=' + ${iteration.id};
+
+		window.location = '<c:url value="/iteration/removeStories/"/>?' + params;
+	}
 </script>
 <div id="stories">
-	<c:if test="${not empty iteration.stories}">
-		<h3>Stories</h3>
-		<ol class="selectable">
+	<h2>Stories</h2>
+	<ol class="selectable">
+		<c:if test="${not empty iteration.stories}">
 			<c:forEach items="${iteration.stories}" var="story" varStatus="s">
-				<li id="stories_${s.count}">${story.name }</li>
+				<li class="story" id="stories_${s.count}" name="${story.name }">${story.name }<span class="hidden">${story.id }</span></li>
 			</c:forEach>
-		</ol>
-	</c:if>
+		</c:if>
+		<input id="remove-story" type="button" value="Remove" style="display: none;" onclick="remove_stories()"/>
+	</ol>
 </div>
 <div id="backlog">
-	<c:if test="${not empty otherStories}">
-		<h2>BackLog</h2>
+	<h2>BackLog</h2>
 
-		<ol class="selectable">
+	<ol class="selectable">
+		<c:if test="${not empty otherStories}">
 			<c:forEach items="${otherStories}" var="story" varStatus="s">
 				<li class="backlog_story" id="backlog_${s.count}" name="${story.name }">${story.name }<span class="hidden">${story.id }</span></li>
 			</c:forEach>
-		</ol>
-		<input id="add-story" type="button" value="Add" onclick="add_stories()"/>
-	</c:if>
+		</c:if>
+	</ol>
+	<input id="add-story" type="button" value="Add" style="display: none;" onclick="add_stories()"/>
 </div>
 
 <a href="<c:url value="/project/show/${iteration.project.id }/"/>">Back</a>

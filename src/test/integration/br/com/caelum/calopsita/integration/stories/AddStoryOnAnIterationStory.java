@@ -3,9 +3,9 @@ package br.com.caelum.calopsita.integration.stories;
 import org.junit.Test;
 
 /**
- * <b>In order to</b> organize my wok <br>
-* <b>As a</b> project owner <br>
-* <b>I want</b> to put existent stories in an iteration <br>
+ * <b>In order to</b> organize my work <br>
+ * <b>As a</b> project owner <br>
+ * <b>I want</b> to put existent stories in an iteration <br>
  * @author lucascs
  *
  */

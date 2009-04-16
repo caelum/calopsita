@@ -1,12 +1,14 @@
 package br.com.caelum.calopsita.integration.stories;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertThat;
+
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
-import br.com.caelum.calopsita.persistence.dao.IterationDao;
 import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.Form;
@@ -51,6 +53,8 @@ public class GivenContexts {
         form.field("user.login").type(login);
         form.field("user.password").type(login);
         form.submit();
+        
+		assertThat(browser.currentPage().div("user").innerHTML(), containsString(login));
     }
 
     public void iAmNotLogged() {

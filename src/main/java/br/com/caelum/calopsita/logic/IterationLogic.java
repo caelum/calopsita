@@ -49,6 +49,15 @@ public class IterationLogic {
     	this.iteration = iteration;
     	
     }
+
+    public void removeStories(Iteration iteration, List<Story> stories) {
+    	for (Story story : stories) {
+			Story loaded = storyRepository.load(story);
+			loaded.setIteration(null);
+			storyRepository.update(loaded);
+		}
+    	this.iteration = iteration;
+    }
     public Iteration getIteration() {
 		return iteration;
 	}
@@ -60,4 +69,5 @@ public class IterationLogic {
     public Project getProject() {
         return project;
     }
+
 }
