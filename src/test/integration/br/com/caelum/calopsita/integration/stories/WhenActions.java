@@ -41,7 +41,7 @@ public class WhenActions {
     }
 
     public void iClickOn(String link) {
-        browser.currentPage().navigateLink(link);
+        browser.currentPage().clickLink(link);
     }
 
     public void iOpenProjectPageDirectly() {
