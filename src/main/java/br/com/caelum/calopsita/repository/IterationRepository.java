@@ -4,4 +4,6 @@ import br.com.caelum.calopsita.model.Iteration;
 
 public interface IterationRepository extends BaseRepository<Iteration> {
 
+	Iteration load(Iteration iteration);
+
 }

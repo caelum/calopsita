@@ -20,6 +20,9 @@ public class Story implements Identifiable {
 	private Project project;
 
 	@ManyToOne
+	private Iteration iteration;
+
+	@ManyToOne
 	private User owner;
 
 	public Long getId() {
@@ -59,6 +62,14 @@ public class Story implements Identifiable {
 	}
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public void setIteration(Iteration iteration) {
+		this.iteration = iteration;
+	}
+
+	public Iteration getIteration() {
+		return iteration;
 	}
 
 }

@@ -20,6 +20,7 @@ public class IterationDao implements IterationRepository{
 
     @Override
     public void remove(Iteration iteration) {
+    	throw new IllegalStateException("Method not implemented");
     }
 
     @Override
@@ -27,4 +28,9 @@ public class IterationDao implements IterationRepository{
         session.merge(iteration);
     }
 
+    @Override
+    public Iteration load(Iteration iteration) {
+    	return (Iteration) session.load(Iteration.class, iteration.getId());
+    }
+    
 }
