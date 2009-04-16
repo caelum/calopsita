@@ -79,10 +79,11 @@ public class WhenActions {
 				.submit();
 	}
 
-	public void iDirectlyOpenProjectPageOf(String projectName) {
+	public WhenActions iDirectlyOpenProjectPageOf(String projectName) {
 		Long id = (Long) session.createQuery("select id from Project p where p.name = :name")
 			.setParameter("name", projectName).setMaxResults(1).uniqueResult();
 		browser.open("/calopsita/project/show/" + id + "/");
+		return this;
 	}
 
 	public WhenActions iAddTheStory(String storyName) {

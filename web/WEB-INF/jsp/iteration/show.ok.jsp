@@ -23,7 +23,7 @@
 		<h3>Stories</h3>
 		<ul id="iterationStories" class="selectable">
 			<c:forEach items="${iteration.stories}" var="story" varStatus="s">
-				<li id="story${s.count}">${story.name }</li>
+				<li id="stories${s.count}">${story.name }</li>
 			</c:forEach>
 		</ul>
 	</c:if>

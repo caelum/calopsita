@@ -17,9 +17,9 @@ public class StoriesMustBeOrderedByPriorityStory extends DefaultStory {
 			.iAmLoggedInAs("caue");
 		when.iOpenProjectPageOf("htmlunit");
 		then.theStory("step1")
-				.appearsOnStoriesListAtPosition(1)
+				.appearsOnStoriesListAtPosition(2)
 			.theStory("step2")
-				.appearsOnStoriesListAtPosition(0);
+				.appearsOnStoriesListAtPosition(1);
 	}
 	
 	@Test
@@ -46,13 +46,13 @@ public class StoriesMustBeOrderedByPriorityStory extends DefaultStory {
 		when.iOpenProjectPageOf("htmlunit").and()
 			.iOpenThePageOfIterationWithGoal("make it works");
 		then.theStory("step1")
-				.appearsOnStoriesListAtPosition(1)
+				.appearsOnStoriesListAtPosition(2)
 			.theStory("step2")
-				.appearsOnStoriesListAtPosition(0)
+				.appearsOnStoriesListAtPosition(1)
 			.theStory("step3")
-				.appearsOnOtherStoriesListAtPosition(1)
+				.appearsOnOtherStoriesListAtPosition(2)
 			.theStory("step4")
-				.appearsOnOtherStoriesListAtPosition(0);
+				.appearsOnOtherStoriesListAtPosition(1);
 		
 	}
 }

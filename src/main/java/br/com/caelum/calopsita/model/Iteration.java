@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -82,6 +83,9 @@ public class Iteration implements Identifiable {
     }
     
     public void addStory(Story story){
+    	if (this.stories == null) {
+    		this.stories = new ArrayList<Story>();
+    	}
     	this.stories.add(story);
     }
 

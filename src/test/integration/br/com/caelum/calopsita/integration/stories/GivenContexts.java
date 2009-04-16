@@ -123,9 +123,8 @@ public class GivenContexts {
 
 	public GivenContexts insideThisIteration() {
 		iteration.addStory(story);
-		session.save(iteration);
+		session.saveOrUpdate(iteration);
 		session.flush();
-		
 		return this;
 	}
 
