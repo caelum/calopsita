@@ -12,8 +12,8 @@
 <h2>Stories:</h2>
 
 <ul>
-	<c:forEach items="${stories}" var="story">
-		<li class="ui-widget-content">
+	<c:forEach items="${stories}" var="story" varStatus="s">
+		<li class="ui-widget-content" id="stories${s.count}">
 			<div class="draggable_story">
 				<a href="javascript:toggle('story_edit_${story.id }');">${story.name }</a> - ${story.description }<br />
 				<div id="story_edit_${story.id }" style="display: none;">

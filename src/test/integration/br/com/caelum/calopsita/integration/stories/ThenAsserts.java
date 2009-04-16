@@ -102,4 +102,14 @@ public class ThenAsserts {
         this.divName = "iterations";
         return this;
     }
+
+	public ThenAsserts appearsOnStoriesListAtPosition(int i) {
+		assertThat(browser.currentPage().div("stories"+i), containsString(name));
+		return this;
+	}
+	
+	public ThenAsserts appearsOnOtherStoriesListAtPosition(int i) {
+		assertThat(browser.currentPage().div("otherStories"+i), containsString(name));
+		return this;
+	}
 }

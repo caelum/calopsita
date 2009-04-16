@@ -123,7 +123,7 @@ public class GivenContexts {
 	public GivenContexts insideIterationWithGoal(String goal) {
 		IterationDao iterationDao = new IterationDao(session);
 		Iteration iteration = iterationDao.find(goal);
-		//iteration.
+		iteration.addStory(story);
 		session.save(iteration);
 		session.flush();
 		

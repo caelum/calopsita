@@ -66,21 +66,20 @@ public class Story implements Identifiable {
 		this.owner = owner;
 	}
 
-<<<<<<< HEAD:src/main/java/br/com/caelum/calopsita/model/Story.java
 	public int getPriority() {
 		return priority;
 	}
 
 	public void setPriority(int priority) {
 		this.priority = priority;
-=======
+	}
+	
 	public void setIteration(Iteration iteration) {
 		this.iteration = iteration;
 	}
 
 	public Iteration getIteration() {
 		return iteration;
->>>>>>> 82905b9f896556d390fdf492c2fec862074f67de:src/main/java/br/com/caelum/calopsita/model/Story.java
 	}
 
 }

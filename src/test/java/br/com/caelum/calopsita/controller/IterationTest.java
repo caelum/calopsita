@@ -12,17 +12,20 @@ import org.junit.Test;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.IterationRepository;
+import br.com.caelum.calopsita.repository.StoryRepository;
 
 public class IterationTest {
     private Mockery mockery;
     private IterationLogic logic;
-    private IterationRepository repository;
+    private IterationRepository iterationRepository;
+    private StoryRepository storyRepository;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
-        repository = mockery.mock(IterationRepository.class);
-        logic = new IterationLogic(repository);
+        iterationRepository = mockery.mock(IterationRepository.class);
+        storyRepository = mockery.mock(StoryRepository.class);
+        logic = new IterationLogic(iterationRepository, storyRepository);
     }
 
     @After
@@ -46,7 +49,7 @@ public class IterationTest {
         
         mockery.checking(new Expectations() {
             {
-                one(repository).add(iteration);
+                one(iterationRepository).add(iteration);
             }
         });
     }
