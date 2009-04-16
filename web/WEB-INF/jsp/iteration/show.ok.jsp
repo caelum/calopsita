@@ -43,7 +43,7 @@
 		<h2>Other Stories</h2>
 
 		<ul id="otherStories" class="selectable">
-			<c:forEach items="${otherStories}" var="story">
+			<c:forEach items="${otherStories}" var="story" varStatus="s">
 				<li id="otherStories${s.count}" name="${story.name }">${story.name }<span class="hidden">${story.id }</span></li>
 			</c:forEach>
 		</ul>

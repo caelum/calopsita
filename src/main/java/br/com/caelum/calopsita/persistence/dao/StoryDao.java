@@ -35,7 +35,7 @@ public class StoryDao implements StoryRepository {
 	
 	@Override
 	public List<Story> storiesWithoutIteration() {
-		return session.createQuery("from Story s where s.iteration is null").list();
+		return session.createQuery("from Story s where s.iteration is null order by priority").list();
 	}
 
 }

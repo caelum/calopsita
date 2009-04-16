@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -26,6 +27,7 @@ public class Iteration implements Identifiable {
     private String goal;
     
     @OneToMany(mappedBy="iteration")
+    @OrderBy("priority")
     private List<Story> stories;
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
