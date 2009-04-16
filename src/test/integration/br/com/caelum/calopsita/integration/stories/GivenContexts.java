@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.integration.stories;
 
 import org.hibernate.Session;
 
+import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
@@ -16,6 +17,7 @@ public class GivenContexts {
     private final Session session;
     private Project project;
 	private String storyName;
+	private Story story;
 
     public GivenContexts(Browser browser, Session session) {
         this.browser = browser;
@@ -92,7 +94,7 @@ public class GivenContexts {
 	}
 
 	public GivenContexts whichDescriptionIs(String storyDescription) {
-		Story story = new Story();
+		story = new Story();
 		story.setName(storyName);
 		story.setDescription(storyDescription);
 		story.setProject(project);
@@ -104,6 +106,18 @@ public class GivenContexts {
 	public GivenContexts withAnIterationWhichGoalIs(String goal) {
 		// TODO
 		return null;
+	}
+
+	public GivenContexts withPriority(int priority) {
+		story.setPriority(priority);
+		session.saveOrUpdate(story);
+		session.flush();
+		return this;
+	}
+
+	public GivenContexts insideIterationWithGoal(String string) {
+		// TODO Auto-generated method stub
+		return this;
 	}
 
 }
