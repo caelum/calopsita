@@ -147,8 +147,7 @@ public class WhenActions {
 	}
 	
 	public void inThisIteration() {
-		browser.currentPage().click(storyName);
-		browser.currentPage().click("add-story");
+		browser.currentPage().dragAndDrop(storyName, "stories_list");
 		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
 	}
 
@@ -158,8 +157,7 @@ public class WhenActions {
 	}
 
 	public void ofThisIteration() {
-		browser.currentPage().click(storyName);
-		browser.currentPage().click("remove-story");
+		browser.currentPage().dragAndDrop(storyName, "backlog_list");
 		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
 	}
 }

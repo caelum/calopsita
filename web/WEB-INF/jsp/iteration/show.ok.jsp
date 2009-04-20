@@ -101,7 +101,7 @@
 </div>
 <div id="stories">
 	<h2>Stories <a href="#" onclick="return show_help()">?</a></h2>
-	<ol class="selectable">
+	<ol id="stories_list" class="selectable">
 		<c:if test="${not empty iteration.stories}">
 			<c:forEach items="${iteration.stories}" var="story" varStatus="s">
 				<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
@@ -113,13 +113,12 @@
 				</li>
 			</c:forEach>
 		</c:if>
-		<input id="remove-story" type="button" value="Remove" style="display: none;" onclick="remove_stories()"/>
 	</ol>
 </div>
 <div id="backlog">
 	<h2>BackLog</h2>
 
-	<ol class="selectable">
+	<ol id="backlog_list" class="selectable">
 		<c:if test="${not empty otherStories}">
 			<c:forEach items="${otherStories}" var="story" varStatus="s">
 				<li class="backlog_story" id="backlog_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
@@ -132,7 +131,6 @@
 			</c:forEach>
 		</c:if>
 	</ol>
-	<input id="add-story" type="button" value="Add" style="display: none;" onclick="add_stories()"/>
 </div>
 
 <a href="<c:url value="/project/show/${iteration.project.id }/"/>">Back</a>

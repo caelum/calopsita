@@ -7,11 +7,13 @@
 				$('[id*="story_edit"]:visible').slideToggle("normal");
 			}
 		});
+
+		$('.sortable').sortable();
 	});
 </script>
 <h2>Stories:</h2>
 
-<ol>
+<ol class="sortable">
 	<c:forEach items="${stories}" var="story" varStatus="s">
 		<li id="stories_${s.count}">
 			<div>
