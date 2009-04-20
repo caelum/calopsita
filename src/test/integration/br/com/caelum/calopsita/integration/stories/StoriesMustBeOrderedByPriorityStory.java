@@ -2,6 +2,13 @@ package br.com.caelum.calopsita.integration.stories;
 
 import org.junit.Test;
 
+/**
+ * <b>In order to</b> know what i need to do <br>
+ * <b>As a</b> project developer <br>
+ * <b>I want</b> be able to order stories by priority <br>
+ * @author caueguerra
+ *
+ */
 public class StoriesMustBeOrderedByPriorityStory extends DefaultStory {
 	@Test
 	public void storiesMustBeOrderedOutOfIterations() throws Exception {
