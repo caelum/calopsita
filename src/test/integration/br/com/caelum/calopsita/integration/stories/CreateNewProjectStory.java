@@ -3,10 +3,10 @@ package br.com.caelum.calopsita.integration.stories;
 import org.junit.Test;
 
 /**
- * <b>In order to</b> have something to manage <br> 
- * <b>As a</b> Developer leader <br> 
- * <b>I want to</b> create a project <br>
- * 
+ * <b>In order to</b> have something to manage <br /> 
+ * <b>As a</b> Developer leader <br /> 
+ * <b>I want to</b> create a project <br />
+ * @author ceci
  */
 public class CreateNewProjectStory extends DefaultStory {
 

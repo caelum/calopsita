@@ -147,8 +147,8 @@ public class WhenActions {
 	}
 	
 	public void inThisIteration() {
-		browser.currentPage().click(storyName);
-		browser.currentPage().click("add-story");
+		iClickOn(storyName);
+		iClickOn("add-story");
 		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
 	}
 
@@ -158,8 +158,24 @@ public class WhenActions {
 	}
 
 	public void ofThisIteration() {
-		browser.currentPage().click(storyName);
-		browser.currentPage().click("remove-story");
+		iClickOn(storyName);
+		iClickOn("remove-story");
 		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
+	}
+
+	public WhenActions iOpenPriorizationPage() {
+		iClickOn("Prioritize");
+		return this;
+	}
+
+	public WhenActions iDrag(String story, int position) {
+//		dragAndDrop(story, position);
+//		TODO: implement in HTMLUnit
+		return this;
+	}
+
+	public WhenActions iSaveThePriorization() {
+		iClickOn("save");
+		return this;
 	}
 }

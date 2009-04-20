@@ -6,7 +6,7 @@ import org.junit.Test;
  * <b>In order to</b> plan what has to be done <br>
  * <b>As a</b> project client <br>
  * <b>I want to</b> create and edit stories (with name and description) <br>
- * @author ceci
+ * 
  */
 public class CreateAStoryStory extends DefaultStory {
 
