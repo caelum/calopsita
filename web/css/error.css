@@ -1,0 +1,30 @@
+body {
+	font-family: verdana;	
+}
+
+#logo {
+	float: right;
+}
+
+#logo img {
+	border: 0;
+}
+
+
+#error{
+	margin-top: 150px;
+	width: 400px;
+	height:120px;
+	border: 2px solid #DDD;
+	position: absolute;
+	left: 50%;
+	margin-left: -200px;
+	padding: 20px;
+}
+
+#error span {
+	font-size:20px;  
+	margin: 20px;
+	padding: 10px;
+}
+

@@ -13,7 +13,15 @@
 			<include-prelude>/WEB-INF/jsp/prelude.jspf</include-prelude>
 		</jsp-property-group>
 	</jsp-config>
-
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/page-not-found.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/jsp/error-in-server.jsp</location>
+	</error-page>
 	<!-- internacionalizacao -->
 	<context-param>
 		<param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>

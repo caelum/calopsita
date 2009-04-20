@@ -1,4 +1,4 @@
-# novas paginas
+# paginas
 /									=>  project.list
 /javascript/:{file}					==> /javascript/#{file}
 /project/show/:{project.id}/		=>  project.show
@@ -8,8 +8,7 @@
 #/user/:{logic}/					=>  user.#{logic}
 
 # Direto pro JSP
-#/:{pagina}/            ==> /WEB-INF/jsp/paginas/#{pagina}.jsp
-#/:{pasta}/:{pagina}/   ==> /WEB-INF/jsp/paginas/#{pasta}/#{pagina}.jsp
+/:{pagina}/             ==> /WEB-INF/jsp/#{pagina}.jsp
 
 # Coloca barra no final antes de dar 404
 # TODO pattern matching deveria pegar pelo menos 1 caracter
