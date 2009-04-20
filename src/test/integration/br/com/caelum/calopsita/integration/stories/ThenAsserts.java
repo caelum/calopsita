@@ -122,4 +122,8 @@ public class ThenAsserts {
 		this.divName = "backlog";
 		appearsOnList();
 	}
+
+	public ThenAsserts and() {
+		return this;
+	}
 }
