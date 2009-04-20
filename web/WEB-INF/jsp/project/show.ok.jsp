@@ -27,7 +27,7 @@
   </div>
 </c:if>
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(function() {
 		$('form[name="addStory"]').submit(function() {
 			
 			$(this).ajaxSubmit({

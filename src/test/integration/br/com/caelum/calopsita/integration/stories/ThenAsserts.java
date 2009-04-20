@@ -1,7 +1,8 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertThat;
 
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
@@ -108,12 +109,17 @@ public class ThenAsserts {
 	}
 	
 	public ThenAsserts appearsOnStoriesListAtPosition(int i) {
-		assertThat(browser.currentPage().div("stories"+i), divContainsString(name));
+		assertThat(browser.currentPage().div("stories_"+i), divContainsString(name));
 		return this;
 	}
 	
 	public ThenAsserts appearsOnOtherStoriesListAtPosition(int i) {
-		assertThat(browser.currentPage().div("otherStories"+i), divContainsString(name));
+		assertThat(browser.currentPage().div("backlog_"+i), divContainsString(name));
 		return this;
+	}
+
+	public void appearsOnBacklog() {
+		this.divName = "backlog";
+		appearsOnList();
 	}
 }
