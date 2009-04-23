@@ -47,6 +47,10 @@ public class StoryLogic {
 		this.stories = this.projectRepository.listStoriesFrom(project);
 	}
 	
+	public void prioritize(Project project) {
+		this.project = this.projectRepository.get(project.getId());
+		this.stories = this.projectRepository.listStoriesFrom(project);
+	}
 	public List<Story> getStories() {
 		return stories;
 	}

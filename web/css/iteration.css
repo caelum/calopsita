@@ -11,7 +11,7 @@
 	color: white;
 }
 
-.selectable {
+.board {
 	list-style-type: none;
 	margin: 0;
 	padding: 10px;
@@ -21,11 +21,12 @@
 	border-width: thin;
 	border-style: solid;
 }
+
 .hidden {
-	display: none;	
+	display: none;
 }
 
-.selectable li {
+.story {
 	margin: 3px;
 	padding: 0.4em;
 	font-size: 1.4em;
@@ -36,4 +37,10 @@
 	width: 100px;
 	height: 80px;
 	float: left;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 10px;
+	color: blue;
 }
