@@ -166,14 +166,13 @@ public class WhenActions {
 		return this;
 	}
 
-	public WhenActions iDrag(String story, int position) {
-//		dragAndDrop(story, position);
-//		TODO: implement in HTMLUnit
+	public WhenActions iLowerPriorityOf(String storyName) {
+		browser.currentPage().dragAndDrop(storyName, "lowerPriority");
 		return this;
 	}
 
 	public WhenActions iSaveThePriorization() {
-		iClickOn("save");
+		browser.currentPage().form("prioritizationForm").submit();
 		return this;
 	}
 }

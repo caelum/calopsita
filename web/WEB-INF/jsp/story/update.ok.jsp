@@ -11,7 +11,7 @@
 		$('.sortable').sortable();
 	});
 </script>
-<h2><a href="<c:url value="/story/prioritization/1/"/>">Stories:</a></h2>
+<h2>Stories:</h2>
 
 <ol class="sortable">
 	<c:forEach items="${stories}" var="story" varStatus="s">
@@ -32,3 +32,4 @@
 		</li>
 	</c:forEach>
 </ol>
+<a href="<c:url value="/story/prioritization/${project.id }/"/>">Prioritize</a>

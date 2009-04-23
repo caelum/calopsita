@@ -16,18 +16,17 @@ public class PrioritizeStoriesStory extends DefaultStory{
 	public void prioritizeStoriesWithDifferentPriorities() throws Exception {
 		given.thereIsAnUserNamed("Doni").and()
 			.thereIsAProjectNamed("Mirror").ownedBy("Doni")
-				.withAStoryNamed("Remove all annotations").and()
-				.withAStoryNamed("Remove all generics").and()
+				.withAStoryNamed("Remove all annotations")
+					.whichDescriptionIs("annotations are useless").and()
+				.withAStoryNamed("Remove all generics")
+					.whichDescriptionIs("we want obfuscated code").and()
 			.iAmLoggedInAs("Doni");
 		when.iOpenProjectPageOf("Mirror").and()
 			.iOpenPriorizationPage().and()
-			.iDrag("Remove all generics", toTheTopPosition()).and()
+			.iLowerPriorityOf("Remove all annotations").and()
 			.iSaveThePriorization();
-		then.theStory("Remove all generics").appearsOnStoriesListAtPosition(0).and()
-			.theStory("Remove all annotations").appearsOnStoriesListAtPosition(1);
+		then.theStory("Remove all generics").appearsOnStoriesListAtPosition(1).and()
+			.theStory("Remove all annotations").appearsOnStoriesListAtPosition(2);
 	}
 	
-	private int toTheTopPosition() {
-		return 1;
-	}
 }
