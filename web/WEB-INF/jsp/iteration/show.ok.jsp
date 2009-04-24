@@ -47,7 +47,7 @@
 	$(prepare);
 	function get_params(div, status) {
 		var params = {};
-		$(div + ' .ui-selected').each(function(c, e) {
+		$(div + ' .ui-selected').not('.clone').each(function(c, e) {
 			params['stories[' + c + '].id'] = $('.hidden', e).text();
 			params['stories[' + c + '].status'] = status;
 		});

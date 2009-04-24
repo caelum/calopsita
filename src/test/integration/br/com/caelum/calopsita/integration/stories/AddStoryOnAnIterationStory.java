@@ -24,6 +24,6 @@ public class AddStoryOnAnIterationStory extends DefaultStory {
 		when.iOpenProjectPageOf("IEs4Linux").and()
 			.iOpenThePageOfIterationWithGoal("new release").and()
 			.iAddTheStory("support IE8").inThisIteration();
-		then.theStory("support IE8").appearsOnList();
+		then.theStory("support IE8").appearsOnTodoList();
 	}
 }

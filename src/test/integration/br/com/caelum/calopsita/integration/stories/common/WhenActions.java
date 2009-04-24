@@ -147,7 +147,7 @@ public class WhenActions {
 	}
 	
 	public void inThisIteration() {
-		browser.currentPage().dragAndDrop(storyName, "stories_list");
+		browser.currentPage().dragAndDrop(storyName, "todo_stories");
 		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
 	}
 
