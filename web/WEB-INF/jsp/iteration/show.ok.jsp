@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Iteration" bodyClass="iteration" css="/css/iteration.css">
+<calopsita:page title="Iteration" bodyClass="iteration" javascript="/javascript/iteration.js" css="/css/iteration.css">
 
 <div id="iteration">
     <p><fmt:message key="iteration.goal"/>: ${iteration.goal}</p>
@@ -17,36 +17,15 @@
 			filter:'li'
 		});
 
-		$(".selectable li").draggable({
-			start: function(ev, ui) {
-		    	$(this).is(".ui-selected") || $(".ui-selected").removeClass("ui-selected");
-				$(this).addClass('ui-selected');
-			},
-			revert: 'invalid',
-			helper: function() {
-				var div = $('<div></div>');
-				if ($(this).is(".ui-selected")) {
-					$('.ui-selected').each(function() {
-						$(div).append($(this).clone());
-					});
-				} else {
-					$('.ui-selected').removeClass('ui-selected');
-					$(this).addClass('ui-selected');
-					$(div).append($(this).clone());
-				}
-				return div;
-			}
-		});
-		$('.selectable li').click(function() {
-			$(this).toggleClass('ui-selected');
-		});
+		$(".selectable li").selectableAndDraggable();
+		
 
 		$('#stories').droppable({
-			accept: '.backlog_story',
+			accept: '#backlog .story',
 			drop: add_stories
 		});
 		$('#backlog').droppable({
-			accept: '.story',
+			accept: '#stories .story',
 			drop: remove_stories
 		});
 		$('.dialog').dialog({
@@ -101,7 +80,7 @@
 </div>
 <div id="stories">
 	<h2>Stories <a href="#" onclick="return show_help()">?</a></h2>
-	<ol id="stories_list" class="selectable">
+	<ol id="stories_list" class="selectable board">
 		<c:if test="${not empty iteration.stories}">
 			<c:forEach items="${iteration.stories}" var="story" varStatus="s">
 				<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
@@ -118,10 +97,10 @@
 <div id="backlog">
 	<h2>BackLog</h2>
 
-	<ol id="backlog_list" class="selectable">
+	<ol id="backlog_list" class="selectable board">
 		<c:if test="${not empty otherStories}">
 			<c:forEach items="${otherStories}" var="story" varStatus="s">
-				<li class="backlog_story" id="backlog_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
+				<li class="story" id="backlog_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
 					${story.name }
 					<span class="hidden">${story.id }</span>
 					<div id="dialog_${story.id }" class="dialog" title="${story.name }">

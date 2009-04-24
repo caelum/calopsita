@@ -32,3 +32,4 @@
 		</li>
 	</c:forEach>
 </ol>
+<a href="<c:url value="/story/prioritization/${project.id }/"/>">Prioritize</a>
