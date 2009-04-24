@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <calopsita:page title="Project" bodyClass="project" javascript="/javascript/iteration.js" css="/css/iteration.css">
 <script type="text/javascript">
-	var max_priority = 0;
+	var max_priority = -1;
 	function storyCard(name, id, count, priority) {
 		var div = $('<div class="story" name="' + name + '"><p>' + name + '</p></div>');
 		div.append('<input type="hidden" name="stories[' + count + '].id" value="' + id + '" />');
@@ -45,7 +45,7 @@
 			});
 		}
 		bind();
-		$('.board').selectable();
+		$('#prioritizationForm').selectable({filter: '.story'});
 		$('.story').selectableAndDraggable();
 		
 		$('#lowerPriority').droppable({
@@ -64,7 +64,7 @@
     <p>Name: ${project.name}</p>
     <p>Description: ${project.description}</p>
 </div>
-<form name="prioritizationForm" action="<c:url value="/story/prioritize/"/>" method="post">
+<form id="prioritizationForm" action="<c:url value="/story/prioritize/"/>" method="post">
 	<input type="submit" value="Save Priorization" />
 	<input type="hidden" name="project.id" value="${project.id }" />
 	<div id="board">
@@ -74,5 +74,5 @@
 	<div id="lowerPriority" class="board" title="Lower Priority" priority="200"></div>
 	
 </form>
-<a href="<c:url value="/project/show/${iteration.project.id }/"/>">Back</a>
+<a href="<c:url value="/project/show/${project.id }/"/>">Back</a>
 </calopsita:page>

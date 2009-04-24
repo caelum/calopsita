@@ -12,17 +12,17 @@
 }
 
 .ui-draggable {
-	cursor: pointer;	
+	cursor: pointer;
 }
+
 .board {
 	list-style-type: none;
-	margin: 0;
-	padding: 10px;
-	width: 50%;
+	display: table-cell;
+	margin : 0;
+	width: 740px;
 	height: 100px;
-	border-color: gray;
-	border-width: thin;
-	border-style: solid;
+	padding: 10px;
+	border: thin solid gray;
 }
 
 .hidden {
