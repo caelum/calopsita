@@ -20,13 +20,18 @@
 		$(".selectable li").selectableAndDraggable();
 		
 
-		$('#stories').droppable({
-			accept: '#backlog .story',
+		$('#todo_stories').droppable({
+			accept: '.story',
 			tolerance: 'pointer',
-			drop: add_stories
+			drop: todo_stories
+		});
+		$('#done_stories').droppable({
+			accept: '.story',
+			tolerance: 'pointer',
+			drop: done_stories
 		});
 		$('#backlog').droppable({
-			accept: '#stories .story',
+			accept: '.story',
 			tolerance: 'pointer',
 			drop: remove_stories
 		});
@@ -40,32 +45,37 @@
 		});
 	};
 	$(prepare);
-	function get_params(div) {
+	function get_params(div, status) {
 		var params = {};
 		$(div + ' .ui-selected').each(function(c, e) {
 			params['stories[' + c + '].id'] = $('.hidden', e).text();
+			params['stories[' + c + '].status'] = status;
 		});
 		params['iteration.id']=${iteration.id};
 		return params;
 	}
-	function modifyStories(div, logic) {
-		var params = get_params(div);
+	function modifyStories(div, status, logic) {
+		var params = get_params(div, status);
 
 		$.ajax({
 			url: logic,
 			data: params,
 			success: function(data) {
-				$('#stories ol').html($('#stories ol', data).html());
+				$('#todo_stories ol').html($('#todo_stories ol', data).html());
+				$('#done_stories ol').html($('#done_stories ol', data).html());
 				$('#backlog ol').html($('#backlog ol', data).html());
 				prepare();
 			}
 		});
 	}
-	function add_stories() {
-		modifyStories('#backlog', '<c:url value="/iteration/addStories/"/>');	
+	function todo_stories() {
+		modifyStories('.selectable', 'TODO', '<c:url value="/iteration/updateStories/"/>');	
+	}
+	function done_stories() {
+		modifyStories('.selectable', 'DONE', '<c:url value="/iteration/updateStories/"/>');	
 	}
 	function remove_stories() {
-		modifyStories('#stories', '<c:url value="/iteration/removeStories/"/>');
+		modifyStories('.stories', 'TODO', '<c:url value="/iteration/removeStories/"/>');
 	}
 	function show_help() {
 		$('#help').dialog('open');
@@ -80,34 +90,38 @@
 	Drag and drop stories from Stories to Backlog to remove the stories from the iteration. <br/>
 	You can select more than one story at time.
 </div>
-<div id="stories" class="selectable">
-	<h2>Stories <a href="#" onclick="return show_help()">?</a></h2>
-	<ol id="stories_list" class="selectable board">
-		<c:if test="${not empty iteration.stories}">
-			<c:forEach items="${iteration.stories}" var="story" varStatus="s">
-				<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
-					<p>${story.name }</p>
-					<span class="hidden">${story.id }</span>
-					<div id="dialog_${story.id }" class="dialog" title="${story.name }">
-						${story.description }						
-					</div>
-				</li>
-			</c:forEach>
-		</c:if>
+<div id="todo_stories" class="selectable stories">
+	<h2>To do <a href="#" onclick="return show_help()">?</a></h2>
+	<ol id="todo_list" class="board">
+		<c:forEach items="${iteration.todoStories}" var="story" varStatus="s">
+			<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
+				<p>${story.name }</p>
+				<span class="hidden">${story.id }</span>
+			</li>
+		</c:forEach>
+	</ol>
+</div>
+<div id="done_stories" class="selectable stories">
+	<h2>Done <a href="#" onclick="return show_help()">?</a></h2>
+	<ol id="done_list" class="board">
+		<c:forEach items="${iteration.doneStories}" var="story" varStatus="s">
+			<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
+				<p>${story.name }</p>
+				<span class="hidden">${story.id }</span>
+			</li>
+		</c:forEach>
 	</ol>
 </div>
 <div id="backlog" class="selectable">
 	<h2>BackLog</h2>
 
 	<ol id="backlog_list" class="board">
-		<c:if test="${not empty otherStories}">
-			<c:forEach items="${otherStories}" var="story" varStatus="s">
-				<li class="story" id="backlog_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
-					<p>${story.name }</p>
-					<span class="hidden">${story.id }</span>
-				</li>
-			</c:forEach>
-		</c:if>
+		<c:forEach items="${otherStories}" var="story" varStatus="s">
+			<li class="story" id="backlog_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
+				<p>${story.name }</p>
+				<span class="hidden">${story.id }</span>
+			</li>
+		</c:forEach>
 	</ol>
 </div>
 

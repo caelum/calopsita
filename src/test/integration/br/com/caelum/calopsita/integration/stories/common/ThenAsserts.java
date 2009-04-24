@@ -126,4 +126,8 @@ public class ThenAsserts {
 	public ThenAsserts and() {
 		return this;
 	}
+
+	public void appearsAsDone() {
+		assertThat(browser.currentPage().div("done_stories"), divContainsString(name));
+	}
 }

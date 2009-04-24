@@ -175,4 +175,14 @@ public class WhenActions {
 		browser.currentPage().form("prioritizationForm").submit();
 		return this;
 	}
+
+	public WhenActions iFlagTheStory(String storyName) {
+		this.storyName = storyName;
+		return this;
+	}
+
+	public void asDone() {
+		browser.currentPage().dragAndDrop(storyName, "done_stories");
+		browser.currentPage().waitUntil("$('#done_stories .story').length > 0", 5000);
+	}
 }

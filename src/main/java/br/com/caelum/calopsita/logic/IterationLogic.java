@@ -40,10 +40,11 @@ public class IterationLogic {
     	otherStories = storyRepository.storiesWithoutIteration();
     }
     
-    public void addStories(Iteration iteration, List<Story> stories) {
+    public void updateStories(Iteration iteration, List<Story> stories) {
     	for (Story story : stories) {
 			Story loaded = storyRepository.load(story);
 			loaded.setIteration(iteration);
+			loaded.setStatus(story.getStatus());
 			storyRepository.update(loaded);
 		}
     	this.iteration = iteration;

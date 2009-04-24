@@ -106,7 +106,7 @@ public class IterationTest {
 	}
 
 	private void whenIAddTheStoryToIteration(Story story, Iteration iteration) {
-    	logic.addStories(iteration, Arrays.asList(story));
+    	logic.updateStories(iteration, Arrays.asList(story));
 	}
 
 	private Story givenAStory() {

@@ -1,6 +1,8 @@
 package br.com.caelum.calopsita.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -26,6 +28,13 @@ public class Story implements Identifiable {
 	private User owner;
 	
 	private int priority;
+	
+	@Enumerated(EnumType.STRING)
+	private Status status = Status.DONE;
+	
+	public static enum Status {
+		TODO, DONE
+	}
 	
 	public Long getId() {
 		return id;
@@ -80,6 +89,14 @@ public class Story implements Identifiable {
 
 	public Iteration getIteration() {
 		return iteration;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Status getStatus() {
+		return status;
 	}
 
 }
