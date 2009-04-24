@@ -37,7 +37,9 @@
 		}
 		function bind() {
 			$('.board').not('#lowerPriority').droppable({
-				accept: '.story',
+				accept: function (element) {
+					return $(element).is('.story') && $(element).parents('#' + this.id).length == 0;
+				},
 				tolerance: 'pointer',
 				drop: function(event, ui) {
 					moveSelectedTo($(this));

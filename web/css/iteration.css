@@ -31,6 +31,7 @@
 
 .story {
 	margin: 3px;
+	display: table-cell;
 	padding: 0.4em;
 	border: thin solid gray;
 	width: 100px;
