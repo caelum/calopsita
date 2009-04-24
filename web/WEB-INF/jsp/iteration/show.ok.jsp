@@ -22,17 +22,19 @@
 
 		$('#stories').droppable({
 			accept: '#backlog .story',
+			tolerance: 'pointer',
 			drop: add_stories
 		});
 		$('#backlog').droppable({
 			accept: '#stories .story',
+			tolerance: 'pointer',
 			drop: remove_stories
 		});
 		$('.dialog').dialog({
 			autoOpen: false,
 			bgiframe: true,
 			modal: true,
-			width: 'auto',
+			width: '500px',
 			show: 'highlight',
 			hide: 'highlight'
 		});
@@ -78,13 +80,13 @@
 	Drag and drop stories from Stories to Backlog to remove the stories from the iteration. <br/>
 	You can select more than one story at time.
 </div>
-<div id="stories">
+<div id="stories" class="selectable">
 	<h2>Stories <a href="#" onclick="return show_help()">?</a></h2>
 	<ol id="stories_list" class="selectable board">
 		<c:if test="${not empty iteration.stories}">
 			<c:forEach items="${iteration.stories}" var="story" varStatus="s">
 				<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
-					${story.name }
+					<p>${story.name }</p>
 					<span class="hidden">${story.id }</span>
 					<div id="dialog_${story.id }" class="dialog" title="${story.name }">
 						${story.description }						
@@ -94,18 +96,15 @@
 		</c:if>
 	</ol>
 </div>
-<div id="backlog">
+<div id="backlog" class="selectable">
 	<h2>BackLog</h2>
 
-	<ol id="backlog_list" class="selectable board">
+	<ol id="backlog_list" class="board">
 		<c:if test="${not empty otherStories}">
 			<c:forEach items="${otherStories}" var="story" varStatus="s">
-				<li class="story" id="backlog_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
-					${story.name }
+				<li class="story" id="backlog_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
+					<p>${story.name }</p>
 					<span class="hidden">${story.id }</span>
-					<div id="dialog_${story.id }" class="dialog" title="${story.name }">
-						${story.description }						
-					</div>
 				</li>
 			</c:forEach>
 		</c:if>

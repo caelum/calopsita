@@ -2,6 +2,8 @@ package br.com.caelum.calopsita.integration.stories;
 
 import org.junit.Test;
 
+import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
+
 /**
  * <b>In order to</b> plan my team's work <br>
  * <b>As a</b> client <br>
