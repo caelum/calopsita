@@ -11,6 +11,9 @@
 	color: white;
 }
 
+.ui-draggable {
+	cursor: pointer;	
+}
 .board {
 	list-style-type: none;
 	margin: 0;
@@ -29,11 +32,7 @@
 .story {
 	margin: 3px;
 	padding: 0.4em;
-	font-size: 1.4em;
-	height: 18px;
-	border-style: solid;
-	border-width: thin;
-	border-color: gray;
+	border: thin solid gray;
 	width: 100px;
 	height: 80px;
 	float: left;

@@ -3,7 +3,7 @@
 <script type="text/javascript">
 	var max_priority = 0;
 	function storyCard(name, id, count, priority) {
-		var div = $('<div class="story" name="' + name + '">' + name + '</div>');
+		var div = $('<div class="story" name="' + name + '"><p>' + name + '</p></div>');
 		div.append('<input type="hidden" name="stories[' + count + '].id" value="' + id + '" />');
 		div.append('<input class="priority" type="hidden" name="stories[' + count + '].priority" value="' + priority + '" />');
 		return div;

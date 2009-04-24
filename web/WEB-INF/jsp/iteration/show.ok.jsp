@@ -84,7 +84,7 @@
 		<c:if test="${not empty iteration.stories}">
 			<c:forEach items="${iteration.stories}" var="story" varStatus="s">
 				<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
-					${story.name }
+					<p>${story.name }</p>
 					<span class="hidden">${story.id }</span>
 					<div id="dialog_${story.id }" class="dialog" title="${story.name }">
 						${story.description }						
@@ -101,7 +101,7 @@
 		<c:if test="${not empty otherStories}">
 			<c:forEach items="${otherStories}" var="story" varStatus="s">
 				<li class="story" id="backlog_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
-					${story.name }
+					<p>${story.name }</p>
 					<span class="hidden">${story.id }</span>
 					<div id="dialog_${story.id }" class="dialog" title="${story.name }">
 						${story.description }						

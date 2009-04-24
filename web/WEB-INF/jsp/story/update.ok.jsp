@@ -1,19 +1,23 @@
 <%@include file="../javascripts.jspf" %>
 <script type="text/javascript">
 	$(function() {
-		$('form[name="editStory"]').ajaxForm({
-			target : '#stories',
-			beforeSubmit: function () {
-				$('[id*="story_edit"]:visible').slideToggle("normal");
-			}
-		});
-
-		$('.sortable').sortable();
+		function bind() {
+			$('form[name="editStory"]').ajaxForm({
+				beforeSubmit: function () {
+					$('[id*="story_edit"]:visible').slideToggle("normal");
+				},
+				success: function(data) {
+					$('#stories').html(data);
+					bind();
+				}
+			});
+		}
+		bind();
 	});
 </script>
 <h2>Stories:</h2>
 
-<ol class="sortable">
+<ol>
 	<c:forEach items="${stories}" var="story" varStatus="s">
 		<li id="stories_${s.count}">
 			<div>
