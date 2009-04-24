@@ -23,18 +23,18 @@
 		}
 		return div;
 	}
+	function moveSelectedTo(div) {
+		$('.ui-selected').not('.clone').each(function() {
+			$(this).children('.priority').val(div.attr('priority'));
+			$(this).removeClass('ui-selected');
+			div.append(this);
+		});
+	}
 	$(function() {
 		<c:forEach items="${stories}" var="s" varStatus="status">
 			getOrCreateDiv(${s.priority}).append(storyCard('${s.name}', ${s.id}, ${status.count} - 1, ${s.priority}));
 		</c:forEach>
 
-		function moveSelectedTo(div) {
-			$('.ui-selected').not('.clone').each(function() {
-				$(this).children('.priority').val(div.attr('priority'));
-				$(this).removeClass('ui-selected');
-				div.append(this);
-			});
-		}
 		function bind() {
 			$('.board').not('#lowerPriority').droppable({
 				accept: function (element) {

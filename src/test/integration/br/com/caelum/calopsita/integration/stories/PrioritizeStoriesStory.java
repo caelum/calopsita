@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -12,7 +11,6 @@ import org.junit.Test;
 public class PrioritizeStoriesStory extends DefaultStory{
 
 	@Test
-	@Ignore
 	public void prioritizeStoriesWithDifferentPriorities() throws Exception {
 		given.thereIsAnUserNamed("Doni").and()
 			.thereIsAProjectNamed("Mirror").ownedBy("Doni")
