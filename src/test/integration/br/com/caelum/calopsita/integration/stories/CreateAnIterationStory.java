@@ -2,6 +2,8 @@ package br.com.caelum.calopsita.integration.stories;
 
 import org.junit.Test;
 
+import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
+
 public class CreateAnIterationStory extends DefaultStory {
     @Test
     public void iterationCreation() throws Exception {

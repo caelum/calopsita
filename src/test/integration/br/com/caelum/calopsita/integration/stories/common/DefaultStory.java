@@ -1,4 +1,4 @@
-package br.com.caelum.calopsita.integration.stories;
+package br.com.caelum.calopsita.integration.stories.common;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

@@ -1,4 +1,4 @@
-package br.com.caelum.calopsita.integration.stories;
+package br.com.caelum.calopsita.integration.stories.common;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
