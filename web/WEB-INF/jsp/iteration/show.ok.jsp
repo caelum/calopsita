@@ -34,7 +34,7 @@
 			autoOpen: false,
 			bgiframe: true,
 			modal: true,
-			width: 'auto',
+			width: '500px',
 			show: 'highlight',
 			hide: 'highlight'
 		});
@@ -102,12 +102,9 @@
 	<ol id="backlog_list" class="board">
 		<c:if test="${not empty otherStories}">
 			<c:forEach items="${otherStories}" var="story" varStatus="s">
-				<li class="story" id="backlog_${s.count}" name="${story.name }" ondblclick="open_dialog(${story.id})">
+				<li class="story" id="backlog_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
 					<p>${story.name }</p>
 					<span class="hidden">${story.id }</span>
-					<div id="dialog_${story.id }" class="dialog" title="${story.name }">
-						${story.description }						
-					</div>
 				</li>
 			</c:forEach>
 		</c:if>
