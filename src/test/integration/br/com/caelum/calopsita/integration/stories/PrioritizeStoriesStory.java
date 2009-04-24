@@ -12,7 +12,6 @@ import org.junit.Test;
 public class PrioritizeStoriesStory extends DefaultStory{
 
 	@Test
-	@Ignore
 	public void prioritizeStoriesWithDifferentPriorities() throws Exception {
 		given.thereIsAnUserNamed("Doni").and()
 			.thereIsAProjectNamed("Mirror").ownedBy("Doni")
