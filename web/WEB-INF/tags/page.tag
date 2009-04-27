@@ -79,11 +79,6 @@
 	<hr class="separador"/>
 	
 	<jsp:doBody />
-
-	<hr class="separador"/>
-	<div id="footer">
-
-	</div>
 </div>
 
 </body>
