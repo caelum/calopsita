@@ -36,4 +36,4 @@
 		</li>
 	</c:forEach>
 </ol>
-<a href="<c:url value="/project/${project.id }/prioritize/"/>">Prioritize</a>
+<a href="<c:url value="/project/${project.id }/prioritization/"/>">Prioritize</a>

@@ -14,12 +14,12 @@ public class CreateAStoryStory extends DefaultStory {
 
 	@Test
 	public void storyCreation() throws Exception {
-		given.thereIsAnUserNamed("David");
-		given.thereIsAProjectNamed("Papyrus").ownedBy("David");
-		given.iAmLoggedInAs("David");
+		given.thereIsAnUserNamed("David").and()
+			.thereIsAProjectNamed("Papyrus").ownedBy("David").and()
+			.iAmLoggedInAs("David");
 		
-		when.iOpenProjectPageOf("Papyrus");
-		when.iAddTheStory("Incidents").withDescription("create and update an incident");
+		when.iOpenProjectPageOf("Papyrus").and()
+			.iAddTheStory("Incidents").withDescription("create and update an incident");
 		
 		then.theStory("Incidents").appearsOnList();
 	}

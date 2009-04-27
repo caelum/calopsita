@@ -42,7 +42,6 @@
 	});
 </script>
 <div id="stories">
-	<a href="<c:url value="/project/${project.id}/prioritization/"/>">Prioritize</a>
 	<c:if test="${not empty stories}">
 		<%@include file="../story/update.ok.jsp" %>
 	</c:if>

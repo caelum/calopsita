@@ -4,7 +4,6 @@
 /project/:{project.id}/show/			=>  project.show
 /iteration/:{iteration.id}/show/		=>  iteration.show
 /project/:{project.id}/prioritization/	=>  story.prioritization
-/project/:{project.id}/prioritize/		=>  story.prioritize
 /add/colaborator/						=> 	project.addColaborator
 /:{component}/:{logic}/					=> #{component}.#{logic}
 #/user/:{logic}/						=>  user.#{logic}
