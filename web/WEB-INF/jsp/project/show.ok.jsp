@@ -21,7 +21,7 @@
     <h2>Iterations:</h2>
     <ul>
       <c:forEach items="${project.iterations}" var="iteration">
-        <li><a href="<c:url value="/iteration/show/${iteration.id }/"/>">${iteration.goal }</a></li>
+        <li><a href="<c:url value="/iteration/${iteration.id}/show/"/>">${iteration.goal}</a></li>
       </c:forEach>
     </ul>
   </div>
@@ -42,7 +42,7 @@
 	});
 </script>
 <div id="stories">
-	<a href="<c:url value="/story/prioritize/"/>">Prioritize</a>
+	<a href="<c:url value="/project/${project.id}/prioritization/"/>">Prioritize</a>
 	<c:if test="${not empty stories}">
 		<%@include file="../story/update.ok.jsp" %>
 	</c:if>

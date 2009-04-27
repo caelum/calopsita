@@ -125,6 +125,6 @@
 	</ol>
 </div>
 
-<a href="<c:url value="/project/show/${iteration.project.id }/"/>">Back</a>
+<a href="<c:url value="/project/${iteration.project.id }/show/"/>">Back</a>
 
 </calopsita:page>

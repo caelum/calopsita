@@ -81,5 +81,5 @@
 	<div id="level_0" class="board" title="Infinity Priority" priority="0"></div>
 	
 </form>
-<a href="<c:url value="/project/show/${project.id }/"/>">Back</a>
+<a href="<c:url value="/project/${project.id }/show/"/>">Back</a>
 </calopsita:page>
