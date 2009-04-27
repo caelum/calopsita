@@ -51,6 +51,11 @@ public class ThenAsserts {
     public void appearsOnList() {
         assertThat(this.browser.currentPage().div(divName), divContainsString(name));
     }
+    
+    public void appearsOnTodoList() {
+    	this.divName = "todo_stories";
+    	appearsOnList();
+    }
 
 	public void thisUserAppearsOnColaboratorsList(String userName) {
 		assertThat(this.browser.currentPage().div("colaborators"), divContainsString(userName));
@@ -125,5 +130,9 @@ public class ThenAsserts {
 
 	public ThenAsserts and() {
 		return this;
+	}
+
+	public void appearsAsDone() {
+		assertThat(browser.currentPage().div("done_stories"), divContainsString(name));
 	}
 }

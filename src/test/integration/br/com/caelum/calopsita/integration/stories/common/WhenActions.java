@@ -147,7 +147,7 @@ public class WhenActions {
 	}
 	
 	public void inThisIteration() {
-		browser.currentPage().dragAndDrop(storyName, "stories_list");
+		browser.currentPage().dragAndDrop(storyName, "todo_stories");
 		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
 	}
 
@@ -174,5 +174,15 @@ public class WhenActions {
 	public WhenActions iSaveThePriorization() {
 		browser.currentPage().form("prioritizationForm").submit();
 		return this;
+	}
+
+	public WhenActions iFlagTheStory(String storyName) {
+		this.storyName = storyName;
+		return this;
+	}
+
+	public void asDone() {
+		browser.currentPage().dragAndDrop(storyName, "done_stories");
+		browser.currentPage().waitUntil("$('#done_stories .story').length > 0", 5000);
 	}
 }

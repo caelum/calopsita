@@ -15,6 +15,8 @@ import javax.persistence.OrderBy;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import br.com.caelum.calopsita.model.Story.Status;
+
 @Entity
 public class Iteration implements Identifiable {
     @Id
@@ -98,4 +100,22 @@ public class Iteration implements Identifiable {
 	public List<Story> getStories() {
 		return stories;
 	}
+	
+	public List<Story> getTodoStories() {
+		return storiesByStatus(Status.TODO);
+	}
+	public List<Story> getDoneStories() {
+		return storiesByStatus(Status.DONE);
+	}
+
+	private List<Story> storiesByStatus(Status status) {
+		List<Story> result = new ArrayList<Story>();
+		for (Story story : stories) {
+			if (status.equals(story.getStatus())) {
+				result.add(story);
+			}
+		}
+		return result;
+	}
+	
 }
