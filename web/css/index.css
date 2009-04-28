@@ -7,7 +7,7 @@ body {
 	border: 0px;
 	background-color: #eaeeef;
 	color: #eaeeef;
-	height: 10px;
+	height: 3px;
 	width: 100%;
 }
 
@@ -29,7 +29,9 @@ body {
 }
 
 #errors {
-	clear: both;	
+	clear: both;
+	color: #F00;
+	font-weight: bold;
 }
 
 .separador {
