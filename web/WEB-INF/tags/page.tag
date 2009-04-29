@@ -67,16 +67,17 @@
           <a href="<c:url value="/user/logout/"/>">Logout</a>
         </c:if>
       </div>
-      <div id="errors">
-      	<c:if test="${not empty errors}">
-      		<c:forEach var="error" items="${errors.iterator}">
+	</div>
+
+	<hr class="separador"/>
+
+    <div id="errors">
+		<c:if test="${not empty errors}">
+    		<c:forEach var="error" items="${errors.iterator}">
 				<fmt:message key="${error.key}" /><br />
 			</c:forEach>
-      	</c:if>
-      </div>
-	</div>
-	
-	<hr class="separador"/>
+    	</c:if>
+    </div>
 	
 	<jsp:doBody />
 </div>

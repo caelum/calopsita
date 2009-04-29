@@ -30,6 +30,7 @@ body {
 
 #errors {
 	clear: both;	
+	color: red;
 }
 
 .separador {
