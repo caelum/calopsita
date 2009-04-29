@@ -51,10 +51,18 @@
 <div id="story" style="display: none;">
 	<form id="addStory" name="addStory" action="<c:url value="/story/save/"/>" method="post">
 		<input type="hidden" name="project.id" value="${project.id }" />
-	  <p>Name: <input type="text" name="story.name"/></p>
-	  <p>Description: <textarea name="story.description"></textarea></p>
-	  <p><input class="buttons" type="submit" value="Create"/>
-	  	<input class="buttons" type="button" value="Cancel" onclick="toggle('story');"/></p>
+		<p>
+			<label for="story.name">Name</label>
+			<em>*</em><input type="text" name="story.name"/>
+		</p>
+		<p>
+			<label for="story.description">Description</label>
+			<em>*</em><textarea name="story.description"></textarea>
+		</p>
+	    <p>
+	    	<input class="buttons" type="submit" value="Create"/>
+	  		<input class="buttons" type="button" value="Cancel" onclick="toggle('story');"/>
+	  	</p>
 	</form>
 </div>
 <a href="javascript:toggle('colaborator')">Add Colaborator</a><br/>
@@ -75,11 +83,22 @@
 <div id="iteration" style="display: none;">
   <form id="addIteration" name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
     <input type="hidden" name="project.id" value="${project.id }" />
-    <p>Goal: <input type="text" name="iteration.goal"/></p>
-	<p>Start Date: <input type="text" name="iteration.startDate" class="datepicker"/></p>
-    <p>End Date: <input type="text" name="iteration.endDate" class="datepicker"/></p>
-	<p><input type="submit" value="Add"/>
-	   <input class="buttons" type="button" value="Cancel" onclick="toggle('iteration');"/></p>
+    <p>
+		<label for="iteration.goal">Goal</label>
+		<em>*</em><input type="text" name="iteration.goal"/>
+	</p>
+	<p>
+		<label for="iteration.startDate">Start Date</label>
+		<em></em><input type="text" name="iteration.startDate" class="datepicker"/>
+	</p>
+	<p>
+		<label for="iteration.endDate">End Date</label>
+		<em></em><input type="text" name="iteration.endDate" class="datepicker"/>
+	</p>
+	<p>
+		<input type="submit" value="Add"/>
+	 	<input class="buttons" type="button" value="Cancel" onclick="toggle('iteration');"/>
+	</p>
   </form>
 </div>
 <a href="<c:url value="/"/>">Back</a>
