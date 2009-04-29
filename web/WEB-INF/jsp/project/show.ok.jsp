@@ -26,20 +26,6 @@
     </ul>
   </div>
 </c:if>
-<script type="text/javascript">
-	$(function() {
-		$('form[name="addStory"]').submit(function() {
-			
-			$(this).ajaxSubmit({
-				target : '#stories',
-				success : function () {
-					$('#story').clearForm();
-				}
-			});
-			return false;
-		});
-	});
-</script>
 <div id="stories">
 	<c:if test="${not empty stories}">
 		<%@include file="../story/update.ok.jsp" %>

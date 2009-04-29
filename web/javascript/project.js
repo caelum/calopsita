@@ -22,7 +22,15 @@ $(document).ready( function() {
                 required :true,
                 minlength :8
             }
-        }
+        },
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				target: "#stories",
+				success : function () {
+					$('#story').clearForm();
+				}
+			});
+		}
     });
 	
 	$("#addColaborator").validate( {
