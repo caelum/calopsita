@@ -62,6 +62,13 @@
 				bind();
 			}
 		});
+		function changeWidth() {
+			var w = $('body').width();
+			$('.board').css({width : w * 0.55});
+			$('.table').css({width : w * 0.45 - 50});
+		}
+		changeWidth();
+		$(window).resize(changeWidth);
 	});
 
 </script>
@@ -72,14 +79,15 @@
 <form id="prioritizationForm" action="<c:url value="/story/prioritize/"/>" method="post">
 	<input type="submit" value="Save Priorization" />
 	<input type="hidden" name="project.id" value="${project.id }" />
+	<div class="table">
+		<div class="title">Infinity Priority</div>
+		<div id="level_0" class="board" title="Infinity Priority" priority="0"></div>
+	</div>
 	<div id="board">
 		
 	</div>
 	<div class="title">New Priority Level</div>
 	<div id="lowerPriority" class="board" title="New Priority Level" priority="200"></div>
-	<div class="title">Infinity Priority</div>
-	<div id="level_0" class="board" title="Infinity Priority" priority="0"></div>
-	
 </form>
 <a href="<c:url value="/project/${project.id }/show/"/>">Back</a>
 </calopsita:page>

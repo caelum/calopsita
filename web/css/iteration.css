@@ -25,6 +25,10 @@
 	border: thin solid gray;
 }
 
+.table {
+	float: right;
+	width: 400px;
+}
 .hidden {
 	display: none;
 }
