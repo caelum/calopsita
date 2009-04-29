@@ -34,9 +34,9 @@
 		});
 	}
 	$(function() {
-		<c:set var="newline" value="
-"/>
 		<c:forEach items="${stories}" var="s" varStatus="status">
+			<c:set var="newline" value="
+"/>
 			getOrCreateDiv(${s.priority}).append(storyCard('${s.name}', '${fn:replace(s.description, newline, "<br/>")}', 
 					${s.id}, ${status.count} - 1, ${s.priority}));
 		</c:forEach>
