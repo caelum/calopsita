@@ -48,6 +48,5 @@ $(document).ready( function() {
         }
     });
 	
-	$(".datepicker").datepicker();
-
+	$(".datepicker").datepicker({showOn: 'button', buttonImage: document.location + '../../../images/calendar.gif', buttonImageOnly: true});
 });
