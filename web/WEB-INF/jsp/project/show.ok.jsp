@@ -33,7 +33,6 @@
 			$(this).ajaxSubmit({
 				target : '#stories',
 				success : function () {
-					toggle('story');
 					$('#story').clearForm();
 				}
 			});
@@ -46,7 +45,7 @@
 		<%@include file="../story/update.ok.jsp" %>
 	</c:if>
 </div>
-<a href="javascript:toggle('story')">Add Story</a><br/>
+<a href="javascript:toggle('story'); document.addStory.reset();">Add Story</a><br/>
 
 <div id="story" style="display: none;">
 	<form id="addStory" name="addStory" action="<c:url value="/story/save/"/>" method="post">
@@ -61,7 +60,7 @@
 		</p>
 	    <p>
 	    	<input class="buttons" type="submit" value="Create"/>
-	  		<input class="buttons" type="button" value="Cancel" onclick="toggle('story');"/>
+	  		<input class="buttons" type="button" value="Cancel" onclick="document.addStory.reset(); toggle('story');"/>
 	  	</p>
 	</form>
 </div>
@@ -79,7 +78,7 @@
 	</form>
 </div>
 
-<a href="javascript:toggle('iteration')">Add Iteration</a><br/>
+<a href="javascript:toggle('iteration'); document.addIteration.reset();">Add Iteration</a><br/>
 <div id="iteration" style="display: none;">
   <form id="addIteration" name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
     <input type="hidden" name="project.id" value="${project.id }" />
@@ -97,7 +96,7 @@
 	</p>
 	<p>
 		<input type="submit" value="Add"/>
-	 	<input class="buttons" type="button" value="Cancel" onclick="toggle('iteration');"/>
+	 	<input class="buttons" type="button" value="Cancel" onclick="toggle('iteration'); document.addIteration.reset();"/>
 	</p>
   </form>
 </div>
