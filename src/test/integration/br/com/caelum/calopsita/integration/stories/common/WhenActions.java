@@ -98,6 +98,7 @@ public class WhenActions {
 				.field("story.name").type(storyName)
 				.field("story.description").type(description)
 				.submit();
+		iClickOn("Add Story");
 		browser.currentPage().waitUntil("!($('#stories').is(':empty'))", 1000);
 	}
 

@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,6 +17,7 @@ public class Story implements Identifiable {
 	
 	private String name;
 	
+	@Column(length=1024)
 	private String description;
 
 	@ManyToOne

@@ -22,7 +22,16 @@ $(document).ready( function() {
                 required :true,
                 minlength :8
             }
-        }
+        },
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				target: "#stories",
+				success : function () {
+					$('#story').clearForm();
+				}
+			});
+			return false;
+		}
     });
 	
 	$("#addColaborator").validate( {
@@ -48,6 +57,5 @@ $(document).ready( function() {
         }
     });
 	
-	$(".datepicker").datepicker();
-
+	$(".datepicker").datepicker({showOn: 'button', buttonImage: document.location + '../../../images/calendar.gif', buttonImageOnly: true});
 });

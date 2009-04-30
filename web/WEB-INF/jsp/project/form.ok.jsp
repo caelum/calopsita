@@ -4,11 +4,11 @@
 <form id="addProject" name="addProject" action="<c:url value="/project/save/"/>" method="post">
   <p>
   	<label for="project.name">Name</label>
-  	<input type="text" name="project.name"/>
+  	<em>*</em><input type="text" name="project.name"/>
   </p>
   <p>
   	<label for="project.description">Description</label>
-  	<textarea name="project.description"></textarea>
+  	<em>*</em><textarea name="project.description"></textarea>
   </p>
   <p>
   	<input class="submit" type="submit" value="Create"/>
