@@ -26,9 +26,7 @@ $(document).ready( function() {
 		submitHandler: function(form) {
 			$(form).ajaxSubmit({
 				target: "#stories",
-				success : function () {
-					$('#story').clearForm();
-				}
+				clearForm: true
 			});
 			return false;
 		}
@@ -57,5 +55,5 @@ $(document).ready( function() {
         }
     });
 	
-	$(".datepicker").datepicker({showOn: 'button', buttonImage: document.location + '../../../images/calendar.gif', buttonImageOnly: true});
+	$(".datepicker").datepicker({dateFormat: 'mm/dd/yy', showOn: 'button', buttonImage: document.location + '../../../images/calendar.gif', buttonImageOnly: true});
 });

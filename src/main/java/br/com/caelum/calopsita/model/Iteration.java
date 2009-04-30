@@ -68,7 +68,7 @@ public class Iteration implements Identifiable {
 
     public void setStartDate(String startDate) throws ParseException {
     	if (startDate != null && !startDate.isEmpty()) {
-			this.startDate = new DateTime(new SimpleDateFormat("dd/MM/yyyy").parse(startDate));
+			this.startDate = new DateTime(new SimpleDateFormat("MM/dd/yyyy").parse(startDate));
 		} else {
 			this.startDate = null;
 		}
@@ -80,7 +80,7 @@ public class Iteration implements Identifiable {
 
     public void setEndDate(String endDate) throws ParseException {
     	if (endDate != null && !endDate.isEmpty()) {
-			this.endDate = new DateTime(new SimpleDateFormat("dd/MM/yyyy").parse(endDate));
+			this.endDate = new DateTime(new SimpleDateFormat("MM/dd/yyyy").parse(endDate));
 		} else {
 			this.endDate = null;
 		}
