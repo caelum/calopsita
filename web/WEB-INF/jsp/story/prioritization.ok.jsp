@@ -11,6 +11,12 @@
 		});
 		return div;
 	}
+	
+	function changeWidth() {
+		var w = $('body').width();
+		$('.board').css({width : w * 0.55});
+		$('.table').css({width : w * 0.45 - 50});
+	}
 
 	function getOrCreateDiv(priority) {
 		if (priority > max_priority + 1) getOrCreateDiv(priority - 1);
@@ -23,6 +29,7 @@
 			div.hide();
 			$('#board').append(div);
 			div.show('highlight');
+			changeWidth();
 		}
 		return div;
 	}
@@ -65,12 +72,6 @@
 				bind();
 			}
 		});
-		function changeWidth() {
-			var w = $('body').width();
-			$('.board').css({width : w * 0.55});
-			$('.table').css({width : w * 0.45 - 50});
-		}
-		changeWidth();
 		$(window).resize(changeWidth);
 	});
 
