@@ -25,7 +25,7 @@
 	<meta name="description" content="<c:out value="${description}" default="${defaultDescription}"/>" />
 	<meta name="keywords" content="<c:out value="${keywords}" default="${defaultKeywords}"/>" />
   
-    <title>${title} ${fn:startsWith(title, 'Calopsita - Gerenciamento de projetos para equipes ágeis')?'': '- Calopsita - Gerenciamento de softwares para equipes ágeis'}</title>
+    <title>${title} ${fn:startsWith(title, 'Calopsita - Agile teams project management tool')?'': '- Calopsita - Agile teams project management tool'}</title>
     
     <%@include file="../jsp/javascripts.jspf" %>
     
