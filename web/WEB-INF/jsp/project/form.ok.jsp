@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
-	<title>New project</title>
+	<title><fmt:message key="project.new.title"/></title>
 	
 	<script type="text/javascript" src="<c:url value="/javascript/project.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
