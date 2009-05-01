@@ -5,7 +5,7 @@
 	<h2>Calopsita</h2>
 	<br /><br />
 	<h3>
-	  You are not allowed to see this project.
+	  <fmt:message key="error.notAllowedToSeeProject"/>
 	</h3>
     
 </div>
