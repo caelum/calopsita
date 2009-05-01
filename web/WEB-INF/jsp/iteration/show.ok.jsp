@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Iteration" bodyClass="iteration" javascript="/javascript/iteration.js" css="/css/iteration.css">
+<calopsita:page title="Iteration" bodyClass="iteration" javascript="/javascript/iteration-show.js" css="/css/iteration.css">
 <div id="iteration">
     <p><fmt:message key="iteration.goal"/>: ${iteration.goal}</p>
     <c:if test="${not empty iteration.startDate}">
