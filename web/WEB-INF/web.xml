@@ -9,8 +9,8 @@
 	<jsp-config>
 		<jsp-property-group>
 			<url-pattern>*.jsp</url-pattern>
-			<scripting-invalid>true</scripting-invalid>
 			<page-encoding>UTF-8</page-encoding>
+			<scripting-invalid>true</scripting-invalid>
 			<include-prelude>/WEB-INF/jsp/prelude.jspf</include-prelude>
 		</jsp-property-group>
 	</jsp-config>
