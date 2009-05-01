@@ -96,4 +96,5 @@
 </div>
 <a href="<c:url value="/"/>">Back</a>
 
-</calopsita:page>
+</body>
+</html>

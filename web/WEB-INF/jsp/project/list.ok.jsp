@@ -1,5 +1,12 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Project" bodyClass="project" css="/css/project.css">
+<html>
+<head>
+	<title>Projects</title>
+	
+	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
+</head>
+
+<body>
 
 <a href="<c:url value="/project/form/"/>">New Project</a>
 <div id="projects">
@@ -13,4 +20,5 @@
   </ul>
 </div>
 
-</calopsita:page>
+</body>
+</html>
