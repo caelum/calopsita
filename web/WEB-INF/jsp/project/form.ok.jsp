@@ -1,5 +1,13 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Project" bodyClass="project" javascript="/WEB-INF/javascript/project.js" css="/css/project.css">
+<html>
+<head>
+	<title>New project</title>
+	
+	<script type="text/javascript" src="<c:url value="/javascript/project.js"/>" />
+	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
+</head>
+
+<body>
 
 <form id="addProject" name="addProject" action="<c:url value="/project/save/"/>" method="post">
   <p>
@@ -17,4 +25,5 @@
 
 <a href="<c:url value="/"/>">Back</a>
 
-</calopsita:page>
+</body>
+</html>
