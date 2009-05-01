@@ -11,19 +11,19 @@
 
 <form id="addProject" name="addProject" action="<c:url value="/project/save/"/>" method="post">
   <p>
-  	<label for="project.name">Name</label>
+  	<fmt:message key="project.name"/>
   	<em>*</em><input type="text" name="project.name"/>
   </p>
   <p>
-  	<label for="project.description">Description</label>
+  	<fmt:message key="project.description"/>
   	<em>*</em><textarea name="project.description"></textarea>
   </p>
   <p>
-  	<input class="submit" type="submit" value="Create"/>
+  	<input class="submit" type="submit" value="<fmt:message key="project.submit"/>"/>
   </p>
 </form>
 
-<a href="<c:url value="/"/>">Back</a>
+<a href="<c:url value="/"/>"><fmt:message key="back"/></a>
 
 </body>
 </html>
