@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title><fmt:message key="project.priorization"/></title>
-	
+	<script type="text/javascript" src="<c:url value="/javascript/jquery/selectableDraggable.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/javascript/story-prioritization.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
 </head>

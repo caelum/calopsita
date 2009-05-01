@@ -32,7 +32,7 @@ public class Story implements Identifiable {
 	private int priority;
 	
 	@Enumerated(EnumType.STRING)
-	private Status status = Status.DONE;
+	private Status status = Status.TODO;
 	
 	public static enum Status {
 		TODO, DONE
