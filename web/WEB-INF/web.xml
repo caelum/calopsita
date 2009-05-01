@@ -11,7 +11,6 @@
 			<url-pattern>*.jsp</url-pattern>
 			<page-encoding>UTF-8</page-encoding>
 			<scripting-invalid>true</scripting-invalid>
-			<include-prelude>/WEB-INF/jsp/prelude.jspf</include-prelude>
 		</jsp-property-group>
 	</jsp-config>
 	
