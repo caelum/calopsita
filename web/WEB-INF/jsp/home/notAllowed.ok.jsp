@@ -1,5 +1,12 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Home" bodyClass="home" css="/css/style.css">
+<html>
+<head>
+	<title>Home</title>
+	
+	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
+</head>
+
+<body>
 
 <div id="index">
 	<h2>Calopsita</h2>
@@ -10,4 +17,5 @@
     
 </div>
 
-</calopsita:page>
+</body>
+</html>

@@ -1,5 +1,13 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Home" bodyClass="home" javascript="/WEB-INF/javascript/user.js" css="/css/user.css">
+<html>
+<head>
+	<title>Login</title>
+	
+	<script type="text/javascript" src="<c:url value="/javascript/user.js"/>" />
+	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/user.css"/>" />
+</head>
+
+<body>
 
 <div id="login">
   <form id="form" name="login" action="<c:url value="/user/login/"/>" method="post">
@@ -18,4 +26,5 @@
   </form>
 </div>
 
-</calopsita:page>
+</body>
+</html>
