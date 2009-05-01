@@ -3,7 +3,7 @@
 <head>
 	<title>Project priorization</title>
 	
-	<script type="text/javascript" src="<c:url value="/javascript/iteration.js"/>" />
+	<script type="text/javascript" src="<c:url value="/javascript/iteration.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
 </head>
 

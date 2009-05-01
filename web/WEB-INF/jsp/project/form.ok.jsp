@@ -3,7 +3,7 @@
 <head>
 	<title>New project</title>
 	
-	<script type="text/javascript" src="<c:url value="/javascript/project.js"/>" />
+	<script type="text/javascript" src="<c:url value="/javascript/project.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
 </head>
 

@@ -3,7 +3,7 @@
 <head>
 	<title>Login</title>
 	
-	<script type="text/javascript" src="<c:url value="/javascript/user.js"/>" />
+	<script type="text/javascript" src="<c:url value="/javascript/user.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/user.css"/>" />
 </head>
 
