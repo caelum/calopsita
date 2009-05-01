@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/decorators">
 	<excludes>
-		<pattern>story/update.ok.jsp</pattern>
-		<pattern>story/storyLine.jsp</pattern>
+		<pattern>/story/update.ok.jsp</pattern>
+		<pattern>/story/storyLine.jsp</pattern>
 	</excludes>
 
 	<decorator name="calopsita" page="calopsita.jsp">

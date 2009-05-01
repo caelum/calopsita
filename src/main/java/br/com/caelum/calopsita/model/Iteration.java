@@ -1,9 +1,11 @@
 package br.com.caelum.calopsita.model;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -68,7 +70,8 @@ public class Iteration implements Identifiable {
 
     public void setStartDate(String startDate) throws ParseException {
     	if (startDate != null && !startDate.isEmpty()) {
-			this.startDate = new DateTime(new SimpleDateFormat("MM/dd/yyyy").parse(startDate));
+    		DateFormat dateFormatter = DateFormat.getDateInstance(DateFormat.SHORT);
+			this.startDate = new DateTime(dateFormatter.parse(startDate));
 		} else {
 			this.startDate = null;
 		}
@@ -80,7 +83,8 @@ public class Iteration implements Identifiable {
 
     public void setEndDate(String endDate) throws ParseException {
     	if (endDate != null && !endDate.isEmpty()) {
-			this.endDate = new DateTime(new SimpleDateFormat("MM/dd/yyyy").parse(endDate));
+    		DateFormat dateFormatter = DateFormat.getDateInstance(DateFormat.SHORT);
+			this.endDate = new DateTime(dateFormatter.parse(endDate));
 		} else {
 			this.endDate = null;
 		}
