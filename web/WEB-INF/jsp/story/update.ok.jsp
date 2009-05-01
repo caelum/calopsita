@@ -1,20 +1,5 @@
 <%@include file="../javascripts.jspf" %>
-<script type="text/javascript">
-	$(function() {
-		function bind() {
-			$('form[name="editStory"]').ajaxForm({
-				beforeSubmit: function () {
-					$('[id*="story_edit"]:visible').slideToggle("normal");
-				},
-				success: function(data) {
-					$('#stories').html(data);
-					bind();
-				}
-			});
-		}
-		bind();
-	});
-</script>
+<script type="text/javascript" src="<c:url value="/javascript/story-update.js"/>"></script>
 <h2>Stories:</h2>
 
 <ol>

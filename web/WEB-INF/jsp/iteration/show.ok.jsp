@@ -3,7 +3,7 @@
 <head>
 	<title><fmt:message key="iteration"/></title>
 	
-	<script type="text/javascript" src="<c:url value="/javascript/iteration.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/javascript/iteration-show.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
 </head>
 
@@ -30,10 +30,7 @@
 	<h2><fmt:message key="toDo"/> <a href="#" onclick="return show_help()">?</a></h2>
 	<ol id="todo_list" class="board">
 		<c:forEach items="${iteration.todoStories}" var="story" varStatus="s">
-			<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
-				<p>${story.name }</p>
-				<span class="hidden">${story.id }</span>
-			</li>
+			<%@include file="storyCard.jsp" %>
 		</c:forEach>
 	</ol>
 </div>
@@ -41,10 +38,7 @@
 	<h2><fmt:message key="done"/> <a href="#" onclick="return show_help()">?</a></h2>
 	<ol id="done_list" class="board">
 		<c:forEach items="${iteration.doneStories}" var="story" varStatus="s">
-			<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
-				<p>${story.name }</p>
-				<span class="hidden">${story.id }</span>
-			</li>
+			<%@include file="storyCard.jsp" %>
 		</c:forEach>
 	</ol>
 </div>
@@ -53,10 +47,7 @@
 
 	<ol id="backlog_list" class="board">
 		<c:forEach items="${otherStories}" var="story" varStatus="s">
-			<li class="story" id="backlog_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
-				<p>${story.name }</p>
-				<span class="hidden">${story.id }</span>
-			</li>
+			<%@include file="storyCard.jsp" %>
 		</c:forEach>
 	</ol>
 </div>
