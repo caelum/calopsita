@@ -10,8 +10,8 @@
 	</div>
 	
 	<span>
-		The page you requested doesn't exist.
+		<fmt:message key="error.doesNotExist"/>
 		<br /><br />
-		Click on the logo to go back to Calopsita.
+		<fmt:message key="clickOnLogo"/>
 	</span>
 </div>

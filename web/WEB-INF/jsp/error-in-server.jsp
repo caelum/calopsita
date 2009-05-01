@@ -10,8 +10,7 @@
 	</div>
 	
 	<span>
-		There was an error on the server. Please be so kind 
-		as to report this error to the system administrator.
+		<fmt:message key="error.server"/>
 	</span>
 
 	<p>
