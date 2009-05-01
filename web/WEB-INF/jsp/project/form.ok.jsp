@@ -11,11 +11,11 @@
 
 <form id="addProject" name="addProject" action="<c:url value="/project/save/"/>" method="post">
   <p>
-  	<fmt:message key="project.name"/>
+  	<label><fmt:message key="project.name"/></label>
   	<em>*</em><input type="text" name="project.name"/>
   </p>
   <p>
-  	<fmt:message key="project.description"/>
+  	<label><fmt:message key="project.description"/></label>
   	<em>*</em><textarea name="project.description"></textarea>
   </p>
   <p>

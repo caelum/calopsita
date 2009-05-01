@@ -13,23 +13,23 @@
 	
 		<form id="form" name="signUp" action="<c:url value="/user/save/"/>" method="post">
 		  <p>
-		    <label for="user.name"><fmt:message key="user.name"/></label>
+		    <label><fmt:message key="user.name"/></label>
 		    <em>*</em><input type="text" name="user.name"/>
 		  </p>
 		  <p>
-		    <fmt:message key="user.login"/>
+		    <label><fmt:message key="user.login"/></label>
 		    <em>*</em><input type="text" name="user.login">
 		  </p>
 		  <p>
-		    <fmt:message key="user.email"/>
+		    <label><fmt:message key="user.email"/></label>
 		    <em>*</em><input type="text" name="user.email"/>
 		  </p>
 		  <p>
-		    <fmt:message key="user.password"/>
+		    <label><fmt:message key="user.password"/></label>
 		    <em>*</em><input type="password" id="password" name="user.password"/>
 		  </p>
 		  <p>
-		    <fmt:message key="user.confirmation"/>
+		    <label><fmt:message key="user.confirmation"/></label>
 		    <em>*</em><input type="password" name="user.confirmation"/>
 		  </p>
 		  <p>
