@@ -1,9 +1,9 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
-	<title>Iteration</title>
+	<title><fmt:message key="iteration"/></title>
 	
-	<script type="text/javascript" src="<c:url value="/javascript/iteration.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/javascript/iteration-show.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
 </head>
 
@@ -24,46 +24,35 @@
 </script>
 
 <div id="help" class="dialog" title="Adding and Removing Stories">
-	Drag and drop stories from backlog to Stories to add the stories to iteration. <br/>
-	Drag and drop stories from Stories to Backlog to remove the stories from the iteration. <br/>
-	You can select more than one story at time.
+	<fmt:message key="iteration.help.addingAndRemovingStories"/>
 </div>
 <div id="todo_stories" class="selectable stories">
-	<h2>To do <a href="#" onclick="return show_help()">?</a></h2>
+	<h2><fmt:message key="toDo"/> <a href="#" onclick="return show_help()">?</a></h2>
 	<ol id="todo_list" class="board">
 		<c:forEach items="${iteration.todoStories}" var="story" varStatus="s">
-			<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
-				<p>${story.name }</p>
-				<span class="hidden">${story.id }</span>
-			</li>
+			<%@include file="storyCard.jsp" %>
 		</c:forEach>
 	</ol>
 </div>
 <div id="done_stories" class="selectable stories">
-	<h2>Done <a href="#" onclick="return show_help()">?</a></h2>
+	<h2><fmt:message key="done"/> <a href="#" onclick="return show_help()">?</a></h2>
 	<ol id="done_list" class="board">
 		<c:forEach items="${iteration.doneStories}" var="story" varStatus="s">
-			<li class="story" id="stories_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
-				<p>${story.name }</p>
-				<span class="hidden">${story.id }</span>
-			</li>
+			<%@include file="storyCard.jsp" %>
 		</c:forEach>
 	</ol>
 </div>
 <div id="backlog" class="selectable">
-	<h2>BackLog</h2>
+	<h2><fmt:message key="backlog"/></h2>
 
 	<ol id="backlog_list" class="board">
 		<c:forEach items="${otherStories}" var="story" varStatus="s">
-			<li class="story" id="backlog_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', '${story.description }')">
-				<p>${story.name }</p>
-				<span class="hidden">${story.id }</span>
-			</li>
+			<%@include file="storyCard.jsp" %>
 		</c:forEach>
 	</ol>
 </div>
 
-<a href="<c:url value="/project/${iteration.project.id }/show/"/>">Back</a>
+<a href="<c:url value="/project/${iteration.project.id }/show/"/>"><fmt:message key="back"/></a>
 
 </body>
 </html>
