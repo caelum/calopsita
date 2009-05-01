@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/decorators">
+	<excludes>
+		<pattern>story/update.ok.jsp</pattern>
+		<pattern>story/storyLine.jsp</pattern>
+	</excludes>
+
+	<decorator name="main" page="main.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	
+	<decorator name="calopsita" page="calopsita.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	
+	<decorator name="index" page="index.jsp">
+		<pattern>/home/login.ok.jsp</pattern>
+		<pattern>/user/formSignUp.ok.jsp</pattern>
+	</decorator>
+</decorators>

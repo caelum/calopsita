@@ -1,5 +1,14 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Iteration" bodyClass="iteration" javascript="/javascript/iteration-show.js" css="/css/iteration.css">
+<html>
+<head>
+	<title>Iteration</title>
+	
+	<script type="text/javascript" src="<c:url value="/javascript/iteration.js"/>"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
+</head>
+
+<body>
+
 <div id="iteration">
     <p><fmt:message key="iteration.goal"/>: ${iteration.goal}</p>
     <c:if test="${not empty iteration.startDate}">
@@ -56,4 +65,5 @@
 
 <a href="<c:url value="/project/${iteration.project.id }/show/"/>">Back</a>
 
-</calopsita:page>
+</body>
+</html>

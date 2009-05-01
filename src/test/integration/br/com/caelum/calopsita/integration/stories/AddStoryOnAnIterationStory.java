@@ -8,8 +8,8 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  * <b>In order to</b> organize my work <br>
  * <b>As a</b> project owner <br>
  * <b>I want</b> to put existent stories in an iteration <br>
- * @author lucascs
  *
+ * @author lucascs
  */
 public class AddStoryOnAnIterationStory extends DefaultStory {
 	
