@@ -45,11 +45,11 @@
 	<form id="addStory" name="addStory" action="<c:url value="/story/save/"/>" method="post">
 		<input type="hidden" name="project.id" value="${project.id }" />
 		<p>
-			<fmt:message key="story.name"/>
+			<label><fmt:message key="story.name"/></label>
 			<em>*</em><input type="text" name="story.name"/>
 		</p>
 		<p>
-			<fmt:message key="story.description"/>
+			<label><fmt:message key="story.description"/></label>
 			<em>*</em><textarea name="story.description"></textarea>
 		</p>
 	    <p>
@@ -77,15 +77,15 @@
   <form id="addIteration" name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
     <input type="hidden" name="project.id" value="${project.id }" />
     <p>
-		<fmt:message key="iteration.goal"/>
+		<label><fmt:message key="iteration.goal"/></label>
 		<em>*</em><input type="text" name="iteration.goal"/>
 	</p>
 	<p>
-		<fmt:message key="iteration.startDate"/>
+		<label><fmt:message key="iteration.startDate"/></label>
 		<em></em><input type="text" name="iteration.startDate" class="datepicker"/>
 	</p>
 	<p>
-		<fmt:message key="iteration.endDate"/>
+		<label><fmt:message key="iteration.endDate"/></label>
 		<em></em><input type="text" name="iteration.endDate" class="datepicker"/>
 	</p>
 	<p>

@@ -12,11 +12,11 @@
 <div id="login">
   <form id="form" name="login" action="<c:url value="/user/login/"/>" method="post">
     <p>
-      <fmt:message key="user.login"/>
+      <label><fmt:message key="user.login"/></label>
       <input type="text" name="user.login">
     </p>
     <p>
-      <fmt:message key="user.password"/>
+      <label><fmt:message key="user.password"/></label>
       <input type="password" id="password" name="user.password"/>
     </p>
     <p>
