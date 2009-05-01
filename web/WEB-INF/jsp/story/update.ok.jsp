@@ -1,6 +1,6 @@
 <%@include file="../javascripts.jspf" %>
 <script type="text/javascript" src="<c:url value="/javascript/story-update.js"/>"></script>
-<h2>Stories:</h2>
+<h2><fmt:message key="stories"/>:</h2>
 
 <ol>
 	<c:forEach items="${stories}" var="story" varStatus="s">
@@ -14,4 +14,4 @@
 		</c:if>
 	</c:forEach>
 </ol>
-<a href="<c:url value="/project/${project.id }/prioritization/"/>">Prioritize</a>
+<a href="<c:url value="/project/${project.id }/prioritization/"/>"><fmt:message key="prioritize"/></a>
