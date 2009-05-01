@@ -6,11 +6,11 @@
 				<input type="hidden" name="story.id" value="${story.id }"/>
 				<input type="hidden" name="project.id" value="${project.id }"/>
 				<p>
-					<fmt:message key="story.name"/>
+					<label><fmt:message key="story.name"/></label>
 					<em>*</em><input type="text" name="story.name" value="${story.name }"/>
 				</p>
 				<p>
-					<fmt:message key="story.description"/>
+					<label><fmt:message key="story.description"/></label>
 					<em>*</em><textarea name="story.description" >${story.description }</textarea>
 				</p>
 				<p>
