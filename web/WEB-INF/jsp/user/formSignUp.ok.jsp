@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
-	<title>User</title>
+	<title><fmt:message key="user"/></title>
 	
 	<script type="text/javascript" src="<c:url value="/javascript/user.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/user.css"/>" />
@@ -9,31 +9,31 @@
 
 <body>
 	<div id="signUp">
-		Already on Calopsita? <a href="<c:url value="/"/>">Sign in</a>
+		<fmt:message key="alreadyOnCalopsita"/>? <a href="<c:url value="/"/>"><fmt:message key="user.login"/></a>
 	
 		<form id="form" name="signUp" action="<c:url value="/user/save/"/>" method="post">
 		  <p>
-		    <label for="user.name">Name</label>
+		    <label for="user.name"><fmt:message key="user.name"/></label>
 		    <em>*</em><input type="text" name="user.name"/>
 		  </p>
 		  <p>
-		    <label for="user.login">Login</label>
+		    <fmt:message key="user.login"/>
 		    <em>*</em><input type="text" name="user.login">
 		  </p>
 		  <p>
-		    <label for="user.email">Email</label>
+		    <fmt:message key="user.email"/>
 		    <em>*</em><input type="text" name="user.email"/>
 		  </p>
 		  <p>
-		    <label for="user.password">Password</label>
+		    <fmt:message key="user.password"/>
 		    <em>*</em><input type="password" id="password" name="user.password"/>
 		  </p>
 		  <p>
-		    <label for="user.confirmation">Confirmation</label>
+		    <fmt:message key="user.confirmation"/>
 		    <em>*</em><input type="password" name="user.confirmation"/>
 		  </p>
 		  <p>
-		    <input class="submit" type="submit" value="Sign Up"/>
+		    <input class="submit" type="submit" value="<fmt:message key="user.signUp"/>"/>
 		  </p>
 		</form>
 		
