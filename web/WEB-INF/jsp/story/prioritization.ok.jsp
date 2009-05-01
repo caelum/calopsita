@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Project" bodyClass="project" javascript="/WEB-INF/javascript/iteration.js" css="/css/iteration.css">
+<calopsita:page title="Project" bodyClass="project" javascript="/javascript/iteration.js" css="/css/iteration.css">
 <script type="text/javascript">
 	var max_priority = 0;
 	function storyCard(name, description, id, count, priority) {

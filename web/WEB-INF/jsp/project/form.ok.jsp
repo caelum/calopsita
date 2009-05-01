@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Project" bodyClass="project" javascript="/WEB-INF/javascript/project.js" css="/css/project.css">
+<calopsita:page title="Project" bodyClass="project" javascript="/javascript/project.js" css="/css/project.css">
 
 <form id="addProject" name="addProject" action="<c:url value="/project/save/"/>" method="post">
   <p>

@@ -2,3 +2,4 @@
 <script type="text/javascript" src="<c:url value="/javascript/jquery/jquery.validate.min.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/javascript/jquery/jquery.form.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/javascript/jquery/jquery-ui-1.7.1.custom.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/javascript/jquery/selectableDraggable.js"/>"></script>

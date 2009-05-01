@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="User" bodyClass="user" javascript="/WEB-INF/javascript/user.js" css="/css/user.css">
+<calopsita:page title="User" bodyClass="user" javascript="/javascript/user.js" css="/css/user.css">
 
 <div id="signUp">
 	Already on Calopsita? <a href="<c:url value="/"/>">Sign in</a>

@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<calopsita:page title="Home" bodyClass="home" javascript="/WEB-INF/javascript/user.js" css="/css/user.css">
+<calopsita:page title="Home" bodyClass="home" javascript="/javascript/user.js" css="/css/user.css">
 
 <div id="login">
   <form id="form" name="login" action="<c:url value="/user/login/"/>" method="post">
