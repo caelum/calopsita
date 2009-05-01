@@ -19,7 +19,7 @@
   	<em>*</em><textarea name="project.description"></textarea>
   </p>
   <p>
-  	<input class="submit" type="submit" value="<fmt:message key="project.submit"/>"/>
+  	<input class="submit" type="submit" value="<fmt:message key="submit"/>"/>
   </p>
 </form>
 
