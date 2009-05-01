@@ -5,10 +5,6 @@
 		<pattern>story/storyLine.jsp</pattern>
 	</excludes>
 
-	<decorator name="main" page="main.jsp">
-		<pattern>/*</pattern>
-	</decorator>
-	
 	<decorator name="calopsita" page="calopsita.jsp">
 		<pattern>/*</pattern>
 	</decorator>
