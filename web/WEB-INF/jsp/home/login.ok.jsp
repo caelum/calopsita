@@ -12,16 +12,16 @@
 <div id="login">
   <form id="form" name="login" action="<c:url value="/user/login/"/>" method="post">
     <p>
-      <label for="user.login">Login</label>
+      <fmt:message key="user.login"/>
       <input type="text" name="user.login">
     </p>
     <p>
-      <label for="user.password">Password</label>
+      <fmt:message key="user.password"/>
       <input type="password" id="password" name="user.password"/>
     </p>
     <p>
-      <input class="submit" type="submit" value="Sign In"/>
-      or <a href="<c:url value="/user/formSignUp/"/>">Sign Up</a>
+      <input class="submit" type="submit" value="<fmt:message key="user.signIn"/>"/>
+      <fmt:message key="login.or"/> <a href="<c:url value="/user/formSignUp/"/>"><fmt:message key="user.signUp"/></a>
     </p>
   </form>
 </div>
