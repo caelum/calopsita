@@ -76,24 +76,24 @@
   <form id="addIteration" name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
     <input type="hidden" name="project.id" value="${project.id }" />
     <p>
-		<label for="iteration.goal">Goal</label>
+		<fmt:message key="iteration.goal"/>
 		<em>*</em><input type="text" name="iteration.goal"/>
 	</p>
 	<p>
-		<label for="iteration.startDate">Start Date</label>
+		<fmt:message key="iteration.startDate"/>
 		<em></em><input type="text" name="iteration.startDate" class="datepicker"/>
 	</p>
 	<p>
-		<label for="iteration.endDate">End Date</label>
+		<fmt:message key="iteration.endDate"/>
 		<em></em><input type="text" name="iteration.endDate" class="datepicker"/>
 	</p>
 	<p>
-		<input type="submit" value="Add"/>
-	 	<input class="buttons" type="button" value="Cancel" onclick="toggle('iteration'); document.addIteration.reset();"/>
+		<input type="submit" value="<fmt:message key="add"/>"/>
+	 	<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="toggle('iteration'); document.addIteration.reset();"/>
 	</p>
   </form>
 </div>
-<a href="<c:url value="/"/>">Back</a>
+<a href="<c:url value="/"/>"><fmt:message key="back"/></a>
 
 </body>
 </html>
