@@ -33,17 +33,16 @@ var stories = [];
 		<input type="submit" value="Save Priorization" />
 		<input type="hidden" name="project.id" value="${project.id }" />
 		<div class="table">
-			<div class="title"><fmt:message key="infinityPriority"/></div>
-			<div id="level_0" class="board" title="Infinity Priority" priority="0"></div>
+			<h2 class="title"><fmt:message key="infinityPriority"/></h2>
+			<ul id="level_0" class="board" title="Infinity Priority" priority="0"></ul>
 		</div>
 
 		<div id="board">
 			
 		</div>
 
-		<div class="title"><fmt:message key="newPriorityLevel"/></div>
-
-		<div id="lowerPriority" class="board" title="New Priority Level"></div>
+		<h2 class="title"><fmt:message key="newPriorityLevel"/></h2>
+		<ul id="lowerPriority" class="board" title="New Priority Level"></ul>
 	</form>
 
 	<a href="<c:url value="/project/${project.id }/show/"/>"><fmt:message key="back"/></a>
