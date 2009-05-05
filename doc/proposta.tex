@@ -11,7 +11,7 @@
 	pdftex}
 
 \title{Proposta de Monografia}
-\author{Cauê Haucke Porta Guerra\\Cecilia Fernandes\\Lucas Cavalcanti dos Santos\\Prof. Dr. Alfredo Goldman}
+\author{Cauê Haucke Porta Guerra\\Cecilia Fernandes\\Lucas Cavalcanti dos Santos\\ \\Prof. Dr. Alfredo Goldman\\ \\Mariana V. Bravo\\Hugo Corbucci\\Paulo E. de Azevedo Silveira\\Fabio Kung\\Guilherme de Azevedo Silveira}
 
 \begin{document}
 
@@ -20,6 +20,7 @@
 \begin{description} 
 \item{\textbf{Alunos:}\\Cauê Haucke Porta Guerra\\Cecilia Fernandes\\Lucas Cavalcanti dos Santos}
 \item{\textbf{Supervisor:}\\Prof. Dr. Alfredo Goldman}
+\item{\textbf{Colaboradores:}\\Mariana V. Bravo\\Hugo Corbucci\\Paulo E. de Azevedo Silveira\\Fabio Kung\\Guilherme de Azevedo Silveira}
 \end{description}
 
 \section{Tema}
@@ -31,12 +32,12 @@ Notando que não há uma solução única que consiga lidar com diversas metodol
 
 Desenvolvemos essa ferramenta utilizando Java e em sistema de co-orientação, contando com o incentivo dos profissionais da Caelum, como Paulo Silveira (Mestre em Origami Computacional, IME/USP) e Fabio Kung (Engenheiro da Computação, Poli/USP e criador do Jetty Rails). Também procuramos estar em contato com mestres e mestrandos da área de sistema e métodos ágeis, tais como Danilo Sato, Mariana Bravo e Hugo Corbucci.
 
-Para isso, além de diariamente usar metodologias ágeis, estamos estudando aquelas que ainda não conhecemos. Durante o desenvolvimento da aplicação, estamos estudando os padrões de projeto a serem aplicados e arquitetura de sistemas. Também está sendo importante coletar informações sobre IHC\footnote{Interação Homem Computador} para criar uma interface leve e de fácil utilização.
+Para isso, além de diariamente usar metodologias ágeis, estamos estudando aquelas que ainda não conhecemos. Durante o desenvolvimento da aplicação, descobrimos e avaliamos os padrões de projeto a serem aplicados e arquitetura de sistemas. Também será importante coletar informações sobre IHC\footnote{Interação Homem Computador} para criar uma interface leve e de fácil utilização.
 
 \section{Objetivos}
-Nosso objetivo primário é desenvolver uma aplicação leve e de qualidade para gerenciamento de projetos em metodologias ágeis. Sem restringir os usuários do software a uma determinada metodologia ou às métricas mais comuns, contruir uma aplicação flexível e facilmente estensível.
+Nosso objetivo primário é desenvolver uma aplicação leve e de qualidade para gerenciamento de projetos em metodologias ágeis. Sem restringir os usuários do software a uma determinada metodologia ou às métricas mais comuns, construir uma aplicação flexível e facilmente estensível.
 
-Pretendemos desenvolver, utilizando práticas ágeis, um gerenciador de projetos que atenda tanto necessidades de equipes comerciais distribuidas, quanto de projetos ágeis \textit{opensource}, dada a recente adaptação de metodologias como Scrum para esse nicho de \textit{softwares}.
+Pretendemos desenvolver, utilizando práticas ágeis, um gerenciador de projetos que atenda tanto necessidades de equipes comerciais distribuídas, quanto de projetos ágeis \textit{opensource}, nicho que ainda está crescendo.
 
 Também é objetivo, fornecer ferramentas para facilitar e melhorar a comunicação entre a equipe de desenvolvimento e o cliente, caso esse não possa estar fisicamente próximo - o que acontece com frequência em equipes distribuídas.
 
@@ -47,9 +48,9 @@ O projeto foi nomeado Calopsita e seu repositório no GitHub\footnote{git clone 
 
 Começamos a programação já nos primeiros dias de fevereiro e, ao criar uma forma de melhorar a legibilidade dos nossos testes aplicando BDD\footnote{Behaviour Driven Development} em Java, publicamos um \href{http://blog.caelum.com.br/2009/02/28/behavior-driven-development-com-junit/}{\textit{post} no blog da Caelum} que rendeu diversos comentários positivos e um início de visibilidade para o projeto.
 
-No mês de março, com o projeto num servidor de integração contínua, passamos a disponibilizar um endereço no qual nossos clientes podem ver rodando a última versão do projeto que passa em todos os testes.
+No mês de março, com o projeto em um servidor de integração contínua, passamos a disponibilizar um endereço no qual nossos clientes podem ver rodando a última versão do projeto que passa em todos os testes.
 
-Em abril, submetemos uma palestra no FISL (Fórum Internacional de Software Livre) sobre o projeto e estamos aguardando a posição do evento para saber se teremos ou não essa honra. Ainda no fim de abril, começamos a utilizar o Calopsita para gerenciar o próprio projeto. Além disso, ele foi citado num encontro do SouJava que falava sobre Test Driven Development.
+Em abril, submetemos uma palestra no FISL (Fórum Internacional de Software Livre) e aguardamos a posição do evento para saber se teremos a chance de apresentar o projeto para a comunidade \textit{opensource}. Ainda no fim de abril, começamos a utilizar o Calopsita para gerenciar o próprio projeto. Além disso, ele foi citado em um encontro do SouJava que falava sobre Test Driven Development.
 
 Agora em maio, os pontos finais de usabilidade do sistema estão sendo desenvolvidos e, nos próximos meses, focaremos em agregar mais possibilidade de métricas e suporte a \textit{templates} das metodologias ágeis mais usadas no mercado.
 
@@ -68,15 +69,15 @@ Agora em maio, os pontos finais de usabilidade do sistema estão sendo desenvolv
 A monografia terá estrutura similar à seguinte:
 
 \begin{enumerate}
-	\item{\textbf{Introdução} Breve explicação da estrutura da monografia e visão geral do projeto;}
-	\item{\textbf{Motivação e público alvo} Alguns fatos e desapontamentos anteriores que nos levaram a desenvolver uma nova ferramenta de gerenciamento de projetos ágeis. Equipes ágeis distribuidas e com clientes fisicamente distantes são o público alvo;}
-	\item{\textbf{Desenvolvimento} Como foi o desenvolvimento (BDD, TDD, XP com Scrum, integração contínua, etc), quais clientes ágeis participaram, quem ajudou em arquitetura e quem ajudou com código;}
-	\item{\textbf{Código} Padrões de projeto utilizados, arquitetura escolhida, linguagem - e porquês;}
-	\item{\textbf{Funcionalidades} Quais funcionalidades já foram implementadas e quais seriam as próximas de acordo com o \textit{backlog} do projeto;}
-	\item{\textbf{Integração} Integração fácil do Calopsita com uma ferramenta de integração contínua e com outra de comunicação com clientes;}
-	\item{\textbf{Visão dos clientes} Pontos positivos e negativos da nossa ferramenta em comparação às utilizadas no mercado segundo os clientes da aplicação;}
-	\item{\textbf{Conclusão} Resultados obtidos e satisfação com o projeto. Caminho para continuar a crescer e perspectivas futuras;}
-	\item{\textbf{Bibliografia} Livros, websites e publicações acadêmicas onde procuramos informações na construção do Calopsita.}
+	\item{\textbf{Introdução} \\ Breve explicação da estrutura da monografia e visão geral do projeto;}
+	\item{\textbf{Motivação e público alvo} \\ Alguns fatos e desapontamentos anteriores que nos levaram a desenvolver uma nova ferramenta de gerenciamento de projetos ágeis. Equipes ágeis distribuidas e com clientes fisicamente distantes são o público alvo;}
+	\item{\textbf{Desenvolvimento} \\ Como foi o desenvolvimento (BDD, TDD, XP, integração contínua, etc), quais clientes ágeis participaram, quem ajudou em arquitetura e quem ajudou com código;}
+	\item{\textbf{Código} \\ Padrões de projeto utilizados, arquitetura escolhida, linguagem - e porquês;}
+	\item{\textbf{Funcionalidades} \\ Quais funcionalidades já foram implementadas e quais seriam as próximas de acordo com o \textit{backlog} do projeto;}
+	\item{\textbf{Integração} \\ Integração fácil do Calopsita com uma ferramenta de integração contínua e com outra de comunicação com clientes;}
+	\item{\textbf{Visão dos clientes} \\ Pontos positivos e negativos da nossa ferramenta em comparação às utilizadas no mercado segundo os clientes da aplicação;}
+	\item{\textbf{Conclusão} \\ Resultados obtidos e satisfação com o projeto. Caminho para continuar a crescer e perspectivas futuras;}
+	\item{\textbf{Bibliografia} \\ Livros, websites e publicações acadêmicas onde procuramos informações na construção do Calopsita.}
 \end{enumerate}
 
 \end{document}
