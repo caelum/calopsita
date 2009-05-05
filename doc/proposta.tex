@@ -3,8 +3,15 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,%
+	citecolor=red,%
+	linkcolor=red,%
+	urlcolor=blue,%
+	pdftex}
+
 \title{Proposta de Monografia}
-\author{}
+\author{Cauê Haucke Porta Guerra\\Cecilia Fernandes\\Lucas Cavalcanti dos Santos\\Prof. Dr. Alfredo Goldman}
 
 \begin{document}
 
@@ -22,23 +29,29 @@ Implementação de um sistema de gerenciamento de projetos para metodologias ág
 \section{Resumo}
 Notando que não há uma solução única que consiga lidar com diversas metodologias ágeis para diferentes projetos, decidimos procurar o que falta nas ferramentas de gerenciamento de projetos ágeis e criar uma ferramenta flexível o bastante para lidar com a rápida evolução das metodologias e suas métricas.
 
-Desenvolveremos essa ferramenta utilizando Java e em sistema de co-orientação, contando com o incentivo dos profissionais da Caelum, como Paulo Silveira (Mestre em Origami Computacional, IME/USP) e Fabio Kung (Engenheiro da Computação, Poli/USP e criador do Jetty Rails). Também procuraremos estar em contato com mestres e mestrandos da área, tais como Danilo Sato, Mariana Bravo e Hugo Corbucci.
+Desenvolvemos essa ferramenta utilizando Java e em sistema de co-orientação, contando com o incentivo dos profissionais da Caelum, como Paulo Silveira (Mestre em Origami Computacional, IME/USP) e Fabio Kung (Engenheiro da Computação, Poli/USP e criador do Jetty Rails). Também procuramos estar em contato com mestres e mestrandos da área de sistema e métodos ágeis, tais como Danilo Sato, Mariana Bravo e Hugo Corbucci.
 
-Para isso, além de diariamente usar metodologias ágeis, estamos estudando aquelas que ainda não conhecemos. Durante o desenvolvimento da aplicação, estudaremos os padrões de projeto a serem aplicados e arquitetura de sistemas. Também será importante coletar informações sobre IHC\footnote{Interação Homem Computador} para criar uma interface leve e de fácil utilização.
+Para isso, além de diariamente usar metodologias ágeis, estamos estudando aquelas que ainda não conhecemos. Durante o desenvolvimento da aplicação, estamos estudando os padrões de projeto a serem aplicados e arquitetura de sistemas. Também está sendo importante coletar informações sobre IHC\footnote{Interação Homem Computador} para criar uma interface leve e de fácil utilização.
 
 \section{Objetivos}
-Nosso objetivo primário é desenvolver uma aplicação leve e de qualidade para gerenciamento de projetos em metodologias ágeis. Sem restringir o software a uma determinada metodologia ou às métricas mais comuns, obter uma aplicação flexível e facilmente estensível.
+Nosso objetivo primário é desenvolver uma aplicação leve e de qualidade para gerenciamento de projetos em metodologias ágeis. Sem restringir os usuários do software a uma determinada metodologia ou às métricas mais comuns, contruir uma aplicação flexível e facilmente estensível.
 
 Pretendemos desenvolver, utilizando práticas ágeis, um gerenciador de projetos que atenda tanto necessidades de equipes comerciais distribuidas, quanto de projetos ágeis \textit{opensource}, dada a recente adaptação de metodologias como Scrum para esse nicho de \textit{softwares}.
 
 Também é objetivo, fornecer ferramentas para facilitar e melhorar a comunicação entre a equipe de desenvolvimento e o cliente, caso esse não possa estar fisicamente próximo - o que acontece com frequência em equipes distribuídas.
 
 \section{Atividades já realizadas}
-Agora em janeiro, já foi discutida a participação da Caelum nesse projeto e acordado que teremos aproximadamente oito horas semanais de trabalho dedicadas a isso, além das horas que dedicaremos fora do horário de trabalho.
+Ainda em janeiro, foi discutida a participação da Caelum nesse projeto e acordado que teremos, além da co-orientação, algumas horas semanais de trabalho dedicadas a ele, além das horas que dedicaremos fora do horário de trabalho.
 
-O nome do projeto já foi criado (Calopsita), bem como seu repositório no GitHub\footnote{git clone git://github.com/caueguerra/calopsita.git}. Além disso, o gerenciador será desenvolvido em Java para web.
+O projeto foi nomeado Calopsita e seu repositório no GitHub\footnote{git clone git://github.com/caueguerra/calopsita.git} foi criado e está acessível desde os princípios do desenvolvimento -- em Java para a web.
 
-Planejamos começar a programação já nos primeiros dias de fevereiro e, assim que possível, utilizar a própria ferramenta para gerenciar nosso projeto.
+Começamos a programação já nos primeiros dias de fevereiro e, ao criar uma forma de melhorar a legibilidade dos nossos testes aplicando BDD\footnote{Behaviour Driven Development} em Java, publicamos um \href{http://blog.caelum.com.br/2009/02/28/behavior-driven-development-com-junit/}{\textit{post} no blog da Caelum} que rendeu diversos comentários positivos e um início de visibilidade para o projeto.
+
+No mês de março, com o projeto num servidor de integração contínua, passamos a disponibilizar um endereço no qual nossos clientes podem ver rodando a última versão do projeto que passa em todos os testes.
+
+Em abril, submetemos uma palestra no FISL (Fórum Internacional de Software Livre) sobre o projeto e estamos aguardando a posição do evento para saber se teremos ou não essa honra. Ainda no fim de abril, começamos a utilizar o Calopsita para gerenciar o próprio projeto. Além disso, ele foi citado num encontro do SouJava que falava sobre Test Driven Development.
+
+Agora em maio, os pontos finais de usabilidade do sistema estão sendo desenvolvidos e, nos próximos meses, focaremos em agregar mais possibilidade de métricas e suporte a \textit{templates} das metodologias ágeis mais usadas no mercado.
 
 \section{Cronograma}
 {\small
