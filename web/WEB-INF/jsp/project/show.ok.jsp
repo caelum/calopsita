@@ -14,16 +14,16 @@
     <p><fmt:message key="project.description"/>: ${project.description}</p>
 </div>
 
-<c:if test="${not empty project.colaborators}">
-	<div id="colaborators">
-		<h2><fmt:message key="colaborators"/>:</h2>
-		<ul>
-			<c:forEach items="${project.colaborators}" var="colaborator">
-				<li>${colaborator.name }</li>
-			</c:forEach>
-		</ul>
-	</div>
-</c:if>
+<div id="colaborators">
+	<h2><fmt:message key="colaborators"/>:</h2>
+	<ul>
+          <li><b>${project.owner.name}</b></li>
+		<c:forEach items="${project.colaborators}" var="colaborator">
+			<li>${colaborator.name }</li>
+		</c:forEach>
+	</ul>
+</div>
+  
 <c:if test="${not empty project.iterations}">
   <div id="iterations">
     <h2><fmt:message key="iterations"/>:</h2>
