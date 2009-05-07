@@ -124,9 +124,10 @@ public class ThenAsserts {
 		return this;
 	}
 
-	public void appearsOnBacklog() {
+	public ThenAsserts appearsOnBacklog() {
 		this.divName = "backlog";
 		appearsOnList();
+		return this;
 	}
 
 	public ThenAsserts and() {
@@ -135,5 +136,10 @@ public class ThenAsserts {
 
 	public void appearsAsDone() {
 		assertThat(browser.currentPage().div("done_stories"), divContainsString(name));
+	}
+
+	public ThenAsserts notAppearsOnBacklog() {
+		assertThat(this.browser.currentPage().div("backlog"), not(divContainsString(name)));
+		return this;
 	}
 }
