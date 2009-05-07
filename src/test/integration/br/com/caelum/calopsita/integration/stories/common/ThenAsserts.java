@@ -142,4 +142,9 @@ public class ThenAsserts {
 		assertThat(this.browser.currentPage().div("backlog"), not(divContainsString(name)));
 		return this;
 	}
+
+	public void appearsOnList(String divName) {
+		this.divName = divName;
+		appearsOnList();
+	}
 }

@@ -91,7 +91,7 @@ public class WhenActions {
 		return this;
 	}
 
-	public void withDescription(String description) throws InterruptedException {
+	public void withDescription(String description) {
 		iClickOn("Add Story");
 		browser.currentPage()
 			.form("addStory")
@@ -185,5 +185,9 @@ public class WhenActions {
 	public void asDone() {
 		browser.currentPage().dragAndDrop(storyName, "done_stories");
 		browser.currentPage().waitUntil("$('#done_stories .story').length > 0", 5000);
+	}
+
+	public WhenActions iOpenThePageOfStoryNamed(String string) {
+		return null;
 	}
 }
