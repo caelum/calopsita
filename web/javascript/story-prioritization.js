@@ -13,6 +13,17 @@ function changeWidth() {
     });
 }
 
+function showDialog(title, body) {
+	var div = $('<div title="' + title + '"></div>');
+	div.append($('#' + body).clone().show()).dialog({
+		bgiframe: true,
+		modal: true,
+		width: '500px',
+		show: 'highlight',
+		hide: 'highlight'
+	});
+}
+
 function getOrCreateUl(priority) {
 	if (priority > max_priority + 1) getOrCreateUl(priority - 1);
 	if (priority > max_priority) max_priority = priority;

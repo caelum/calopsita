@@ -26,7 +26,8 @@
 				<h2 id="title_${s.index }" class="title"><fmt:message key="priority"/> ${s.index }</h2>
 				<ul id="level_${s.index }" class="board" title="Priority ${s.index }" priority="${s.index }">
 					<c:forEach items="${currentPriority}" var="story">
-						<li class="story" name="${story.name }" title="Double click for description">
+						<li class="story" name="${story.name }" title="Double click for description" 
+							ondblclick="showDialog('${story.name}', 'description_${story.id }')">
 							<p>${story.name }</p>
 							<p id="description_${story.id }" class="hidden">${story.description }</p>
 							<input type="hidden" name="stories[#].id" value="${story.id}" />
