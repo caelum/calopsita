@@ -24,10 +24,8 @@ function showDialog(title, body) {
 	});
 }
 
-function getOrCreateUl(priority) {
-	if (priority > max_priority + 1) getOrCreateUl(priority - 1);
-	if (priority > max_priority) max_priority = priority;
-	
+function createPriorityLevel() {
+	var priority = max_priority++;
 	var ul = $('#level_' + priority);
 	if (ul.length == 0) {
 		$('#board').append('<h2 class="title">Priority ' + priority + '</h2>');
@@ -57,11 +55,14 @@ function fixInfinityPriority() {
 	div.append($('#title_0').html(infinityText));
 	div.append($('#level_0').attr('title', infinityText));
 }
+function fixPriorityLevels() {
+	max_priority = $('ul.board').length - 1;
+}
 
 $(function() {
 	fixParameters();
 	fixInfinityPriority();
-	
+	fixPriorityLevels();
 	function bind() {
 		$('.board').not('#lowerPriority').droppable({
 			accept: function (element) {
@@ -81,7 +82,7 @@ $(function() {
 		accept: '.story',
 		tolerance: 'pointer',
 		drop: function(event, ui) {
-			var div = getOrCreateUl(max_priority + 1);
+			var div = createPriorityLevel();
 			moveSelectedTo(div);
 			bind();
 		}

@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.integration.stories;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -14,6 +15,7 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 public class StoriesInStoriesStory extends DefaultStory {
 	
 	@Test
+	@Ignore
 	public void addAStoryInAnotherStory() throws Exception {
 		given.thereIsAnUserNamed("lipe").and()
 			.thereIsAProjectNamed("tattoos")
