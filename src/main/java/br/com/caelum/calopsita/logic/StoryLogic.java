@@ -24,6 +24,7 @@ public class StoryLogic {
 	private final User currentUser;
 	private final ProjectRepository projectRepository;
 	private List<Story> stories;
+	private Story story;
 
 	public StoryLogic(User user, StoryRepository repository, ProjectRepository projectRepository) {
 		this.currentUser = user;
@@ -38,7 +39,15 @@ public class StoryLogic {
 		repository.add(story);
 		this.stories = this.projectRepository.listStoriesFrom(project);
 	}
+	
+	public void edit(Story story) {
+		this.story = this.repository.load(story);
+	}
 
+	public Story getStory() {
+		return story;
+	}
+	
 	public void update(Story story) {
 		Story managedStory = repository.load(story);
 		this.project = managedStory.getProject();
@@ -86,10 +95,5 @@ public class StoryLogic {
 
 	public Project getProject() {
 		return project;
-	}
-	public static void main(String[] args) {
-		List<String> list = new ArrayList<String>(10);
-		list.set(4, "aa");
-		System.out.println(list);
 	}
 }
