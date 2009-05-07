@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Iteration;
+import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 
 public class StoryDaoTest {
@@ -42,18 +43,20 @@ public class StoryDaoTest {
 	@Test
 	public void storiesWithoutIteration() throws Exception {
 		Iteration iteration = givenAnIteration();
-		Story story = givenAStory();
+		Story story = givenAStory(iteration.getProject());
 		Story storyOfIteration = givenAStoryOfTheIteration(iteration);
+		Story storyOfOtherProject = givenAStory(givenAProject());
 		
-		List<Story> list = dao.storiesWithoutIteration();
+		List<Story> list = dao.storiesWithoutIteration(iteration.getProject());
 		
 		assertThat(list, hasItem(story));
 		assertThat(list, not(hasItem(storyOfIteration)));
+		assertThat(list, not(hasItem(storyOfOtherProject)));
 	}
 
 
 	private Story givenAStoryOfTheIteration(Iteration iteration) {
-		Story story = givenAStory();
+		Story story = givenAStory(iteration.getProject());
 		story.setIteration(iteration);
 		session.update(story);
 		session.flush();
@@ -61,9 +64,10 @@ public class StoryDaoTest {
 	}
 
 
-	private Story givenAStory() {
+	private Story givenAStory(Project project) {
 		Story story = new Story();
 		story.setName("Rumpelstitlskin");
+		story.setProject(project);
 		story.setDescription("I hope I spelld his name correctly");
 		session.save(story);
 		session.flush();
@@ -73,9 +77,17 @@ public class StoryDaoTest {
 
 	private Iteration givenAnIteration() {
 		Iteration iteration = new Iteration();
+		iteration.setProject(givenAProject());
 		session.save(iteration);
 		session.flush();
 		return iteration;
 	}
 	
+	private Project givenAProject() {
+		Project project = new Project();
+		project.setName("A project");
+		session.save(project);
+		session.flush();
+		return project;
+	}
 }

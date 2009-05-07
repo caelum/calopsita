@@ -37,7 +37,8 @@ public class IterationLogic {
     
     public void show(Iteration iteration) {
     	this.iteration = repository.load(iteration);
-    	otherStories = storyRepository.storiesWithoutIteration();
+    	this.project = this.iteration.getProject();
+    	otherStories = storyRepository.storiesWithoutIteration(project);
     }
     
     public void updateStories(Iteration iteration, List<Story> stories) {

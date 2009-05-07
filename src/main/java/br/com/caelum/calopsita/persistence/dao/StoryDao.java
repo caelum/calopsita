@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.repository.StoryRepository;
 
@@ -34,8 +35,10 @@ public class StoryDao implements StoryRepository {
 	}
 	
 	@Override
-	public List<Story> storiesWithoutIteration() {
-		return session.createQuery("from Story s where s.iteration is null order by priority").list();
+	public List<Story> storiesWithoutIteration(Project project) {
+		return session.createQuery("from Story s where s.project = :project and " +
+				" s.iteration is null order by priority")
+				.setParameter("project", project).list();
 	}
 
 }
