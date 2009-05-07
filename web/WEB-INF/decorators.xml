@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/decorators">
 	<excludes>
+		<pattern>/story/save/</pattern>
+		<pattern>/story/update/</pattern>
 		<pattern>/story/update.ok.jsp</pattern>
 		<pattern>/story/storyLine.jsp</pattern>
+		<pattern>/iteration/storyCard.jsp</pattern>
 	</excludes>
-
+	
 	<decorator name="calopsita" page="calopsita.jsp">
-		<pattern>/*</pattern>
+		<pattern>/home/*</pattern>
+		<pattern>/iteration/*</pattern>
+		<pattern>/project/*</pattern>
+		<pattern>/story/*</pattern>
+		<pattern>/user/*</pattern>
 	</decorator>
 	
-	<decorator name="index" page="index.jsp">
-		<pattern>/home/login.ok.jsp</pattern>
-		<pattern>/user/formSignUp.ok.jsp</pattern>
-	</decorator>
 </decorators>
