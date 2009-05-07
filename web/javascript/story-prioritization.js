@@ -1,18 +1,8 @@
 var max_priority = 0;
-var stories;
-function initialize(storiesArray) {
-    stories = storiesArray;
+var infinityText;
+function initialize(infinityPriority) {
+	infinityText = infinityPriority;
 }
-function storyCard(name, description, id, count, priority) {
-	var li = $('<li class="story" name="' + name + '" title="' + description.substring(0,40) + '..."><p>' + name + '</p></li>');
-	li.append('<input type="hidden" name="stories[' + count + '].id" value="' + id + '" />');
-	li.append('<input class="priority" type="hidden" name="stories[' + count + '].priority" value="' + priority + '" />');
-	li.dblclick(function() {
-		showDialog(name, description);
-	});
-	return li;
-}
-
 function changeWidth() {
     var w = $('body').width();
     $('.board').css( {
@@ -43,11 +33,24 @@ function moveSelectedTo(div) {
         div.append(this);
     });
 }
+function fixParameters() {
+	$('.story').each(function(c, li) {
+		$('input', li).each(function(i, input) {
+			input.name = input.name.replace('#', '' + c);
+		});
+	});
+}
+function fixInfinityPriority() {
+	var div = $('<div class="table"></div>');
+	div.prependTo('#prioritizationForm');
+	div.append($('#title_0').html(infinityText));
+	div.append($('#level_0').attr('title', infinityText));
+}
+
 $(function() {
-	for (var i in stories) {
-		var s = stories[i];
-		getOrCreateUl(s.priority).append(storyCard(s.name, s.description, s.id, s.count, s.priority));
-	}
+	fixParameters();
+	fixInfinityPriority();
+	
 	function bind() {
 		$('.board').not('#lowerPriority').droppable({
 			accept: function (element) {

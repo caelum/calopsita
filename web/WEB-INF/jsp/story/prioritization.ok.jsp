@@ -5,24 +5,12 @@
 	<script type="text/javascript" src="<c:url value="/javascript/jquery/selectableDraggable.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/javascript/story-prioritization.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
+	<script type="text/javascript">
+		initialize('<fmt:message key="infinityPriority"/>');
+	</script>
 </head>
 
 <body>
-
-<script type="text/javascript">
-var stories = [];
-<c:set var="newline" value="
-"/>
-<c:forEach items="${stories}" var="s" varStatus="status">
-	stories.push({
-		priority: '${s.priority}',
-		name: '${s.name}',
-		description: '${fn:replace(s.description, newline, "<br/>")}',
-		id: ${s.id}, 
-		count: ${status.count} - 1   
-	});
-</c:forEach>
-</script>
 
 	<div id="project">
     	<p><fmt:message key="project.name"/>: ${project.name}</p>
@@ -32,13 +20,21 @@ var stories = [];
 	<form id="prioritizationForm" action="<c:url value="/story/prioritize/"/>" method="post">
 		<input type="submit" value="Save Priorization" />
 		<input type="hidden" name="project.id" value="${project.id }" />
-		<div class="table">
-			<h2 class="title"><fmt:message key="infinityPriority"/></h2>
-			<ul id="level_0" class="board" title="Infinity Priority" priority="0"></ul>
-		</div>
 
 		<div id="board">
-			
+			<c:forEach items="${groupedStories}" varStatus="s" var="currentPriority" >
+				<h2 id="title_${s.index }" class="title"><fmt:message key="priority"/> ${s.index }</h2>
+				<ul id="level_${s.index }" class="board" title="Priority ${s.index }" priority="${s.index }">
+					<c:forEach items="${currentPriority}" var="story">
+						<li class="story" name="${story.name }" title="Double click for description">
+							<p>${story.name }</p>
+							<p id="description_${story.id }" class="hidden">${story.description }</p>
+							<input type="hidden" name="stories[#].id" value="${story.id}" />
+							<input class="priority" type="hidden" name="stories[#].priority" value="${story.priority}" />
+						</li>
+					</c:forEach>
+				</ul>
+			</c:forEach>
 		</div>
 
 		<h2 class="title"><fmt:message key="newPriorityLevel"/></h2>
