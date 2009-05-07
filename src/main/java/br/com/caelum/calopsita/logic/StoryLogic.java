@@ -74,15 +74,17 @@ public class StoryLogic {
 	
 	public List<List<Story>> getGroupedStories() {
 		List<List<Story>> result = new ArrayList<List<Story>>();
-		for (int i = maxPriority(stories); i >= 0; i--) {
-			result.add(new ArrayList<Story>());
-		}
-		for (Story story : stories) {
-			result.get(story.getPriority()).add(story);
+		if (stories != null) {
+			for (int i = maxPriority(stories); i >= 0; i--) {
+				result.add(new ArrayList<Story>());
+			}
+			for (Story story : stories) {
+				result.get(story.getPriority()).add(story);
+			}
 		}
 		return result;
 	}
-	
+
 	private int maxPriority(List<Story> stories2) {
 		int max = 0;
 		for (Story story : stories2) {
