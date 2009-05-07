@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.vraptor.annotations.Component;
@@ -62,7 +63,33 @@ public class StoryLogic {
 		return stories;
 	}
 	
+	public List<List<Story>> getGroupedStories() {
+		List<List<Story>> result = new ArrayList<List<Story>>();
+		for (int i = maxPriority(stories); i >= 0; i--) {
+			result.add(new ArrayList<Story>());
+		}
+		for (Story story : stories) {
+			result.get(story.getPriority()).add(story);
+		}
+		return result;
+	}
+	
+	private int maxPriority(List<Story> stories2) {
+		int max = 0;
+		for (Story story : stories2) {
+			if (story.getPriority() > max) {
+				max = story.getPriority();
+			}
+		}
+		return max;
+	}
+
 	public Project getProject() {
 		return project;
+	}
+	public static void main(String[] args) {
+		List<String> list = new ArrayList<String>(10);
+		list.set(4, "aa");
+		System.out.println(list);
 	}
 }

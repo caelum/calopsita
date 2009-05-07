@@ -1,7 +1,11 @@
 package br.com.caelum.calopsita.logic;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -9,7 +13,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.calopsita.logic.StoryLogic;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
@@ -22,19 +25,15 @@ public class StoryTest {
 	private StoryRepository repository;
 	private User currentUser;
 	private Story currentStory;
+	private ProjectRepository projectRepository;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(StoryRepository.class);
         currentUser = new User();
-		final ProjectRepository projectRepository = mockery.mock(ProjectRepository.class);
-		
-		mockery.checking(new Expectations() {
-			{
-				allowing(projectRepository);
-			}
-		});
+		projectRepository = mockery.mock(ProjectRepository.class);
+
 		logic = new StoryLogic(currentUser, repository, projectRepository);
     }
 
@@ -70,6 +69,53 @@ public class StoryTest {
 		assertThat(loadedStory.getName(), is("Huckleberry Finn"));
 		assertThat(loadedStory.getDescription(), is("He has a drunk father."));
 	}
+    
+    @Test
+	public void groupingStoriesByPriority() throws Exception {
+		Story story1 = givenAStory(withPriority(1));
+		Story story2 = givenAStory(withPriority(1));
+		Story story3 = givenAStory(withPriority(2));
+		Story story4 = givenAStory(withPriority(3));
+		Story story5 = givenAStory(withPriority(3));
+		
+		shouldReturnTheStories(story1, story2, story3, story4, story5);
+		whenIStartPrioritization();
+		
+		List<List<Story>> list = logic.getGroupedStories();
+		
+		assertThat(list.size(), is(4));
+		assertThat(list.get(1), hasItem(story1));
+		assertThat(list.get(1), hasItem(story2));
+		assertThat(list.get(2), hasItem(story3));
+		assertThat(list.get(3), hasItem(story4));
+		assertThat(list.get(3), hasItem(story4));
+		
+	}
+
+	private void shouldReturnTheStories(final Story... stories) {
+		mockery.checking(new Expectations() {
+			{
+				one(projectRepository).listStoriesFrom(with(any(Project.class)));
+				will(returnValue(Arrays.asList(stories)));
+				
+				allowing(projectRepository);
+			}
+		});
+	}
+
+	private void whenIStartPrioritization() {
+		logic.prioritization(givenAProject());
+	}
+
+	private Story givenAStory(int priority) {
+		Story story = givenAStory();
+		story.setPriority(priority);
+		return story;
+	}
+
+	private int withPriority(int i) {
+		return i;
+	}
 
 	private StoryTest givenTheStory(Story story) {
 		currentStory = story;
@@ -91,6 +137,8 @@ public class StoryTest {
 		
 		mockery.checking(new Expectations() {
 			{
+				allowing(projectRepository);
+				
 				one(repository).load(story);
 				will(returnValue(newStory));
 			}
@@ -101,6 +149,7 @@ public class StoryTest {
 	private void shouldUpdateOnTheRepositoryTheStory(final Story story) {
 		mockery.checking(new Expectations() {
 			{
+				allowing(projectRepository);
 				one(repository).update(story);
 			}
 		});
@@ -123,6 +172,8 @@ public class StoryTest {
 	private void shouldSaveOnTheRepositoryTheStory(final Story story) {
 		mockery.checking(new Expectations() {
 			{
+				allowing(projectRepository);
+				
 				one(repository).add(story);
 			}
 		});
