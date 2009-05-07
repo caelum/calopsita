@@ -9,7 +9,7 @@
 
 <body>
 	<div id="signUp">
-		<fmt:message key="alreadyOnCalopsita"/>? <a href="<c:url value="/"/>"><fmt:message key="user.login"/></a>
+		<fmt:message key="user.alreadyOnCalopsita"/>? <a href="<c:url value="/"/>"><fmt:message key="user.login"/></a>
 	
 		<form id="form" name="signUp" action="<c:url value="/user/save/"/>" method="post">
 		  <p>

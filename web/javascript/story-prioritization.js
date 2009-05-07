@@ -1,7 +1,7 @@
 var max_priority = 0;
 var stories;
 function initialize(storiesArray) {
-	stories = storiesArray;
+    stories = storiesArray;
 }
 function storyCard(name, description, id, count, priority) {
 	var li = $('<li class="story" name="' + name + '" title="' + description.substring(0,40) + '..."><p>' + name + '</p></li>');
@@ -14,9 +14,13 @@ function storyCard(name, description, id, count, priority) {
 }
 
 function changeWidth() {
-	var w = $('body').width();
-	$('.board').css({width : w * 0.55});
-	$('.table').css({width : w * 0.45 - 50});
+    var w = $('body').width();
+    $('.board').css( {
+        width : w * 0.55
+    });
+    $('.table').css( {
+        width : w * 0.45 - 50
+    });
 }
 
 function getOrCreateUl(priority) {
@@ -33,11 +37,11 @@ function getOrCreateUl(priority) {
 	return ul;
 }
 function moveSelectedTo(div) {
-	$('.ui-selected').not('.clone').each(function() {
-		$(this).children('.priority').val(div.attr('priority'));
-		$(this).removeClass('ui-selected');
-		div.append(this);
-	});
+    $('.ui-selected').not('.clone').each( function() {
+        $(this).children('.priority').val(div.attr('priority'));
+        $(this).removeClass('ui-selected');
+        div.append(this);
+    });
 }
 $(function() {
 	for (var i in stories) {
@@ -69,4 +73,5 @@ $(function() {
 		}
 	});
 	$(window).resize(changeWidth);
+    changeWidth();
 });

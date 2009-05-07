@@ -69,8 +69,9 @@ public class ThenAsserts {
 		assertThat(this.browser.currentPage().div("index"), divContainsString("not allowed to see this project"));
 	}
 
-	public void appearsOnScreen() {
+	public ThenAsserts appearsOnScreen() {
 		assertThat(browser.currentPage().div("project"), divContainsString(name));
+		return this;
 	}
 	
 

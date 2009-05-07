@@ -15,11 +15,12 @@ public class AddUserOnAProjectStory extends DefaultStory {
 
 	@Test
 	public void openProjectPage() throws Exception {
-		given.thereIsAnUserNamed("lucas");
-		given.thereIsAProjectNamed("C4lopsita").ownedBy("lucas");
-		given.iAmLoggedInAs("lucas");
+		given.thereIsAnUserNamed("lucas").and()
+		     .thereIsAProjectNamed("C4lopsita").ownedBy("lucas").and()
+		     .iAmLoggedInAs("lucas");
 		when.iOpenProjectPageOf("C4lopsita");
-		then.project("C4lopsita").appearsOnScreen();
+		then.project("C4lopsita").appearsOnScreen().and()
+		    .thisUserAppearsOnColaboratorsList("lucas");
 	}
 	@Test
 	public void showColaborators() throws Exception {
