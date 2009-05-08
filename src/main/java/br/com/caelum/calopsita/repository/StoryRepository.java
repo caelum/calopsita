@@ -13,4 +13,6 @@ public interface StoryRepository extends BaseRepository<Story>{
 
 	List<Story> storiesWithoutIteration(Project project);
 
+	List<Story> listSubstories(Story story);
+
 }
