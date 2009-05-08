@@ -53,6 +53,25 @@ public class StoryDaoTest {
 		assertThat(list, not(hasItem(storyOfIteration)));
 		assertThat(list, not(hasItem(storyOfOtherProject)));
 	}
+	@Test
+	public void listingSubstories() throws Exception {
+		Story story = givenAStory();
+		Story substory = givenASubStory(story);
+		Story otherStory = givenAStory();
+		List<Story> list = dao.listSubstories(story);
+		
+		assertThat(list, hasItem(substory));
+		assertThat(list, not(hasItem(story)));
+		assertThat(list, not(hasItem(otherStory)));
+	}
+
+
+	private Story givenASubStory(Story story) {
+		Story sub = givenAStory();
+		sub.setParent(story);
+		session.flush();
+		return sub;
+	}
 
 
 	private Story givenAStoryOfTheIteration(Iteration iteration) {
@@ -64,12 +83,19 @@ public class StoryDaoTest {
 	}
 
 
-	private Story givenAStory(Project project) {
+	
+	private Story givenAStory() {
 		Story story = new Story();
 		story.setName("Rumpelstitlskin");
-		story.setProject(project);
 		story.setDescription("I hope I spelld his name correctly");
 		session.save(story);
+		session.flush();
+		return story;
+		
+	}
+	private Story givenAStory(Project project) {
+		Story story = givenAStory();
+		story.setProject(project);
 		session.flush();
 		return story;
 	}
