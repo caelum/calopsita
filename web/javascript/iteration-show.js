@@ -47,6 +47,14 @@ function prepare() {
 		show: 'highlight',
 		hide: 'highlight'
 	});
+	
+	function fixWidth() {
+		var width = $('body').width();
+		$('#todo_stories').css({width: 0.48*width, 'float': 'left'});
+		$('#done_stories').css({width: 0.48*width, 'float': 'right'});
+	}
+	fixWidth();
+	$(window).resize(fixWidth);
 };
 $(prepare);
 function get_params(div, status) {
