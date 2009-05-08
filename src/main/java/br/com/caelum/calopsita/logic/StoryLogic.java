@@ -43,6 +43,8 @@ public class StoryLogic {
 	public void saveSub(Story story) {
 		repository.add(story);
 		this.stories = this.repository.listSubstories(story.getParent());
+		this.story = story.getParent();
+		this.project = story.getProject();
 	}
 	
 	public void edit(Story story) {

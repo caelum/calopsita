@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title><fmt:message key="project"/></title>
-	
+	<script type="text/javascript" src="<c:url value="/javascript/project-show.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
 </head>
 
@@ -30,9 +30,15 @@
 	</p>
 </form>
 
-<a href="javascript:toggle('story'); document.addStory.reset();">Add Substory</a><br/>
+<div id="stories">
+	<c:if test="${not empty stories}">
+		<%@include file="../story/update.ok.jsp" %>
+	</c:if>
+</div>
 
-<form id="story" class="hidden" name="addStory" action="<c:url value="/substory/save/"/>" method="post">
+<a href="javascript:toggle('storyForm'); document.addStory.reset();">Add Substory</a><br/>
+
+<form id="storyForm" class="hidden" name="addStory" action="<c:url value="/substory/save/"/>" method="post">
 	<input type="hidden" name="story.project.id" value="${story.project.id }" />
 	<input type="hidden" name="story.parent.id" value="${story.id }" />
 	<p>
@@ -45,7 +51,7 @@
 	</p>
     <p>
     	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
-  		<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="document.addStory.reset(); toggle('story');"/>
+  		<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="document.addStory.reset(); toggle('storyForm');"/>
   	</p>
 </form>
 

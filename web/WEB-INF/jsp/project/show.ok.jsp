@@ -39,9 +39,9 @@
 		<%@include file="../story/update.ok.jsp" %>
 	</c:if>
 </div>
-<a href="javascript:toggle('story'); document.addStory.reset();">Add Story</a><br/>
+<a href="javascript:toggle('storyForm'); document.addStory.reset();">Add Story</a><br/>
 
-<form id="story" class="hidden" name="addStory" action="<c:url value="/story/save/"/>" method="post">
+<form id="storyForm" class="hidden" name="addStory" action="<c:url value="/story/save/"/>" method="post">
 	<input type="hidden" name="project.id" value="${project.id }" />
 	<p>
 		<label><fmt:message key="story.name"/></label>
@@ -53,7 +53,7 @@
 	</p>
     <p>
     	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
-  		<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="document.addStory.reset(); toggle('story');"/>
+  		<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="document.addStory.reset(); toggle('storyForm');"/>
   	</p>
 </form>
 

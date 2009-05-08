@@ -1,5 +1,5 @@
 $( function() {
-	$("#story").validate( {
+	$("#storyForm").validate( {
 		rules : {
 			"story.name" : {
 				required :true,
