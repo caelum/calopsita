@@ -41,42 +41,39 @@
 </div>
 <a href="javascript:toggle('story'); document.addStory.reset();">Add Story</a><br/>
 
-<div id="story" style="display: none;">
-	<form id="addStory" name="addStory" action="<c:url value="/story/save/"/>" method="post">
-		<input type="hidden" name="project.id" value="${project.id }" />
-		<p>
-			<label><fmt:message key="story.name"/></label>
-			<em>*</em><input type="text" name="story.name"/>
-		</p>
-		<p>
-			<label><fmt:message key="story.description"/></label>
-			<em>*</em><textarea name="story.description"></textarea>
-		</p>
-	    <p>
-	    	<input class="buttons" type="submit" value="<fmt:message key="submit"/>"/>
-	  		<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="document.addStory.reset(); toggle('story');"/>
-	  	</p>
-	</form>
-</div>
+<form id="story" class="hidden" name="addStory" action="<c:url value="/story/save/"/>" method="post">
+	<input type="hidden" name="project.id" value="${project.id }" />
+	<p>
+		<label><fmt:message key="story.name"/></label>
+		<em>*</em><input type="text" name="story.name"/>
+	</p>
+	<p>
+		<label><fmt:message key="story.description"/></label>
+		<em>*</em><textarea name="story.description"></textarea>
+	</p>
+    <p>
+    	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
+  		<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="document.addStory.reset(); toggle('story');"/>
+  	</p>
+</form>
+
 <a href="javascript:toggle('colaborator')"><fmt:message key="project.addColaborator"/></a><br/>
-<div id="colaborator" style="display: none;">
-	<form id="addColaborator" name="addColaborator" action="<c:url value="/add/colaborator/"/>" method="post">
-		<input type="hidden" name="project.id" value="${project.id }" />
-		<select name="colaborator.login">
-			<c:forEach items="${users}" var="user">
-				<option value="${user.login}">${user.name}</option>
-			</c:forEach>		
-		</select>
-		<input type="submit" value="<fmt:message key="add"/>"/>
-		<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="toggle('colaborator');"/>
-	</form>
-</div>
+<form id="colaborator" class="hidden" name="addColaborator" 
+	action="<c:url value="/add/colaborator/"/>" method="post">
+	<input type="hidden" name="project.id" value="${project.id }" />
+	<select name="colaborator.login">
+		<c:forEach items="${users}" var="user">
+			<option value="${user.login}">${user.name}</option>
+		</c:forEach>		
+	</select>
+	<input type="submit" value="<fmt:message key="add"/>"/>
+	<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="toggle('colaborator');"/>
+</form>
 
 <a href="javascript:toggle('iteration'); document.addIteration.reset();"><fmt:message key="project.addIteration"/></a><br/>
-<div id="iteration" style="display: none;">
-  <form id="addIteration" name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
-    <input type="hidden" name="project.id" value="${project.id }" />
-    <p>
+<form id="iteration" class="hidden" name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
+  	<input type="hidden" name="project.id" value="${project.id }" />
+   	<p>
 		<label><fmt:message key="iteration.goal"/></label>
 		<em>*</em><input type="text" name="iteration.goal"/>
 	</p>
@@ -92,8 +89,7 @@
 		<input type="submit" value="<fmt:message key="add"/>"/>
 	 	<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="toggle('iteration'); document.addIteration.reset();"/>
 	</p>
-  </form>
-</div>
+</form>
 <a href="<c:url value="/"/>"><fmt:message key="back"/></a>
 
 </body>
