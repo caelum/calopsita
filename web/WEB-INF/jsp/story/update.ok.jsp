@@ -2,7 +2,7 @@
 <script type="text/javascript" src="<c:url value="/javascript/story-update.js"/>"></script>
 <h2><fmt:message key="stories"/>:</h2>
 
-<ol>
+<dl>
 	<c:forEach items="${stories}" var="story" varStatus="s">
 		<c:if test="${story.priority ne 0}">
 			<%@include file="storyLine.jsp" %>
@@ -13,5 +13,5 @@
 			<%@include file="storyLine.jsp" %>
 		</c:if>
 	</c:forEach>
-</ol>
+</dl>
 <a href="<c:url value="/project/${project.id }/prioritization/"/>"><fmt:message key="prioritize"/></a>
