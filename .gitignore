@@ -11,5 +11,6 @@ target/*
 *.ser
 *.DS_Store
 build/classes/*
+web/WEB-INF/classes/
 junitvmwatcher*.properties
 bin/
