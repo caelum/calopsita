@@ -39,7 +39,7 @@
 		<%@include file="../story/update.ok.jsp" %>
 	</c:if>
 </div>
-<a href="javascript:toggle('story'); document.addStory.reset();">Add Story</a><br/>
+<a href="javascript:toggle('story'); document.addStory.reset();"><fmt:message key="project.addStory"/></a><br/>
 
 <div id="story" style="display: none;">
 	<form id="addStory" name="addStory" action="<c:url value="/story/save/"/>" method="post">
