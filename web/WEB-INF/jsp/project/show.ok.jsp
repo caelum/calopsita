@@ -25,15 +25,47 @@
 </div>
   
 <c:if test="${not empty project.iterations}">
-  <div id="iterations">
-    <h2><fmt:message key="iterations"/>:</h2>
+  <div id="currentIterations">
+    <h2><fmt:message key="currentIterations"/>:</h2>
     <ul>
       <c:forEach items="${project.iterations}" var="iteration">
-        <li><a href="<c:url value="/iteration/${iteration.id}/show/"/>">${iteration.goal}</a></li>
+        <li>
+			<a href="<c:url value="/iteration/${iteration.id}/show/"/>">${iteration.goal}</a>
+			<c:if test="${not empty iteration.endDate }" >
+				(<fmt:message key="dueDate"/> ${iteration.endDate })
+			</c:if>
+		</li>
+      </c:forEach>
+    </ul>
+  </div>
+
+  <div id="futureIterations">
+    <h2><fmt:message key="futureIterations"/>:</h2>
+    <ul>
+      <c:forEach items="${project.futureIterations}" var="iteration">
+        <li>
+			<a href="<c:url value="/iteration/${iteration.id}/show/"/>">${iteration.goal}</a>
+			<c:if test="${not empty iteration.startDate }" >
+				(<fmt:message key="scheduledFor" /> ${iteration.startDate })
+			</c:if>
+		</li>
+      </c:forEach>
+    </ul>
+  </div>
+
+  <div id="pastIterations">
+    <h2><fmt:message key="pastIterations"/>:</h2>
+    <ul>
+      <c:forEach items="${project.pastIterations}" var="iteration">
+        <li>
+			<a href="<c:url value="/iteration/${iteration.id}/show/"/>">${iteration.goal}</a>
+		</li>
       </c:forEach>
     </ul>
   </div>
 </c:if>
+
+
 <div id="stories">
 	<c:if test="${not empty stories}">
 		<%@include file="../story/update.ok.jsp" %>
