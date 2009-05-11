@@ -4,6 +4,12 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 
+/**
+ * <b>In order to</b> divide the project's work in groups <br>
+ * <b>As a</b> developer <br>
+ * <b>I want to</b> create iterations <br>
+ * 
+ */
 public class CreateAnIterationStory extends DefaultStory {
     @Test
     public void iterationCreation() throws Exception {
