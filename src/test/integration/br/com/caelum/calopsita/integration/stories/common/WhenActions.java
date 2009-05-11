@@ -12,6 +12,7 @@ public class WhenActions {
 	private final Session session;
 	private String storyName;
     private String iterationGoal;
+	private String linkName;
 
     public WhenActions(Browser browser, Session session) {
         this.browser = browser;
@@ -88,17 +89,23 @@ public class WhenActions {
 
 	public WhenActions iAddTheStory(String storyName) {
 		this.storyName = storyName;
+		this.linkName = "Add Story";
+		return this;
+	}
+	public WhenActions iAddTheSubstory(String storyName) {
+		this.storyName = storyName;
+		this.linkName = "Add Substory";
 		return this;
 	}
 
 	public void withDescription(String description) {
-		iClickOn("Add Story");
+		iClickOn(linkName);
 		browser.currentPage()
 			.form("addStory")
 				.field("story.name").type(storyName)
 				.field("story.description").type(description)
 				.submit();
-		iClickOn("Add Story");
+		iClickOn(linkName);
 		browser.currentPage().waitUntil("!($('#stories').is(':empty'))", 1000);
 	}
 
@@ -187,7 +194,8 @@ public class WhenActions {
 		browser.currentPage().waitUntil("$('#done_stories .story').length > 0", 5000);
 	}
 
-	public WhenActions iOpenThePageOfStoryNamed(String string) {
-		return null;
+	public WhenActions iOpenThePageOfStoryNamed(String storyName) {
+		iClickOn(storyName);
+		return this;
 	}
 }

@@ -40,5 +40,11 @@ public class StoryDao implements StoryRepository {
 				" s.iteration is null order by priority")
 				.setParameter("project", project).list();
 	}
+	
+	@Override
+	public List<Story> listSubstories(Story story) {
+		return session.createQuery("from Story s where s.parent = :story order by priority")
+			.setParameter("story", story).list();
+	}
 
 }

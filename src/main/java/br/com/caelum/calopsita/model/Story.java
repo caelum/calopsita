@@ -27,6 +27,9 @@ public class Story implements Identifiable {
 	private Iteration iteration;
 
 	@ManyToOne
+	private Story parent;
+	
+	@ManyToOne
 	private User owner;
 	
 	private int priority;
@@ -99,6 +102,14 @@ public class Story implements Identifiable {
 
 	public Status getStatus() {
 		return status;
+	}
+
+	public void setParent(Story parent) {
+		this.parent = parent;
+	}
+
+	public Story getParent() {
+		return parent;
 	}
 
 }

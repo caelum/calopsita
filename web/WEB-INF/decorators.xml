@@ -2,6 +2,7 @@
 <decorators defaultdir="/decorators">
 	<excludes>
 		<pattern>/story/save/</pattern>
+		<pattern>/substory/save/</pattern>
 		<pattern>/story/update/</pattern>
 		<pattern>/story/update.ok.jsp</pattern>
 		<pattern>/story/storyLine.jsp</pattern>

@@ -1,5 +1,5 @@
 $( function() {
-	$("#addStory").validate( {
+	$("#storyForm").validate( {
 		rules : {
 			"story.name" : {
 				required :true,
@@ -19,7 +19,7 @@ $( function() {
 		}
 	});
 
-	$("#addColaborator").validate( {
+	$("#colaborator").validate( {
 		rules : {
 			"colaborator.login" : {
 				required :true
@@ -27,7 +27,7 @@ $( function() {
 		}
 	});
 
-	$("#addIteration").validate( {
+	$("#iteration").validate( {
 		rules : {
 			"iteration.goal" : {
 				required :true,
