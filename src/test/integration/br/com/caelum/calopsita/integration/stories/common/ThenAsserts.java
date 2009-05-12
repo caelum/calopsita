@@ -147,4 +147,8 @@ public class ThenAsserts {
 		this.divName = divName;
 		appearsOnList();
 	}
+
+	public void shouldNotAppearOnStoryList() {
+		
+	}
 }

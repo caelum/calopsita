@@ -31,4 +31,16 @@ public class DeleteEverythingStory extends DefaultStory {
         then.theStory("support Vraptor 2")
             .appearsOnBacklog();
     }
+
+	
+	@Test
+	@Ignore
+	public void deleteAStory() {
+		given.thereIsAnUserNamed("fabs").and()
+			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
+				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake");
+		when.iOpenProjectPageOf("method-finder").and()
+			.iDeleteTheStory("Support everything");
+		then.theStory("Support everything").shouldNotAppearOnStoryList();
+	}
 }
