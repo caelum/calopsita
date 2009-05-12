@@ -107,7 +107,12 @@ public class StoryLogic {
 		return project;
 	}
 
-	public void delete(Story story) {
-		
+	public String delete(Story story) {
+		Story loaded = repository.load(story);
+		if (!currentUser.equals(loaded.getOwner())) {
+			return "invalid";
+		}
+		repository.remove(loaded);	
+		return "ok";
 	}
 }

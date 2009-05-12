@@ -32,6 +32,8 @@ public class StoryTest {
         mockery = new Mockery();
         repository = mockery.mock(StoryRepository.class);
         currentUser = new User();
+        currentUser.setLogin("me");
+        
 		projectRepository = mockery.mock(ProjectRepository.class);
 
 		logic = new StoryLogic(currentUser, repository, projectRepository);
@@ -94,23 +96,68 @@ public class StoryTest {
     
     @Test
 	public void removeAStoryOwnedByMe() throws Exception {
-		Story story = givenAStory(ownedBy(currentUser));
-		
-		whenIRemove(story);
-	}
-
-	private void whenIRemove(Story story) {
-		logic.delete(story);
-	}
-
-	private Story givenAStory(User owner) {
 		Story story = givenAStory();
-		story.setOwner(owner);
-		return story;
+		
+		Story returned = givenTheStoryIsOwnedBy(story, currentUser);
+		
+		shouldRemoveTheStoryFromRepository(returned);
+		
+		String status = whenIRemove(story);
+		assertThat(status, is("ok"));
+	}
+    @Test
+    public void removeAStoryOwnedByOthers() throws Exception {
+    	Story story = givenAStory();
+    	
+    	Story returned = givenTheStoryIsOwnedBy(story, anyUser());
+    	
+    	shouldNotRemoveTheStoryFromRepository(returned);
+    	
+    	String status = whenIRemove(story);
+    	assertThat(status, is("invalid"));
+    }
+
+	private void shouldNotRemoveTheStoryFromRepository(final Story returned) {
+		mockery.checking(new Expectations() {
+			{
+				never(repository).remove(returned);
+			}
+		});
+
 	}
 
-	private User ownedBy(User user) {
+	private User anyUser() {
+		User user = new User();
+		user.setLogin("any");
 		return user;
+	}
+
+	private void shouldRemoveTheStoryFromRepository(final Story returned) {
+		
+		mockery.checking(new Expectations() {
+			{
+				one(repository).remove(returned);
+			}
+		});
+	}
+
+	private Story givenTheStoryIsOwnedBy(final Story story, final User user) {
+		
+		final Story returned = new Story();
+		returned.setOwner(user);
+		
+		mockery.checking(new Expectations() {
+			{
+				
+				one(repository).load(story);
+				will(returnValue(returned));
+			}
+		});
+		return returned;
+	}
+
+	private String whenIRemove(Story story) {
+		return logic.delete(story);
 	}
 
 	private void shouldReturnTheStories(final Story... stories) {

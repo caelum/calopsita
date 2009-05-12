@@ -32,7 +32,6 @@ public class DeleteEverythingStory extends DefaultStory {
             .appearsOnBacklog();
     }
 
-	
 	@Test
 	@Ignore
 	public void deleteAStory() {
