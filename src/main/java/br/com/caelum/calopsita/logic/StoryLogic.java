@@ -106,4 +106,8 @@ public class StoryLogic {
 	public Project getProject() {
 		return project;
 	}
+
+	public void delete(Story story) {
+		
+	}
 }

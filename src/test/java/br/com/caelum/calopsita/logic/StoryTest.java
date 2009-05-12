@@ -91,6 +91,27 @@ public class StoryTest {
 		assertThat(list.get(3), hasItem(story4));
 		
 	}
+    
+    @Test
+	public void removeAStoryOwnedByMe() throws Exception {
+		Story story = givenAStory(ownedBy(currentUser));
+		
+		whenIRemove(story);
+	}
+
+	private void whenIRemove(Story story) {
+		logic.delete(story);
+	}
+
+	private Story givenAStory(User owner) {
+		Story story = givenAStory();
+		story.setOwner(owner);
+		return story;
+	}
+
+	private User ownedBy(User user) {
+		return user;
+	}
 
 	private void shouldReturnTheStories(final Story... stories) {
 		mockery.checking(new Expectations() {
