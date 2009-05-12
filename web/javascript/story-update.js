@@ -1,15 +1,16 @@
 function confirmDeletion(url) {
-	$.prompt('Are you sure to delete?', {
+	$.prompt({'': {
+		html: 'Are you sure to delete?',
 		buttons: {
 			'Yes' : true,
 			'No' : false
 		},
-		callback: function(confirm) {
+		submit: function(confirm) {
 			if (confirm) {
 				window.location.href = url;
 			}
 		}
-	});
+	}});
 }
 $(function() {
 	function bind() {

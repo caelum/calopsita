@@ -208,6 +208,11 @@ public class WhenActions {
 	}
 
 	public void andConfirm() {
-		browser.currentPage().click("jqiButtonOk");
+		browser.currentPage().navigate("jqi__buttonYes");
+	}
+
+	public void andDontConfirm() {
+		browser.currentPage().click("jqi__buttonNo");
+		browser.currentPage().waitUntil("$('#jqibox').length == 0", 1000);
 	}
 }

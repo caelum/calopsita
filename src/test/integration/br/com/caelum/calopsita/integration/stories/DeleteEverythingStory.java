@@ -33,13 +33,23 @@ public class DeleteEverythingStory extends DefaultStory {
     }
 
 	@Test
-	@Ignore
 	public void deleteAStoryAndConfirm() {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
-				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs");
+				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs").and()
+			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
 			.iDeleteTheStory("Support everything").andConfirm();
 		then.theStory("Support everything").shouldNotAppearOnStoryList();
+	}
+	@Test
+	public void deleteAStoryAndDontConfirm() {
+		given.thereIsAnUserNamed("fabs").and()
+		.thereIsAProjectNamed("method-finder").ownedBy("fabs")
+		.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs").and()
+		.iAmLoggedInAs("fabs");
+		when.iOpenProjectPageOf("method-finder").and()
+		.iDeleteTheStory("Support everything").andDontConfirm();
+		then.theStory("Support everything").appearsOnList();
 	}
 }
