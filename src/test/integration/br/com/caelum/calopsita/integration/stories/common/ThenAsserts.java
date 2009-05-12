@@ -149,6 +149,6 @@ public class ThenAsserts {
 	}
 
 	public void shouldNotAppearOnStoryList() {
-		
+		assertThat(this.browser.currentPage().div("stories"), not(divContainsString(name)));
 	}
 }

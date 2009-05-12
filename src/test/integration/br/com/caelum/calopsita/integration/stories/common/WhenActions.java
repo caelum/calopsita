@@ -202,8 +202,12 @@ public class WhenActions {
     public void iDeleteTheIterationWithGoal(String goal) {
         browser.currentPage().click("delete " + goal);
     }
-	public void iDeleteTheStory(String string) {
-		// TODO Auto-generated method stub
-		
+	public WhenActions iDeleteTheStory(String storyName) {
+		browser.currentPage().click("delete " + storyName);
+		return this;
+	}
+
+	public void andConfirm() {
+		browser.currentPage().click("jqiButtonOk");
 	}
 }

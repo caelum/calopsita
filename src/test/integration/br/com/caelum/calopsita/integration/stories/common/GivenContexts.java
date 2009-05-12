@@ -78,6 +78,9 @@ public class GivenContexts {
         UserDao userDao = new UserDao(session);
         User user = userDao.find(login);
         project.setOwner(user);
+        if (story != null) {
+        	story.setOwner(user);
+        }
         session.save(user);
         session.flush();
         return this;
