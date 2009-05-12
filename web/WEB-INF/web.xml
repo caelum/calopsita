@@ -20,11 +20,6 @@
   </session-config>
 
   <error-page>
-    <exception-type>
-      br.com.caelum.calopsita.infra.interceptor.UserNotAuthenticatedException</exception-type>
-    <location>/WEB-INF/jsp/home/login.ok.jsp</location>
-  </error-page>
-  <error-page>
     <error-code>404</error-code>
     <location>/WEB-INF/jsp/page-not-found.jsp</location>
   </error-page>
@@ -59,9 +54,6 @@
   <filter-mapping>
     <filter-name>sitemesh</filter-name>
     <url-pattern>/*</url-pattern>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>ERROR</dispatcher>
   </filter-mapping>
 
 

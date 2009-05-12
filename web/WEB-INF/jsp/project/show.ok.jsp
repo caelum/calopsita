@@ -38,31 +38,6 @@
       </c:forEach>
     </ul>
   </div>
-
-  <div id="futureIterations">
-    <h2><fmt:message key="futureIterations"/>:</h2>
-    <ul>
-      <c:forEach items="${project.futureIterations}" var="iteration">
-        <li>
-			<a href="<c:url value="/iteration/${iteration.id}/show/"/>">${iteration.goal}</a>
-			<c:if test="${not empty iteration.startDate }" >
-				(<fmt:message key="scheduledFor" /> ${iteration.startDate })
-			</c:if>
-		</li>
-      </c:forEach>
-    </ul>
-  </div>
-
-  <div id="pastIterations">
-    <h2><fmt:message key="pastIterations"/>:</h2>
-    <ul>
-      <c:forEach items="${project.pastIterations}" var="iteration">
-        <li>
-			<a href="<c:url value="/iteration/${iteration.id}/show/"/>">${iteration.goal}</a>
-		</li>
-      </c:forEach>
-    </ul>
-  </div>
 </c:if>
 
 

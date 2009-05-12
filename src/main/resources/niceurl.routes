@@ -1,6 +1,7 @@
 # paginas
 /										=>  project.list
 /javascript/:{file}						==> /javascript/#{file}
+/javascript/:{file}						==> /javascript/#{file}
 /project/:{project.id}/show/			=>  project.show
 /iteration/:{iteration.id}/show/		=>  iteration.show
 /story/:{story.id}/edit/				=>  story.edit
