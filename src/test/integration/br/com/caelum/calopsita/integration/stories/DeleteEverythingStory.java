@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.integration.stories;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -12,6 +13,7 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  */
 public class DeleteEverythingStory extends DefaultStory {
     @Test
+    @Ignore
     public void deleteIteration() throws Exception {
         given.thereIsAnUserNamed("kung").and()
         .thereIsAProjectNamed("Vraptor 3")
@@ -23,7 +25,10 @@ public class DeleteEverythingStory extends DefaultStory {
             .withAnIterationWhichGoalIs("i18n").and()
         .iAmLoggedInAs("kung");
         when.iOpenProjectPageOf("Vraptor 3").and()
-            .iDeleteTheIterationWithGoal("support Vraptor 2");
-        then.theIteration("support Vraptor 2").notAppearsOnList();
+            .iDeleteTheIterationWithGoal("make it work");
+        then.theIteration("make it work").notAppearsOnList();
+        when.iOpenThePageOfIterationWithGoal("i18n");
+        then.theStory("support Vraptor 2")
+            .appearsOnBacklog();
     }
 }

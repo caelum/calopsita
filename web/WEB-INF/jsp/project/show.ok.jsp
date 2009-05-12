@@ -34,6 +34,7 @@
 			<c:if test="${not empty iteration.endDate }" >
 				(<fmt:message key="dueDate"/> ${iteration.endDate })
 			</c:if>
+            <a href="<c:url value="/iteration/${iteration.id}/delete"/>" name="delete ${iteration.goal}">delete</a>
 		</li>
       </c:forEach>
     </ul>

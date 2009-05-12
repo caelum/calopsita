@@ -199,7 +199,7 @@ public class WhenActions {
 		return this;
 	}
 
-    public void iDeleteTheIterationWithGoal(String iterationName) {
-        browser.currentPage().click("delete_" + iterationName);
+    public void iDeleteTheIterationWithGoal(String goal) {
+        browser.currentPage().click("delete " + goal);
     }
 }
