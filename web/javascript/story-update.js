@@ -1,4 +1,4 @@
-function confirmDeletion(url) {
+function confirmDeletion(url, hasSubstories) {
 	$.prompt({'': {
 		html: 'Are you sure to delete?',
 		buttons: {
@@ -7,7 +7,20 @@ function confirmDeletion(url) {
 		},
 		submit: function(confirm) {
 			if (confirm) {
-				window.location.href = url;
+				if (hasSubstories) {
+					$.prompt({'': {
+						html: 'Delete substories also?',
+						buttons: {
+							'Yes' : true,
+							'No' : false
+						},
+						submit: function(choice) {
+							window.location.href = url + "?deleteSubstories=" + choice;
+						}
+					}});
+				} else {
+					window.location.href = url;
+				}
 			}
 		}
 	}});

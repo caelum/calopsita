@@ -207,8 +207,10 @@ public class WhenActions {
 		return this;
 	}
 
-	public void andConfirm() {
-		browser.currentPage().navigate("jqi__buttonYes");
+	public WhenActions andConfirm() {
+		browser.currentPage().click("jqi__buttonYes");
+		browser.currentPage().waitUntil("$('#jqibox').length == 0", 1000);
+		return this;
 	}
 
 	public void andDontConfirm() {

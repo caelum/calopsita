@@ -157,7 +157,7 @@ public class StoryTest {
 	}
 
 	private String whenIRemove(Story story) {
-		return logic.delete(story);
+		return logic.delete(story, false);
 	}
 
 	private void shouldReturnTheStories(final Story... stories) {

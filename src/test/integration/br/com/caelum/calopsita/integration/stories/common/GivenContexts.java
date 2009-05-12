@@ -103,10 +103,12 @@ public class GivenContexts {
 	}
 
 	public GivenContexts whichDescriptionIs(String storyDescription) {
+		Story oldstory = story;
 		story = new Story();
 		story.setName(storyName);
 		story.setDescription(storyDescription);
 		story.setProject(project);
+		story.setParent(oldstory);
 		session.save(story);
 		session.flush();
 		return this;
@@ -132,6 +134,11 @@ public class GivenContexts {
 		story.setIteration(iteration);
 		session.saveOrUpdate(story);
 		session.flush();
+		return this;
+	}
+
+	public GivenContexts withASubstoryNamed(String storyName) {
+		this.storyName = storyName;
 		return this;
 	}
 

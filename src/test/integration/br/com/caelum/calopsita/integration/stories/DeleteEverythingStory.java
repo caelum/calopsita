@@ -45,11 +45,35 @@ public class DeleteEverythingStory extends DefaultStory {
 	@Test
 	public void deleteAStoryAndDontConfirm() {
 		given.thereIsAnUserNamed("fabs").and()
-		.thereIsAProjectNamed("method-finder").ownedBy("fabs")
-		.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs").and()
-		.iAmLoggedInAs("fabs");
+			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
+				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs").and()
+			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
-		.iDeleteTheStory("Support everything").andDontConfirm();
+			.iDeleteTheStory("Support everything").andDontConfirm();
 		then.theStory("Support everything").appearsOnList();
+	}
+	@Test
+	public void deleteAStoryAndSubstories() {
+		given.thereIsAnUserNamed("fabs").and()
+			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
+				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs")
+					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
+			.iAmLoggedInAs("fabs");
+		when.iOpenProjectPageOf("method-finder").and()
+			.iDeleteTheStory("Support everything").andConfirm().andConfirm();
+		then.theStory("Support everything").shouldNotAppearOnStoryList().and()
+			.theStory("support continuations").shouldNotAppearOnStoryList();
+	}
+	@Test
+	public void deleteAStoryButNotSubstories() {
+		given.thereIsAnUserNamed("fabs").and()
+			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
+				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs")
+					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
+			.iAmLoggedInAs("fabs");
+		when.iOpenProjectPageOf("method-finder").and()
+			.iDeleteTheStory("Support everything").andConfirm().andDontConfirm();
+		then.theStory("Support everything").shouldNotAppearOnStoryList().and()
+			.theStory("support continuations").shouldNotAppearOnStoryList();
 	}
 }
