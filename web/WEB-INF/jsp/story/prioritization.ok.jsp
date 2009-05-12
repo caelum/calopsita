@@ -29,7 +29,7 @@
 						<li class="story" name="${story.name }" title="Double click for description" 
 							ondblclick="showDialog('${story.name}', 'description_${story.id }')">
 							<p>${story.name }</p>
-							<p id="description_${story.id }" class="hidden">${story.description }</p>
+							<pre id="description_${story.id }" class="hidden">${fn:escapeXml(story.description)}</pre>
 							<input type="hidden" name="stories[#].id" value="${story.id}" />
 							<input class="priority" type="hidden" name="stories[#].priority" value="${story.priority}" />
 						</li>
