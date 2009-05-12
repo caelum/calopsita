@@ -198,4 +198,8 @@ public class WhenActions {
 		iClickOn(storyName);
 		return this;
 	}
+
+    public void iDeleteTheIterationWithGoal(String iterationName) {
+        browser.currentPage().click("delete_" + iterationName);
+    }
 }
