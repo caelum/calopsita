@@ -1,9 +1,5 @@
 package br.com.caelum.calopsita.infra;
 
-import static org.hamcrest.Matchers.containsString;
-
-import java.io.IOException;
-
 import javax.servlet.http.HttpSession;
 
 import org.jmock.Expectations;
@@ -20,6 +16,7 @@ import org.vraptor.http.VRaptorServletResponse;
 import org.vraptor.view.ViewException;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
+import br.com.caelum.calopsita.infra.interceptor.UserNotAuthenticatedException;
 import br.com.caelum.calopsita.model.User;
 
 public class AuthenticationInterceptorTest {
@@ -72,25 +69,16 @@ public class AuthenticationInterceptorTest {
 		
 		whenInterceptOccurs();
 	}
-	@Test
-	public void redirectIfThereIsNotAUserInTheSession() throws Exception {
-		givenThereIsNotAUserInTheSession();
+	@Test(expected=UserNotAuthenticatedException.class)
+	public void throwAnExceptionIfThereIsNoUserInTheSession() throws Exception {
+		givenThereIsNoUserInTheSession();
 		
 		shouldNotExecuteFlow();
-		shouldRedirectToLoginPage();
 		
 		whenInterceptOccurs();
 	}
-	private void shouldRedirectToLoginPage() throws IOException {
-		mockery.checking(new Expectations() {
-			{
-				one(response).sendRedirect(with(containsString("/")));
-				allowing(request);
-			}
-		});		
-	}
 
-	private void givenThereIsNotAUserInTheSession() {
+	private void givenThereIsNoUserInTheSession() {
 		mockery.checking(new Expectations() {
 			{
 				one(session).getAttribute(User.class.getName());
