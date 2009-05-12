@@ -112,6 +112,7 @@ public class StoryLogic {
 		if (!currentUser.equals(loaded.getOwner())) {
 			return "invalid";
 		}
+		this.project = loaded.getProject();
 		repository.remove(loaded);	
 		return "ok";
 	}
