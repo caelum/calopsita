@@ -58,12 +58,20 @@
 
 
   <!-- Mandatory filter; should be the last one in the chain -->
+  <context-param>
+    <param-name>br.com.caelum.vraptor.provider</param-name>
+    <param-value>br.com.caelum.calopsita.infra.vraptor.CalopsitaProvider</param-value>
+  </context-param>
+
   <filter>
-    <filter-name>vraptor2</filter-name>
-    <filter-class>org.vraptor.plugin.niceurls.NiceURLFilter</filter-class>
+    <filter-name>vraptor</filter-name>
+    <filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
   </filter>
+
   <filter-mapping>
-    <filter-name>vraptor2</filter-name>
+    <filter-name>vraptor</filter-name>
     <url-pattern>/*</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
   </filter-mapping>
 </web-app>
