@@ -25,8 +25,8 @@
 </div>
   
 <c:if test="${not empty project.iterations}">
-  <div id="currentIterations">
-    <h2><fmt:message key="currentIterations"/>:</h2>
+  <div id="iterations">
+    <h2><fmt:message key="iterations"/>:</h2>
     <ul>
       <c:forEach items="${project.iterations}" var="iteration">
         <li>
