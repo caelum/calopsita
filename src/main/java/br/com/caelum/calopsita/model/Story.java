@@ -36,9 +36,6 @@ public class Story implements Identifiable {
 	@OneToMany(mappedBy="parent")
 	private List<Story> substories;
 	
-	@ManyToOne
-	private User owner;
-	
 	private int priority;
 	
 	@Enumerated(EnumType.STRING)
@@ -78,13 +75,6 @@ public class Story implements Identifiable {
 	
 	public void setProject(Project project) {
 		this.project = project;
-	}
-
-	public User getOwner() {
-		return this.owner;
-	}
-	public void setOwner(User owner) {
-		this.owner = owner;
 	}
 
 	public int getPriority() {

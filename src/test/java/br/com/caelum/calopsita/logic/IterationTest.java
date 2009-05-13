@@ -101,9 +101,7 @@ public class IterationTest {
         Story story = givenAStory();
         Iteration returnedIteration = givenTheIterationIsInThisProject(iteration);
         
-        returnedIteration.addStory(story);
-        story.setIteration(returnedIteration);
-        iteration.addStory(story);
+        givenTheIterationHasThisStory(story, returnedIteration);
         
         shouldUpdateTheStory(story);
         shouldRemoveTheIterationFromRepository(returnedIteration);
@@ -112,6 +110,11 @@ public class IterationTest {
         assertThat(status, is("ok"));
     }
     
+    private void givenTheIterationHasThisStory(Story story, Iteration returnedIteration) {
+        returnedIteration.addStory(story);
+        story.setIteration(returnedIteration);
+    }
+
     private void givenTheProjectIsOwnedBy(User user) {
 	    project.setOwner(user);
     }

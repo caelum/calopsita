@@ -27,6 +27,7 @@ public class StoryTest {
 	private User currentUser;
 	private Story currentStory;
 	private ProjectRepository projectRepository;
+    private Project project;
 
     @Before
     public void setUp() throws Exception {
@@ -34,6 +35,7 @@ public class StoryTest {
         repository = mockery.mock(StoryRepository.class);
         currentUser = new User();
         currentUser.setLogin("me");
+        project = new Project();
         
 		projectRepository = mockery.mock(ProjectRepository.class);
 
@@ -55,7 +57,6 @@ public class StoryTest {
 		whenISaveTheStory(story, onThe(project));
 		
 		assertThat(story.getProject(), is(project));
-		assertThat(story.getOwner(), is(currentUser));
 	}
 
     @Test
@@ -98,6 +99,7 @@ public class StoryTest {
     @Test
 	public void removeAStoryOwnedByMe() throws Exception {
 		Story story = givenAStory();
+		givenTheProjectIsOwnedBy(currentUser);
 		
 		Story returned = givenTheStoryIsOwnedBy(story, currentUser);
 		
@@ -152,6 +154,10 @@ public class StoryTest {
     	
     	assertThat(substory.getParent(), is(nullValue()));
     }
+    
+    private void givenTheProjectIsOwnedBy(User user) {
+        project.setOwner(user);
+    }
 
 	private void shouldUpdateTheStoryFromRepository(final Story substory) {
 		mockery.checking(new Expectations() {
@@ -188,7 +194,6 @@ public class StoryTest {
 	private Story givenTheStoryIsOwnedBy(final Story story, final User user) {
 		
 		final Story returned = new Story();
-		returned.setOwner(user);
 		
 		mockery.checking(new Expectations() {
 			{

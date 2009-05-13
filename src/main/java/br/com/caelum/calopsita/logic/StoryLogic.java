@@ -35,13 +35,11 @@ public class StoryLogic {
 	public void save(Story story, Project project) {
 		this.project = project;
 		story.setProject(project);
-		story.setOwner(currentUser);
 		repository.add(story);
 		this.stories = this.projectRepository.listStoriesFrom(project);
 	}
 	
 	public void saveSub(Story story) {
-		story.setOwner(currentUser);
 		repository.add(story);
 		this.stories = this.repository.listSubstories(story.getParent());
 		this.story = story.getParent();
@@ -110,21 +108,24 @@ public class StoryLogic {
 
 	public String delete(Story story, boolean deleteSubstories) {
 		Story loaded = repository.load(story);
-		if (!currentUser.equals(loaded.getOwner())) {
+		loaded.getProject().getOwner();
+		if (this.project.getColaborators().contains(currentUser) || this.project.getOwner().equals(currentUser)) {
+		    this.project = loaded.getProject();
+	        if (deleteSubstories) {
+	            for (Story sub : loaded.getSubstories()) {
+	                repository.remove(sub);
+	            }
+	        } else {
+	            for (Story sub : loaded.getSubstories()) {
+	                sub.setParent(null);
+	                repository.update(sub);
+	            }
+	        }
+	        repository.remove(loaded);
+	        return "ok";
+		} else {
 			return "invalid";
 		}
-		this.project = loaded.getProject();
-		if (deleteSubstories) {
-			for (Story sub : loaded.getSubstories()) {
-				repository.remove(sub);
-			}
-		} else {
-			for (Story sub : loaded.getSubstories()) {
-				sub.setParent(null);
-				repository.update(sub);
-			}
-		}
-		repository.remove(loaded);
-		return "ok";
+		
 	}
 }
