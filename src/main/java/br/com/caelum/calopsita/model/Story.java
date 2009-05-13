@@ -1,5 +1,8 @@
 package br.com.caelum.calopsita.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Story implements Identifiable {
@@ -28,6 +32,9 @@ public class Story implements Identifiable {
 
 	@ManyToOne
 	private Story parent;
+	
+	@OneToMany(mappedBy="parent")
+	private List<Story> substories;
 	
 	@ManyToOne
 	private User owner;
@@ -110,6 +117,18 @@ public class Story implements Identifiable {
 
 	public Story getParent() {
 		return parent;
+	}
+
+	public void setSubstories(List<Story> substories) {
+		this.substories = substories;
+	}
+
+	public List<Story> getSubstories() {
+		if (substories == null) {
+			substories = new ArrayList<Story>();
+		}
+
+		return substories;
 	}
 
 }

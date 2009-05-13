@@ -41,6 +41,7 @@ public class StoryLogic {
 	}
 	
 	public void saveSub(Story story) {
+		story.setOwner(currentUser);
 		repository.add(story);
 		this.stories = this.repository.listSubstories(story.getParent());
 		this.story = story.getParent();
@@ -105,5 +106,25 @@ public class StoryLogic {
 
 	public Project getProject() {
 		return project;
+	}
+
+	public String delete(Story story, boolean deleteSubstories) {
+		Story loaded = repository.load(story);
+		if (!currentUser.equals(loaded.getOwner())) {
+			return "invalid";
+		}
+		this.project = loaded.getProject();
+		if (deleteSubstories) {
+			for (Story sub : loaded.getSubstories()) {
+				repository.remove(sub);
+			}
+		} else {
+			for (Story sub : loaded.getSubstories()) {
+				sub.setParent(null);
+				repository.update(sub);
+			}
+		}
+		repository.remove(loaded);
+		return "ok";
 	}
 }

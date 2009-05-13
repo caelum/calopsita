@@ -62,7 +62,7 @@ public class ThenAsserts {
 	}
 
     public void notAppearsOnList() {
-        assertThat(this.browser.currentPage().div("projects"), not(divContainsString(name)));
+        assertThat(this.browser.currentPage().div(divName), not(divContainsString(name)));
     }
 
 	public void iAmNotAllowedToSeeTheProject() {
@@ -146,5 +146,10 @@ public class ThenAsserts {
 	public void appearsOnList(String divName) {
 		this.divName = divName;
 		appearsOnList();
+	}
+
+	public ThenAsserts shouldNotAppearOnStoryList() {
+		assertThat(this.browser.currentPage().div("stories"), not(divContainsString(name)));
+		return this;
 	}
 }

@@ -198,4 +198,23 @@ public class WhenActions {
 		iClickOn(storyName);
 		return this;
 	}
+
+    public void iDeleteTheIterationWithGoal(String goal) {
+        browser.currentPage().click("delete " + goal);
+    }
+	public WhenActions iDeleteTheStory(String storyName) {
+		browser.currentPage().click("delete " + storyName);
+		return this;
+	}
+
+	public WhenActions andConfirm(String operation) {
+		browser.currentPage().click("jqi_" + operation + "_buttonYes");
+		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
+		return this;
+	}
+
+	public void andDontConfirm(String operation) {
+		browser.currentPage().click("jqi_" + operation + "_buttonNo");
+		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
+	}
 }

@@ -51,7 +51,7 @@ $(prepare);
 function get_params(div, status) {
 	var params = {};
 	$(div + ' .ui-selected').not('.clone').each(function(c, e) {
-		params['stories[' + c + '].id'] = $('.hidden', e).text();
+		params['stories[' + c + '].id'] = $('span', e).text();
 		params['stories[' + c + '].status'] = status;
 	});
 	params['iteration.id']= iterationId;

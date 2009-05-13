@@ -40,3 +40,7 @@ em {
   padding-right: 1em; 
   vertical-align: top; 
 }
+
+.delete {
+	color: red;
+}
