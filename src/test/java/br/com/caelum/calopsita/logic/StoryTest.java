@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.logic;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
@@ -116,6 +117,49 @@ public class StoryTest {
     	String status = whenIRemove(story);
     	assertThat(status, is("invalid"));
     }
+    @Test
+    public void removeAStoryAndSubstories() throws Exception {
+    	Story story = givenAStory();
+    	
+    	Story substory = givenAStory();
+    	substory.setParent(story);
+    	
+    	Story returned = givenTheStoryIsOwnedBy(story, currentUser);
+    	returned.getSubstories().add(substory);
+    	
+    	shouldRemoveTheStoryFromRepository(returned);
+    	shouldRemoveTheStoryFromRepository(substory);
+    	
+    	String status = logic.delete(story, true);
+    	assertThat(status, is("ok"));
+    	
+    }
+    @Test
+    public void removeAStoryButNotSubstories() throws Exception {
+    	Story story = givenAStory();
+    	
+    	Story substory = givenAStory();
+    	substory.setParent(story);
+    	
+    	Story returned = givenTheStoryIsOwnedBy(story, currentUser);
+    	returned.getSubstories().add(substory);
+    	
+    	shouldRemoveTheStoryFromRepository(returned);
+    	shouldUpdateTheStoryFromRepository(substory);
+    	
+    	String status = logic.delete(story, false);
+    	assertThat(status, is("ok"));
+    	
+    	assertThat(substory.getParent(), is(nullValue()));
+    }
+
+	private void shouldUpdateTheStoryFromRepository(final Story substory) {
+		mockery.checking(new Expectations() {
+			{
+				one(repository).update(substory);
+			}
+		});
+	}
 
 	private void shouldNotRemoveTheStoryFromRepository(final Story returned) {
 		mockery.checking(new Expectations() {
