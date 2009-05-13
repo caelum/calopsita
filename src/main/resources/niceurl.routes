@@ -4,6 +4,7 @@
 /javascript/:{file}						==> /javascript/#{file}
 /project/:{project.id}/show/			=>  project.show
 /iteration/:{iteration.id}/show/		=>  iteration.show
+/iteration/:{iteration.id}/delete/		=>  iteration.delete
 /story/:{story.id}/edit/				=>  story.edit
 /story/:{story.id}/delete/				=>  story.delete
 /substory/save/							=>  story.saveSub

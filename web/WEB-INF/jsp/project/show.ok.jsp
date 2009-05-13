@@ -37,7 +37,7 @@
 				(<fmt:message key="dueDate"/> ${iteration.endDate })
 			</c:if>
             <a class="delete" name="delete ${iteration.goal }" href="javascript:void(0)"
-                onclick="confirmDeletion('<c:url value="/iteration/${iteration.id}/delete/"/>')">X</a>
+                onclick="confirmIterationDeletion('<c:url value="/iteration/${iteration.id}/delete/"/>')">X</a>
 		</li>
       </c:forEach>
     </ul>

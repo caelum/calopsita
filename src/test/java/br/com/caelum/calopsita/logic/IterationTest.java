@@ -34,6 +34,7 @@ public class IterationTest {
         storyRepository = mockery.mock(StoryRepository.class);
         
         currentUser = new User();
+        currentUser.setLogin("me");
         project = new Project();
 
         logic = new IterationLogic(currentUser, iterationRepository, storyRepository);
@@ -83,7 +84,7 @@ public class IterationTest {
     @Test
     public void removeAnIterationFromMyProject() throws Exception {
         Iteration iteration = givenAnIteration();
-        Iteration returnedIteration = givenTheIterationIsInProject(iteration, project);
+        Iteration returnedIteration = givenTheIterationIsInThisProject(iteration);
         
         shouldRemoveTheIterationFromRepository(returnedIteration);
         
@@ -94,17 +95,31 @@ public class IterationTest {
     @Test
     public void removeAnIterationFromOtherProject() throws Exception {
         Iteration iteration = givenAnIteration();
-        Iteration returned = givenTheIterationIsInProject(iteration, anyProject());
-        
-        shouldRemoveTheIterationFromRepository(returned);
+        givenTheProjectIsOwnedBy(anyUser());
+        Iteration returned = givenTheIterationIsInThisProject(iteration);
+
+        shouldNotRemoveTheIterationFromRepository(returned);
         
         String status = whenIRemove(iteration);
         assertThat(status, is("invalid"));
     }
 
-	private Project anyProject() {
-	    Project project = new Project();
-	    return project;
+	private void givenTheProjectIsOwnedBy(User user) {
+	    project.setOwner(user);
+    }
+
+    private void shouldNotRemoveTheIterationFromRepository(final Iteration returned) {
+	    mockery.checking(new Expectations() {
+            {
+                never(iterationRepository).remove(returned);
+            }
+        });
+    }
+
+    private User anyUser() {
+	    User user = new User();
+	    user.setName("any name");
+	    return user;
     }
 
     private String whenIRemove(Iteration iteration) {
@@ -119,9 +134,9 @@ public class IterationTest {
         });
     }
 
-    private Iteration givenTheIterationIsInProject(final Iteration iteration, Project currentProject) {
+    private Iteration givenTheIterationIsInThisProject(final Iteration iteration) {
 	    final Iteration returned = new Iteration();
-        returned.setProject(currentProject);
+        returned.setProject(this.project);
         
         mockery.checking(new Expectations() {
             {

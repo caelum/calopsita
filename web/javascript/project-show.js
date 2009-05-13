@@ -1,4 +1,4 @@
-function confirmDeletion(url) {
+function confirmIterationDeletion(url) {
     var msg = {};
     msg['deletion'] = {
         html : 'Are you sure to delete?',
