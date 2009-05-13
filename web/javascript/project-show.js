@@ -1,3 +1,20 @@
+function confirmDeletion(url) {
+    var msg = {};
+    msg['deletion'] = {
+        html : 'Are you sure to delete?',
+        buttons : {
+            'Yes' : true,
+            'No' : false
+        },
+        submit : function(confirm) {
+            if (confirm) {
+                window.location.href = url;
+            }
+        }
+    };
+    $.prompt(msg);
+}
+
 $( function() {
     $("#storyForm").validate( {
         rules : {

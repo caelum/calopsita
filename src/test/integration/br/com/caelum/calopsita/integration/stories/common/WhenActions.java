@@ -199,8 +199,9 @@ public class WhenActions {
 		return this;
 	}
 
-    public void iDeleteTheIterationWithGoal(String goal) {
+    public WhenActions iDeleteTheIterationWithGoal(String goal) {
         browser.currentPage().click("delete " + goal);
+        return this;
     }
 	public WhenActions iDeleteTheStory(String storyName) {
 		browser.currentPage().click("delete " + storyName);

@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -13,11 +12,9 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  */
 public class DeleteEverythingStory extends DefaultStory {
     @Test
-    @Ignore
-    public void deleteIteration() throws Exception {
+    public void deleteAnIterationAndConfirm() throws Exception {
         given.thereIsAnUserNamed("kung").and()
-        .thereIsAProjectNamed("Vraptor 3")
-            .ownedBy("kung")
+        .thereIsAProjectNamed("Vraptor 3").ownedBy("kung")
             .withAnIterationWhichGoalIs("make it work")
             .withAStoryNamed("support Vraptor 2")
                 .whichDescriptionIs("some stuff should be backward compatible")
@@ -25,11 +22,26 @@ public class DeleteEverythingStory extends DefaultStory {
             .withAnIterationWhichGoalIs("i18n").and()
         .iAmLoggedInAs("kung");
         when.iOpenProjectPageOf("Vraptor 3").and()
-            .iDeleteTheIterationWithGoal("make it work");
+            .iDeleteTheIterationWithGoal("make it work").andConfirm("deletion");
         then.theIteration("make it work").notAppearsOnList();
         when.iOpenThePageOfIterationWithGoal("i18n");
         then.theStory("support Vraptor 2")
             .appearsOnBacklog();
+    }
+    
+    @Test
+    public void deleteAnIterationAndDontConfirm() throws Exception {
+        given.thereIsAnUserNamed("kung").and()
+        .thereIsAProjectNamed("Vraptor 3").ownedBy("kung")
+            .withAnIterationWhichGoalIs("make it work")
+            .withAStoryNamed("support Vraptor 2")
+                .whichDescriptionIs("some stuff should be backward compatible")
+                .insideThisIteration()
+            .withAnIterationWhichGoalIs("i18n").and()
+        .iAmLoggedInAs("kung");
+        when.iOpenProjectPageOf("Vraptor 3").and()
+            .iDeleteTheIterationWithGoal("make it work").andDontConfirm("deletion");
+        then.theIteration("make it work").appearsOnList();
     }
 
 	@Test

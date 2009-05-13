@@ -12,7 +12,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.calopsita.logic.IterationLogic;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
@@ -37,7 +36,7 @@ public class IterationTest {
     public void tearDown() {
         mockery.assertIsSatisfied();
     }
-
+    
     @Test
     public void savingAnIteration() throws Exception {
         Iteration iteration = givenAnIteration();

@@ -3,8 +3,10 @@
 <head>
 	<title><fmt:message key="project"/></title>
 	
-	<script type="text/javascript" src="<c:url value="/javascript/project-show.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/impromptu.css"/>" />
+    <script type="text/javascript" src="<c:url value="/javascript/jquery/jquery-impromptu.2.5.min.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/javascript/project-show.js"/>"></script>
 </head>
 
 <body>
@@ -34,7 +36,8 @@
 			<c:if test="${not empty iteration.endDate }" >
 				(<fmt:message key="dueDate"/> ${iteration.endDate })
 			</c:if>
-            <a href="<c:url value="/iteration/${iteration.id}/delete"/>" name="delete ${iteration.goal}">delete</a>
+            <a class="delete" name="delete ${iteration.goal }" href="javascript:void(0)"
+                onclick="confirmDeletion('<c:url value="/iteration/${iteration.id}/delete/"/>')">X</a>
 		</li>
       </c:forEach>
     </ul>
