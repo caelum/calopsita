@@ -11,6 +11,7 @@ import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.StoryRepository;
 
@@ -23,8 +24,10 @@ public class IterationLogic {
 	private Iteration iteration;
 	private final StoryRepository storyRepository;
 	private List<Story> otherStories;
+    private final User currentUser;
 
-    public IterationLogic(IterationRepository repository, StoryRepository storyRepository) {
+    public IterationLogic(User user, IterationRepository repository, StoryRepository storyRepository) {
+        this.currentUser = user;
         this.repository = repository;
 		this.storyRepository = storyRepository;
     }
@@ -70,6 +73,26 @@ public class IterationLogic {
     
     public Project getProject() {
         return project;
+    }
+
+    public String delete(Iteration iteration) {
+        Iteration loaded = repository.load(iteration);
+        this.project = loaded.getProject();
+        if(this.project.getColaborators().contains(currentUser) || this.project.getOwner().equals(currentUser)) {
+            for (Story story : loaded.getStories()) {
+                for (Story sub : storyRepository.listSubstories(story)) {
+                    sub.setIteration(null);
+                    storyRepository.update(sub);
+                }
+                Story storyLoaded = storyRepository.load(story);
+                storyLoaded.setIteration(null);
+                storyRepository.update(storyLoaded);
+            }
+            repository.remove(loaded);
+            return "ok";
+        } else {
+            return "invalid";
+        }
     }
 
 }

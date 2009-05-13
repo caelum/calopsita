@@ -15,6 +15,7 @@ import org.junit.Test;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.StoryRepository;
 
@@ -23,13 +24,20 @@ public class IterationTest {
     private IterationLogic logic;
     private IterationRepository iterationRepository;
     private StoryRepository storyRepository;
+    private User currentUser;
+    private Project project;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         iterationRepository = mockery.mock(IterationRepository.class);
         storyRepository = mockery.mock(StoryRepository.class);
-        logic = new IterationLogic(iterationRepository, storyRepository);
+        
+        currentUser = new User();
+        project = new Project();
+
+        logic = new IterationLogic(currentUser, iterationRepository, storyRepository);
+        
     }
 
     @After
@@ -71,8 +79,61 @@ public class IterationTest {
 
     	assertThat(loaded.getIteration(), is(nullValue()));
     }
+    
+    @Test
+    public void removeAnIterationFromMyProject() throws Exception {
+        Iteration iteration = givenAnIteration();
+        Iteration returnedIteration = givenTheIterationIsInProject(iteration, project);
+        
+        shouldRemoveTheIterationFromRepository(returnedIteration);
+        
+        String status = whenIRemove(iteration);
+        assertThat(status, is("ok"));
+    }
+    
+    @Test
+    public void removeAnIterationFromOtherProject() throws Exception {
+        Iteration iteration = givenAnIteration();
+        Iteration returned = givenTheIterationIsInProject(iteration, anyProject());
+        
+        shouldRemoveTheIterationFromRepository(returned);
+        
+        String status = whenIRemove(iteration);
+        assertThat(status, is("invalid"));
+    }
 
-	private void whenIRemoveTheStoryOfIteration(Story story, Iteration iteration) {
+	private Project anyProject() {
+	    Project project = new Project();
+	    return project;
+    }
+
+    private String whenIRemove(Iteration iteration) {
+	    return logic.delete(iteration);
+    }
+
+    private void shouldRemoveTheIterationFromRepository(final Iteration returned) {
+	    mockery.checking(new Expectations() {
+            {
+                one(iterationRepository).remove(returned);
+            }
+        });
+    }
+
+    private Iteration givenTheIterationIsInProject(final Iteration iteration, Project currentProject) {
+	    final Iteration returned = new Iteration();
+        returned.setProject(currentProject);
+        
+        mockery.checking(new Expectations() {
+            {
+                
+                one(iterationRepository).load(iteration);
+                will(returnValue(returned));
+            }
+        });
+        return returned;
+    }
+
+    private void whenIRemoveTheStoryOfIteration(Story story, Iteration iteration) {
 		logic.removeStories(iteration, Arrays.asList(story));
 	}
 
