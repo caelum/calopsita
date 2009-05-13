@@ -108,7 +108,7 @@ public class StoryLogic {
 
 	public String delete(Story story, boolean deleteSubstories) {
 		Story loaded = repository.load(story);
-		loaded.getProject().getOwner();
+		this.project = loaded.getProject();
 		if (this.project.getColaborators().contains(currentUser) || this.project.getOwner().equals(currentUser)) {
 		    this.project = loaded.getProject();
 	        if (deleteSubstories) {

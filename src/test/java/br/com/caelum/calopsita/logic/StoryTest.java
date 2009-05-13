@@ -97,23 +97,25 @@ public class StoryTest {
 	}
     
     @Test
-	public void removeAStoryOwnedByMe() throws Exception {
+	public void removeAStoryFromMyProject() throws Exception {
 		Story story = givenAStory();
 		givenTheProjectIsOwnedBy(currentUser);
 		
-		Story returned = givenTheStoryIsOwnedBy(story, currentUser);
+		Story returned = givenTheStoryIsInThisProject(story);
 		
 		shouldRemoveTheStoryFromRepository(returned);
 		
 		String status = whenIRemove(story);
 		assertThat(status, is("ok"));
 	}
+
     @Test
-    public void removeAStoryOwnedByOthers() throws Exception {
-    	Story story = givenAStory();
-    	
-    	Story returned = givenTheStoryIsOwnedBy(story, anyUser());
-    	
+    public void removeAStoryFromOtherProjectThanMine() throws Exception {
+        Story story = givenAStory();
+        givenTheProjectIsOwnedBy(anyUser());
+        
+        Story returned = givenTheStoryIsInThisProject(story);
+        
     	shouldNotRemoveTheStoryFromRepository(returned);
     	
     	String status = whenIRemove(story);
@@ -122,11 +124,12 @@ public class StoryTest {
     @Test
     public void removeAStoryAndSubstories() throws Exception {
     	Story story = givenAStory();
-    	
+    	givenTheProjectIsOwnedBy(currentUser);
+        
     	Story substory = givenAStory();
     	substory.setParent(story);
     	
-    	Story returned = givenTheStoryIsOwnedBy(story, currentUser);
+    	Story returned = givenTheStoryIsInThisProject(story);
     	returned.getSubstories().add(substory);
     	
     	shouldRemoveTheStoryFromRepository(returned);
@@ -134,16 +137,16 @@ public class StoryTest {
     	
     	String status = logic.delete(story, true);
     	assertThat(status, is("ok"));
-    	
     }
     @Test
     public void removeAStoryButNotSubstories() throws Exception {
     	Story story = givenAStory();
+    	givenTheProjectIsOwnedBy(currentUser);
     	
     	Story substory = givenAStory();
     	substory.setParent(story);
     	
-    	Story returned = givenTheStoryIsOwnedBy(story, currentUser);
+    	Story returned = givenTheStoryIsInThisProject(story);
     	returned.getSubstories().add(substory);
     	
     	shouldRemoveTheStoryFromRepository(returned);
@@ -153,6 +156,20 @@ public class StoryTest {
     	assertThat(status, is("ok"));
     	
     	assertThat(substory.getParent(), is(nullValue()));
+    }
+    
+    private Story givenTheStoryIsInThisProject(final Story story) {
+        final Story returned = new Story();
+        returned.setProject(this.project);
+        
+        mockery.checking(new Expectations() {
+            {
+                
+                one(repository).load(story);
+                will(returnValue(returned));
+            }
+        });
+        return returned;
     }
     
     private void givenTheProjectIsOwnedBy(User user) {
@@ -189,20 +206,6 @@ public class StoryTest {
 				one(repository).remove(returned);
 			}
 		});
-	}
-
-	private Story givenTheStoryIsOwnedBy(final Story story, final User user) {
-		
-		final Story returned = new Story();
-		
-		mockery.checking(new Expectations() {
-			{
-				
-				one(repository).load(story);
-				will(returnValue(returned));
-			}
-		});
-		return returned;
 	}
 
 	private String whenIRemove(Story story) {
