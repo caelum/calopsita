@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -123,6 +124,10 @@ public class Story implements Identifiable {
 	}
 
 	public List<Story> getSubstories() {
+		if (substories == null) {
+			substories = new ArrayList<Story>();
+		}
+
 		return substories;
 	}
 

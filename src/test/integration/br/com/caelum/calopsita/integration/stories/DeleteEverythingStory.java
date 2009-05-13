@@ -39,7 +39,7 @@ public class DeleteEverythingStory extends DefaultStory {
 				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
-			.iDeleteTheStory("Support everything").andConfirm();
+			.iDeleteTheStory("Support everything").andConfirm("deletion");
 		then.theStory("Support everything").shouldNotAppearOnStoryList();
 	}
 	@Test
@@ -49,7 +49,7 @@ public class DeleteEverythingStory extends DefaultStory {
 				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
-			.iDeleteTheStory("Support everything").andDontConfirm();
+			.iDeleteTheStory("Support everything").andDontConfirm("deletion");
 		then.theStory("Support everything").appearsOnList();
 	}
 	@Test
@@ -60,7 +60,7 @@ public class DeleteEverythingStory extends DefaultStory {
 					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
-			.iDeleteTheStory("Support everything").andConfirm().andConfirm();
+			.iDeleteTheStory("Support everything").andConfirm("deletion").andConfirm("substories");
 		then.theStory("Support everything").shouldNotAppearOnStoryList().and()
 			.theStory("support continuations").shouldNotAppearOnStoryList();
 	}
@@ -72,8 +72,8 @@ public class DeleteEverythingStory extends DefaultStory {
 					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
-			.iDeleteTheStory("Support everything").andConfirm().andDontConfirm();
+			.iDeleteTheStory("Support everything").andConfirm("deletion").andDontConfirm("substories");
 		then.theStory("Support everything").shouldNotAppearOnStoryList().and()
-			.theStory("support continuations").shouldNotAppearOnStoryList();
+			.theStory("support continuations").appearsOnList();
 	}
 }

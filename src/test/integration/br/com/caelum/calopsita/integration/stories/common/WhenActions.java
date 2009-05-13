@@ -207,14 +207,14 @@ public class WhenActions {
 		return this;
 	}
 
-	public WhenActions andConfirm() {
-		browser.currentPage().click("jqi__buttonYes");
-		browser.currentPage().waitUntil("$('#jqibox').length == 0", 1000);
+	public WhenActions andConfirm(String operation) {
+		browser.currentPage().click("jqi_" + operation + "_buttonYes");
+		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
 		return this;
 	}
 
-	public void andDontConfirm() {
-		browser.currentPage().click("jqi__buttonNo");
-		browser.currentPage().waitUntil("$('#jqibox').length == 0", 1000);
+	public void andDontConfirm(String operation) {
+		browser.currentPage().click("jqi_" + operation + "_buttonNo");
+		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
 	}
 }
