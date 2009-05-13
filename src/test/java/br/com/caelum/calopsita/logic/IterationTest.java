@@ -82,29 +82,37 @@ public class IterationTest {
     }
     
     @Test
+    public void removeAnIterationFromOtherProject() throws Exception {
+        Iteration iteration = givenAnIteration();
+        givenTheProjectIsOwnedBy(anyUser());
+        Iteration returned = givenTheIterationIsInThisProject(iteration);
+        
+        shouldNotRemoveTheIterationFromRepository(returned);
+        
+        String status = whenIRemove(iteration);
+        assertThat(status, is("invalid"));
+    }
+    
+    @Test
     public void removeAnIterationFromMyProject() throws Exception {
         Iteration iteration = givenAnIteration();
+        givenTheProjectIsOwnedBy(currentUser);
+
+        Story story = givenAStory();
         Iteration returnedIteration = givenTheIterationIsInThisProject(iteration);
         
+        returnedIteration.addStory(story);
+        story.setIteration(returnedIteration);
+        iteration.addStory(story);
+        
+        shouldUpdateTheStory(story);
         shouldRemoveTheIterationFromRepository(returnedIteration);
         
         String status = whenIRemove(iteration);
         assertThat(status, is("ok"));
     }
     
-    @Test
-    public void removeAnIterationFromOtherProject() throws Exception {
-        Iteration iteration = givenAnIteration();
-        givenTheProjectIsOwnedBy(anyUser());
-        Iteration returned = givenTheIterationIsInThisProject(iteration);
-
-        shouldNotRemoveTheIterationFromRepository(returned);
-        
-        String status = whenIRemove(iteration);
-        assertThat(status, is("invalid"));
-    }
-
-	private void givenTheProjectIsOwnedBy(User user) {
+    private void givenTheProjectIsOwnedBy(User user) {
 	    project.setOwner(user);
     }
 

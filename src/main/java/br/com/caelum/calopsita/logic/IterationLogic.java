@@ -80,10 +80,6 @@ public class IterationLogic {
         this.project = loaded.getProject();
         if(this.project.getColaborators().contains(currentUser) || this.project.getOwner().equals(currentUser)) {
             for (Story story : loaded.getStories()) {
-                for (Story sub : storyRepository.listSubstories(story)) {
-                    sub.setIteration(null);
-                    storyRepository.update(sub);
-                }
                 Story storyLoaded = storyRepository.load(story);
                 storyLoaded.setIteration(null);
                 storyRepository.update(storyLoaded);
