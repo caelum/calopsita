@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -13,14 +12,13 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  */
 public class StartAndFinishIterationStory extends DefaultStory {
     @Test
-    @Ignore
     public void startingIteration() throws Exception {
         given.thereIsAnUserNamed("vinicius").and()
         	.thereIsAProjectNamed("arca").ownedBy("vinicius")
         		.withAnIterationWhichGoalIs("start singing").and()
         	.iAmLoggedInAs("vinicius");
         when.iOpenProjectPageOf("arca").and()
-        	.iStartTheIteration("arca");
-        then.theCurrentIterationIs("arca");
+        	.iStartTheIteration("start singing");
+        then.theCurrentIterationIs("start singing");
     }
 }

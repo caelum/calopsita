@@ -225,6 +225,6 @@ public class WhenActions {
 	}
 
 	public void iStartTheIteration(String iterationGoal) {
-		
+		browser.currentPage().click("start " + iterationGoal);
 	}
 }
