@@ -1,6 +1,7 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
@@ -48,8 +49,9 @@ public class ThenAsserts {
         return this;
     }
 
-    public void appearsOnList() {
+    public ThenAsserts appearsOnList() {
         assertThat(this.browser.currentPage().div(divName), divContainsString(name));
+        return this;
     }
     
     public void appearsOnTodoList() {
@@ -151,5 +153,10 @@ public class ThenAsserts {
 	public ThenAsserts shouldNotAppearOnStoryList() {
 		assertThat(this.browser.currentPage().div("stories"), not(divContainsString(name)));
 		return this;
+	}
+
+	public void deletionLinkDoesnotAppearForProject(String projectName) {
+		String result = this.browser.currentPage().invoke("$('[name=\"delete " + projectName + "\"]).length");
+		assertThat(result, is("0"));
 	}
 }

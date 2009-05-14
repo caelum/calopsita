@@ -87,11 +87,12 @@ public class GivenContexts {
 		session.createQuery("delete from User u where u.name = :name").setParameter("name", name).executeUpdate();
 	}
 
-	public void withColaborator(String login) {
+	public GivenContexts withColaborator(String login) {
 		UserDao userDao = new UserDao(session);
         User user = userDao.find(login);
         project.getColaborators().add(user);
         session.flush();
+        return this;
 	}
 
 	public GivenContexts withAStoryNamed(String storyName) {

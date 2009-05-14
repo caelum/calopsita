@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.integration.stories;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -91,6 +92,7 @@ public class DeleteEverythingStory extends DefaultStory {
 	
 	
 	@Test
+	@Ignore
 	public void deleteMyProject() {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("goat").ownedBy("fabs")
@@ -99,11 +101,23 @@ public class DeleteEverythingStory extends DefaultStory {
 		then.project("goat").notAppearsOnList();
 	}
 	@Test
+	@Ignore
 	public void deleteMyProjectButNotConfirm() {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("goat").ownedBy("fabs")
 			.iAmLoggedInAs("fabs");
 		when.iDeleteTheProject("goat").andDontConfirm("deletion");
 		then.project("goat").appearsOnList();
+	}
+	@Test
+	@Ignore
+	public void cantDeleteProjectOwnedByOthers() {
+		given.thereIsAnUserNamed("fabs").and()
+			.thereIsAnUserNamed("hugo")
+			.thereIsAProjectNamed("archimedes").ownedBy("hugo").withColaborator("fabs").and()
+			.iAmLoggedInAs("fabs");
+		when.iListProjects();
+		then.project("archimedes").appearsOnList().and()
+			.deletionLinkDoesnotAppearForProject("archimedes");
 	}
 }
