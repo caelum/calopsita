@@ -163,4 +163,8 @@ public class ThenAsserts {
 	public void theCurrentIterationIs(String iterationGoal) {
 		assertThat(this.browser.currentPage().div("current"), divContainsString(iterationGoal));
 	}
+
+	public void theCurrentIterationIsNot(String iterationGoal) {
+        assertThat(this.browser.currentPage().div("current"), not(divContainsString(iterationGoal)));
+    }
 }

@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
 import org.hibernate.Session;
+import org.joda.time.LocalDate;
 
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
@@ -141,7 +142,7 @@ public class GivenContexts {
 	}
 
     public GivenContexts startingYesterday() {
-        this.iteration.setEndDate(storyName);
+        this.iteration.setEndDate(new LocalDate().minusDays(1));
         session.saveOrUpdate(iteration);
         session.flush();
         return this;

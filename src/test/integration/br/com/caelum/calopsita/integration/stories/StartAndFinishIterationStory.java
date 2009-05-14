@@ -30,9 +30,9 @@ public class StartAndFinishIterationStory extends DefaultStory {
             .withAnIterationWhichGoalIs("start singing").startingYesterday().and()
         .iAmLoggedInAs("vinicius");
     
-    when.iOpenProjectPageOf("arca");
-    when.iAddTheIteration("create and update an incident").withStartDate("04/04/2000").withEndDate("04/05/2000");
-    
-    then.theIteration("create and update an incident").appearsOnList();
+        when.iOpenProjectPageOf("arca").and()
+            .iClickOn("End iteration");
+
+        then.theCurrentIterationIsNot("start singing");
     }
 }
