@@ -39,6 +39,10 @@ public class ProjectDao implements ProjectRepository {
 
     @Override
     public void remove(Project project) {
+    	this.session.createQuery("delete from Story s where s.project = :project")
+			.setParameter("project", project).executeUpdate();
+    	this.session.createQuery("delete from Iteration i where i.project = :project")
+    		.setParameter("project", project).executeUpdate();
     	this.session.delete(project);
     }
 

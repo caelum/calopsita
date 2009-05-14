@@ -76,9 +76,32 @@ public class ProjectTest {
 		
 		shouldRemoveFromRepository(loaded);
 		
-		whenIRemoveTheProject(project);
+		String result = whenIRemoveTheProject(project);
+		
+		assertThat(result, is("ok"));
 	}
+    @Test
+    public void removingAProjectOwnedByOthers() throws Exception {
+    	Project project = givenAProject();
+    	
+    	Project loaded = givenProjectIsOwnedBy(project, givenAUser());
+    	
+    	shouldNotRemoveFromRepository(loaded);
+    	
+    	String result = whenIRemoveTheProject(project);
+    	
+    	assertThat(result, is("invalid"));
+    }
     
+	private void shouldNotRemoveFromRepository(final Project project) {
+		mockery.checking(new Expectations() {
+			{
+				never(repository).remove(project);
+			}
+		});
+		
+	}
+
 	private Project givenProjectIsOwnedBy(final Project project, final User user) {
 		
 		final Project result = new Project();
@@ -101,8 +124,8 @@ public class ProjectTest {
 		});
 	}
 
-	private void whenIRemoveTheProject(Project project) {
-		logic.delete(project);
+	private String whenIRemoveTheProject(Project project) {
+		return logic.delete(project);
 	}
 
 	private void shouldReloadAndUpdateTheProject(final Project project) {

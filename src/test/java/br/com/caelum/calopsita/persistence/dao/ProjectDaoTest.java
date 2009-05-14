@@ -1,6 +1,7 @@
 package br.com.caelum.calopsita.persistence.dao;
 
 import static br.com.caelum.calopsita.CustomMatchers.hasSameId;
+import static br.com.caelum.calopsita.CustomMatchers.isEmpty;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
@@ -97,6 +98,17 @@ public class ProjectDaoTest {
         assertThat(list, hasItem(hasSameId(iterationFromThisProject)));
     }
 	
+	@Test
+	public void removeAProjectAlsoRemoveRelatedStoriesAndIterations() throws Exception {
+		Project project = givenAProject();
+		givenAnIterationOfProject(project);
+		givenAStoryOfProject(project);
+		
+		dao.remove(project);
+		
+		assertThat(dao.listIterationsFrom(project), isEmpty());
+		assertThat(dao.listStoriesFrom(project), isEmpty());
+	}
 	private Iteration givenAnIterationOfProject(Project project) throws ParseException {
         Iteration iteration = givenAnIteration();
         iteration.setProject(project);

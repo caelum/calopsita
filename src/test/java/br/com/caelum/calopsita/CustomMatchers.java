@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita;
 
+import java.util.Collection;
+
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
@@ -20,6 +22,21 @@ public class CustomMatchers {
 			@Override
 			public void describeTo(Description description) {
 				description.appendText("an entity with id ").appendValue(entity.getId());
+			}
+			
+		};
+	}
+	@Factory
+	public static <T extends Collection<?>> Matcher<T> isEmpty() {
+		return new TypeSafeMatcher<T>() {
+			
+			@Override
+			public boolean matchesSafely(T item) {
+				return item.isEmpty();
+			}
+			@Override
+			public void describeTo(Description description) {
+				description.appendText("an empty collection");
 			}
 			
 		};
