@@ -38,7 +38,6 @@ $( function() {
             return false;
         }
     });
-
     $("#colaborator").validate( {
         rules : {
             "colaborator.login" : {
@@ -46,7 +45,9 @@ $( function() {
             }
         }
     });
-
+    $.validator.addMethod("greater", function(value, element, params) {
+    	return this.optional(element) || $(element).datepicker('getDate') >= $(params).datepicker('getDate');
+    }, "should be greater than start date");
     $("#iteration").validate( {
         rules : {
             "iteration.goal" : {
@@ -57,7 +58,8 @@ $( function() {
                 date : true
             },
             "iteration.endDate" : {
-                date : true
+                date : true,
+                greater: '[name=iteration.startDate]'
             }
         }
     });
