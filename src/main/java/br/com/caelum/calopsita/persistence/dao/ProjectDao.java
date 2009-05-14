@@ -39,6 +39,7 @@ public class ProjectDao implements ProjectRepository {
 
     @Override
     public void remove(Project project) {
+    	this.session.delete(project);
     }
 
     @Override
