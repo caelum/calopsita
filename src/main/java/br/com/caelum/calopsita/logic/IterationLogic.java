@@ -2,7 +2,7 @@ package br.com.caelum.calopsita.logic;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
 
@@ -105,7 +105,7 @@ public class IterationLogic {
 		if (loaded.isCurrent()) {
 			throw new IllegalArgumentException("Tried to start an already started iteration");
 		}
-		loaded.setStartDate(new DateTime());
+		loaded.setStartDate(new LocalDate());
 	}
 
 }

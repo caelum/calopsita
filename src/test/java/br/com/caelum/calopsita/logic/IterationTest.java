@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Before;
@@ -146,7 +145,7 @@ public class IterationTest {
     
     private Iteration givenTheIterationAlreadyStarted(final Iteration iteration) {
     	final Iteration result = new Iteration();
-    	result.setStartDate(new DateTime().minusDays(1));
+    	result.setStartDate(new LocalDate().minusDays(1));
 		mockery.checking(new Expectations() {
 			{
 				one(iterationRepository).load(iteration);

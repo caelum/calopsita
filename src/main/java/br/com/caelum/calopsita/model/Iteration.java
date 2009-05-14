@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.model;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class Iteration implements Identifiable {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) throws ParseException {
+    public void setStartDate(LocalDate startDate) {
     	this.startDate = startDate;
     }
 
@@ -73,7 +72,7 @@ public class Iteration implements Identifiable {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) throws ParseException {
+    public void setEndDate(LocalDate endDate) {
     	this.endDate = endDate;
     }
     
@@ -123,7 +122,4 @@ public class Iteration implements Identifiable {
 	    }
 	}
 
-	public void setStartDate(DateTime startDate) {
-		this.startDate = startDate;
-	}
 }
