@@ -45,13 +45,11 @@ public class IterationTest {
     @Test
     public void savingAnIteration() throws Exception {
         Iteration iteration = givenAnIteration();
-        Project project = givenAProject();
     
         shouldSaveOnTheRepositoryTheIteration(iteration);
         
-        whenISaveTheIteration(iteration, onThe(project));
+        whenISaveTheIteration(iteration);
         
-        assertThat(iteration.getProject(), is(project));
         mockery.assertIsSatisfied();
     }
 
@@ -116,9 +114,8 @@ public class IterationTest {
         Iteration iteration = givenAnIteration();
         iteration.setStartDate(new LocalDate(2005,10,1));
         iteration.setEndDate(new LocalDate(2005,8,1));
-        Project project = givenAProject();
     
-        whenISaveTheIteration(iteration, onThe(project));
+        whenISaveTheIteration(iteration);
         //should throw exception
     }
     
@@ -176,25 +173,25 @@ public class IterationTest {
     }
 
     @Test
-    public void editingAnIteration() throws Exception {
-    	Iteration iteration = givenAnIteration();
-    	
-    	Iteration loaded = shouldLoadFromRepository(iteration);
-    	
-    	iteration.setGoal("Altered goal");
-    	iteration.setStartDate(today());
-    	iteration.setEndDate(tomorrow());
-    	
-    	logic.edit(iteration);
-    	
-    	
-    	assertThat(loaded.getGoal(), is("Altered goal"));
-    	assertThat(loaded.getStartDate(), is(today()));
-    	assertThat(loaded.getEndDate(), is(tomorrow()));
-    	
-    	mockery.assertIsSatisfied();
-    	
-    }
+	public void editingAnIteration() throws Exception {
+		Iteration iteration = givenAnIteration();
+		
+		Iteration loaded = shouldLoadFromRepository(iteration);
+		
+		iteration.setGoal("Altered goal");
+		iteration.setStartDate(today());
+		iteration.setEndDate(tomorrow());
+		
+		logic.update(iteration);
+		
+		
+		assertThat(loaded.getGoal(), is("Altered goal"));
+		assertThat(loaded.getStartDate(), is(today()));
+		assertThat(loaded.getEndDate(), is(tomorrow()));
+		
+		mockery.assertIsSatisfied();
+		
+	}
     private LocalDate tomorrow() {
 		return new LocalDate().plusDays(1);
 	}
@@ -362,16 +359,9 @@ public class IterationTest {
         });
     }
 
-    private Project onThe(Project project) {
-        return project;
-    }
 
-    private void whenISaveTheIteration(Iteration iteration, Project project) {
-        logic.save(iteration, project);
-    }
-
-    private Project givenAProject() {
-        return new Project();
+    private void whenISaveTheIteration(Iteration iteration) {
+        logic.save(iteration);
     }
 
     private Iteration givenAnIteration() {

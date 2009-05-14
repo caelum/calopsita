@@ -33,10 +33,9 @@ public class IterationLogic {
 		this.storyRepository = storyRepository;
     }
 
-    public void save(Iteration iteration, Project project) {
-        this.project = project;
+    public void save(Iteration iteration) {
+        this.project = iteration.getProject();
         validateDate(iteration);
-        iteration.setProject(project);
         repository.add(iteration);
     }
 
@@ -117,7 +116,7 @@ public class IterationLogic {
         loaded.setEndDate(new LocalDate());
         this.project = loaded.getProject();
     }
-	public void edit(Iteration iteration) {
+	public void update(Iteration iteration) {
 		validateDate(iteration);
 		Iteration loaded = repository.load(iteration);
 		loaded.setGoal(iteration.getGoal());
