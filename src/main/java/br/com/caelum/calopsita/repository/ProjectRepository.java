@@ -17,4 +17,6 @@ public interface ProjectRepository extends BaseRepository<Project> {
 
     List<Iteration> listIterationsFrom(Project project);
 
+	Project load(Project project);
+
 }

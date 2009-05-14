@@ -13,7 +13,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.calopsita.logic.ProjectLogic;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
@@ -23,16 +22,16 @@ public class ProjectTest {
     private Mockery mockery;
     private ProjectLogic logic;
     private ProjectRepository repository;
-	private User user;
+	private User currentUser;
 	private UserRepository userRepository;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(ProjectRepository.class);
-        user = currentUser();
+        currentUser = currentUser();
         userRepository = mockery.mock(UserRepository.class);
-		logic = new ProjectLogic(repository, userRepository, user);
+		logic = new ProjectLogic(repository, userRepository, currentUser);
     }
 
     @After
@@ -54,7 +53,7 @@ public class ProjectTest {
     	
     	whenISaveTheProject(project);
     	
-    	assertThat(project.getOwner(), is(user));
+    	assertThat(project.getOwner(), is(currentUser));
     }
     @Test
     public void addingColaboratorsToAProject() throws Exception {
@@ -68,6 +67,43 @@ public class ProjectTest {
     	
     	thenTheProjectWillContainTheUserAsColaborator(project, user);
     }
+
+    @Test
+	public void removingAProjectOwnedByMe() throws Exception {
+		Project project = givenAProject();
+		
+		Project loaded = givenProjectIsOwnedBy(project, currentUser);
+		
+		shouldRemoveFromRepository(loaded);
+		
+		whenIRemoveTheProject(project);
+	}
+    
+	private Project givenProjectIsOwnedBy(final Project project, final User user) {
+		
+		final Project result = new Project();
+		result.setOwner(user);
+		mockery.checking(new Expectations() {
+			{
+				one(repository).load(project);
+				will(returnValue(result));
+			}
+		});
+		return result;
+	}
+
+	private void shouldRemoveFromRepository(final Project project) {
+		
+		mockery.checking(new Expectations() {
+			{
+				one(repository).remove(project);
+			}
+		});
+	}
+
+	private void whenIRemoveTheProject(Project project) {
+		logic.delete(project);
+	}
 
 	private void shouldReloadAndUpdateTheProject(final Project project) {
 		
@@ -123,7 +159,7 @@ public class ProjectTest {
         final Project project = new Project();
         mockery.checking(new Expectations() {
             {
-                one(repository).listAllFrom(user);
+                one(repository).listAllFrom(currentUser);
                 will(returnValue(Collections.singletonList(project)));
             }
         });

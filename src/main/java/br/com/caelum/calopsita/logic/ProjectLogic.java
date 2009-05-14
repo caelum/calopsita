@@ -47,6 +47,9 @@ public class ProjectLogic {
     	this.stories = this.repository.listStoriesFrom(project);
     }
 
+    public void delete(Project project) {
+    	
+    }
 	public List<User> getUsers() {
 		return users;
 	}

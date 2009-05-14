@@ -22,6 +22,11 @@ public class ProjectDao implements ProjectRepository {
     public Project get(Long id) {
     	return (Project) session.get(Project.class, id);
     }
+    
+    @Override
+    public Project load(Project project) {
+    	return (Project) session.load(Project.class, project.getId());
+    }
     @Override
     public void add(Project project) {
         this.session.save(project);
