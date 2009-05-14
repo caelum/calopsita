@@ -122,4 +122,7 @@ public class Iteration implements Identifiable {
 	    }
 	}
 
+	public boolean isStartable() {
+		return this.startDate == null || this.startDate.isAfter(new LocalDate());
+	}
 }
