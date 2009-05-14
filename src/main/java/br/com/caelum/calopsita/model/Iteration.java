@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.model;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import br.com.caelum.calopsita.model.Story.Status;
 
@@ -32,11 +31,11 @@ public class Iteration implements Identifiable {
     @OrderBy("priority")
     private List<Story> stories;
 
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-    private DateTime startDate;
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
+    private LocalDate startDate;
 
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-    private DateTime endDate;
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
+    private LocalDate endDate;
 
     public Long getId() {
         return id;
@@ -62,30 +61,20 @@ public class Iteration implements Identifiable {
         this.goal = goal;
     }
 
-    public DateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) throws ParseException {
-    	if (startDate != null && !startDate.isEmpty()) {
-    		DateFormat dateFormatter = DateFormat.getDateInstance(DateFormat.SHORT);
-			this.startDate = new DateTime(dateFormatter.parse(startDate));
-		} else {
-			this.startDate = null;
-		}
+    public void setStartDate(LocalDate startDate) throws ParseException {
+    	this.startDate = startDate;
     }
 
-    public DateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) throws ParseException {
-    	if (endDate != null && !endDate.isEmpty()) {
-    		DateFormat dateFormatter = DateFormat.getDateInstance(DateFormat.SHORT);
-			this.endDate = new DateTime(dateFormatter.parse(endDate));
-		} else {
-			this.endDate = null;
-		}
+    public void setEndDate(LocalDate endDate) throws ParseException {
+    	this.endDate = endDate;
     }
     
     public void addStory(Story story){

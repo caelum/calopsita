@@ -12,6 +12,7 @@ import java.util.List;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
+import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -121,8 +122,8 @@ public class ProjectDaoTest {
     private Iteration givenAnIteration() throws ParseException {
 	    Iteration iteration = new Iteration();
 	    iteration.setGoal("Be ready");
-	    iteration.setStartDate("01/01/2000");
-	    iteration.setEndDate("10/01/2000");
+	    iteration.setStartDate(new LocalDate(2000,1,1));
+	    iteration.setEndDate(new LocalDate(2000,1,10));
 	    session.save(iteration);
 	    session.flush();
 	    return iteration;

@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -113,8 +114,8 @@ public class IterationTest {
     @Test(expected=IllegalArgumentException.class)
     public void validatingDateOnSave() throws Exception {
         Iteration iteration = givenAnIteration();
-        iteration.setStartDate("01/10/05");
-        iteration.setEndDate("01/08/05");
+        iteration.setStartDate(new LocalDate(2005,10,1));
+        iteration.setEndDate(new LocalDate(2005,8,1));
         Project project = givenAProject();
     
         whenISaveTheIteration(iteration, onThe(project));

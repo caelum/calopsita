@@ -5,4 +5,6 @@
   <plugin type="org.vraptor.plugin.pico.PicoContainerPlugin">
     <property name="container-config-class">br.com.caelum.calopsita.infra.vraptor.CalopsitaContainerConfig</property>
   </plugin>
+  <converter>org.vraptor.converter.joda.LocalDateConverter</converter>
+  <converter>org.vraptor.converter.joda.LocalTimeConverter</converter>
 </vraptor>
