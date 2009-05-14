@@ -227,7 +227,7 @@ public class WhenActions {
 	public void iStartTheIteration(String iterationGoal) {
 		browser.currentPage().click("start " + iterationGoal);
 	}
-    public void iEndTheIteration(String goal) {
-        browser.currentPage().click("end " + goal);
+    public void iEndTheIteration(String iterationGoal) {
+        browser.currentPage().click("end " + iterationGoal);
     }
 }

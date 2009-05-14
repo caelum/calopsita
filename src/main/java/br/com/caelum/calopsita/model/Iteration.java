@@ -114,8 +114,8 @@ public class Iteration implements Identifiable {
 	
 	public boolean isCurrent() {
 	    if (this.startDate != null && 
-	            this.startDate.toDateMidnight().isBeforeNow() && 
-	            (this.endDate == null || this.endDate.toDateMidnight().plusDays(1).isAfterNow())) {
+	            this.startDate.compareTo(new LocalDate()) <= 0 &&
+	            (this.endDate == null || this.endDate.compareTo(new LocalDate()) >= 0)) {
 	        return true;
 	    } else {
 	        return false;

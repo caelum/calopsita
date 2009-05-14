@@ -142,7 +142,7 @@ public class GivenContexts {
 	}
 
     public GivenContexts startingYesterday() {
-        this.iteration.setEndDate(new LocalDate().minusDays(1));
+        this.iteration.setStartDate(new LocalDate().minusDays(1));
         session.saveOrUpdate(iteration);
         session.flush();
         return this;
