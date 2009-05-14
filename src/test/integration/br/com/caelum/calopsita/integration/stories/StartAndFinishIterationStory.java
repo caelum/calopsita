@@ -21,4 +21,18 @@ public class StartAndFinishIterationStory extends DefaultStory {
         	.iStartTheIteration("start singing");
         then.theCurrentIterationIs("start singing");
     }
+    
+    @Test
+    @Ignore
+    public void endingIteration() throws Exception {
+        given.thereIsAnUserNamed("vinicius").and()
+        .thereIsAProjectNamed("arca").ownedBy("vinicius")
+            .withAnIterationWhichGoalIs("start singing").startingYesterday().and()
+        .iAmLoggedInAs("vinicius");
+    
+    when.iOpenProjectPageOf("arca");
+    when.iAddTheIteration("create and update an incident").withStartDate("04/04/2000").withEndDate("04/05/2000");
+    
+    then.theIteration("create and update an incident").appearsOnList();
+    }
 }
