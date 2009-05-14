@@ -72,7 +72,7 @@
 	</p>
     <p>
     	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
-  		<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="document.addStory.reset(); toggle('storyForm');"/>
+  		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('storyForm');"/>
   	</p>
 </form>
 
@@ -86,7 +86,7 @@
 		</c:forEach>		
 	</select>
 	<input type="submit" value="<fmt:message key="add"/>"/>
-	<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="toggle('colaborator');"/>
+	<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('colaborator');"/>
 </form>
 
 <a href="javascript:toggle('iteration'); document.addIteration.reset();"><fmt:message key="project.addIteration"/></a><br/>

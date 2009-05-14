@@ -20,6 +20,6 @@
 	</p>
 	<p>
 		<input type="submit" value="<fmt:message key="add"/>"/>
-	 	<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="toggle('iteration'); document.addIteration.reset();"/>
+	 	<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('iteration');"/>
 	</p>
 </form>
