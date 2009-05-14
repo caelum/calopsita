@@ -7,6 +7,10 @@
 	<c:if test="${empty iteration.id}">save</c:if>
 	<c:if test="${not empty iteration.id}">${iteration.id }/update</c:if>
 </c:set>
+<c:set var="label">
+	<c:if test="${empty iteration.id}"><fmt:message key="add"/></c:if>
+	<c:if test="${not empty iteration.id}"><fmt:message key="edit"/></c:if>
+</c:set>
 <form id="iteration" class="hidden" name="addIteration" action="<c:url value="/iteration/${operation }/"/>" method="post">
   	<input type="hidden" name="iteration.project.id" value="${project.id }" />
    	<p>
@@ -22,7 +26,7 @@
 		<em></em><input type="text" name="iteration.endDate" value="${iteration.endDate }" class="datepicker"/>
 	</p>
 	<p>
-		<input type="submit" value="<fmt:message key="add"/>"/>
+		<input type="submit" value="${label }"/>
 	 	<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('iteration');"/>
 	</p>
 </form>

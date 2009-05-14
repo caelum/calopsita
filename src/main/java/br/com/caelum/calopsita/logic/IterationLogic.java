@@ -122,6 +122,7 @@ public class IterationLogic {
 		loaded.setGoal(iteration.getGoal());
 		loaded.setStartDate(iteration.getStartDate());
 		loaded.setEndDate(iteration.getEndDate());
+		this.iteration = loaded;
 	}
 
 }
