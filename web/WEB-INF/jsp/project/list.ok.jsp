@@ -17,8 +17,10 @@
     <c:forEach var="project" items="${projects}">
       <li>
         <p><fmt:message key="project.name"/>: <a href="<c:url value="/project/${project.id}/show/"/>">${project.name}</a>
-        <a class="delete" name="delete ${project.name }" href="javascript:void(0)"
-			onclick="confirmProjectDeletion('<c:url value="/project/${project.id }/delete/"/>')">X</a>
+        <c:if test="${currentUser eq project.owner}">
+	        <a class="delete" name="delete ${project.name }" href="javascript:void(0)"
+				onclick="confirmProjectDeletion('<c:url value="/project/${project.id }/delete/"/>')">X</a>
+        </c:if>
         <p><fmt:message key="project.description"/>: ${project.description}</p>
       </li>
     </c:forEach>

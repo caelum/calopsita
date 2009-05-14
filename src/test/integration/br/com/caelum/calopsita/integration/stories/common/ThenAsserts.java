@@ -156,7 +156,7 @@ public class ThenAsserts {
 	}
 
 	public void deletionLinkDoesnotAppearForProject(String projectName) {
-		String result = this.browser.currentPage().invoke("$('[name=\"delete " + projectName + "\"]).length");
-		assertThat(result, is("0"));
+		String result = this.browser.currentPage().invoke("$('[name=\"delete " + projectName + "\"]').length");
+		assertThat("Deletion link appears when it shouldnt", result, is("0.0"));
 	}
 }
