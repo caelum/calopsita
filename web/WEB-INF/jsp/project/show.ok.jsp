@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/impromptu.css"/>" />
     <script type="text/javascript" src="<c:url value="/javascript/jquery/jquery-impromptu.2.5.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/javascript/project-show.js"/>"></script>
+	<script type="text/javascript">
+		initialize('<fmt:message key="validation.dateRange"/>');
+	</script>
 </head>
 
 <body>

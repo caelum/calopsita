@@ -15,6 +15,11 @@ function confirmIterationDeletion(url) {
     $.prompt(msg);
 }
 
+var message;
+function initialize(msg) {
+	message = msg;
+}
+
 $( function() {
     $("#storyForm").validate( {
         rules : {
@@ -47,7 +52,7 @@ $( function() {
     });
     $.validator.addMethod("greater", function(value, element, params) {
     	return this.optional(element) || $(element).datepicker('getDate') >= $(params).datepicker('getDate');
-    }, "should be greater than start date");
+    }, message);
     $("#iteration").validate( {
         rules : {
             "iteration.goal" : {
