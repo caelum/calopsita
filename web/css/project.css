@@ -49,6 +49,6 @@ em {
   font-weight: bold;
 }
 
-li.current {
+li#current {
   font-weight: bold;
 }

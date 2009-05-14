@@ -223,4 +223,8 @@ public class WhenActions {
 		iDeleteTheStory(projectName);
 		return this;
 	}
+
+	public void iStartTheIteration(String iterationGoal) {
+		
+	}
 }

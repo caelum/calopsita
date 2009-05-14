@@ -159,4 +159,8 @@ public class ThenAsserts {
 		String result = this.browser.currentPage().invoke("$('[name=\"delete " + projectName + "\"]').length");
 		assertThat("Deletion link appears when it shouldnt", result, is("0.0"));
 	}
+
+	public void theCurrentIterationIs(String iterationGoal) {
+		
+	}
 }
