@@ -175,7 +175,51 @@ public class IterationTest {
         return result;
     }
 
-    private Iteration givenTheIterationAlreadyStarted(final Iteration iteration) {
+    @Test
+    public void editingAnIteration() throws Exception {
+    	Iteration iteration = givenAnIteration();
+    	
+    	Iteration loaded = shouldLoadFromRepository(iteration);
+    	
+    	iteration.setGoal("Altered goal");
+    	iteration.setStartDate(today());
+    	iteration.setEndDate(tomorrow());
+    	
+    	logic.edit(iteration);
+    	
+    	
+    	assertThat(loaded.getGoal(), is("Altered goal"));
+    	assertThat(loaded.getStartDate(), is(today()));
+    	assertThat(loaded.getEndDate(), is(tomorrow()));
+    	
+    	mockery.assertIsSatisfied();
+    	
+    }
+    private LocalDate tomorrow() {
+		return new LocalDate().plusDays(1);
+	}
+
+
+	private LocalDate today() {
+		return new LocalDate();
+	}
+
+
+	private Iteration shouldLoadFromRepository(final Iteration iteration) {
+    	final Iteration result = new Iteration();
+    	
+    	
+		mockery.checking(new Expectations() {
+			{
+				one(iterationRepository).load(iteration);
+				will(returnValue(result));
+			}
+		});
+    	return result;
+	}
+
+
+	private Iteration givenTheIterationAlreadyStarted(final Iteration iteration) {
     	final Iteration result = new Iteration();
     	result.setStartDate(today().minusDays(1));
 		mockery.checking(new Expectations() {
@@ -247,10 +291,6 @@ public class IterationTest {
 	    return logic.delete(iteration);
     }
     
-    private LocalDate today() {
-        return new LocalDate();
-    }
-
     private void shouldRemoveTheIterationFromRepository(final Iteration returned) {
 	    mockery.checking(new Expectations() {
             {

@@ -117,5 +117,12 @@ public class IterationLogic {
         loaded.setEndDate(new LocalDate());
         this.project = loaded.getProject();
     }
+	public void edit(Iteration iteration) {
+		validateDate(iteration);
+		Iteration loaded = repository.load(iteration);
+		loaded.setGoal(iteration.getGoal());
+		loaded.setStartDate(iteration.getStartDate());
+		loaded.setEndDate(iteration.getEndDate());
+	}
 
 }
