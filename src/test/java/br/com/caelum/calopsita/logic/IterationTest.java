@@ -9,7 +9,6 @@ import java.util.Arrays;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.joda.time.LocalDate;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -131,7 +130,7 @@ public class IterationTest {
         
         whenIStartTheIteration(iteration);
         
-        Assert.assertTrue("expected a current iteration", loaded.isCurrent());
+        assertThat(loaded.getStartDate(), is(today()));
         mockery.assertIsSatisfied();
     }
     @Test(expected=IllegalArgumentException.class)
@@ -151,10 +150,9 @@ public class IterationTest {
         
         whenIEndTheIteration(iteration);
         
-        Assert.assertFalse("do not expected a current iteration", loaded.isCurrent());
+        assertThat(loaded.getEndDate(), is(today()));
         mockery.assertIsSatisfied();
     }
-
 
 
     @Test(expected=IllegalArgumentException.class)
@@ -179,7 +177,7 @@ public class IterationTest {
 
     private Iteration givenTheIterationAlreadyStarted(final Iteration iteration) {
     	final Iteration result = new Iteration();
-    	result.setStartDate(new LocalDate().minusDays(1));
+    	result.setStartDate(today().minusDays(1));
 		mockery.checking(new Expectations() {
 			{
 				one(iterationRepository).load(iteration);
@@ -212,7 +210,7 @@ public class IterationTest {
 
 	private Iteration givenTheIterationStartedYesterday(final Iteration iteration) {
 	    final Iteration result = new Iteration();
-        result.setStartDate(new LocalDate().minusDays(1));
+        result.setStartDate(today().minusDays(1));
         mockery.checking(new Expectations() {
             {
                 one(iterationRepository).load(iteration);
@@ -247,6 +245,10 @@ public class IterationTest {
 
     private String whenIRemove(Iteration iteration) {
 	    return logic.delete(iteration);
+    }
+    
+    private LocalDate today() {
+        return new LocalDate();
     }
 
     private void shouldRemoveTheIterationFromRepository(final Iteration returned) {
