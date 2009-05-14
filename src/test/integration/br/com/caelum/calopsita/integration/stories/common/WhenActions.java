@@ -230,4 +230,14 @@ public class WhenActions {
     public void iEndTheIteration(String iterationGoal) {
         browser.currentPage().click("end " + iterationGoal);
     }
+
+	public WhenActions iEditTheIteration() {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+	public WhenActions withGoal(String string) {
+		// TODO Auto-generated method stub
+		return this;
+	}
 }

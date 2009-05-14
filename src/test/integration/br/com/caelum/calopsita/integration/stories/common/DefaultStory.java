@@ -5,6 +5,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -53,5 +54,12 @@ public class DefaultStory {
 			transaction.rollback();
 		}
         factory.close();
+    }
+    
+    protected LocalDate today() {
+    	return new LocalDate();
+    }
+    protected LocalDate tomorrow() {
+    	return new LocalDate().plusDays(1);
     }
 }

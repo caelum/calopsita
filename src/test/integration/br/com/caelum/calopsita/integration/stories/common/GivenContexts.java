@@ -147,5 +147,16 @@ public class GivenContexts {
         session.flush();
         return this;
     }
+	public GivenContexts startingAt(LocalDate date) {
+		iteration.setStartDate(date);
+		session.flush();
+		return this;
+	}
+
+	public GivenContexts endingAt(LocalDate date) {
+		iteration.setEndDate(date);
+		session.flush();
+		return this;		
+	}
 
 }
