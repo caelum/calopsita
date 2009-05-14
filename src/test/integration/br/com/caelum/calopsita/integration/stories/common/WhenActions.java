@@ -218,4 +218,9 @@ public class WhenActions {
 		browser.currentPage().click("jqi_" + operation + "_buttonNo");
 		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
 	}
+
+	public WhenActions iDeleteTheProject(String projectName) {
+		iDeleteTheStory(projectName);
+		return this;
+	}
 }
