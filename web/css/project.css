@@ -44,3 +44,11 @@ em {
 .delete {
 	color: red;
 }
+
+.owner {
+  font-weight: bold;
+}
+
+li.current {
+  font-weight: bold;
+}

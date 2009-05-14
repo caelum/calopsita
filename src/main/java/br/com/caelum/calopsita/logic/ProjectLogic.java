@@ -62,7 +62,7 @@ public class ProjectLogic {
     public List<Project> getProjects() {
         return projects;
     }
-
+    
     public void list() {
         this.projects = repository.listAllFrom(currentUser);
     }

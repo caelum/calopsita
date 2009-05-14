@@ -19,9 +19,9 @@
 <div id="colaborators">
 	<h2><fmt:message key="colaborators"/>:</h2>
 	<ul>
-          <li><b>${project.owner.name}</b></li>
+          <li class="owner">${project.owner.name}</li>
 		<c:forEach items="${project.colaborators}" var="colaborator">
-			<li>${colaborator.name }</li>
+		  <li>${colaborator.name }</li>
 		</c:forEach>
 	</ul>
 </div>
@@ -31,7 +31,7 @@
     <h2><fmt:message key="iterations"/>:</h2>
     <ul>
       <c:forEach items="${project.iterations}" var="iteration">
-        <li>
+        <li class="${iteration.current ? 'current' : ''}">
 			<a href="<c:url value="/iteration/${iteration.id}/show/"/>">${iteration.goal}</a>
 			<c:if test="${not empty iteration.endDate }" >
 				(<fmt:message key="dueDate"/> ${iteration.endDate })

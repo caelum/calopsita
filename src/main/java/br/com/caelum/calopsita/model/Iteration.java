@@ -124,4 +124,14 @@ public class Iteration implements Identifiable {
 		return result;
 	}
 	
+	public boolean isCurrent() {
+	    DateTime today = new DateTime();
+	    if (this.startDate == null) {
+	        return false;
+	    } else if (this.startDate.compareTo(today) <= 0 && (this.endDate == null || this.endDate.compareTo(today) >= 0)) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
 }

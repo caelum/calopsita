@@ -11,6 +11,9 @@
 <body>
 
 <div id="iteration">
+    <c:if test="${iteration.current}">
+      <p><fmt:message key="iteration.current"/></p>
+    </c:if>
     <p><fmt:message key="iteration.goal"/>: ${iteration.goal}</p>
     <c:if test="${not empty iteration.startDate}">
 	    <p><fmt:message key="iteration.startDate"/>: ${iteration.startDate}</p>
