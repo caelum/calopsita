@@ -7,9 +7,6 @@
     <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/impromptu.css"/>" />
     <script type="text/javascript" src="<c:url value="/javascript/jquery/jquery-impromptu.2.5.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/javascript/project-show.js"/>"></script>
-	<script type="text/javascript">
-		initialize('<fmt:message key="validation.dateRange"/>');
-	</script>
 </head>
 
 <body>
@@ -93,25 +90,7 @@
 </form>
 
 <a href="javascript:toggle('iteration'); document.addIteration.reset();"><fmt:message key="project.addIteration"/></a><br/>
-<form id="iteration" class="hidden" name="addIteration" action="<c:url value="/iteration/save/"/>" method="post">
-  	<input type="hidden" name="project.id" value="${project.id }" />
-   	<p>
-		<label><fmt:message key="iteration.goal"/></label>
-		<em>*</em><input type="text" name="iteration.goal"/>
-	</p>
-	<p>
-		<label><fmt:message key="iteration.startDate"/></label>
-		<em></em><input type="text" name="iteration.startDate" class="datepicker"/>
-	</p>
-	<p>
-		<label><fmt:message key="iteration.endDate"/></label>
-		<em></em><input type="text" name="iteration.endDate" class="datepicker"/>
-	</p>
-	<p>
-		<input type="submit" value="<fmt:message key="add"/>"/>
-	 	<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="toggle('iteration'); document.addIteration.reset();"/>
-	</p>
-</form>
+<%@include file="../iteration/editForm.jsp" %>
 <a href="<c:url value="/"/>"><fmt:message key="back"/></a>
 
 </body>
