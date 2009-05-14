@@ -106,6 +106,7 @@ public class IterationLogic {
 			throw new IllegalArgumentException("Tried to start an already started iteration");
 		}
 		loaded.setStartDate(new LocalDate());
+		this.project = loaded.getProject();
 	}
 
 }

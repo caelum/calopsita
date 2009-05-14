@@ -40,7 +40,7 @@
 				(<fmt:message key="dueDate"/> ${iteration.endDate })
 			</c:if>
 			<c:if test="${iteration.startable }">
-				<a name="start ${iteration.goal }" href="<c:url value="/iteration/${iteration.id }/start/">"><fmt:message key="start" /></a>
+				<a name="start ${iteration.goal }" href="<c:url value="/iteration/${iteration.id }/start/"/>"><fmt:message key="start" /></a>
 			</c:if>
             <a class="delete" name="delete ${iteration.goal }" href="javascript:void(0)"
                 onclick="confirmIterationDeletion('<c:url value="/iteration/${iteration.id}/delete/"/>')">X</a>

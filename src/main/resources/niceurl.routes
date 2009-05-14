@@ -6,6 +6,7 @@
 /project/:{project.id}/delete/			=>  project.delete
 /iteration/:{iteration.id}/show/		=>  iteration.show
 /iteration/:{iteration.id}/delete/		=>  iteration.delete
+/iteration/:{iteration.id}/start/		=>  iteration.start
 /story/:{story.id}/edit/				=>  story.edit
 /story/:{story.id}/delete/				=>  story.delete
 /substory/save/							=>  story.saveSub
