@@ -121,12 +121,12 @@ public class WhenActions {
 	}
 
 	public WhenActions iAddTheIteration(String iterationGoal) {
+		iClickOn("Add Iteration");
         this.iterationGoal = iterationGoal;
         return this;
     }
 
     public WhenActions withStartDate(String date) {
-    	iClickOn("Add Iteration");
         browser.currentPage()
             .form("addIteration")
                 .field("iteration.goal").type(iterationGoal)
@@ -232,12 +232,12 @@ public class WhenActions {
     }
 
 	public WhenActions iEditTheIteration() {
-		// TODO Auto-generated method stub
+		iClickOn("Edit");
 		return this;
 	}
 
-	public WhenActions withGoal(String string) {
-		// TODO Auto-generated method stub
+	public WhenActions withGoal(String goal) {
+		this.iterationGoal = goal;
 		return this;
 	}
 }

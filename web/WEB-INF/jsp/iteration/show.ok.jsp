@@ -19,10 +19,10 @@
     </c:if>
     <p><fmt:message key="iteration.goal"/>: ${iteration.goal}</p>
     <c:if test="${not empty iteration.startDate}">
-	    <p><fmt:message key="iteration.startDate"/>: ${iteration.startDate}</p>
+	    <p><fmt:message key="iteration.startDate"/>: ${iteration.formattedStartDate}</p>
     </c:if>
     <c:if test="${not empty iteration.endDate}">
-	    <p><fmt:message key="iteration.endDate"/>: ${iteration.endDate}</p>
+	    <p><fmt:message key="iteration.endDate"/>: ${iteration.formattedEndDate}</p>
     </c:if>
 </div>
 <a href="javascript:toggle('iteration');"><fmt:message key="edit"/></a><br/>

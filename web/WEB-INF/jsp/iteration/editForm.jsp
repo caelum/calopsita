@@ -19,11 +19,11 @@
 	</p>
 	<p>
 		<label><fmt:message key="iteration.startDate"/></label>
-		<em></em><input type="text" name="iteration.startDate" value="${iteration.startDate }" class="datepicker"/>
+		<em></em><input type="text" name="iteration.startDate" value="${iteration.formattedStartDate }" class="datepicker"/>
 	</p>
 	<p>
 		<label><fmt:message key="iteration.endDate"/></label>
-		<em></em><input type="text" name="iteration.endDate" value="${iteration.endDate }" class="datepicker"/>
+		<em></em><input type="text" name="iteration.endDate" value="${iteration.formattedEndDate }" class="datepicker"/>
 	</p>
 	<p>
 		<input type="submit" value="${label }"/>

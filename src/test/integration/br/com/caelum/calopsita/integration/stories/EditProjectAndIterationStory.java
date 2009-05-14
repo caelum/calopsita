@@ -26,7 +26,7 @@ public class EditProjectAndIterationStory extends DefaultStory {
 		when.iOpenProjectPageOf("scala").and()
 			.iOpenThePageOfIterationWithGoal("support DSLs").and()
 			.iEditTheIteration().withGoal("support Continuations")
-				.withStartDate("10/10/10").withEndDate("11/11/10");
-		then.theIteration("support Continuations").startsAt("10/10/10").and().endsAt("11/11/10");
+				.withStartDate("10/10/2010").withEndDate("11/11/2010");
+		then.theIteration("support Continuations").startsAt("10/10/2010").and().endsAt("11/11/2010");
 	}
 }
