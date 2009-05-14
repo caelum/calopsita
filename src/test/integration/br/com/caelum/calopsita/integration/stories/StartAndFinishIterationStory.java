@@ -31,7 +31,7 @@ public class StartAndFinishIterationStory extends DefaultStory {
         .iAmLoggedInAs("vinicius");
     
         when.iOpenProjectPageOf("arca").and()
-            .iClickOn("End");
+            .iEndTheIteration("end start singing");
 
         then.theCurrentIterationIsNot("start singing");
     }
