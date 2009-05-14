@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -14,7 +13,6 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 public class EditProjectAndIterationStory extends DefaultStory {
 
 	@Test
-	@Ignore
 	public void editIteration() {
 		given.thereIsAnUserNamed("ferreira").and()
 			.thereIsAProjectNamed("scala").ownedBy("ferreira")

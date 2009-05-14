@@ -72,10 +72,10 @@ public class Iteration implements Identifiable {
     	return startDate.toString("MM/dd/yyyy");
     }
     public String getFormattedEndDate() {
-    	if (startDate == null) {
+    	if (endDate == null) {
     		return "";
     	}
-    	return startDate.toString("MM/dd/yyyy");
+    	return endDate.toString("MM/dd/yyyy");
     }
     
     

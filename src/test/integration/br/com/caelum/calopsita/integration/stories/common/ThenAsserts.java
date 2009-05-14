@@ -166,15 +166,15 @@ public class ThenAsserts {
 	}
 
 	public void theCurrentIterationEndsToday() {
-        assertThat(this.browser.currentPage().div("current"), (divContainsString(new LocalDate().toString("yyyy-MM-dd"))));
+        assertThat(this.browser.currentPage().div("current"), divContainsString(new LocalDate().toString("yyyy-MM-dd")));
     }
-	public ThenAsserts startsAt(String string) {
-		// TODO Auto-generated method stub
+	public ThenAsserts startsAt(String date) {
+		assertThat(this.browser.currentPage().div("iteration_text"), divContainsString("Start Date: " + date));
 		return this;
 	}
 
-	public void endsAt(String string) {
-		// TODO Auto-generated method stub
+	public void endsAt(String date) {
+		assertThat(this.browser.currentPage().div("iteration_text"), divContainsString("End Date: " + date));
 		
 	}
 }
