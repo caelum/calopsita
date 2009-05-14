@@ -122,4 +122,8 @@ public class Iteration implements Identifiable {
 	        return false;
 	    }
 	}
+
+	public void setStartDate(DateTime startDate) {
+		this.startDate = startDate;
+	}
 }

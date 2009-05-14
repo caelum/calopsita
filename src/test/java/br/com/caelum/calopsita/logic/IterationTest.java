@@ -8,8 +8,9 @@ import java.util.Arrays;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,10 +43,6 @@ public class IterationTest {
         
     }
 
-    @After
-    public void tearDown() {
-        mockery.assertIsSatisfied();
-    }
     
     @Test
     public void savingAnIteration() throws Exception {
@@ -57,6 +54,7 @@ public class IterationTest {
         whenISaveTheIteration(iteration, onThe(project));
         
         assertThat(iteration.getProject(), is(project));
+        mockery.assertIsSatisfied();
     }
 
     @Test
@@ -69,6 +67,7 @@ public class IterationTest {
 		whenIAddTheStoryToIteration(story, iteration);
 		
 		assertThat(story.getIteration(), is(iteration));
+		mockery.assertIsSatisfied();
 	}
     @Test
     public void removingAStoryOfAnIteration() throws Exception {
@@ -80,6 +79,7 @@ public class IterationTest {
     	whenIRemoveTheStoryOfIteration(story, iteration);
 
     	assertThat(loaded.getIteration(), is(nullValue()));
+    	mockery.assertIsSatisfied();
     }
     
     @Test
@@ -92,6 +92,7 @@ public class IterationTest {
         
         String status = whenIRemove(iteration);
         assertThat(status, is("invalid"));
+        mockery.assertIsSatisfied();
     }
     
     @Test
@@ -109,6 +110,7 @@ public class IterationTest {
         
         String status = whenIRemove(iteration);
         assertThat(status, is("ok"));
+        mockery.assertIsSatisfied();
     }
 
     @Test(expected=IllegalArgumentException.class)
@@ -122,7 +124,56 @@ public class IterationTest {
         //should throw exception
     }
     
-    private void givenTheIterationHasThisStory(Story story, Iteration returnedIteration) {
+    @Test
+	public void startingAnIteration() throws Exception {
+		Iteration iteration = givenAnIteration();
+		
+		Iteration loaded = givenTheIterationHaveNoStartDate(iteration);
+		
+		whenIStartTheIteration(iteration);
+		
+		Assert.assertTrue("expected a current iteration", loaded.isCurrent());
+		mockery.assertIsSatisfied();
+    }
+    @Test(expected=IllegalArgumentException.class)
+    public void startingAnIterationAlreadyStarted() throws Exception {
+    	Iteration iteration = givenAnIteration();
+    	
+    	givenTheIterationAlreadyStarted(iteration);
+    	
+    	whenIStartTheIteration(iteration);
+    }
+    
+    private Iteration givenTheIterationAlreadyStarted(final Iteration iteration) {
+    	final Iteration result = new Iteration();
+    	result.setStartDate(new DateTime().minusDays(1));
+		mockery.checking(new Expectations() {
+			{
+				one(iterationRepository).load(iteration);
+				will(returnValue(result));
+			}
+		});
+    	return result;
+	}
+
+
+	private void whenIStartTheIteration(Iteration iteration) {
+    	logic.start(iteration);
+	}
+
+	private Iteration givenTheIterationHaveNoStartDate(final Iteration iteration) {
+    	final Iteration result = new Iteration();
+    	
+		mockery.checking(new Expectations() {
+			{
+				one(iterationRepository).load(iteration);
+				will(returnValue(result));
+			}
+		});
+    	return result;
+	}
+
+	private void givenTheIterationHasThisStory(Story story, Iteration returnedIteration) {
         returnedIteration.addStory(story);
         story.setIteration(returnedIteration);
     }

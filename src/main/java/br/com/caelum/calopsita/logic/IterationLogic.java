@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.logic;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
 
@@ -98,5 +99,13 @@ public class IterationLogic {
             return "invalid";
         }
     }
+
+	public void start(Iteration iteration) {
+		Iteration loaded = repository.load(iteration);
+		if (loaded.isCurrent()) {
+			throw new IllegalArgumentException("Tried to start an already started iteration");
+		}
+		loaded.setStartDate(new DateTime());
+	}
 
 }

@@ -1,0 +1,170 @@
+---
+ .../com/caelum/calopsita/logic/IterationLogic.java |    9 +++
+ .../br/com/caelum/calopsita/model/Iteration.java   |    4 +
+ .../com/caelum/calopsita/logic/IterationTest.java  |   63 ++++++++++++++++++--
+ 3 files changed, 70 insertions(+), 6 deletions(-)
+
+diff --git a/src/main/java/br/com/caelum/calopsita/logic/IterationLogic.java b/src/main/java/br/com/caelum/calopsita/logic/IterationLogic.java
+index 238e1212d3122470a04a4437ef798ea6df75655c..3f22bc7095e36db0c173938d8c2d4298123e9581 100644
+--- a/src/main/java/br/com/caelum/calopsita/logic/IterationLogic.java
++++ b/src/main/java/br/com/caelum/calopsita/logic/IterationLogic.java
+@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.logic;
+ 
+ import java.util.List;
+ 
++import org.joda.time.DateTime;
+ import org.vraptor.annotations.Component;
+ import org.vraptor.annotations.InterceptedBy;
+ 
+@@ -99,4 +100,12 @@ public class IterationLogic {
+         }
+     }
+ 
++	public void start(Iteration iteration) {
++		Iteration loaded = repository.load(iteration);
++		if (loaded.isCurrent()) {
++			throw new IllegalArgumentException("Tried to start an already started iteration");
++		}
++		loaded.setStartDate(new DateTime());
++	}
++
+ }
+diff --git a/src/main/java/br/com/caelum/calopsita/model/Iteration.java b/src/main/java/br/com/caelum/calopsita/model/Iteration.java
+index 72b8bda086407bd5094ee3e62796029db8e295d5..632dfde0cdd0d37f5da686f2beec0fa5b12e3980 100644
+--- a/src/main/java/br/com/caelum/calopsita/model/Iteration.java
++++ b/src/main/java/br/com/caelum/calopsita/model/Iteration.java
+@@ -133,4 +133,8 @@ public class Iteration implements Identifiable {
+ 	        return false;
+ 	    }
+ 	}
++
++	public void setStartDate(DateTime startDate) {
++		this.startDate = startDate;
++	}
+ }
+diff --git a/src/test/java/br/com/caelum/calopsita/logic/IterationTest.java b/src/test/java/br/com/caelum/calopsita/logic/IterationTest.java
+index 2de19bec61f32223e86130b9194f518b0b4cd327..3b05b4d53f7ee0c5d6d89bc696fa9bf9dde8b4b9 100644
+--- a/src/test/java/br/com/caelum/calopsita/logic/IterationTest.java
++++ b/src/test/java/br/com/caelum/calopsita/logic/IterationTest.java
+@@ -8,7 +8,8 @@ import java.util.Arrays;
+ 
+ import org.jmock.Expectations;
+ import org.jmock.Mockery;
+-import org.junit.After;
++import org.joda.time.DateTime;
++import org.junit.Assert;
+ import org.junit.Before;
+ import org.junit.Test;
+ 
+@@ -41,10 +42,6 @@ public class IterationTest {
+         
+     }
+ 
+-    @After
+-    public void tearDown() {
+-        mockery.assertIsSatisfied();
+-    }
+     
+     @Test
+     public void savingAnIteration() throws Exception {
+@@ -56,6 +53,7 @@ public class IterationTest {
+         whenISaveTheIteration(iteration, onThe(project));
+         
+         assertThat(iteration.getProject(), is(project));
++        mockery.assertIsSatisfied();
+     }
+ 
+     @Test
+@@ -68,6 +66,7 @@ public class IterationTest {
+ 		whenIAddTheStoryToIteration(story, iteration);
+ 		
+ 		assertThat(story.getIteration(), is(iteration));
++		mockery.assertIsSatisfied();
+ 	}
+     @Test
+     public void removingAStoryOfAnIteration() throws Exception {
+@@ -79,6 +78,7 @@ public class IterationTest {
+     	whenIRemoveTheStoryOfIteration(story, iteration);
+ 
+     	assertThat(loaded.getIteration(), is(nullValue()));
++    	mockery.assertIsSatisfied();
+     }
+     
+     @Test
+@@ -91,6 +91,7 @@ public class IterationTest {
+         
+         String status = whenIRemove(iteration);
+         assertThat(status, is("invalid"));
++        mockery.assertIsSatisfied();
+     }
+     
+     @Test
+@@ -108,6 +109,7 @@ public class IterationTest {
+         
+         String status = whenIRemove(iteration);
+         assertThat(status, is("ok"));
++        mockery.assertIsSatisfied();
+     }
+ 
+     @Test(expected=IllegalArgumentException.class)
+@@ -121,7 +123,56 @@ public class IterationTest {
+         //should throw exception
+     }
+     
+-    private void givenTheIterationHasThisStory(Story story, Iteration returnedIteration) {
++    @Test
++	public void startingAnIteration() throws Exception {
++		Iteration iteration = givenAnIteration();
++		
++		Iteration loaded = givenTheIterationHaveNoStartDate(iteration);
++		
++		whenIStartTheIteration(iteration);
++		
++		Assert.assertTrue("expected a current iteration", loaded.isCurrent());
++		mockery.assertIsSatisfied();
++    }
++    @Test(expected=IllegalArgumentException.class)
++    public void startingAnIterationAlreadyStarted() throws Exception {
++    	Iteration iteration = givenAnIteration();
++    	
++    	givenTheIterationAlreadyStarted(iteration);
++    	
++    	whenIStartTheIteration(iteration);
++    }
++    
++    private Iteration givenTheIterationAlreadyStarted(final Iteration iteration) {
++    	final Iteration result = new Iteration();
++    	result.setStartDate(new DateTime().minusDays(1));
++		mockery.checking(new Expectations() {
++			{
++				one(iterationRepository).load(iteration);
++				will(returnValue(result));
++			}
++		});
++    	return result;
++	}
++
++
++	private void whenIStartTheIteration(Iteration iteration) {
++    	logic.start(iteration);
++	}
++
++	private Iteration givenTheIterationHaveNoStartDate(final Iteration iteration) {
++    	final Iteration result = new Iteration();
++    	
++		mockery.checking(new Expectations() {
++			{
++				one(iterationRepository).load(iteration);
++				will(returnValue(result));
++			}
++		});
++    	return result;
++	}
++
++	private void givenTheIterationHasThisStory(Story story, Iteration returnedIteration) {
+         returnedIteration.addStory(story);
+         story.setIteration(returnedIteration);
+     }
+-- 
+1.5.6.3
+
