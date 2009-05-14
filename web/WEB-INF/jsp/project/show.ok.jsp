@@ -34,7 +34,7 @@
     <h2><fmt:message key="iterations"/>:</h2>
     <ul>
       <c:forEach items="${project.iterations}" var="iteration">
-        <li class="${iteration.current ? 'current' : ''}">
+        <li id="${iteration.current ? 'current' : ''}">
 			<a href="<c:url value="/iteration/${iteration.id}/show/"/>">${iteration.goal}</a>
 			<c:if test="${not empty iteration.endDate }" >
 				(<fmt:message key="dueDate"/> ${iteration.endDate })
