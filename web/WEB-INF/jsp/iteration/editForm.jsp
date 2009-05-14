@@ -3,7 +3,10 @@
 <script type="text/javascript">
 	initialize('<fmt:message key="validation.dateRange"/>');
 </script>
-<c:set var="operation">${(empty iteration.id)? 'save': (iteration.id + '/update')}</c:set>
+<c:set var="operation">
+	<c:if test="${empty iteration.id}">save</c:if>
+	<c:if test="${not empty iteration.id}">${iteration.id }/update</c:if>
+</c:set>
 <form id="iteration" class="hidden" name="addIteration" action="<c:url value="/iteration/${operation }/"/>" method="post">
   	<input type="hidden" name="iteration.project.id" value="${project.id }" />
    	<p>
