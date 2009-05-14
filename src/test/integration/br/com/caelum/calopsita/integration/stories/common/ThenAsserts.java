@@ -9,6 +9,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.joda.time.LocalDate;
 
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.ContentTag;
@@ -164,7 +165,7 @@ public class ThenAsserts {
 		assertThat(this.browser.currentPage().div("current"), divContainsString(iterationGoal));
 	}
 
-	public void theCurrentIterationIsNot(String iterationGoal) {
-        assertThat(this.browser.currentPage().div("current"), not(divContainsString(iterationGoal)));
+	public void theCurrentIterationEndsToday() {
+        assertThat(this.browser.currentPage().div("current"), (divContainsString(new LocalDate().toString("yyyy-MM-dd"))));
     }
 }

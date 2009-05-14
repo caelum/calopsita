@@ -32,6 +32,6 @@ public class StartAndFinishIterationStory extends DefaultStory {
         when.iOpenProjectPageOf("arca").and()
             .iEndTheIteration("start singing");
 
-        then.theCurrentIterationIsNot("start singing");
+        then.theCurrentIterationEndsToday();
     }
 }
