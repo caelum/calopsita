@@ -43,7 +43,7 @@
 				<a name="start ${iteration.goal }" href="<c:url value="/iteration/${iteration.id }/start/"/>"><fmt:message key="start" /></a>
 			</c:if>
             <c:if test="${iteration.current}">
-              <a name="end ${iteration.goal} href="<c:url value="/iteration/${iteration.id}/end/"/>">
+              <a name="end ${iteration.goal}" href="<c:url value="/iteration/${iteration.id}/end/"/>">
                 <fmt:message key="end"/>
               </a> 
             </c:if>
