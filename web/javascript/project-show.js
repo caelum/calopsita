@@ -32,7 +32,7 @@ $( function() {
                 target : "#stories",
                 resetForm : true,
                 error : function() {
-                    window.location = window.location + '../../../'
+                    window.location.href = window.location + '../../../';
                 }
             });
             return false;
@@ -68,4 +68,12 @@ $( function() {
         buttonImage : document.location + '../../../images/calendar.gif',
         buttonImageOnly : true
     });
+    
+    $('[name=iteration.startDate]').change(function() {
+    	$('[name=iteration.endDate]').datepicker('option', 'minDate', $(this).datepicker('getDate'));
+    });
+    $('[name=iteration.endDate]').change(function() {
+    	$('[name=iteration.startDate]').datepicker('option', 'maxDate', $(this).datepicker('getDate'));
+    });
+    
 });

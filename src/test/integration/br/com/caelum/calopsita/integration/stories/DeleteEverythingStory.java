@@ -88,4 +88,32 @@ public class DeleteEverythingStory extends DefaultStory {
 		then.theStory("Support everything").shouldNotAppearOnStoryList().and()
 			.theStory("support continuations").appearsOnList();
 	}
+	
+	
+	@Test
+	public void deleteMyProject() {
+		given.thereIsAnUserNamed("fabs").and()
+			.thereIsAProjectNamed("goat").ownedBy("fabs")
+			.iAmLoggedInAs("fabs");
+		when.iDeleteTheProject("goat").andConfirm("deletion");
+		then.project("goat").notAppearsOnList();
+	}
+	@Test
+	public void deleteMyProjectButNotConfirm() {
+		given.thereIsAnUserNamed("fabs").and()
+			.thereIsAProjectNamed("goat").ownedBy("fabs")
+			.iAmLoggedInAs("fabs");
+		when.iDeleteTheProject("goat").andDontConfirm("deletion");
+		then.project("goat").appearsOnList();
+	}
+	@Test
+	public void cantDeleteProjectOwnedByOthers() {
+		given.thereIsAnUserNamed("fabs").and()
+			.thereIsAnUserNamed("hugo")
+			.thereIsAProjectNamed("archimedes").ownedBy("hugo").withColaborator("fabs").and()
+			.iAmLoggedInAs("fabs");
+		when.iListProjects();
+		then.project("archimedes").appearsOnList().and()
+			.deletionLinkDoesnotAppearForProject("archimedes");
+	}
 }

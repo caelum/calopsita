@@ -34,9 +34,17 @@ public class IterationLogic {
 
     public void save(Iteration iteration, Project project) {
         this.project = project;
+        validateDate(iteration);
         iteration.setProject(project);
         repository.add(iteration);
     }
+
+	private void validateDate(Iteration iteration) {
+		if (iteration.getStartDate() != null && iteration.getEndDate() != null &&
+        		iteration.getStartDate().compareTo(iteration.getEndDate()) > 0) {
+			throw new IllegalArgumentException("iteration start date is greater than end date");
+		}
+	}
     
     public void show(Iteration iteration) {
     	this.iteration = repository.load(iteration);

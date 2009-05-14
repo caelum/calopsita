@@ -47,6 +47,14 @@ public class ProjectLogic {
     	this.stories = this.repository.listStoriesFrom(project);
     }
 
+    public String delete(Project project) {
+    	Project loaded = this.repository.load(project);
+    	if (!currentUser.equals(loaded.getOwner())) {
+    		return "invalid";
+    	}
+    	this.repository.remove(loaded);
+    	return "ok";
+    }
 	public List<User> getUsers() {
 		return users;
 	}

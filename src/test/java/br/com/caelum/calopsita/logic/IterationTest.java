@@ -109,6 +109,17 @@ public class IterationTest {
         String status = whenIRemove(iteration);
         assertThat(status, is("ok"));
     }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void validatingDateOnSave() throws Exception {
+        Iteration iteration = givenAnIteration();
+        iteration.setStartDate("01/10/05");
+        iteration.setEndDate("01/08/05");
+        Project project = givenAProject();
+    
+        whenISaveTheIteration(iteration, onThe(project));
+        //should throw exception
+    }
     
     private void givenTheIterationHasThisStory(Story story, Iteration returnedIteration) {
         returnedIteration.addStory(story);

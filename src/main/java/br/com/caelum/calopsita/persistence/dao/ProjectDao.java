@@ -22,6 +22,11 @@ public class ProjectDao implements ProjectRepository {
     public Project get(Long id) {
     	return (Project) session.get(Project.class, id);
     }
+    
+    @Override
+    public Project load(Project project) {
+    	return (Project) session.load(Project.class, project.getId());
+    }
     @Override
     public void add(Project project) {
         this.session.save(project);
@@ -34,6 +39,11 @@ public class ProjectDao implements ProjectRepository {
 
     @Override
     public void remove(Project project) {
+    	this.session.createQuery("delete from Story s where s.project = :project")
+			.setParameter("project", project).executeUpdate();
+    	this.session.createQuery("delete from Iteration i where i.project = :project")
+    		.setParameter("project", project).executeUpdate();
+    	this.session.delete(project);
     }
 
     @Override
