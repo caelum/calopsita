@@ -140,4 +140,11 @@ public class GivenContexts {
 		return this;
 	}
 
+    public GivenContexts startingYesterday() {
+        this.iteration.setEndDate(storyName);
+        session.saveOrUpdate(iteration);
+        session.flush();
+        return this;
+    }
+
 }
