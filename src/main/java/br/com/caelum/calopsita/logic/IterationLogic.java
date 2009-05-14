@@ -109,4 +109,13 @@ public class IterationLogic {
 		this.project = loaded.getProject();
 	}
 
+    public void end(Iteration iteration) {
+        Iteration loaded = repository.load(iteration);
+        if (!loaded.isCurrent()) {
+            throw new IllegalArgumentException("Tried to end an iteration that has not been started");
+        }
+        loaded.setEndDate(new LocalDate());
+        this.project = loaded.getProject();
+    }
+
 }

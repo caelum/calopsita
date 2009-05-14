@@ -23,7 +23,6 @@ public class StartAndFinishIterationStory extends DefaultStory {
     }
     
     @Test
-    @Ignore
     public void endingIteration() throws Exception {
         given.thereIsAnUserNamed("vinicius").and()
         .thereIsAProjectNamed("arca").ownedBy("vinicius")

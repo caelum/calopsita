@@ -124,25 +124,59 @@ public class IterationTest {
     }
     
     @Test
-	public void startingAnIteration() throws Exception {
-		Iteration iteration = givenAnIteration();
-		
-		Iteration loaded = givenTheIterationHaveNoStartDate(iteration);
-		
-		whenIStartTheIteration(iteration);
-		
-		Assert.assertTrue("expected a current iteration", loaded.isCurrent());
-		mockery.assertIsSatisfied();
+    public void startingAnIteration() throws Exception {
+        Iteration iteration = givenAnIteration();
+        
+        Iteration loaded = givenTheIterationHaveNoStartDate(iteration);
+        
+        whenIStartTheIteration(iteration);
+        
+        Assert.assertTrue("expected a current iteration", loaded.isCurrent());
+        mockery.assertIsSatisfied();
     }
     @Test(expected=IllegalArgumentException.class)
     public void startingAnIterationAlreadyStarted() throws Exception {
-    	Iteration iteration = givenAnIteration();
-    	
-    	givenTheIterationAlreadyStarted(iteration);
-    	
-    	whenIStartTheIteration(iteration);
+        Iteration iteration = givenAnIteration();
+        
+        givenTheIterationAlreadyStarted(iteration);
+        
+        whenIStartTheIteration(iteration);
     }
     
+    @Test
+    public void endingAnIteration() throws Exception {
+        Iteration iteration = givenAnIteration();
+        
+        Iteration loaded = givenTheIterationStartedYesterday(iteration);
+        
+        whenIEndTheIteration(iteration);
+        
+        Assert.assertFalse("do not expected a current iteration", loaded.isCurrent());
+        mockery.assertIsSatisfied();
+    }
+
+
+
+    @Test(expected=IllegalArgumentException.class)
+    public void endingAnIterationAlreadyStarted() throws Exception {
+        Iteration iteration = givenAnIteration();
+        
+        givenTheIterationNotStarted(iteration);
+        
+        whenIEndTheIteration(iteration);
+    }
+
+    private Iteration givenTheIterationNotStarted(final Iteration iteration) {
+        final Iteration result = new Iteration();
+        mockery.checking(new Expectations() {
+            {
+                one(iterationRepository).load(iteration);
+                will(returnValue(result));
+            }
+        });
+        return result;
+    }
+
     private Iteration givenTheIterationAlreadyStarted(final Iteration iteration) {
     	final Iteration result = new Iteration();
     	result.setStartDate(new LocalDate().minusDays(1));
@@ -160,6 +194,10 @@ public class IterationTest {
     	logic.start(iteration);
 	}
 
+	private void whenIEndTheIteration(Iteration iteration) {
+	    logic.end(iteration);
+	}
+	
 	private Iteration givenTheIterationHaveNoStartDate(final Iteration iteration) {
     	final Iteration result = new Iteration();
     	
@@ -170,6 +208,18 @@ public class IterationTest {
 			}
 		});
     	return result;
+	}
+
+	private Iteration givenTheIterationStartedYesterday(final Iteration iteration) {
+	    final Iteration result = new Iteration();
+        result.setStartDate(new LocalDate().minusDays(1));
+        mockery.checking(new Expectations() {
+            {
+                one(iterationRepository).load(iteration);
+                will(returnValue(result));
+            }
+        });
+        return result;
 	}
 
 	private void givenTheIterationHasThisStory(Story story, Iteration returnedIteration) {
