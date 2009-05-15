@@ -66,7 +66,23 @@ public class IterationsController {
         });
 	}
 
-	@Path("/iterations/{iteration.id}/") @Get
+    public void show(Iteration iteration) {
+    	this.iteration = repository.load(iteration);
+    	this.project = this.iteration.getProject();
+    	otherCards = cardRepository.cardsWithoutIteration(project);
+    }
+
+    public void current(Project project) {
+        this.project = this.projectRepository.get(project.getId());
+        this.iteration = this.repository.getCurrentIterationFromProject(project);
+    }
+
+    public void list(Project project) {
+        this.project = this.projectRepository.get(project.getId());
+        this.iterations = this.projectRepository.listIterationsFrom(project);
+    }
+
+	@Path("/iterations/{iteration.id}") @Get
     public void show(Iteration iteration) {
     	Iteration loaded = repository.load(iteration);
     	Project project = loaded.getProject();
@@ -89,7 +105,7 @@ public class IterationsController {
         return iterations;
     }
 	@Path("/iterations/{iteration.id}/updateCards/") @Post
-    public void updateCards(Iteration iteration, List<Story> stories) {
+    public void updateCards(Iteration iteration, List<Card> cards) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
 			loaded.setIteration(iteration);
@@ -100,7 +116,7 @@ public class IterationsController {
     }
 
 	@Path("/iterations/{iteration.id}/removeCards/") @Post
-    public void removeCards(Iteration iteration, List<Story> stories) {
+    public void removeCards(Iteration iteration, List<Card> cards) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
 			loaded.setIteration(null);

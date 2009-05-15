@@ -44,7 +44,7 @@ public class StoriesController {
 		this.projectRepository = projectRepository;
 	}
 
-	@Path("projects/{project.id}/stories/") @Post
+	@Path("/projects/{project.id}/stories/") @Post
 	public void save(final Story story, Project project) {
 		story.setProject(project);
 		validator.checking(new Validations() {
@@ -57,7 +57,7 @@ public class StoriesController {
 		result.include("stories", this.projectRepository.listStoriesFrom(project));
 	}
 	
-	@Path("projects/{project.id}/stories/saveSub/") @Post
+	@Path("/projects/{project.id}/stories/saveSub/") @Post
 	public void saveSub(Story story) {
 		repository.add(story);
 		result.include("stories", this.repository.listSubstories(story.getParent()));

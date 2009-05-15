@@ -68,7 +68,7 @@ public class ProjectsController {
     }
 
 	@Path("/projects/{project.id}/") @Delete
-    public String delete(Project project) {
+    public void delete(Project project) {
     	Project loaded = this.repository.load(project);
     	if (currentUser.equals(loaded.getOwner())) {
     	    this.repository.remove(loaded);
