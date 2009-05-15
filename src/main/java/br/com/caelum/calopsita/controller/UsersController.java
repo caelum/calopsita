@@ -13,11 +13,11 @@ import br.com.caelum.vraptor.Resource;
 
 @Resource
 @InterceptedBy( { HibernateInterceptor.class })
-public class UserController {
+public class UsersController {
     private final UserRepository repository;
     private final HttpSession session;
 
-    public UserController(UserRepository repository, HttpSession session) {
+    public UsersController(UserRepository repository, HttpSession session) {
         this.repository = repository;
         this.session = session;
     }

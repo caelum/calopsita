@@ -16,7 +16,7 @@ import br.com.caelum.vraptor.Resource;
 
 @Resource
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
-public class ProjectController {
+public class ProjectsController {
 
     private final ProjectRepository repository;
     private List<Project> projects;
@@ -26,7 +26,7 @@ public class ProjectController {
 	private List<User> users;
 	private List<Card> cards;
 
-    public ProjectController(ProjectRepository repository, UserRepository userRepository, User user) {
+    public ProjectsController(ProjectRepository repository, UserRepository userRepository, User user) {
         this.repository = repository;
 		this.userRepository = userRepository;
         this.currentUser = user;

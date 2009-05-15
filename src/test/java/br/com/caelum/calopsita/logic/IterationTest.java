@@ -12,7 +12,7 @@ import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.calopsita.controller.IterationController;
+import br.com.caelum.calopsita.controller.IterationsController;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
@@ -23,7 +23,7 @@ import br.com.caelum.calopsita.repository.CardRepository;
 
 public class IterationTest {
     private Mockery mockery;
-    private IterationController logic;
+    private IterationsController logic;
     private IterationRepository iterationRepository;
     private CardRepository cardRepository;
     private User currentUser;
@@ -41,7 +41,7 @@ public class IterationTest {
         currentUser.setLogin("me");
         project = new Project();
 
-        logic = new IterationController(currentUser, iterationRepository, cardRepository, projectRepository);
+        logic = new IterationsController(currentUser, iterationRepository, cardRepository, projectRepository);
         
     }
 

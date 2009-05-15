@@ -1,5 +1,9 @@
 package br.com.caelum.calopsita.controller;
 
+import static br.com.caelum.vraptor.view.Results.logic;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.notNullValue;
+
 import java.util.List;
 
 import org.joda.time.LocalDate;
@@ -14,49 +18,61 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.IterationRepository;
-import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.calopsita.repository.StoryRepository;
+import br.com.caelum.vraptor.Delete;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Path;
+import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Hibernate;
+import br.com.caelum.vraptor.validator.Validations;
 
 @Resource
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
-public class IterationController {
+public class IterationsController {
 
-    private Project project;
     private final IterationRepository repository;
-	private Iteration iteration;
 	private final CardRepository cardRepository;
-	private List<Card> otherCards;
     private final User currentUser;
-    private final ProjectRepository projectRepository;
-    private List<Iteration> iterations;
+    private final Result result;
+    private final Validator validator;
 
-    public IterationController(User user, IterationRepository repository, CardRepository cardRepository) {
+    public IterationsController(Validator validator, Result result, User user, IterationRepository repository, StoryRepository storyRepository) {
+        this.validator = validator;
+        this.result = result;
         this.currentUser = user;
         this.repository = repository;
 		this.cardRepository = cardRepository;
         this.projectRepository = projectRepository;
     }
 
-    public void save(Iteration iteration) {
-        this.project = iteration.getProject();
-        validateDate(iteration);
+    @Path("/iteration") @Post
+    public void save(final Iteration iteration, Project project) {
+        validator.checking(new Validations() {
+            {
+                that(iteration.getStartDate()).shouldBe(notNullValue());
+                that(iteration.getEndDate()).shouldBe(notNullValue());
+                that(iteration.getStartDate()).shouldBe(greaterThan(iteration.getEndDate()));
+                and(Hibernate.validate(iteration));
+            }
+        });
+        iteration.setProject(project);
         repository.add(iteration);
+        result.include("project", project);
     }
 
-	private void validateDate(Iteration iteration) {
-		if (iteration.getStartDate() != null && iteration.getEndDate() != null &&
-        		iteration.getStartDate().compareTo(iteration.getEndDate()) > 0) {
-			throw new IllegalArgumentException("iteration start date is greater than end date");
-		}
-	}
-
+	@Path("/iteration/{iteration.id}") @Get
     public void show(Iteration iteration) {
-    	this.iteration = repository.load(iteration);
-    	this.project = this.iteration.getProject();
-    	cardRepository.orderCardsByPriority(this.iteration);
-    	otherCards = cardRepository.cardsWithoutIteration(project);
+    	Iteration loaded = repository.load(iteration);
+    	Project project = loaded.getProject();
+    	result.include("iteration", loaded);
+    	result.include("project", project);
+    	result.include("otheStories", storyRepository.storiesWithoutIteration(project));
     }
-
-    public void current(Project project) {
+    
+	public void current(Project project) {
         this.project = this.projectRepository.get(project.getId());
         this.iteration = this.repository.getCurrentIterationFromProject(project);
     }
@@ -69,38 +85,29 @@ public class IterationController {
     public List<Iteration> getIterations() {
         return iterations;
     }
-
-    public void updateCards(Iteration iteration, List<Card> cards) {
+	@Path("/iteration/{iteration.id}/updateCards") @Post
+    public void updateCards(Iteration iteration, List<Story> stories) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
 			loaded.setIteration(iteration);
 			loaded.setStatus(card.getStatus());
 			cardRepository.update(loaded);
 		}
-    	this.iteration = iteration;
+    	result.include("iteration", iteration);
     }
 
-    public void removeCards(Iteration iteration, List<Card> cards) {
+	@Path("/iteration/{iteration.id}/removeCards") @Post
+    public void removeCards(Iteration iteration, List<Story> stories) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
 			loaded.setIteration(null);
 			cardRepository.update(loaded);
 		}
-    	this.iteration = iteration;
-    }
-    public Iteration getIteration() {
-		return iteration;
-	}
-
-    public List<Card> getOtherCards() {
-		return otherCards;
-	}
-
-    public Project getProject() {
-        return project;
+    	result.include("iteration", iteration);
     }
 
-    public String delete(Iteration iteration) {
+    @Path("/iteration/{iteration.id}") @Delete
+    public void delete(Iteration iteration) {
         Iteration loaded = repository.load(iteration);
         this.project = loaded.getProject();
         if(this.project.getColaborators().contains(currentUser) || this.project.getOwner().equals(currentUser)) {
@@ -110,28 +117,30 @@ public class IterationController {
                 cardRepository.update(cardLoaded);
             }
             repository.remove(loaded);
-            return "ok";
-        } else {
-            return "invalid";
         }
+        result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
     }
 
+    @Path("/iteration/{iteration.id}/start") @Post
 	public void start(Iteration iteration) {
 		Iteration loaded = repository.load(iteration);
 		if (loaded.isCurrent()) {
 			throw new IllegalArgumentException("Tried to start an already started iteration");
 		}
 		loaded.setStartDate(new LocalDate());
-		this.project = loaded.getProject();
+		Project project = loaded.getProject();
+		this.result.include("project", project);
 	}
 
+    @Path("/iteration/{iteration.id}/end") @Post
     public void end(Iteration iteration) {
         Iteration loaded = repository.load(iteration);
         if (!loaded.isCurrent()) {
             throw new IllegalArgumentException("Tried to end an iteration that has not been started");
         }
         loaded.setEndDate(new LocalDate());
-        this.project = loaded.getProject();
+        Project project = loaded.getProject();
+        this.result.include("project", project);
     }
 	public void update(Iteration iteration) {
 		validateDate(iteration);
