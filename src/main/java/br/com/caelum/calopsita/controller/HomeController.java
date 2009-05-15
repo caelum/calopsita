@@ -6,13 +6,9 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 @Resource
 public class HomeController {
-	private final Result result;
-
-	public HomeController(Result result) {
-		this.result = result;
-	}
-    @Get //@Path("/home/login/")
-    public void login() {
+    @Get
+    public User login() {
+        return new User();
     }
 
     @Path("/users/notAllowed/") @Get
