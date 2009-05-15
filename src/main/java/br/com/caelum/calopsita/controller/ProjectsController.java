@@ -32,7 +32,7 @@ public class ProjectsController {
     private final Validator validator;
     private final Result result;
 
-    public ProjectsController(Result result, Validator validator, ProjectRepository repository, UserRepository userRepository, User user) {
+    public ProjectsController(Validator validator, Result result, ProjectRepository repository, UserRepository userRepository, User user) {
         this.result = result;
         this.validator = validator;
         this.repository = repository;

@@ -144,4 +144,3 @@ public class StoriesController {
         result.include("stories", this.projectRepository.listStoriesFrom(project));
     }
 }
-}
