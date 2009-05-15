@@ -1,6 +1,6 @@
 package br.com.caelum.calopsita.controller;
 
-import java.util.List;
+import static br.com.caelum.vraptor.view.Results.logic;
 
 import org.vraptor.annotations.InterceptedBy;
 
@@ -12,28 +12,37 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
+import br.com.caelum.vraptor.Delete;
+import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Path;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Hibernate;
+import br.com.caelum.vraptor.validator.Validations;
 
 @Resource
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
 public class ProjectsController {
 
     private final ProjectRepository repository;
-    private List<Project> projects;
     private final User currentUser;
-	private Project project;
 	private final UserRepository userRepository;
-	private List<User> users;
-	private List<Card> cards;
+    private final Validator validator;
+    private final Result result;
 
-    public ProjectsController(ProjectRepository repository, UserRepository userRepository, User user) {
+    public ProjectsController(Result result, Validator validator, ProjectRepository repository, UserRepository userRepository, User user) {
+        this.result = result;
+        this.validator = validator;
         this.repository = repository;
 		this.userRepository = userRepository;
         this.currentUser = user;
     }
 
-    public void form() {
-
+    @Path("/project/new") @Get
+    public Project form() {
+        return new Project();
     }
     
     public void admin(Project project) {
@@ -46,18 +55,24 @@ public class ProjectsController {
         this.cards = this.repository.listCardsFrom(project);
     }
     
-    public void save(Project project) {
+    @Path("/project") @Post
+    public void save(final Project project) {
         project.setOwner(currentUser);
+        validator.checking(new Validations() {
+            {
+                that(Hibernate.validate(project));
+            }
+        });
         this.repository.add(project);
     }
 
+	@Path("/project/{project.id}") @Delete
     public String delete(Project project) {
     	Project loaded = this.repository.load(project);
-    	if (!currentUser.equals(loaded.getOwner())) {
-    		return "invalid";
+    	if (currentUser.equals(loaded.getOwner())) {
+    	    this.repository.remove(loaded);
     	}
-    	this.repository.remove(loaded);
-    	return "ok";
+    	result.use(logic()).redirectServerTo(ProjectsController.class).list();
     }
 
     public String update(Project project) {
@@ -86,12 +101,14 @@ public class ProjectsController {
     }
 
     public void list() {
-        this.projects = repository.listAllFrom(currentUser);
+        result.include("projects", repository.listAllFrom(currentUser));
     }
 
+    @Path("/project/{project.id}/addColaborator") @Post
     public void addColaborator(Project project, User colaborator) {
-        this.project = repository.get(project.getId());
-        this.project.getColaborators().add(colaborator);
-        repository.update(this.project);
+        Project loaded = repository.get(project.getId());
+        loaded.getColaborators().add(colaborator);
+        repository.update(loaded);
+        result.include("project", loaded);
     }
 }

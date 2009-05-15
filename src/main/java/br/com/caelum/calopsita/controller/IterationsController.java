@@ -50,6 +50,7 @@ public class IterationsController {
 
     @Path("/iteration") @Post
     public void save(final Iteration iteration, Project project) {
+        iteration.setProject(project);
         validator.checking(new Validations() {
             {
                 that(iteration.getStartDate()).shouldBe(notNullValue());
@@ -58,7 +59,6 @@ public class IterationsController {
                 and(Hibernate.validate(iteration));
             }
         });
-        iteration.setProject(project);
         repository.add(iteration);
         result.include("project", project);
     }
