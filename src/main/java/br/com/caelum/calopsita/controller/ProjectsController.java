@@ -73,7 +73,7 @@ public class ProjectsController {
     	Project loaded = this.repository.load(project);
     	if (currentUser.equals(loaded.getOwner())) {
     	    this.repository.remove(loaded);
-    	    result.use(logic()).redirectServerTo(ProjectsController.class).list();
+    	    result.use(logic()).redirectTo(ProjectsController.class).list();
     	}
     }
     @Path("/projects/{project.id}/") @Post
@@ -97,6 +97,11 @@ public class ProjectsController {
     @Path("/projects/") @Get
     public void list() {
         result.include("projects", repository.listAllFrom(currentUser));
+    }
+    
+    @Path("/") @Get
+    public void index() {
+    	list();
     }
 
     @Path("/") @Get
