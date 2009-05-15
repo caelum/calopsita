@@ -66,7 +66,14 @@ public class ProjectsController {
         this.repository.add(project);
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
-
+	public String delete(Project project) {
+    	Project loaded = this.repository.load(project);
+    	if (!currentUser.equals(loaded.getOwner())) {
+    		return "invalid";
+    	}
+    	this.repository.remove(loaded);
+    	return "ok";
+    }
     @Path("/projects/{project.id}/") @Post
     public void update(Project project) {
     	Project loaded = this.repository.load(project);
