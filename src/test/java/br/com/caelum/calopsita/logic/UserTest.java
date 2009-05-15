@@ -8,12 +8,12 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.vraptor.validator.BasicValidationErrors;
-import org.vraptor.validator.ValidationErrors;
 
 import br.com.caelum.calopsita.controller.UsersController;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
 
 public class UserTest {
     private HttpSession session;
@@ -26,7 +26,7 @@ public class UserTest {
         mockery = new Mockery();
         session = mockery.mock(HttpSession.class);
         repository = mockery.mock(UserRepository.class);
-        logic = new UsersController(repository, session);
+        logic = new UsersController(mockery.mock(Result.class), mockery.mock(Validator.class), repository, session);
     }
 
     @After
@@ -136,19 +136,21 @@ public class UserTest {
     }
 
     private void whenISaveTheUser(final User user) {
-        ValidationErrors errors = new BasicValidationErrors();
-        logic.validateSave(errors, user);
-        if (errors.size() == 0) {
+    	Assert.fail();
+//        ValidationErrors errors = new BasicValidationErrors();
+//        logic.validateSave(errors, user);
+//        if (errors.size() == 0) {
             logic.save(user);
-        }
+//        }
     }
 
     private void whenILoginWith(final User user) {
-        ValidationErrors errors = new BasicValidationErrors();
-        logic.validateLogin(errors, user);
-        if (errors.size() == 0) {
+    	Assert.fail();
+//        ValidationErrors errors = new BasicValidationErrors();
+//        logic.validateLogin(errors, user);
+//        if (errors.size() == 0) {
             logic.login(user);
-        }
+//        }
     }
 
     private void whenILogout() {

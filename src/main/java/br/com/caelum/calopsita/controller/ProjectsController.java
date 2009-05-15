@@ -32,7 +32,7 @@ public class ProjectsController {
     private final Validator validator;
     private final Result result;
 
-    public ProjectsController(Result result, Validator validator, ProjectRepository repository, UserRepository userRepository, User user) {
+    public ProjectsController(Validator validator, Result result, ProjectRepository repository, UserRepository userRepository, User user) {
         this.result = result;
         this.validator = validator;
         this.repository = repository;
@@ -103,12 +103,6 @@ public class ProjectsController {
 
     public void list() {
         result.include("projects", repository.listAllFrom(currentUser));
-    }
-    
-    @Path("/projects/{project.id}/priorization") @Get
-    public void prioritization(Project project) {
-        result.include("project", this.repository.get(project.getId()));
-        result.include("stories", this.repository.listStoriesFrom(project));
     }
 
     @Path("/projects/{project.id}/addColaborator") @Post

@@ -8,6 +8,8 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Collections;
 
+import junit.framework.Assert;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.After;
@@ -19,6 +21,8 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
 
 public class ProjectTest {
     private Mockery mockery;
@@ -33,7 +37,7 @@ public class ProjectTest {
         repository = mockery.mock(ProjectRepository.class);
         currentUser = currentUser();
         userRepository = mockery.mock(UserRepository.class);
-		logic = new ProjectsController(repository, userRepository, currentUser);
+		logic = new ProjectsController(mockery.mock(Validator.class), mockery.mock(Result.class), repository, userRepository, currentUser);
     }
 
     @After
@@ -77,9 +81,10 @@ public class ProjectTest {
 		Project loaded = givenProjectIsOwnedBy(project, currentUser);
 
 		shouldRemoveFromRepository(loaded);
-
-		String result = whenIRemoveTheProject(project);
-
+		
+		String result = null;
+		whenIRemoveTheProject(project);
+		
 		assertThat(result, is("ok"));
 	}
     @Test
@@ -89,9 +94,10 @@ public class ProjectTest {
     	Project loaded = givenProjectIsOwnedBy(project, givenAUser());
 
     	shouldNotRemoveFromRepository(loaded);
-
-    	String result = whenIRemoveTheProject(project);
-
+    	
+    	String result = null;
+    	whenIRemoveTheProject(project);
+    	
     	assertThat(result, is("invalid"));
     }
 
@@ -156,8 +162,8 @@ public class ProjectTest {
 		});
 	}
 
-	private String whenIRemoveTheProject(Project project) {
-		return logic.delete(project);
+	private void whenIRemoveTheProject(Project project) {
+		logic.delete(project);
 	}
 
 	private void shouldReloadAndUpdateTheProject(final Project project) {
@@ -201,9 +207,10 @@ public class ProjectTest {
 	}
 
 	private void thenTheLogicShouldExposeOnlyTheProject(Project project) {
-        assertThat(logic.getProjects(), is(notNullValue()));
-        assertThat(logic.getProjects().size(), is(1));
-        assertThat(logic.getProjects(), hasItem(project));
+		Assert.fail();
+//        assertThat(logic.getProjects(), is(notNullValue()));
+//        assertThat(logic.getProjects().size(), is(1));
+//        assertThat(logic.getProjects(), hasItem(project));
     }
 
     private void whenIListProjects() {

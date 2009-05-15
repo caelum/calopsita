@@ -18,8 +18,11 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.IterationRepository;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.CardRepository;
+
 
 public class IterationTest {
     private Mockery mockery;
@@ -41,7 +44,7 @@ public class IterationTest {
         currentUser.setLogin("me");
         project = new Project();
 
-        logic = new IterationsController(currentUser, iterationRepository, cardRepository, projectRepository);
+        logic = new IterationsController(mockery.mock(Validator.class), mockery.mock(Result.class), currentUser, iterationRepository, cardRepository, projectRepository);
         
     }
 
@@ -90,7 +93,8 @@ public class IterationTest {
         
         shouldNotRemoveTheIterationFromRepository(returned);
         
-        String status = whenIRemove(iteration);
+        String status = null;
+        whenIRemove(iteration);
         assertThat(status, is("invalid"));
         mockery.assertIsSatisfied();
     }
@@ -108,7 +112,8 @@ public class IterationTest {
         shouldUpdateTheCard(card);
         shouldRemoveTheIterationFromRepository(returnedIteration);
         
-        String status = whenIRemove(iteration);
+        String status = null;
+        whenIRemove(iteration);
         assertThat(status, is("ok"));
         mockery.assertIsSatisfied();
     }
@@ -288,8 +293,8 @@ public class IterationTest {
 	    return user;
     }
 
-    private String whenIRemove(Iteration iteration) {
-	    return logic.delete(iteration);
+    private void whenIRemove(Iteration iteration) {
+	    logic.delete(iteration);
     }
     
     private void shouldRemoveTheIterationFromRepository(final Iteration returned) {
