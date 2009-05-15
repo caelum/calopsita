@@ -16,6 +16,7 @@ import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.StoryRepository;
 import br.com.caelum.vraptor.Delete;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -80,7 +81,7 @@ public class StoriesController {
 			Story loaded = repository.load(story);
 			loaded.setPriority(story.getPriority());
 		}
-		result.use(logic()).redirectServerTo(ProjectsController.class).prioritization(project);
+		result.use(logic()).redirectServerTo(StoriesController.class).prioritization(project);
 	}
 	
 	//TODO: Deveria ser método de algum modelo, n?
@@ -128,4 +129,10 @@ public class StoriesController {
 	        result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
 		} 
 	}
+	
+	@Path("/projects/{project.id}/priorization") @Get
+    public void prioritization(Project project) {
+        result.include("project", this.projectRepository.get(project.getId()));
+        result.include("stories", this.projectRepository.listStoriesFrom(project));
+    }
 }

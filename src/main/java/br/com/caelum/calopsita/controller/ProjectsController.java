@@ -98,12 +98,6 @@ public class ProjectsController {
     public void list() {
         result.include("projects", repository.listAllFrom(currentUser));
     }
-    
-    @Path("/projects/{project.id}/priorization") @Get
-    public void prioritization(Project project) {
-        result.include("project", this.repository.get(project.getId()));
-        result.include("stories", this.repository.listStoriesFrom(project));
-    }
 
     @Path("/") @Get
     public void index() {
