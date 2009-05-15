@@ -82,7 +82,7 @@ public class IterationsController {
         this.iterations = this.projectRepository.listIterationsFrom(project);
     }
 
-	@Path("/iterations/{iteration.id}") @Get
+	@Path("/iterations/{iteration.id}/") @Get
     public void show(Iteration iteration) {
     	Iteration loaded = repository.load(iteration);
     	Project project = loaded.getProject();
