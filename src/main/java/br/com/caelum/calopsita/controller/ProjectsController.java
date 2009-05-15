@@ -40,7 +40,7 @@ public class ProjectsController {
         this.currentUser = user;
     }
 
-    @Path("/projects/new") @Get
+    @Path("/projects/new/") @Get
     public Project form() {
         return new Project();
     }
@@ -55,7 +55,7 @@ public class ProjectsController {
         this.cards = this.repository.listCardsFrom(project);
     }
     
-    @Path("/projects") @Post
+    @Path("/projects/") @Post
     public void save(final Project project) {
         project.setOwner(currentUser);
         validator.checking(new Validations() {
@@ -67,7 +67,7 @@ public class ProjectsController {
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
-	@Path("/projects/{project.id}") @Delete
+	@Path("/projects/{project.id}/") @Delete
     public String delete(Project project) {
     	Project loaded = this.repository.load(project);
     	if (currentUser.equals(loaded.getOwner())) {
@@ -101,6 +101,7 @@ public class ProjectsController {
         return projects;
     }
 
+	@Path("/projects/") @Get
     public void list() {
         result.include("projects", repository.listAllFrom(currentUser));
     }
@@ -110,7 +111,7 @@ public class ProjectsController {
     	list();
     }
 
-    @Path("/projects/{project.id}/addColaborator") @Post
+    @Path("/projects/{project.id}/addColaborator/") @Post
     public void addColaborator(Project project, User colaborator) {
         Project loaded = repository.get(project.getId());
         loaded.getColaborators().add(colaborator);

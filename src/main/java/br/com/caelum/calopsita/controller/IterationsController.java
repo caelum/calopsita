@@ -48,7 +48,7 @@ public class IterationsController {
         this.projectRepository = projectRepository;
     }
 
-    @Path("/iterations") @Post
+    @Path("/iterations/") @Post
     public void save(final Iteration iteration) {
         validateDate(iteration);
         repository.add(iteration);
@@ -66,7 +66,7 @@ public class IterationsController {
         });
 	}
 
-	@Path("/iterations/{iteration.id}") @Get
+	@Path("/iterations/{iteration.id}/") @Get
     public void show(Iteration iteration) {
     	Iteration loaded = repository.load(iteration);
     	Project project = loaded.getProject();
@@ -88,7 +88,7 @@ public class IterationsController {
     public List<Iteration> getIterations() {
         return iterations;
     }
-	@Path("/iterations/{iteration.id}/updateCards") @Post
+	@Path("/iterations/{iteration.id}/updateCards/") @Post
     public void updateCards(Iteration iteration, List<Story> stories) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
@@ -99,7 +99,7 @@ public class IterationsController {
     	result.use(logic()).redirectTo(IterationsController.class).show(iteration);
     }
 
-	@Path("/iterations/{iteration.id}/removeCards") @Post
+	@Path("/iterations/{iteration.id}/removeCards/") @Post
     public void removeCards(Iteration iteration, List<Story> stories) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
@@ -109,7 +109,7 @@ public class IterationsController {
     	result.use(logic()).redirectTo(IterationsController.class).show(iteration);
     }
 
-    @Path("/iterations/{iteration.id}") @Delete
+    @Path("/iterations/{iteration.id}/") @Delete
     public void delete(Iteration iteration) {
         Iteration loaded = repository.load(iteration);
         this.project = loaded.getProject();
@@ -124,7 +124,7 @@ public class IterationsController {
         }
     }
 
-    @Path("/iterations/{iteration.id}/start") @Post
+    @Path("/iterations/{iteration.id}/start/") @Post
 	public void start(Iteration iteration) {
 		Iteration loaded = repository.load(iteration);
 		if (loaded.isCurrent()) {
@@ -135,7 +135,7 @@ public class IterationsController {
 		result.use(logic()).redirectTo(ProjectsController.class).show(project);
 	}
 
-    @Path("/iterations/{iteration.id}/end") @Post
+    @Path("/iterations/{iteration.id}/end/") @Post
     public void end(Iteration iteration) {
         Iteration loaded = repository.load(iteration);
         if (!loaded.isCurrent()) {
@@ -146,7 +146,7 @@ public class IterationsController {
         result.use(logic()).redirectTo(ProjectsController.class).show(project);
     }
     
-    @Path("/iterations/{iteration.id}") @Post
+    @Path("/iterations/{iteration.id}/") @Post
     public Iteration update(Iteration iteration) {
 		validateDate(iteration);
 		Iteration loaded = repository.load(iteration);

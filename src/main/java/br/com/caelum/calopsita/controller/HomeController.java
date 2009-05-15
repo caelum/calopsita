@@ -7,12 +7,12 @@ import br.com.caelum.vraptor.Resource;
 
 @Resource
 public class HomeController {
-    @Get
+    @Get @Path("/home/login/")
     public User login() {
         return new User();
     }
     
-    @Path("/users/notAllowed") @Get
+    @Path("/users/notAllowed/") @Get
     public void notAllowed() {
     }
 }

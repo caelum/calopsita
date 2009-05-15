@@ -35,12 +35,12 @@ public class UsersController {
         this.session = session;
     }
 
-    @Path("/users/new") @Get
+    @Path("/users/new/") @Get
     public User form() {
         return new User();
     }
 
-    @Path("/users") @Post
+    @Path("/users/") @Post
     public void save(final User user) {
         validator.checking(new Validations() {
             {
@@ -54,7 +54,7 @@ public class UsersController {
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
-    @Path("/users/login") @Get
+    @Path("/users/login/") @Get
     public void login(final User user) {
         validator.checking(new Validations() {
             {
@@ -68,7 +68,7 @@ public class UsersController {
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
-    @Path("/users/logout") @Get
+    @Path("/users/logout/") @Get
     public void logout() {
         this.session.removeAttribute(User.class.getName());
         this.session.removeAttribute("currentUser");

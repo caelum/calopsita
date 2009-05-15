@@ -44,7 +44,7 @@ public class StoriesController {
 		this.projectRepository = projectRepository;
 	}
 
-	@Path("projects/{project.id}/stories/new") @Post
+	@Path("projects/{project.id}/stories/") @Post
 	public void save(final Story story, Project project) {
 		story.setProject(project);
 		validator.checking(new Validations() {
@@ -57,6 +57,7 @@ public class StoriesController {
 		result.include("stories", this.projectRepository.listStoriesFrom(project));
 	}
 	
+	@Path("projects/{project.id}/stories/saveSub/") @Post
 	public void saveSub(Story story) {
 		repository.add(story);
 		result.include("stories", this.repository.listSubstories(story.getParent()));
@@ -64,13 +65,13 @@ public class StoriesController {
 		result.include("project", story.getProject());
 	}
 	
-	@Path("/projects/{project.id}/stories/{story.id}/edit") @Post
+	@Path("/projects/{project.id}/stories/{story.id}/edit/") @Post
 	public void edit(Story story) {
 	    result.include("story", this.repository.load(story));
 	    result.include("stories", this.repository.listSubstories(story));
 	}
 
-	@Path("/projects/{project.id}/stories/{story.id}") @Post
+	@Path("/projects/{project.id}/stories/{story.id}/") @Post
 	public void update(Story story) {
 		Story loaded = repository.load(story);
 		Project project = loaded.getProject();
@@ -82,7 +83,7 @@ public class StoriesController {
 		result.use(logic()).redirectTo(ProjectsController.class).show(project);
 	}
 	
-	@Path("/projects/{project.id}/stories/prioritize") @Post
+	@Path("/projects/{project.id}/stories/prioritize/") @Post
 	public void prioritize(Project project, List<Story> stories) {
 		for (Story story : stories) {
 			Story loaded = repository.load(story);
@@ -116,7 +117,7 @@ public class StoriesController {
 		return max;
 	}
 
-	@Path("/projects/{project.id}/stories/{story.id}") @Delete
+	@Path("/projects/{project.id}/stories/{story.id}/") @Delete
 	public void delete(Story story, boolean deleteSubstories) {
 		Story loaded = repository.load(story);
 		Project project = loaded.getProject();
@@ -137,7 +138,7 @@ public class StoriesController {
 		} 
 	}
 	
-	@Path("/projects/{project.id}/priorization") @Get
+	@Path("/projects/{project.id}/priorization/") @Get
     public void prioritization(Project project) {
         result.include("project", this.projectRepository.get(project.getId()));
         result.include("stories", this.projectRepository.listStoriesFrom(project));
