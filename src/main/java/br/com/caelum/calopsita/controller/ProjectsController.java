@@ -50,6 +50,7 @@ public class ProjectsController {
     	this.result.include("users", this.userRepository.listUnrelatedUsers(project));
     }
 
+
     public void cards(Project project) {
     	this.result.include("project", this.repository.get(project.getId()));
     	this.result.include("cards",  this.repository.listCardsFrom(project));
@@ -66,13 +67,14 @@ public class ProjectsController {
         this.repository.add(project);
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
-	public String delete(Project project) {
+
+    @Path("/project/{project.id}") @Delete
+    public void delete(Project project) {
     	Project loaded = this.repository.load(project);
-    	if (!currentUser.equals(loaded.getOwner())) {
-    		return "invalid";
+    	if (currentUser.equals(loaded.getOwner())) {
+    	    this.repository.remove(loaded);
     	}
-    	this.repository.remove(loaded);
-    	return "ok";
+    	result.use(logic()).redirectServerTo(ProjectsController.class).list();
     }
     @Path("/projects/{project.id}/") @Post
     public void update(Project project) {
