@@ -28,22 +28,9 @@
     <location>/WEB-INF/jsp/error-in-server.jsp</location>
   </error-page>
 
-  <!-- internacionalizacao -->
   <context-param>
-    <param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
-    <param-value>pt_BR</param-value>
-  </context-param>
-  <context-param>
-    <param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
-    <param-value>pt_BR</param-value>
-  </context-param>
-  <context-param>
-    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
-    <param-value>messages</param-value>
-  </context-param>
-  <context-param>
-    <param-name>org.vraptor.component.ParameterInfoProvider</param-name>
-    <param-value>org.vraptor.component.ParanamerParameterInfoProvider</param-value>
+    <param-name>br.com.caelum.vraptor.provider</param-name>
+    <param-value>br.com.caelum.vraptor.example.CustomProvider</param-value>
   </context-param>
 
   <filter>
@@ -55,13 +42,6 @@
     <filter-name>sitemesh</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-
-
-  <!-- Mandatory filter; should be the last one in the chain -->
-  <context-param>
-    <param-name>br.com.caelum.vraptor.provider</param-name>
-    <param-value>br.com.caelum.calopsita.infra.vraptor.CalopsitaProvider</param-value>
-  </context-param>
 
   <filter>
     <filter-name>vraptor</filter-name>

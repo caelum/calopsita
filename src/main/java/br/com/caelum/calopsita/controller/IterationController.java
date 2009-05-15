@@ -1,9 +1,8 @@
-package br.com.caelum.calopsita.logic;
+package br.com.caelum.calopsita.controller;
 
 import java.util.List;
 
 import org.joda.time.LocalDate;
-import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
@@ -17,9 +16,9 @@ import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 
-@Component
+@Resource
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
-public class IterationLogic {
+public class IterationController {
 
     private Project project;
     private final IterationRepository repository;
@@ -30,7 +29,7 @@ public class IterationLogic {
     private final ProjectRepository projectRepository;
     private List<Iteration> iterations;
 
-    public IterationLogic(User user, IterationRepository repository, CardRepository cardRepository, ProjectRepository projectRepository) {
+    public IterationController(User user, IterationRepository repository, CardRepository cardRepository) {
         this.currentUser = user;
         this.repository = repository;
 		this.cardRepository = cardRepository;

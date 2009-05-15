@@ -1,8 +1,7 @@
-package br.com.caelum.calopsita.logic;
+package br.com.caelum.calopsita.controller;
 
 import java.util.List;
 
-import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
@@ -13,10 +12,11 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
+import br.com.caelum.vraptor.Resource;
 
-@Component
+@Resource
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
-public class ProjectLogic {
+public class ProjectController {
 
     private final ProjectRepository repository;
     private List<Project> projects;
@@ -26,7 +26,7 @@ public class ProjectLogic {
 	private List<User> users;
 	private List<Card> cards;
 
-    public ProjectLogic(ProjectRepository repository, UserRepository userRepository, User user) {
+    public ProjectController(ProjectRepository repository, UserRepository userRepository, User user) {
         this.repository = repository;
 		this.userRepository = userRepository;
         this.currentUser = user;

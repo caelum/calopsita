@@ -11,14 +11,14 @@ import org.junit.Test;
 import org.vraptor.validator.BasicValidationErrors;
 import org.vraptor.validator.ValidationErrors;
 
-import br.com.caelum.calopsita.logic.UserLogic;
+import br.com.caelum.calopsita.controller.UserController;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 
 public class UserTest {
     private HttpSession session;
     private Mockery mockery;
-    private UserLogic logic;
+    private UserController logic;
     private UserRepository repository;
 
     @Before
@@ -26,7 +26,7 @@ public class UserTest {
         mockery = new Mockery();
         session = mockery.mock(HttpSession.class);
         repository = mockery.mock(UserRepository.class);
-        logic = new UserLogic(repository, session);
+        logic = new UserController(repository, session);
     }
 
     @After

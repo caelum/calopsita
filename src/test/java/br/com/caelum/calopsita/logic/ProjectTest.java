@@ -14,6 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.calopsita.controller.ProjectController;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
@@ -21,7 +22,7 @@ import br.com.caelum.calopsita.repository.UserRepository;
 
 public class ProjectTest {
     private Mockery mockery;
-    private ProjectLogic logic;
+    private ProjectController logic;
     private ProjectRepository repository;
 	private User currentUser;
 	private UserRepository userRepository;
@@ -32,7 +33,7 @@ public class ProjectTest {
         repository = mockery.mock(ProjectRepository.class);
         currentUser = currentUser();
         userRepository = mockery.mock(UserRepository.class);
-		logic = new ProjectLogic(repository, userRepository, currentUser);
+		logic = new ProjectController(repository, userRepository, currentUser);
     }
 
     @After
