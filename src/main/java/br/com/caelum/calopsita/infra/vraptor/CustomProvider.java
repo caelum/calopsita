@@ -9,7 +9,6 @@ import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.StoryRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.ComponentRegistry;
-import br.com.caelum.vraptor.http.route.RoutesConfiguration;
 import br.com.caelum.vraptor.ioc.pico.PicoProvider;
 
 public class CustomProvider extends PicoProvider {
