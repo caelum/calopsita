@@ -68,7 +68,7 @@ public class ProjectsController {
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
-    @Path("/projects/{project.id}") @Delete
+    @Path("/projects/{project.id}/") @Delete
     public void delete(Project project) {
     	Project loaded = this.repository.load(project);
     	if (currentUser.equals(loaded.getOwner())) {
