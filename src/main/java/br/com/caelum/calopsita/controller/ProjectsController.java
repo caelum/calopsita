@@ -68,12 +68,12 @@ public class ProjectsController {
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
-    @Path("/projects/{project.id}/") @Delete
-    public void delete(Project project) {
+    @Path("/projects/{project.id}/") @Post
+    public void update(Project project) {
     	Project loaded = this.repository.load(project);
     	if (currentUser.equals(loaded.getOwner())) {
-    	    this.repository.remove(loaded);
-    	    result.use(logic()).redirectTo(ProjectsController.class).list();
+    		loaded.setDescription(project.getDescription());
+    		result.use(logic()).redirectTo(ProjectsController.class).show(loaded);
     	}
     }
     @Path("/projects/{project.id}/") @Post
@@ -99,6 +99,12 @@ public class ProjectsController {
         result.include("projects", repository.listAllFrom(currentUser));
     }
     
+    @Path("/projects/{project.id}/priorization") @Get
+    public void prioritization(Project project) {
+        result.include("project", this.repository.get(project.getId()));
+        result.include("stories", this.repository.listStoriesFrom(project));
+    }
+
     @Path("/") @Get
     public void index() {
     	list();
