@@ -61,6 +61,7 @@ public class IterationsController {
         });
         repository.add(iteration);
         result.include("project", project);
+        result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
     }
 
 	@Path("/iterations/{iteration.id}") @Get
@@ -94,6 +95,7 @@ public class IterationsController {
 			cardRepository.update(loaded);
 		}
     	result.include("iteration", iteration);
+    	result.use(logic()).redirectServerTo(IterationsController.class).show(iteration);
     }
 
 	@Path("/iterations/{iteration.id}/removeCards") @Post
@@ -104,6 +106,7 @@ public class IterationsController {
 			cardRepository.update(loaded);
 		}
     	result.include("iteration", iteration);
+    	result.use(logic()).redirectServerTo(IterationsController.class).show(iteration);
     }
 
     @Path("/iterations/{iteration.id}") @Delete
@@ -117,8 +120,8 @@ public class IterationsController {
                 cardRepository.update(cardLoaded);
             }
             repository.remove(loaded);
+            result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
         }
-        result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
     }
 
     @Path("/iterations/{iteration.id}/start") @Post
@@ -130,6 +133,7 @@ public class IterationsController {
 		loaded.setStartDate(new LocalDate());
 		Project project = loaded.getProject();
 		this.result.include("project", project);
+		result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
 	}
 
     @Path("/iterations/{iteration.id}/end") @Post
@@ -141,6 +145,7 @@ public class IterationsController {
         loaded.setEndDate(new LocalDate());
         Project project = loaded.getProject();
         this.result.include("project", project);
+        result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
     }
 	public void update(Iteration iteration) {
 		validateDate(iteration);

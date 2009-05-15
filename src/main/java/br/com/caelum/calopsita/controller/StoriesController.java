@@ -78,6 +78,7 @@ public class StoriesController {
 		repository.update(loaded);
 		result.include("project", project);
 		result.include("stories", this.projectRepository.listStoriesFrom(project));
+		result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
 	}
 	
 	@Path("/projects/{project.id}/stories/prioritize") @Post
@@ -114,7 +115,7 @@ public class StoriesController {
 		return max;
 	}
 
-	@Path("/projects/{project.id}/stories/{story.id}/delete") @Delete
+	@Path("/projects/{project.id}/stories/{story.id}") @Delete
 	public void delete(Story story, boolean deleteSubstories) {
 		Story loaded = repository.load(story);
 		Project project = loaded.getProject();
@@ -131,7 +132,7 @@ public class StoriesController {
 	            }
 	        }
 	        repository.remove(loaded);
+	        result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
 		} 
-		result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
 	}
 }

@@ -64,6 +64,7 @@ public class ProjectsController {
             }
         });
         this.repository.add(project);
+        result.use(logic()).redirectServerTo(ProjectsController.class).list();
     }
 
 	@Path("/projects/{project.id}") @Delete
@@ -71,8 +72,8 @@ public class ProjectsController {
     	Project loaded = this.repository.load(project);
     	if (currentUser.equals(loaded.getOwner())) {
     	    this.repository.remove(loaded);
+    	    result.use(logic()).redirectServerTo(ProjectsController.class).list();
     	}
-    	result.use(logic()).redirectServerTo(ProjectsController.class).list();
     }
 
     public String update(Project project) {
@@ -116,5 +117,6 @@ public class ProjectsController {
         loaded.getColaborators().add(colaborator);
         repository.update(loaded);
         result.include("project", loaded);
+        result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
     }
 }
