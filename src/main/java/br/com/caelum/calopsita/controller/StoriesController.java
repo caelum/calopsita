@@ -21,6 +21,8 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Hibernate;
+import br.com.caelum.vraptor.validator.Validations;
 
 @Resource
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
@@ -42,8 +44,13 @@ public class StoriesController {
 	}
 
 	@Path("projects/{project.id}/stories/new") @Post
-	public void save(Story story, Project project) {
+	public void save(final Story story, Project project) {
 		story.setProject(project);
+		validator.checking(new Validations() {
+            {
+                that(Hibernate.validate(story));
+            }
+        });
 		repository.add(story);
 		result.include("project", project);
 		result.include("stories", this.projectRepository.listStoriesFrom(project));
