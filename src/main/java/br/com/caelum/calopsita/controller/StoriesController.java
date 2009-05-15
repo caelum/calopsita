@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.controller;
 
+import static br.com.caelum.vraptor.view.Results.logic;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,70 +15,71 @@ import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.StoryRepository;
+import br.com.caelum.vraptor.Delete;
+import br.com.caelum.vraptor.Path;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
 
 @Resource
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
 public class StoriesController {
 
 	private final StoryRepository repository;
-	private Project project;
 	private final User currentUser;
 	private final ProjectRepository projectRepository;
 	private List<Story> stories;
-	private Story story;
+    private final Validator validator;
+    private final Result result;
 
-	public StoriesController(User user, StoryRepository repository, ProjectRepository projectRepository) {
-		this.currentUser = user;
+	public StoriesController(Result result, Validator validator, User user, StoryRepository repository, ProjectRepository projectRepository) {
+		this.result = result;
+        this.validator = validator;
+        this.currentUser = user;
 		this.repository = repository;
 		this.projectRepository = projectRepository;
 	}
 
+	@Path("projects/{project.id}/stories/new") @Post
 	public void save(Story story, Project project) {
-		this.project = project;
 		story.setProject(project);
 		repository.add(story);
-		this.stories = this.projectRepository.listStoriesFrom(project);
+		result.include("project", project);
+		result.include("stories", this.projectRepository.listStoriesFrom(project));
 	}
 	
 	public void saveSub(Story story) {
 		repository.add(story);
-		this.stories = this.repository.listSubstories(story.getParent());
-		this.story = story.getParent();
-		this.project = story.getProject();
+		result.include("stories", this.repository.listSubstories(story.getParent()));
+		result.include("story", story.getParent());
+		result.include("project", story.getProject());
 	}
 	
+	@Path("/projects/{project.id}/stories/{story.id}/edit") @Post
 	public void edit(Story story) {
-		this.story = this.repository.load(story);
-		this.stories = this.repository.listSubstories(story);
+	    result.include("story", this.repository.load(story));
+	    result.include("stories", this.repository.listSubstories(story));
 	}
 
-	public Story getStory() {
-		return story;
-	}
-	
+	@Path("/projects/{project.id}/stories/{story.id}") @Post
 	public void update(Story story) {
-		Story managedStory = repository.load(story);
-		this.project = managedStory.getProject();
-		managedStory.setName(story.getName());
-		managedStory.setDescription(story.getDescription());
-		repository.update(managedStory);
-		this.stories = this.projectRepository.listStoriesFrom(project);
+		Story loaded = repository.load(story);
+		Project project = loaded.getProject();
+		loaded.setName(story.getName());
+		loaded.setDescription(story.getDescription());
+		repository.update(loaded);
+		result.include("project", project);
+		result.include("stories", this.projectRepository.listStoriesFrom(project));
 	}
 	
-	public void prioritization(Project project) {
-		this.project = this.projectRepository.get(project.getId());
-		this.stories = this.projectRepository.listStoriesFrom(project);
-	}
+	@Path("/projects/{project.id}/stories/prioritize") @Post
 	public void prioritize(Project project, List<Story> stories) {
 		for (Story story : stories) {
 			Story loaded = repository.load(story);
 			loaded.setPriority(story.getPriority());
 		}
-		prioritization(project);
-	}
-	public List<Story> getStories() {
-		return stories;
+		result.use(logic()).redirectServerTo(ProjectsController.class).prioritization(project);
 	}
 	
 	public List<List<Story>> getGroupedStories() {
@@ -102,15 +105,12 @@ public class StoriesController {
 		return max;
 	}
 
-	public Project getProject() {
-		return project;
-	}
-
-	public String delete(Story story, boolean deleteSubstories) {
+	@Path("/projects/{project.id}/stories/{story.id}/delete") @Delete
+	public void delete(Story story, boolean deleteSubstories) {
 		Story loaded = repository.load(story);
-		this.project = loaded.getProject();
-		if (this.project.getColaborators().contains(currentUser) || this.project.getOwner().equals(currentUser)) {
-		    this.project = loaded.getProject();
+		Project project = loaded.getProject();
+		if (project.getColaborators().contains(currentUser) || project.getOwner().equals(currentUser)) {
+		    project = loaded.getProject();
 	        if (deleteSubstories) {
 	            for (Story sub : loaded.getSubstories()) {
 	                repository.remove(sub);
@@ -122,10 +122,7 @@ public class StoriesController {
 	            }
 	        }
 	        repository.remove(loaded);
-	        return "ok";
-		} else {
-			return "invalid";
-		}
-		
+		} 
+		result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
 	}
 }
