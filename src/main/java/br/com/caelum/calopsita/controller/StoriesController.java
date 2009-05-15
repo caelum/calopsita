@@ -89,6 +89,7 @@ public class StoriesController {
 		result.use(logic()).redirectServerTo(ProjectsController.class).prioritization(project);
 	}
 	
+	//TODO: Deveria ser método de algum modelo, n?
 	public List<List<Story>> getGroupedStories() {
 		List<List<Story>> result = new ArrayList<List<Story>>();
 		if (stories != null) {
@@ -102,6 +103,7 @@ public class StoriesController {
 		return result;
 	}
 
+	//TODO: Deveria ser método de algum modelo, n?
 	private int maxPriority(List<Story> stories2) {
 		int max = 0;
 		for (Story story : stories2) {
