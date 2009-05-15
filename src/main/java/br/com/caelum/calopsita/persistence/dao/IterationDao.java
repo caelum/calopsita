@@ -6,7 +6,9 @@ import org.joda.time.LocalDate;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.IterationRepository;
+import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class IterationDao implements IterationRepository{
 
     private final Session session;

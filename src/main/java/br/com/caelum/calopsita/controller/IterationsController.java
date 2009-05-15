@@ -52,7 +52,7 @@ public class IterationsController {
     public void save(final Iteration iteration) {
         validateDate(iteration);
         repository.add(iteration);
-        result.use(logic()).redirectServerTo(ProjectsController.class).show(iteration.getProject());
+        result.use(logic()).redirectTo(ProjectsController.class).show(iteration.getProject());
     }
 
 	private void validateDate(final Iteration iteration) {
@@ -96,7 +96,7 @@ public class IterationsController {
 			loaded.setStatus(card.getStatus());
 			cardRepository.update(loaded);
 		}
-    	result.use(logic()).redirectServerTo(IterationsController.class).show(iteration);
+    	result.use(logic()).redirectTo(IterationsController.class).show(iteration);
     }
 
 	@Path("/iterations/{iteration.id}/removeCards") @Post
@@ -106,7 +106,7 @@ public class IterationsController {
 			loaded.setIteration(null);
 			cardRepository.update(loaded);
 		}
-    	result.use(logic()).redirectServerTo(IterationsController.class).show(iteration);
+    	result.use(logic()).redirectTo(IterationsController.class).show(iteration);
     }
 
     @Path("/iterations/{iteration.id}") @Delete
@@ -120,7 +120,7 @@ public class IterationsController {
                 cardRepository.update(cardLoaded);
             }
             repository.remove(loaded);
-            result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
+            result.use(logic()).redirectTo(ProjectsController.class).show(project);
         }
     }
 
@@ -132,7 +132,7 @@ public class IterationsController {
 		}
 		loaded.setStartDate(new LocalDate());
 		Project project = loaded.getProject();
-		result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
+		result.use(logic()).redirectTo(ProjectsController.class).show(project);
 	}
 
     @Path("/iterations/{iteration.id}/end") @Post
@@ -143,7 +143,7 @@ public class IterationsController {
         }
         loaded.setEndDate(new LocalDate());
         Project project = loaded.getProject();
-        result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
+        result.use(logic()).redirectTo(ProjectsController.class).show(project);
     }
     
     @Path("/iterations/{iteration.id}") @Post

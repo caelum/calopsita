@@ -9,7 +9,9 @@ import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class ProjectDao implements ProjectRepository {
 
     private final Session session;

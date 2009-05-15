@@ -79,7 +79,7 @@ public class StoriesController {
 		repository.update(loaded);
 		result.include("project", project);
 		result.include("stories", this.projectRepository.listStoriesFrom(project));
-		result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
+		result.use(logic()).redirectTo(ProjectsController.class).show(project);
 	}
 	
 	@Path("/projects/{project.id}/stories/prioritize") @Post
@@ -88,7 +88,7 @@ public class StoriesController {
 			Story loaded = repository.load(story);
 			loaded.setPriority(story.getPriority());
 		}
-		result.use(logic()).redirectServerTo(StoriesController.class).prioritization(project);
+		result.use(logic()).redirectTo(StoriesController.class).prioritization(project);
 	}
 	
 	//TODO: Deveria ser método de algum modelo, n?
@@ -133,7 +133,7 @@ public class StoriesController {
 	            }
 	        }
 	        repository.remove(loaded);
-	        result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
+	        result.use(logic()).redirectTo(ProjectsController.class).show(project);
 		} 
 	}
 	

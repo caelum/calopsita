@@ -64,7 +64,7 @@ public class ProjectsController {
             }
         });
         this.repository.add(project);
-        result.use(logic()).redirectServerTo(ProjectsController.class).list();
+        result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
 	@Path("/projects/{project.id}") @Delete
@@ -72,7 +72,7 @@ public class ProjectsController {
     	Project loaded = this.repository.load(project);
     	if (currentUser.equals(loaded.getOwner())) {
     	    this.repository.remove(loaded);
-    	    result.use(logic()).redirectServerTo(ProjectsController.class).list();
+    	    result.use(logic()).redirectTo(ProjectsController.class).list();
     	}
     }
 
@@ -104,6 +104,11 @@ public class ProjectsController {
     public void list() {
         result.include("projects", repository.listAllFrom(currentUser));
     }
+    
+    @Path("/") @Get
+    public void index() {
+    	list();
+    }
 
     @Path("/projects/{project.id}/addColaborator") @Post
     public void addColaborator(Project project, User colaborator) {
@@ -111,6 +116,6 @@ public class ProjectsController {
         loaded.getColaborators().add(colaborator);
         repository.update(loaded);
         result.include("project", loaded);
-        result.use(logic()).redirectServerTo(ProjectsController.class).show(project);
+        result.use(logic()).redirectTo(ProjectsController.class).show(project);
     }
 }

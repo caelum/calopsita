@@ -51,7 +51,7 @@ public class UsersController {
         this.repository.add(user);
         this.session.setAttribute(User.class.getName(), user);
         this.session.setAttribute("currentUser", user);
-        result.use(logic()).redirectServerTo(ProjectsController.class).list();
+        result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
     @Path("/users/login") @Get
@@ -65,13 +65,13 @@ public class UsersController {
         });
         this.session.setAttribute(User.class.getName(), user);
         this.session.setAttribute("currentUser", user);
-        result.use(logic()).redirectServerTo(ProjectsController.class).list();
+        result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
     @Path("/users/logout") @Get
     public void logout() {
         this.session.removeAttribute(User.class.getName());
         this.session.removeAttribute("currentUser");
-        result.use(logic()).redirectServerTo(HomeController.class).login();
+        result.use(logic()).redirectTo(HomeController.class).login();
     }
 }

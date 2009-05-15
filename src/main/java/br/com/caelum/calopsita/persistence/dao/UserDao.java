@@ -8,7 +8,9 @@ import org.hibernate.Session;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
+import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class UserDao implements UserRepository {
 
     private final Session session;

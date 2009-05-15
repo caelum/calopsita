@@ -7,7 +7,7 @@ import br.com.caelum.vraptor.Resource;
 
 @Resource
 public class HomeController {
-    @Path("/home/login") @Get
+    @Get
     public User login() {
         return new User();
     }

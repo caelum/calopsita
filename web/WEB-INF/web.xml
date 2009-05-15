@@ -28,11 +28,6 @@
     <location>/WEB-INF/jsp/error-in-server.jsp</location>
   </error-page>
 
-  <context-param>
-    <param-name>br.com.caelum.vraptor.provider</param-name>
-    <param-value>br.com.caelum.calopsita.infra.vraptor.CustomProvider</param-value>
-  </context-param>
-
   <filter>
     <filter-name>sitemesh</filter-name>
     <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
