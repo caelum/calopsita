@@ -73,8 +73,8 @@ public class ProjectsController {
     	Project loaded = this.repository.load(project);
     	if (currentUser.equals(loaded.getOwner())) {
     	    this.repository.remove(loaded);
+    	    result.use(logic()).redirectServerTo(ProjectsController.class).list();
     	}
-    	result.use(logic()).redirectServerTo(ProjectsController.class).list();
     }
     @Path("/projects/{project.id}/") @Post
     public void update(Project project) {
