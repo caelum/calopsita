@@ -46,7 +46,7 @@ public class GivenContexts {
         form.field("user.login").type(login);
         form.field("user.password").type(login);
         form.submit();
-        
+
 		assertThat(browser.currentPage().div("user").innerHTML(), containsString(login));
     }
 
@@ -57,14 +57,15 @@ public class GivenContexts {
         }
     }
 
-    public ProjectContexts thereIsAProjectNamed(String name) {
+    @SuppressWarnings("unchecked")
+	public ProjectContexts<?> thereIsAProjectNamed(String name) {
         Project project = new Project();
         project.setId(1L);
         project.setDescription(name);
         project.setName(name);
         session.save(project);
         session.flush();
-        return new ProjectContexts(project, this, session, browser);
+        return new ProjectContexts(project, session, browser);
     }
 
 

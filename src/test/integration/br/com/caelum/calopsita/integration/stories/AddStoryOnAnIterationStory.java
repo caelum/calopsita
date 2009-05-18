@@ -18,7 +18,7 @@ public class AddStoryOnAnIterationStory extends DefaultStory {
 		given.thereIsAnUserNamed("sergio").and()
 			.thereIsAProjectNamed("IEs4Linux")
 				.ownedBy("sergio")
-				.withAnIterationWhichGoalIs("new release")
+				.withAnIterationWhichGoalIs("new release").and()
 				.withAStoryNamed("support IE8").whichDescriptionIs("IE8 must be supported").and()
 			.iAmLoggedInAs("sergio");
 		when.iOpenProjectPageOf("IEs4Linux").and()
@@ -33,11 +33,11 @@ public class AddStoryOnAnIterationStory extends DefaultStory {
 		given.thereIsAnUserNamed("sergio").and()
 			.thereIsAProjectNamed("IEs4Linux")
 				.ownedBy("sergio")
-				.withAnIterationWhichGoalIs("new release")
+				.withAnIterationWhichGoalIs("new release").and()
 				.withAStoryNamed("support IE8").whichDescriptionIs("IE8 must be supported").and()
 			.thereIsAProjectNamed("Tatanka")
 				.ownedBy("sergio")
-				.withAnIterationWhichGoalIs("get promiscuous")
+				.withAnIterationWhichGoalIs("get promiscuous").and()
 				.withAStoryNamed("I am promiscuous").whichDescriptionIs("You know what it means").and()
 			.iAmLoggedInAs("sergio");
 		when.iOpenProjectPageOf("IEs4Linux").and()

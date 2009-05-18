@@ -16,9 +16,8 @@ public class DeleteEverythingStory extends DefaultStory {
         given.thereIsAnUserNamed("kung").and()
         .thereIsAProjectNamed("Vraptor 3").ownedBy("kung")
             .withAnIterationWhichGoalIs("make it work")
-            .withAStoryNamed("support Vraptor 2")
-                .whichDescriptionIs("some stuff should be backward compatible")
-                .insideThisIteration()
+	            .withAStoryNamed("support Vraptor 2")
+	                .whichDescriptionIs("some stuff should be backward compatible")
             .withAnIterationWhichGoalIs("i18n").and()
         .iAmLoggedInAs("kung");
         when.iOpenProjectPageOf("Vraptor 3").and()
@@ -34,9 +33,8 @@ public class DeleteEverythingStory extends DefaultStory {
         given.thereIsAnUserNamed("kung").and()
         .thereIsAProjectNamed("Vraptor 3").ownedBy("kung")
             .withAnIterationWhichGoalIs("make it work")
-            .withAStoryNamed("support Vraptor 2")
-                .whichDescriptionIs("some stuff should be backward compatible")
-                .insideThisIteration()
+	            .withAStoryNamed("support Vraptor 2")
+	                .whichDescriptionIs("some stuff should be backward compatible")
             .withAnIterationWhichGoalIs("i18n").and()
         .iAmLoggedInAs("kung");
         when.iOpenProjectPageOf("Vraptor 3").and()

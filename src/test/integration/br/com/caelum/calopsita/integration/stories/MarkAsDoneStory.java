@@ -12,16 +12,15 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  *
  */
 public class MarkAsDoneStory extends DefaultStory {
-	
+
 	@Test
 	public void flagStoryAsDone() {
 		given.thereIsAnUserNamed("kung").and()
 			.thereIsAProjectNamed("Vraptor 3")
 				.ownedBy("kung")
 				.withAnIterationWhichGoalIs("make it work")
-				.withAStoryNamed("support Vraptor 2")
-					.whichDescriptionIs("some stuff should be backward compatible")
-					.insideThisIteration().and()
+					.withAStoryNamed("support Vraptor 2")
+						.whichDescriptionIs("some stuff should be backward compatible").and()
 			.iAmLoggedInAs("kung");
 		when.iOpenProjectPageOf("Vraptor 3").and()
 			.iOpenThePageOfIterationWithGoal("make it work").and()

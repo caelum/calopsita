@@ -12,16 +12,15 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  *
  */
 public class RemoveStoryOfAnIterationStory extends DefaultStory {
-	
+
 	@Test
 	public void removeAStoryOfAnIteration() {
 		given.thereIsAnUserNamed("harry").and()
 			.thereIsAProjectNamed("vim4dummies")
 				.ownedBy("harry")
 				.withAnIterationWhichGoalIs("kill all emacsians")
-				.withAStoryNamed("buy a weapon of mass destruction")
-					.whichDescriptionIs("This way we'll kill'em all")
-					.insideThisIteration().and()
+					.withAStoryNamed("buy a weapon of mass destruction")
+						.whichDescriptionIs("This way we'll kill'em all").and()
 			.iAmLoggedInAs("harry");
 		when.iOpenProjectPageOf("vim4dummies").and()
 			.iOpenThePageOfIterationWithGoal("kill all emacsians").and()
