@@ -8,7 +8,7 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  * <b>In order to</b> be able to make a mistake with no fear <br>
  * <b>As</b> Fabs<br>
  * <b>I want to</b> delete stories, iterations and projects that I have created<br>
- * 
+ *
  */
 public class DeleteEverythingStory extends DefaultStory {
     @Test
@@ -28,7 +28,7 @@ public class DeleteEverythingStory extends DefaultStory {
         then.theStory("support Vraptor 2")
             .appearsOnBacklog();
     }
-    
+
     @Test
     public void deleteAnIterationAndDontConfirm() throws Exception {
         given.thereIsAnUserNamed("kung").and()
@@ -88,12 +88,12 @@ public class DeleteEverythingStory extends DefaultStory {
 		then.theStory("Support everything").shouldNotAppearOnStoryList().and()
 			.theStory("support continuations").appearsOnList();
 	}
-	
-	
+
+
 	@Test
 	public void deleteMyProject() {
 		given.thereIsAnUserNamed("fabs").and()
-			.thereIsAProjectNamed("goat").ownedBy("fabs")
+			.thereIsAProjectNamed("goat").ownedBy("fabs").and()
 			.iAmLoggedInAs("fabs");
 		when.iDeleteTheProject("goat").andConfirm("deletion");
 		then.project("goat").notAppearsOnList();
@@ -101,7 +101,7 @@ public class DeleteEverythingStory extends DefaultStory {
 	@Test
 	public void deleteMyProjectButNotConfirm() {
 		given.thereIsAnUserNamed("fabs").and()
-			.thereIsAProjectNamed("goat").ownedBy("fabs")
+			.thereIsAProjectNamed("goat").ownedBy("fabs").and()
 			.iAmLoggedInAs("fabs");
 		when.iDeleteTheProject("goat").andDontConfirm("deletion");
 		then.project("goat").appearsOnList();

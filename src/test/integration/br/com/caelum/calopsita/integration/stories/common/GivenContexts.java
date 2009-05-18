@@ -4,13 +4,9 @@ import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
 import org.hibernate.Session;
-import org.joda.time.LocalDate;
 
-import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
-import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.Form;
 import br.com.caelum.seleniumdsl.Page;
@@ -19,10 +15,6 @@ public class GivenContexts {
 
     private final Browser browser;
     private final Session session;
-    private Project project;
-	private String storyName;
-	private Story story;
-	private Iteration iteration;
 
     public GivenContexts(Browser browser, Session session) {
         this.browser = browser;
@@ -65,98 +57,19 @@ public class GivenContexts {
         }
     }
 
-    public GivenContexts thereIsAProjectNamed(String name) {
-        project = new Project();
+    public ProjectContexts thereIsAProjectNamed(String name) {
+        Project project = new Project();
         project.setId(1L);
         project.setDescription(name);
         project.setName(name);
         session.save(project);
         session.flush();
-        return this;
+        return new ProjectContexts(project, this, session, browser);
     }
 
-    public GivenContexts ownedBy(String login) {
-        UserDao userDao = new UserDao(session);
-        User user = userDao.find(login);
-        project.setOwner(user);
-        session.save(user);
-        session.flush();
-        return this;
-    }
 
 	public void theUserDoesntExist(String name) {
 		session.createQuery("delete from User u where u.name = :name").setParameter("name", name).executeUpdate();
-	}
-
-	public GivenContexts withColaborator(String login) {
-		UserDao userDao = new UserDao(session);
-        User user = userDao.find(login);
-        project.getColaborators().add(user);
-        session.flush();
-        return this;
-	}
-
-	public GivenContexts withAStoryNamed(String storyName) {
-		this.storyName = storyName;
-		return this;
-	}
-
-	public GivenContexts whichDescriptionIs(String storyDescription) {
-		Story oldstory = story;
-		story = new Story();
-		story.setName(storyName);
-		story.setDescription(storyDescription);
-		story.setProject(project);
-		story.setParent(oldstory);
-		session.save(story);
-		session.flush();
-		return this;
-	}
-
-	public GivenContexts withAnIterationWhichGoalIs(String goal) {
-		iteration = new Iteration();
-		iteration.setGoal(goal);
-		iteration.setProject(project);
-		session.save(iteration);
-		session.flush();
-		return this;
-	}
-
-	public GivenContexts withPriority(int priority) {
-		story.setPriority(priority);
-		session.saveOrUpdate(story);
-		session.flush();
-		return this;
-	}
-
-	public GivenContexts insideThisIteration() {
-		story.setIteration(iteration);
-		session.saveOrUpdate(story);
-		session.flush();
-		return this;
-	}
-
-	public GivenContexts withASubstoryNamed(String storyName) {
-		this.storyName = storyName;
-		return this;
-	}
-
-    public GivenContexts startingYesterday() {
-        this.iteration.setStartDate(new LocalDate().minusDays(1));
-        session.saveOrUpdate(iteration);
-        session.flush();
-        return this;
-    }
-	public GivenContexts startingAt(LocalDate date) {
-		iteration.setStartDate(date);
-		session.flush();
-		return this;
-	}
-
-	public GivenContexts endingAt(LocalDate date) {
-		iteration.setEndDate(date);
-		session.flush();
-		return this;		
 	}
 
 }

@@ -12,13 +12,13 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  * @author lucascs
  */
 public class AddStoryOnAnIterationStory extends DefaultStory {
-	
+
 	@Test
 	public void addAStoryInAnIteration() {
 		given.thereIsAnUserNamed("sergio").and()
 			.thereIsAProjectNamed("IEs4Linux")
 				.ownedBy("sergio")
-				.withAnIterationWhichGoalIs("new release").and()
+				.withAnIterationWhichGoalIs("new release")
 				.withAStoryNamed("support IE8").whichDescriptionIs("IE8 must be supported").and()
 			.iAmLoggedInAs("sergio");
 		when.iOpenProjectPageOf("IEs4Linux").and()
@@ -26,18 +26,18 @@ public class AddStoryOnAnIterationStory extends DefaultStory {
 			.iAddTheStory("support IE8").inThisIteration();
 		then.theStory("support IE8").appearsOnTodoList();
 	}
-	
-	
+
+
 	@Test
 	public void promiscuousStoriesBugDontHappen() {
 		given.thereIsAnUserNamed("sergio").and()
 			.thereIsAProjectNamed("IEs4Linux")
 				.ownedBy("sergio")
-				.withAnIterationWhichGoalIs("new release").and()
+				.withAnIterationWhichGoalIs("new release")
 				.withAStoryNamed("support IE8").whichDescriptionIs("IE8 must be supported").and()
 			.thereIsAProjectNamed("Tatanka")
 				.ownedBy("sergio")
-				.withAnIterationWhichGoalIs("get promiscuous").and()
+				.withAnIterationWhichGoalIs("get promiscuous")
 				.withAStoryNamed("I am promiscuous").whichDescriptionIs("You know what it means").and()
 			.iAmLoggedInAs("sergio");
 		when.iOpenProjectPageOf("IEs4Linux").and()
