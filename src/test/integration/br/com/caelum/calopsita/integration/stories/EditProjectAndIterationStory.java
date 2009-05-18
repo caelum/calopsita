@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.integration.stories;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -8,7 +9,7 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  * <b>In order to</b> make mistakes with no fear <br>
  * <b>As a</b> Fabs <br>
  * <b>I want to</b> edit a project or iteration <br>
- * 
+ *
  */
 public class EditProjectAndIterationStory extends DefaultStory {
 
@@ -20,7 +21,7 @@ public class EditProjectAndIterationStory extends DefaultStory {
 					.startingAt(today())
 					.endingAt(tomorrow()).and()
 			.iAmLoggedInAs("ferreira");
-					
+
 		when.iOpenProjectPageOf("scala").and()
 			.iOpenThePageOfIterationWithGoal("support DSLs").and()
 			.iEditTheIteration().withGoal("support Continuations")
@@ -28,5 +29,16 @@ public class EditProjectAndIterationStory extends DefaultStory {
 		then.theIteration("support Continuations").startsAt("10/10/2010").and().endsAt("11/11/2010");
 	}
 
-	
+
+	@Test
+	@Ignore
+	public void editProjectsDescription() {
+		given.thereIsAnUserNamed("matiello").and()
+			.thereIsAProjectNamed("python Graphs").ownedBy("matiello")
+				.whichDescriptionIs("A graph library").and()
+			.iAmLoggedInAs("matiello");
+		when.iOpenProjectPageOf("python Graphs").and()
+			.iChangeDescriptionTo("A graph library written in python");
+		then.project("python").hasDescription("A graph library written in python");
+	}
 }
