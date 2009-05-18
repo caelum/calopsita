@@ -11,12 +11,12 @@
 
 <body>
 
-<div id="project">
+<div id="projects">
     <p><fmt:message key="project.name"/>: ${project.name}</p>
     <form id="projectForm" action="<c:url value="/project/${project.id }/update/"/>">
 	    <p>
 	    	<fmt:message key="project.description"/>: <span class="description">${fn:escapeXml(project.description)}</span>
-	    	<textarea class="hidden description" rows="5" cols="50">${fn:escapeXml(project.description) }</textarea>
+	    	<textarea class="hidden description" name="project.description">${fn:escapeXml(project.description) }</textarea>
 	    </p>
     	<input class="hidden description" type="submit" value="<fmt:message key="edit"/>" />
     	<input class="hidden description" type="reset" value="<fmt:message key="cancel"/>" onclick="toggleDescription()"/>

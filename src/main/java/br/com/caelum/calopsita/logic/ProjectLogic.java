@@ -62,6 +62,7 @@ public class ProjectLogic {
     		return "invalid";
     	}
     	loaded.setDescription(project.getDescription());
+    	this.project = loaded;
     	return "ok";
     }
 	public List<User> getUsers() {

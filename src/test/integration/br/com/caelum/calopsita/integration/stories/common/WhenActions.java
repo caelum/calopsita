@@ -241,7 +241,10 @@ public class WhenActions {
 		return this;
 	}
 
-	public void iChangeDescriptionTo(String string) {
-
+	public void iChangeDescriptionTo(String description) {
+		iClickOn("Edit");
+		browser.currentPage().form("projectForm")
+			.field("project.description").type(description)
+			.submit();
 	}
 }
