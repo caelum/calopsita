@@ -15,6 +15,9 @@ function confirmIterationDeletion(url) {
     $.prompt(msg);
 }
 
+function toggleDescription() {
+	$('.description').slideToggle();
+}
 $( function() {
     $("#storyForm").validate( {
         rules : {
