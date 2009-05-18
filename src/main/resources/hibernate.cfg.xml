@@ -10,18 +10,24 @@
 		<property name="hibernate.connection.username">sa</property>
 		<property name="hibernate.connection.password"></property>
 		<property name="hibernate.connection.pool_size">8</property>
-		<!-- em vez de alterar o show sql aqui, nao comite!!! -->
+
 		<property name="dialect">org.hibernate.dialect.HSQLDialect</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
-        <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
-        <property name="current_session_context_class">thread</property>
-        
-        <property name="hibernate.show_sql">false</property>
-        <property name="hibernate.format_sql">true</property>
-    
-        <mapping class="br.com.caelum.calopsita.model.Project"/>
-        <mapping class="br.com.caelum.calopsita.model.Story"/>
-        <mapping class="br.com.caelum.calopsita.model.User"/>
-        <mapping class="br.com.caelum.calopsita.model.Iteration"/>
+		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+		<property name="current_session_context_class">thread</property>
+
+		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.format_sql">true</property>
+
+		<property name="hibernate.c3p0.max_size">5</property>
+		<property name="hibernate.c3p0.min_size">1</property>
+		<property name="hibernate.c3p0.timeout">5000</property>
+		<property name="hibernate.c3p0.idle_test_period">3000</property>
+		<property name="hibernate.c3p0.acquire_increment">1</property>
+
+		<mapping class="br.com.caelum.calopsita.model.Project" />
+		<mapping class="br.com.caelum.calopsita.model.Story" />
+		<mapping class="br.com.caelum.calopsita.model.User" />
+		<mapping class="br.com.caelum.calopsita.model.Iteration" />
 	</session-factory>
 </hibernate-configuration>
