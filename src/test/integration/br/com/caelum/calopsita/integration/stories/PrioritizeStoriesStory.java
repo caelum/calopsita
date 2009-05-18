@@ -18,7 +18,7 @@ public class PrioritizeStoriesStory extends DefaultStory{
 		given.thereIsAnUserNamed("Doni").and()
 			.thereIsAProjectNamed("Mirror").ownedBy("Doni")
 				.withAStoryNamed("Remove all annotations")
-					.whichDescriptionIs("annotations are useless")
+					.whichDescriptionIs("annotations are useless").and()
 				.withAStoryNamed("Remove all generics")
 					.whichDescriptionIs("we want obfuscated code").and()
 			.iAmLoggedInAs("Doni");

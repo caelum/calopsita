@@ -19,13 +19,6 @@ public class IterationContexts extends ProjectContexts<IterationContexts> {
 		this.browser = browser;
 	}
 
-	public IterationContexts insideThisIteration() {
-		story.setIteration(iteration);
-		session.saveOrUpdate(story);
-		session.flush();
-		return this;
-	}
-
 	public IterationContexts startingYesterday() {
         this.iteration.setStartDate(new LocalDate().minusDays(1));
         session.saveOrUpdate(iteration);
@@ -51,9 +44,9 @@ public class IterationContexts extends ProjectContexts<IterationContexts> {
 	}
 
 	@Override
-	public IterationContexts withAStoryNamed(String storyName) {
-		super.withAStoryNamed(storyName);
+	public StoryContexts<IterationContexts> withAStoryNamed(String storyName) {
+		StoryContexts<IterationContexts> story = super.withAStoryNamed(storyName);
 		story.setIteration(iteration);
-		return this;
+		return story;
 	}
 }

@@ -17,7 +17,7 @@ public class DeleteEverythingStory extends DefaultStory {
         .thereIsAProjectNamed("Vraptor 3").ownedBy("kung")
             .withAnIterationWhichGoalIs("make it work")
 	            .withAStoryNamed("support Vraptor 2")
-	                .whichDescriptionIs("some stuff should be backward compatible")
+	                .whichDescriptionIs("some stuff should be backward compatible").and()
             .withAnIterationWhichGoalIs("i18n").and()
         .iAmLoggedInAs("kung");
         when.iOpenProjectPageOf("Vraptor 3").and()
@@ -34,7 +34,7 @@ public class DeleteEverythingStory extends DefaultStory {
         .thereIsAProjectNamed("Vraptor 3").ownedBy("kung")
             .withAnIterationWhichGoalIs("make it work")
 	            .withAStoryNamed("support Vraptor 2")
-	                .whichDescriptionIs("some stuff should be backward compatible")
+	                .whichDescriptionIs("some stuff should be backward compatible").and()
             .withAnIterationWhichGoalIs("i18n").and()
         .iAmLoggedInAs("kung");
         when.iOpenProjectPageOf("Vraptor 3").and()
@@ -46,7 +46,7 @@ public class DeleteEverythingStory extends DefaultStory {
 	public void deleteAStoryAndConfirm() {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
-				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs").and()
+				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
 			.iDeleteTheStory("Support everything").andConfirm("deletion");
@@ -56,7 +56,7 @@ public class DeleteEverythingStory extends DefaultStory {
 	public void deleteAStoryAndDontConfirm() {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
-				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs").and()
+				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
 			.iDeleteTheStory("Support everything").andDontConfirm("deletion");
@@ -66,7 +66,7 @@ public class DeleteEverythingStory extends DefaultStory {
 	public void deleteAStoryAndSubstories() {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
-				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs")
+				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake")
 					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
@@ -78,7 +78,7 @@ public class DeleteEverythingStory extends DefaultStory {
 	public void deleteAStoryButNotSubstories() {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
-				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").ownedBy("fabs")
+				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake")
 					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()

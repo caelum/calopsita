@@ -13,7 +13,6 @@ public class ProjectContexts<T extends ProjectContexts<T>> extends GivenContexts
 
 	private final Session session;
 	private final Project project;
-	protected Story story;
 	private final Browser browser;
 
 	public ProjectContexts(Project project, Session session, Browser browser) {
@@ -52,34 +51,12 @@ public class ProjectContexts<T extends ProjectContexts<T>> extends GivenContexts
 		return new IterationContexts(iteration, session, browser);
 	}
 
-	public T withAStoryNamed(String storyName) {
-		story = new Story();
+	public StoryContexts<T> withAStoryNamed(String storyName) {
+		Story story = new Story();
 		story.setName(storyName);
 		story.setProject(project);
 		session.save(story);
 		session.flush();
-		return (T) this;
+		return new StoryContexts<T>(story, session, browser, (T) this);
 	}
-
-	public T withASubstoryNamed(String storyName) {
-		Story oldstory = story;
-		withAStoryNamed(storyName);
-		story.setParent(oldstory);
-		session.flush();
-		return (T) this;
-	}
-
-	public T whichDescriptionIs(String storyDescription) {
-		story.setDescription(storyDescription);
-		session.flush();
-		return (T) this;
-	}
-
-	public T withPriority(int priority) {
-		story.setPriority(priority);
-		session.saveOrUpdate(story);
-		session.flush();
-		return (T) this;
-	}
-
 }
