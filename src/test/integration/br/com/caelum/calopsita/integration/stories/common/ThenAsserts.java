@@ -73,7 +73,7 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts appearsOnScreen() {
-		assertThat(browser.currentPage().div("project"), divContainsString(name));
+		assertThat(browser.currentPage().div("projects"), divContainsString(name));
 		return this;
 	}
 
