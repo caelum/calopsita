@@ -43,6 +43,11 @@
     <filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
   </filter>
 
+	<context-param>
+		<param-name>br.com.caelum.vraptor.provider</param-name>
+		<param-value>br.com.caelum.vraptor.vraptor2.Provider</param-value>
+	</context-param>
+	
   <filter-mapping>
     <filter-name>vraptor</filter-name>
     <url-pattern>/*</url-pattern>
