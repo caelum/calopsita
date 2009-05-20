@@ -1,33 +1,34 @@
-label { 
-  width: 8em;
-  float: left; 
+label {
+	width: 8em;
+	float: left;
 }
 
 label.error {
-	float: none; 
-	color: red; 
-	padding-left: .5em; 
+	float: none;
+	color: red;
+	padding-left: .5em;
 	vertical-align: top;
 }
 
 input {
-  width: 200px;
+	width: 200px;
 }
 
 input.error {
 	border: 2px solid red;
 }
 
-p { 
-  clear: both;
+p {
+	clear: both;
 }
 
-.submit { 
-  margin-left: 9.5em; 
-  width: 100px;
+.submit {
+	background: transparent url(../images/ok-button.png) no-repeat scroll top right;
+	margin-left: 9.5em;
+	width: 100px;
 }
 
-em { 
-  padding-right: 1em; 
-  vertical-align: top; 
+em {
+	padding-right: 1em;
+	vertical-align: top;
 }
