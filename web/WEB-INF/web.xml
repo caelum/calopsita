@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-  id="WebApp_ID" version="2.5">
-  <display-name>calopsita</display-name>
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>calopsita</display-name>
 
-  <!-- encoding e prelude pros jsps -->
-  <jsp-config>
-    <jsp-property-group>
-      <url-pattern>*.jsp</url-pattern>
-      <page-encoding>UTF-8</page-encoding>
-      <scripting-invalid>true</scripting-invalid>
-      <include-prelude>/WEB-INF/jsp/prelude.jspf</include-prelude>
-    </jsp-property-group>
-  </jsp-config>
+	<!-- encoding e prelude pros jsps -->
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+			<scripting-invalid>true</scripting-invalid>
+			<include-prelude>/WEB-INF/jsp/prelude.jspf</include-prelude>
+		</jsp-property-group>
+	</jsp-config>
 
-  <session-config>
-    <session-timeout>-1</session-timeout>
-  </session-config>
+	<session-config>
+		<session-timeout>-1</session-timeout>
+	</session-config>
 
-  <error-page>
-    <error-code>404</error-code>
-    <location>/WEB-INF/jsp/page-not-found.jsp</location>
-  </error-page>
-  <error-page>
-    <error-code>500</error-code>
-    <location>/WEB-INF/jsp/error-in-server.jsp</location>
-  </error-page>
-
-  <filter>
-    <filter-name>sitemesh</filter-name>
-    <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>sitemesh</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <filter>
-    <filter-name>vraptor</filter-name>
-    <filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
-  </filter>
-
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/page-not-found.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/jsp/error-in-server.jsp</location>
+	</error-page>
 	<context-param>
 		<param-name>br.com.caelum.vraptor.provider</param-name>
 		<param-value>br.com.caelum.vraptor.vraptor2.Provider</param-value>
 	</context-param>
-	
-  <filter-mapping>
-    <filter-name>vraptor</filter-name>
-    <url-pattern>/*</url-pattern>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>REQUEST</dispatcher>
-  </filter-mapping>
+
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>vraptor</filter-name>
+		<filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
+	</filter>
+
+
+	<filter-mapping>
+		<filter-name>vraptor</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
 </web-app>
