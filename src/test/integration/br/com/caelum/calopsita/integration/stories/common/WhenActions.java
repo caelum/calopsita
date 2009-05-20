@@ -145,7 +145,7 @@ public class WhenActions {
 		iClickOn(goal);
 		return this;
 	}
-	
+
 	public WhenActions and() {
 		return this;
 	}
@@ -153,14 +153,14 @@ public class WhenActions {
 	public void iChangeTheUrlToCalopsitasRoot() {
 		browser.open("/calopsita/");
 	}
-	
+
 	public void inThisIteration() {
 		browser.currentPage().dragAndDrop(storyName, "todo_stories");
 		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
 	}
 
 	public WhenActions iRemoveTheStory(String name) {
-		this.storyName = name; 
+		this.storyName = name;
 		return this;
 	}
 
@@ -239,5 +239,12 @@ public class WhenActions {
 	public WhenActions withGoal(String goal) {
 		this.iterationGoal = goal;
 		return this;
+	}
+
+	public void iChangeDescriptionTo(String description) {
+		iClickOn("Edit");
+		browser.currentPage().form("projectForm")
+			.field("project.description").type(description)
+			.submit();
 	}
 }

@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.logic;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -48,62 +49,92 @@ public class ProjectTest {
     @Test
     public void saveAProject() throws Exception {
     	Project project = givenAProject();
-    	
+
     	shouldSaveTheProjectOnTheRepository(project);
-    	
+
     	whenISaveTheProject(project);
-    	
+
     	assertThat(project.getOwner(), is(currentUser));
     }
     @Test
     public void addingColaboratorsToAProject() throws Exception {
     	Project project = givenAProject();
-    	
+
     	User user = givenAUser();
-    	
+
     	shouldReloadAndUpdateTheProject(project);
-    	
+
     	whenIAddTheUserToTheProject(user, project);
-    	
+
     	thenTheProjectWillContainTheUserAsColaborator(project, user);
     }
 
     @Test
 	public void removingAProjectOwnedByMe() throws Exception {
 		Project project = givenAProject();
-		
+
 		Project loaded = givenProjectIsOwnedBy(project, currentUser);
-		
+
 		shouldRemoveFromRepository(loaded);
-		
+
 		String result = whenIRemoveTheProject(project);
-		
+
 		assertThat(result, is("ok"));
 	}
     @Test
     public void removingAProjectOwnedByOthers() throws Exception {
     	Project project = givenAProject();
-    	
+
     	Project loaded = givenProjectIsOwnedBy(project, givenAUser());
-    	
+
     	shouldNotRemoveFromRepository(loaded);
-    	
+
     	String result = whenIRemoveTheProject(project);
-    	
+
     	assertThat(result, is("invalid"));
     }
-    
+
+    @Test
+    public void editingAProjectOwnedByMe() throws Exception {
+    	Project project = givenAProject();
+    	project.setDescription("New description");
+
+    	Project loaded = givenProjectIsOwnedBy(project, currentUser);
+
+    	String result = whenIEditTheProject(project);
+
+    	assertThat(result, is("ok"));
+    	assertThat(loaded.getDescription(), is("New description"));
+    }
+
+	@Test
+    public void editingAProjectOwnedByOthers() throws Exception {
+    	Project project = givenAProject();
+    	project.setDescription("Anything");
+    	Project loaded = givenProjectIsOwnedBy(project, givenAUser());
+
+    	String result = whenIEditTheProject(project);
+
+    	assertThat(result, is("invalid"));
+
+    	assertThat(loaded.getDescription(), is(not("Anything")));
+    }
+
+	private String whenIEditTheProject(Project project) {
+		return logic.update(project);
+	}
+
 	private void shouldNotRemoveFromRepository(final Project project) {
 		mockery.checking(new Expectations() {
 			{
 				never(repository).remove(project);
 			}
 		});
-		
+
 	}
 
 	private Project givenProjectIsOwnedBy(final Project project, final User user) {
-		
+
 		final Project result = new Project();
 		result.setOwner(user);
 		mockery.checking(new Expectations() {
@@ -116,7 +147,7 @@ public class ProjectTest {
 	}
 
 	private void shouldRemoveFromRepository(final Project project) {
-		
+
 		mockery.checking(new Expectations() {
 			{
 				one(repository).remove(project);
@@ -129,7 +160,7 @@ public class ProjectTest {
 	}
 
 	private void shouldReloadAndUpdateTheProject(final Project project) {
-		
+
 		mockery.checking(new Expectations() {
 			{
 				one(repository).get(project.getId());

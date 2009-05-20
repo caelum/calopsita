@@ -55,22 +55,32 @@ public class ProjectLogic {
     	this.repository.remove(loaded);
     	return "ok";
     }
+
+    public String update(Project project) {
+    	Project loaded = this.repository.load(project);
+    	if (!currentUser.equals(loaded.getOwner())) {
+    		return "invalid";
+    	}
+    	loaded.setDescription(project.getDescription());
+    	this.project = loaded;
+    	return "ok";
+    }
 	public List<User> getUsers() {
 		return users;
 	}
-    
+
     public List<Story> getStories() {
     	return stories;
     }
-    
+
     public Project getProject() {
 		return project;
 	}
-    
+
     public List<Project> getProjects() {
         return projects;
     }
-    
+
     public void list() {
         this.projects = repository.listAllFrom(currentUser);
     }

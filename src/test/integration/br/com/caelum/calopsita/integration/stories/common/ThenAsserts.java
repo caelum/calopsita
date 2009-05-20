@@ -54,7 +54,7 @@ public class ThenAsserts {
         assertThat(this.browser.currentPage().div(divName), divContainsString(name));
         return this;
     }
-    
+
     public void appearsOnTodoList() {
     	this.divName = "todo_stories";
     	appearsOnList();
@@ -73,10 +73,10 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts appearsOnScreen() {
-		assertThat(browser.currentPage().div("project"), divContainsString(name));
+		assertThat(browser.currentPage().div("projects"), divContainsString(name));
 		return this;
 	}
-	
+
 
 	@Factory
 	public static Matcher<ContentTag> divContainsString(final String string) {
@@ -103,8 +103,8 @@ public class ThenAsserts {
 		return this;
 	}
 
-	public void hasDescription(String storyDescription) {
-		assertThat(browser.currentPage().div("stories"), divContainsString(storyDescription));
+	public void hasDescription(String description) {
+		assertThat(browser.currentPage().div(divName), divContainsString(description));
 	}
 
 	public ThenAsserts theIteration(String iterationGoal) {
@@ -116,12 +116,12 @@ public class ThenAsserts {
 	public void iMustBeInMyMainPage() {
 		assertThat(browser.currentPage().title(), containsString("Project"));
 	}
-	
+
 	public ThenAsserts appearsOnStoriesListAtPosition(int i) {
 		assertThat(browser.currentPage().div("stories_"+i), divContainsString(name));
 		return this;
 	}
-	
+
 	public ThenAsserts appearsOnOtherStoriesListAtPosition(int i) {
 		assertThat(browser.currentPage().div("backlog_"+i), divContainsString(name));
 		return this;
@@ -175,6 +175,6 @@ public class ThenAsserts {
 
 	public void endsAt(String date) {
 		assertThat(this.browser.currentPage().div("iteration_text"), divContainsString("End Date: " + date));
-		
+
 	}
 }

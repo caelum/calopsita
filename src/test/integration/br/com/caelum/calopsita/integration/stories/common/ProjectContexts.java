@@ -59,4 +59,10 @@ public class ProjectContexts<T extends ProjectContexts<T>> extends GivenContexts
 		session.flush();
 		return new StoryContexts<T>(story, session, browser, (T) this);
 	}
+
+	public T whichDescriptionIs(String description) {
+		project.setDescription(description);
+		session.flush();
+		return (T) this;
+	}
 }
