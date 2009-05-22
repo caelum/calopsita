@@ -1,8 +1,10 @@
 package br.com.caelum.calopsita.persistence.dao;
 
 import org.hibernate.Session;
+import org.joda.time.LocalDate;
 
 import br.com.caelum.calopsita.model.Iteration;
+import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.IterationRepository;
 
 public class IterationDao implements IterationRepository{
@@ -31,5 +33,12 @@ public class IterationDao implements IterationRepository{
     @Override
     public Iteration load(Iteration iteration) {
     	return (Iteration) session.load(Iteration.class, iteration.getId());
+    }
+
+    @Override
+    public Iteration getCurrentIterationFromProject(Project project) {
+        return (Iteration) this.session.createQuery("from Iteration i where i.project = :project and " +
+        ":today >= i.startDate and (:today <= i.endDate or :today = null)")
+        .setParameter("project", project).setParameter("today", new LocalDate()).uniqueResult();
     }
 }

@@ -12,10 +12,14 @@
 	<decorator name="calopsita" page="calopsita.jsp">
 		<pattern>/home/*</pattern>
 		<pattern>/iteration/*</pattern>
-		<pattern>/project/*</pattern>
 		<pattern>/story/*</pattern>
 		<pattern>/user/*</pattern>
 		<pattern>/</pattern>
 	</decorator>
+  
+    <decorator name="project" page="project.jsp">
+      <pattern>/project/*</pattern>
+      <pattern>/iterations/*</pattern>
+    </decorator>
 	
 </decorators>

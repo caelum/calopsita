@@ -83,7 +83,7 @@ public class WhenActions {
 	public WhenActions iDirectlyOpenProjectPageOf(String projectName) {
 		Long id = (Long) session.createQuery("select id from Project p where p.name = :name")
 			.setParameter("name", projectName).setMaxResults(1).uniqueResult();
-		browser.open("/calopsita/project/" + id + "/show/");
+		browser.open("/calopsita/project/" + id + "/admin/");
 		return this;
 	}
 
@@ -247,4 +247,9 @@ public class WhenActions {
 			.field("project.description").type(description)
 			.submit();
 	}
+
+    public WhenActions iOpenAdminPage() {
+        iClickOn("Admin");
+        return this;
+    }
 }

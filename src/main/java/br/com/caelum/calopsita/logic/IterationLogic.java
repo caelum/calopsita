@@ -14,6 +14,7 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.IterationRepository;
+import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.StoryRepository;
 
 @Component
@@ -26,11 +27,14 @@ public class IterationLogic {
 	private final StoryRepository storyRepository;
 	private List<Story> otherStories;
     private final User currentUser;
+    private final ProjectRepository projectRepository;
+    private List<Iteration> iterations;
 
-    public IterationLogic(User user, IterationRepository repository, StoryRepository storyRepository) {
+    public IterationLogic(User user, IterationRepository repository, StoryRepository storyRepository, ProjectRepository projectRepository) {
         this.currentUser = user;
         this.repository = repository;
 		this.storyRepository = storyRepository;
+        this.projectRepository = projectRepository;
     }
 
     public void save(Iteration iteration) {
@@ -50,6 +54,14 @@ public class IterationLogic {
     	this.iteration = repository.load(iteration);
     	this.project = this.iteration.getProject();
     	otherStories = storyRepository.storiesWithoutIteration(project);
+    }
+    
+    public void current(Project project) {
+        this.iteration = this.repository.getCurrentIterationFromProject(project);
+    }
+    
+    public void list(Project project) {
+        this.project = this.projectRepository.get(project.getId());
     }
     
     public void updateStories(Iteration iteration, List<Story> stories) {

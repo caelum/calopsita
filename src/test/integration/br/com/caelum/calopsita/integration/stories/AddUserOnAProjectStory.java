@@ -18,27 +18,30 @@ public class AddUserOnAProjectStory extends DefaultStory {
 		given.thereIsAnUserNamed("lucas").and()
 		     .thereIsAProjectNamed("C4lopsita").ownedBy("lucas").and()
 		     .iAmLoggedInAs("lucas");
-		when.iOpenProjectPageOf("C4lopsita");
+		when.iOpenProjectPageOf("C4lopsita").and()
+		    .iOpenAdminPage();
 		then.project("C4lopsita").appearsOnScreen().and()
 		    .thisUserAppearsOnColaboratorsList("lucas");
 	}
 	@Test
 	public void showColaborators() throws Exception {
-		given.thereIsAnUserNamed("ceci");
-		given.thereIsAnUserNamed("caue");
-		given.thereIsAProjectNamed("C4lopsita").ownedBy("caue").withColaborator("ceci");
-		given.iAmLoggedInAs("caue");
-		when.iOpenProjectPageOf("C4lopsita");
+		given.thereIsAnUserNamed("ceci").and()
+		     .thereIsAnUserNamed("caue").and()
+		     .thereIsAProjectNamed("C4lopsita").ownedBy("caue").withColaborator("ceci").and()
+		     .iAmLoggedInAs("caue");
+		when.iOpenProjectPageOf("C4lopsita").and()
+            .iOpenAdminPage();
 		then.thisUserAppearsOnColaboratorsList("ceci");
 	}
 	@Test
 	public void addingColaborators() throws Exception {
-		given.thereIsAnUserNamed("ceci");
-		given.thereIsAnUserNamed("caue");
-		given.thereIsAProjectNamed("C4lopsita").ownedBy("caue");
-		given.iAmLoggedInAs("caue");
-		when.iOpenProjectPageOf("C4lopsita");
-		when.iAdd("ceci").asColaborator();
+		given.thereIsAnUserNamed("ceci").and()
+		     .thereIsAnUserNamed("caue").and()
+		     .thereIsAProjectNamed("C4lopsita").ownedBy("caue").and()
+		     .iAmLoggedInAs("caue");
+		when.iOpenProjectPageOf("C4lopsita").and()
+		    .iOpenAdminPage().and()
+		    .iAdd("ceci").asColaborator();
 		then.thisUserAppearsOnColaboratorsList("ceci");
 	}
 	@Test
@@ -52,20 +55,20 @@ public class AddUserOnAProjectStory extends DefaultStory {
 	}
 	@Test
 	public void authorizationAsColaborator() throws Exception {
-		given.thereIsAnUserNamed("ceci");
-		given.thereIsAnUserNamed("caue");
-		given.thereIsAProjectNamed("C4lopsita").ownedBy("caue").withColaborator("ceci");
-		given.iAmLoggedInAs("ceci");
+		given.thereIsAnUserNamed("ceci").and()
+		     .thereIsAnUserNamed("caue").and()
+		     .thereIsAProjectNamed("C4lopsita").ownedBy("caue").withColaborator("ceci").and()
+		     .iAmLoggedInAs("ceci");
 		when.iDirectlyOpenProjectPageOf("C4lopsita");
 		then.project("C4lopsita").appearsOnScreen();
 	}
 	
 	@Test
 	public void listingProjectsAsColaborator() throws Exception {
-		given.thereIsAnUserNamed("ceci");
-		given.thereIsAnUserNamed("caue");
-		given.thereIsAProjectNamed("C4lopsita").ownedBy("caue").withColaborator("ceci");
-		given.iAmLoggedInAs("ceci");
+		given.thereIsAnUserNamed("ceci").and()
+		     .thereIsAnUserNamed("caue").and()
+		     .thereIsAProjectNamed("C4lopsita").ownedBy("caue").withColaborator("ceci").and()
+		     .iAmLoggedInAs("ceci");
 		when.iListProjects();
 		then.project("C4lopsita").appearsOnList();
 	}

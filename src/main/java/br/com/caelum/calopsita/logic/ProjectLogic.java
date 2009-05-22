@@ -35,16 +35,20 @@ public class ProjectLogic {
     public void form() {
 
     }
+    
+    public void admin(Project project) {
+        this.project = this.repository.get(project.getId());
+        this.users = this.userRepository.listUnrelatedUsers(this.project);
+    }
 
+    public void cards(Project project) {
+        this.project = this.repository.get(project.getId());
+        this.stories = this.repository.listStoriesFrom(project);
+    }
+    
     public void save(Project project) {
         project.setOwner(currentUser);
         this.repository.add(project);
-    }
-
-    public void show(Project project) {
-    	this.project = this.repository.get(project.getId());
-    	this.users = this.userRepository.listUnrelatedUsers(this.project);
-    	this.stories = this.repository.listStoriesFrom(project);
     }
 
     public String delete(Project project) {
