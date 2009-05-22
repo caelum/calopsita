@@ -11,6 +11,7 @@
 	
 	<decorator name="calopsita" page="calopsita.jsp">
 		<pattern>/home/*</pattern>
+		<pattern>/iteration/*</pattern>
 		<pattern>/card/*</pattern>
 		<pattern>/user/*</pattern>
         <pattern>/project/list</pattern>
@@ -20,7 +21,6 @@
   
     <decorator name="project" page="project.jsp">
       <pattern>/project/*</pattern>
-	  <pattern>/iteration/*</pattern>
       <pattern>/iterations/*</pattern>
     </decorator>
 	
