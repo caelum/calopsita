@@ -23,6 +23,7 @@ public class MarkAsDoneStory extends DefaultStory {
 						.whichDescriptionIs("some stuff should be backward compatible").and()
 			.iAmLoggedInAs("kung");
 		when.iOpenProjectPageOf("Vraptor 3").and()
+		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("make it work").and()
 			.iFlagTheStory("support Vraptor 2").asDone();
 		then.theStory("support Vraptor 2").appearsAsDone();

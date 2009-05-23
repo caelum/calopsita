@@ -252,4 +252,9 @@ public class WhenActions {
         iClickOn("Admin");
         return this;
     }
+
+    public WhenActions iOpenIterationsPage() {
+        iClickOn("Iterations");
+        return this;
+    }
 }

@@ -15,17 +15,17 @@
 
 <div id="tab1">
   <ul id="tabnav">
-    <li class="tab1"><a href="<c:url value="/iterations/${iteration.project.id }/current/"/>">Current iteration</a></li>
-    <li class="tab2"><a href="<c:url value="/iterations/${iteration.project.id }/list/"/>">Iterations</a></li>
-    <li class="tab3"><a href="<c:url value="/project/${iteration.project.id }/cards/"/>">Cards</a></li>
-    <li class="tab4"><a href="<c:url value="/project/${iteration.project.id }/admin/"/>">Admin</a></li>
+    <li class="tab1"><a href="<c:url value="/iterations/${project.id }/current/"/>">Current iteration</a></li>
+    <li class="tab2"><a href="<c:url value="/iterations/${project.id }/list/"/>">Iterations</a></li>
+    <li class="tab3"><a href="<c:url value="/project/${project.id }/cards/"/>">Cards</a></li>
+    <li class="tab4"><a href="<c:url value="/project/${project.id }/admin/"/>">Admin</a></li>
   </ul>
   
-  <c:if test="${not empty iteration}">
     <div id="projects">
-        <p><fmt:message key="project.name"/>: ${iteration.project.name}</p>
+        <p><fmt:message key="project.name"/>: ${project.name}</p>
     </div>
   
+  <c:if test="${not empty iteration}">
     <div id="iteration_text">
       <p><fmt:message key="iteration.current"/></p>
     

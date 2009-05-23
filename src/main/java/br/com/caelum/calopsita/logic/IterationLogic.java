@@ -57,6 +57,7 @@ public class IterationLogic {
     }
     
     public void current(Project project) {
+        this.project = this.projectRepository.get(project.getId());
         this.iteration = this.repository.getCurrentIterationFromProject(project);
     }
     
