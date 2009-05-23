@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
@@ -58,11 +57,4 @@ public class ProjectDao implements ProjectRepository {
 		return this.session.createQuery("from Story s where s.project = :project order by priority")
 			.setParameter("project", project).list();
 	}
-
-	@Override
-    public List<Iteration> listIterationsFrom(Project project) {
-        return this.session.createQuery("from Iteration i where i.project = :project")
-        .setParameter("project", project).list();
-    }
-
 }

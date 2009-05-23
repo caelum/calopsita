@@ -63,6 +63,7 @@ public class IterationLogic {
     
     public void list(Project project) {
         this.project = this.projectRepository.get(project.getId());
+        this.iterations = this.repository.listIterationsFrom(project);
     }
     
     public void updateStories(Iteration iteration, List<Story> stories) {
