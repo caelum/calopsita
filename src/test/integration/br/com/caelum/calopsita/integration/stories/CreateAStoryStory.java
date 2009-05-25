@@ -19,6 +19,7 @@ public class CreateAStoryStory extends DefaultStory {
 			.iAmLoggedInAs("David");
 		
 		when.iOpenProjectPageOf("Papyrus").and()
+		    .iOpenStoriesPage().and()
 			.iAddTheStory("Incidents").withDescription("create and update an incident");
 		
 		then.theStory("Incidents").appearsOnList();
@@ -26,15 +27,16 @@ public class CreateAStoryStory extends DefaultStory {
 	
 	@Test
 	public void storyUpdate() throws Exception {
-		given.thereIsAnUserNamed("Sonson");
-		given.thereIsAProjectNamed("OpenMeetings")
-			 .ownedBy("Sonson")
-			 .withAStoryNamed("Cinderella")
-			 .whichDescriptionIs("She loses her shoe.");
-		given.iAmLoggedInAs("Sonson");
+		given.thereIsAnUserNamed("Sonson").and()
+		     .thereIsAProjectNamed("OpenMeetings")
+			     .ownedBy("Sonson")
+			     .withAStoryNamed("Cinderella")
+			     .whichDescriptionIs("She loses her shoe.").and()
+			 .iAmLoggedInAs("Sonson");
 		
-		when.iOpenProjectPageOf("OpenMeetings");
-		when.iEditTheStory("Cinderella").changingDescriptionTo("Her sisters go blind.");
+		when.iOpenProjectPageOf("OpenMeetings").and()
+		    .iOpenStoriesPage().and()
+		    .iEditTheStory("Cinderella").changingDescriptionTo("Her sisters go blind.");
 		
 		then.theStory("Cinderella").hasDescription("Her sisters go blind.");
 	}

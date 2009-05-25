@@ -8,6 +8,7 @@
 /add/colaborator/							=> 	project.addColaborator
 /project/:{project.id}/:{logic}/			=>  project.#{logic}
 /iteration/:{iteration.id}/:{logic}/		=>  iteration.#{logic}
+/story/:{story.id}/edit/					=>  story.edit
 /story/:{project.id}/:{logic}/				=>  story.#{logic}
 /:{component}/:{logic}/						=> #{component}.#{logic}
 #/user/:{logic}/							=>  user.#{logic}
