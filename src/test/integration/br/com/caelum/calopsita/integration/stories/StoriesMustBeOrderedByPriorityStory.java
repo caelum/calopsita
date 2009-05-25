@@ -24,7 +24,8 @@ public class StoriesMustBeOrderedByPriorityStory extends DefaultStory {
 					.whichDescriptionIs("step 2 duh")
 					.withPriority(1).and()
 			.iAmLoggedInAs("caue");
-		when.iOpenProjectPageOf("htmlunit");
+		when.iOpenProjectPageOf("htmlunit").and()
+		    .iOpenStoriesPage();
 		then.theStory("step1")
 				.appearsOnStoriesListAtPosition(2)
 			.theStory("step2")
@@ -51,6 +52,7 @@ public class StoriesMustBeOrderedByPriorityStory extends DefaultStory {
 					.withPriority(2).and()
 			.iAmLoggedInAs("caue");
 		when.iOpenProjectPageOf("htmlunit").and()
+		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("make it works");
 		then.theStory("step1").appearsOnStoriesListAtPosition(2)
 			.theStory("step2").appearsOnStoriesListAtPosition(1)

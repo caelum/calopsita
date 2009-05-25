@@ -6,10 +6,10 @@
 /project/:{project.id}/prioritization/		=>  story.prioritization
 /iterations/:{project.id}/:{logic}/			=>  iteration.#{logic}
 /add/colaborator/							=> 	project.addColaborator
-/:{component}/:{logic}/						=> #{component}.#{logic}
 /project/:{project.id}/:{logic}/			=>  project.#{logic}
 /iteration/:{iteration.id}/:{logic}/		=>  iteration.#{logic}
 /story/:{project.id}/:{logic}/				=>  story.#{logic}
+/:{component}/:{logic}/						=> #{component}.#{logic}
 #/user/:{logic}/							=>  user.#{logic}
 
 # Direto pro JSP

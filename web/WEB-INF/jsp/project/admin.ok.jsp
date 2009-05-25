@@ -36,6 +36,19 @@
   		</c:forEach>
   	</ul>
   </div>
+  
+  <a href="javascript:toggle('colaborator')"><fmt:message key="project.addColaborator"/></a><br/>
+  <form id="colaborator" class="hidden" name="addColaborator"
+    action="<c:url value="/add/colaborator/"/>" method="post">
+    <input type="hidden" name="project.id" value="${project.id }" />
+    <select name="colaborator.login">
+      <c:forEach items="${users}" var="user">
+        <option value="${user.login}">${user.name}</option>
+      </c:forEach>    
+    </select>
+    <input type="submit" value="<fmt:message key="add"/>"/>
+    <input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('colaborator');"/>
+  </form>
 </div>
 </body>
 </html>

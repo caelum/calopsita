@@ -63,7 +63,11 @@ public class IterationLogic {
     
     public void list(Project project) {
         this.project = this.projectRepository.get(project.getId());
-        this.iterations = this.repository.listIterationsFrom(project);
+        this.iterations = this.projectRepository.listIterationsFrom(project);
+    }
+    
+    public List<Iteration> getIterations() {
+        return iterations;
     }
     
     public void updateStories(Iteration iteration, List<Story> stories) {
@@ -74,7 +78,6 @@ public class IterationLogic {
 			storyRepository.update(loaded);
 		}
     	this.iteration = iteration;
-    	
     }
 
     public void removeStories(Iteration iteration, List<Story> stories) {

@@ -257,4 +257,9 @@ public class WhenActions {
         iClickOn("Iterations");
         return this;
     }
+
+    public WhenActions iOpenStoriesPage() {
+        iClickOn("Cards");
+        return this;
+    }
 }
