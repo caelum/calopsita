@@ -22,6 +22,7 @@ public class StoriesInStoriesStory extends DefaultStory {
 					.whichDescriptionIs("I want my arm full of tatoos").and()
 			.iAmLoggedInAs("lipe");
 		when.iOpenProjectPageOf("tattoos").and()
+		    .iOpenStoriesPage()
 			.iOpenThePageOfStoryNamed("left arm tatoo").and()
 			.iAddTheSubstory("draw some notes").withDescription("tatoo some musical notes, and cleffs");
 		then.theStory("draw some notes").appearsOnList();

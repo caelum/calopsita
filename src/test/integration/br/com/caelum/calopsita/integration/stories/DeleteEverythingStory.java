@@ -21,6 +21,7 @@ public class DeleteEverythingStory extends DefaultStory {
             .withAnIterationWhichGoalIs("i18n").and()
         .iAmLoggedInAs("kung");
         when.iOpenProjectPageOf("Vraptor 3").and()
+            .iOpenIterationsPage().and()
             .iDeleteTheIterationWithGoal("make it work").andConfirm("deletion");
         then.theIteration("make it work").notAppearsOnList();
         when.iOpenThePageOfIterationWithGoal("i18n");
@@ -38,6 +39,7 @@ public class DeleteEverythingStory extends DefaultStory {
             .withAnIterationWhichGoalIs("i18n").and()
         .iAmLoggedInAs("kung");
         when.iOpenProjectPageOf("Vraptor 3").and()
+            .iOpenIterationsPage().and()
             .iDeleteTheIterationWithGoal("make it work").andDontConfirm("deletion");
         then.theIteration("make it work").appearsOnList();
     }
@@ -49,6 +51,7 @@ public class DeleteEverythingStory extends DefaultStory {
 				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
+		    .iOpenStoriesPage().and()
 			.iDeleteTheStory("Support everything").andConfirm("deletion");
 		then.theStory("Support everything").shouldNotAppearOnStoryList();
 	}
@@ -59,6 +62,7 @@ public class DeleteEverythingStory extends DefaultStory {
 				.withAStoryNamed("Support everything").whichDescriptionIs("That is a mistake").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
+		    .iOpenStoriesPage().and()
 			.iDeleteTheStory("Support everything").andDontConfirm("deletion");
 		then.theStory("Support everything").appearsOnList();
 	}
@@ -70,6 +74,7 @@ public class DeleteEverythingStory extends DefaultStory {
 					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
+		    .iOpenStoriesPage().and()
 			.iDeleteTheStory("Support everything").andConfirm("deletion").andConfirm("substories");
 		then.theStory("Support everything").shouldNotAppearOnStoryList().and()
 			.theStory("support continuations").shouldNotAppearOnStoryList();
@@ -82,6 +87,7 @@ public class DeleteEverythingStory extends DefaultStory {
 					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
+		    .iOpenStoriesPage().and()
 			.iDeleteTheStory("Support everything").andConfirm("deletion").andDontConfirm("substories");
 		then.theStory("Support everything").shouldNotAppearOnStoryList().and()
 			.theStory("support continuations").appearsOnList();

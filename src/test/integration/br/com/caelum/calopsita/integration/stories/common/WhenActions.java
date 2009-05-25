@@ -134,11 +134,12 @@ public class WhenActions {
         return this;
     }
 
-    public void withEndDate(String date) {
+    public WhenActions withEndDate(String date) {
         browser.currentPage()
 	        .form("addIteration")
 	            .field("iteration.endDate").type(date)
 	            .submit();
+        return this;
     }
 
 	public WhenActions iOpenThePageOfIterationWithGoal(String goal) {

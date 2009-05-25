@@ -1,7 +1,5 @@
 package br.com.caelum.calopsita.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,29 +75,7 @@ public class Iteration implements Identifiable {
     	}
     	return endDate.toString("MM/dd/yyyy");
     }
-    
-    
 
-    public void setStartDate(String date) {
-    	if (date != null && !date.isEmpty()) {
-	    	SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-	    	try {
-				this.startDate = new LocalDate(format.parse(date));
-			} catch (ParseException e) {
-				throw new IllegalArgumentException("invalid date", e);
-			}
-    	}
-    }
-    public void setEndDate(String date) {
-    	if (date != null && !date.isEmpty()) {
-	    	SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-	    	try {
-	    		this.endDate = new LocalDate(format.parse(date));
-	    	} catch (ParseException e) {
-	    		throw new IllegalArgumentException("invalid date", e);
-	    	}
-    	}
-    }
     public void setStartDate(LocalDate startDate) {
     	this.startDate = startDate;
     }

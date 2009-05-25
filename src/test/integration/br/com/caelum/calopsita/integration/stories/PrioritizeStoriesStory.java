@@ -23,6 +23,7 @@ public class PrioritizeStoriesStory extends DefaultStory{
 					.whichDescriptionIs("we want obfuscated code").and()
 			.iAmLoggedInAs("Doni");
 		when.iOpenProjectPageOf("Mirror").and()
+		    .iOpenStoriesPage().and()
 			.iOpenPriorizationPage().and()
 			.iLowerPriorityOf("Remove all annotations").and()
 			.iSaveThePriorization();

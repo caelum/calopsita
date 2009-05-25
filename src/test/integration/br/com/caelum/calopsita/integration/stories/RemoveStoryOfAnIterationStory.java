@@ -23,6 +23,7 @@ public class RemoveStoryOfAnIterationStory extends DefaultStory {
 						.whichDescriptionIs("This way we'll kill'em all").and()
 			.iAmLoggedInAs("harry");
 		when.iOpenProjectPageOf("vim4dummies").and()
+		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("kill all emacsians").and()
 			.iRemoveTheStory("buy a weapon of mass destruction").ofThisIteration();
 		then.theStory("buy a weapon of mass destruction").appearsOnBacklog();

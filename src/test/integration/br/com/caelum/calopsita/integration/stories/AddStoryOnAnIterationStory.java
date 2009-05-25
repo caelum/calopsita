@@ -22,6 +22,7 @@ public class AddStoryOnAnIterationStory extends DefaultStory {
 				.withAStoryNamed("support IE8").whichDescriptionIs("IE8 must be supported").and()
 			.iAmLoggedInAs("sergio");
 		when.iOpenProjectPageOf("IEs4Linux").and()
+		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("new release").and()
 			.iAddTheStory("support IE8").inThisIteration();
 		then.theStory("support IE8").appearsOnTodoList();
@@ -41,10 +42,12 @@ public class AddStoryOnAnIterationStory extends DefaultStory {
 				.withAStoryNamed("I am promiscuous").whichDescriptionIs("You know what it means").and()
 			.iAmLoggedInAs("sergio");
 		when.iOpenProjectPageOf("IEs4Linux").and()
+		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("new release");
 		then.theStory("support IE8").appearsOnBacklog().and()
 			.theStory("I am promiscuous").notAppearsOnBacklog();
 		when.iOpenProjectPageOf("Tatanka").and()
+		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("get promiscuous");
 		then.theStory("support IE8").notAppearsOnBacklog().and()
 			.theStory("I am promiscuous").appearsOnBacklog();
