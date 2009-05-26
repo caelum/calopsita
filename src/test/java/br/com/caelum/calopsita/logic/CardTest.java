@@ -25,7 +25,7 @@ public class CardTest {
     private CardLogic logic;
 	private CardRepository repository;
 	private User currentUser;
-	private Card currentStory;
+	private Card currentCard;
 	private ProjectRepository projectRepository;
     private Project project;
 
@@ -48,124 +48,124 @@ public class CardTest {
     }
 
     @Test
-	public void savingAStory() throws Exception {
+	public void savingACard() throws Exception {
     	Project project = givenAProject();
-		Card story = givenAStory();
+		Card card = givenACard();
 
-		shouldSaveOnTheRepositoryTheStory(story);
+		shouldSaveOnTheRepositoryTheCard(card);
 
-		whenISaveTheStory(story, onThe(project));
+		whenISaveTheCard(card, onThe(project));
 
-		assertThat(story.getProject(), is(project));
+		assertThat(card.getProject(), is(project));
 	}
 
     @Test
-	public void editingAStorysDescription() throws Exception {
-    	Card story = givenAStory();
-    	givenTheStory(story).withName("Huck Finn")
+	public void editingACardsDescription() throws Exception {
+    	Card card = givenACard();
+    	givenTheCard(card).withName("Huck Finn")
     						.withDescription("He is Tom Sawyer's best mate.");
 
-    	Card loadedStory = shouldLoadTheStory(story);
-    	shouldUpdateOnTheRepositoryTheStory(loadedStory);
+    	Card loadedCard = shouldLoadTheCard(card);
+    	shouldUpdateOnTheRepositoryTheCard(loadedCard);
 
-    	whenIEditTheStory(story, changingNameTo("Huckleberry Finn"), changingDescriptionTo("He has a drunk father."));
+    	whenIEditTheCard(card, changingNameTo("Huckleberry Finn"), changingDescriptionTo("He has a drunk father."));
 
-		assertThat(loadedStory.getName(), is("Huckleberry Finn"));
-		assertThat(loadedStory.getDescription(), is("He has a drunk father."));
+		assertThat(loadedCard.getName(), is("Huckleberry Finn"));
+		assertThat(loadedCard.getDescription(), is("He has a drunk father."));
 	}
 
     @Test
-	public void groupingStoriesByPriority() throws Exception {
-		Card story1 = givenAStory(withPriority(1));
-		Card story2 = givenAStory(withPriority(1));
-		Card story3 = givenAStory(withPriority(2));
-		Card story4 = givenAStory(withPriority(3));
-		Card story5 = givenAStory(withPriority(3));
+	public void groupingCardsByPriority() throws Exception {
+		Card card1 = givenACard(withPriority(1));
+		Card card2 = givenACard(withPriority(1));
+		Card card3 = givenACard(withPriority(2));
+		Card card4 = givenACard(withPriority(3));
+		Card card5 = givenACard(withPriority(3));
 
-		shouldReturnTheStories(story1, story2, story3, story4, story5);
+		shouldReturnTheCards(card1, card2, card3, card4, card5);
 		whenIStartPrioritization();
 
 		List<List<Card>> list = logic.getGroupedCards();
 
 		assertThat(list.size(), is(4));
-		assertThat(list.get(1), hasItem(story1));
-		assertThat(list.get(1), hasItem(story2));
-		assertThat(list.get(2), hasItem(story3));
-		assertThat(list.get(3), hasItem(story4));
-		assertThat(list.get(3), hasItem(story4));
+		assertThat(list.get(1), hasItem(card1));
+		assertThat(list.get(1), hasItem(card2));
+		assertThat(list.get(2), hasItem(card3));
+		assertThat(list.get(3), hasItem(card4));
+		assertThat(list.get(3), hasItem(card4));
 
 	}
 
     @Test
-	public void removeAStoryFromMyProject() throws Exception {
-		Card story = givenAStory();
+	public void removeACardFromMyProject() throws Exception {
+		Card card = givenACard();
 		givenTheProjectIsOwnedBy(currentUser);
 
-		Card returned = givenTheStoryIsInThisProject(story);
+		Card returned = givenTheCardIsInThisProject(card);
 
-		shouldRemoveTheStoryFromRepository(returned);
+		shouldRemoveTheCardFromRepository(returned);
 
-		String status = whenIRemove(story);
+		String status = whenIRemove(card);
 		assertThat(status, is("ok"));
 	}
 
     @Test
-    public void removeAStoryFromOtherProjectThanMine() throws Exception {
-        Card story = givenAStory();
+    public void removeACardFromOtherProjectThanMine() throws Exception {
+        Card card = givenACard();
         givenTheProjectIsOwnedBy(anyUser());
 
-        Card returned = givenTheStoryIsInThisProject(story);
+        Card returned = givenTheCardIsInThisProject(card);
 
-    	shouldNotRemoveTheStoryFromRepository(returned);
+    	shouldNotRemoveTheCardFromRepository(returned);
 
-    	String status = whenIRemove(story);
+    	String status = whenIRemove(card);
     	assertThat(status, is("invalid"));
     }
     @Test
-    public void removeAStoryAndSubstories() throws Exception {
-    	Card story = givenAStory();
+    public void removeACardAndSubcards() throws Exception {
+    	Card card = givenACard();
     	givenTheProjectIsOwnedBy(currentUser);
 
-    	Card substory = givenAStory();
-    	substory.setParent(story);
+    	Card subcard = givenACard();
+    	subcard.setParent(card);
 
-    	Card returned = givenTheStoryIsInThisProject(story);
-    	returned.getSubcards().add(substory);
+    	Card returned = givenTheCardIsInThisProject(card);
+    	returned.getSubcards().add(subcard);
 
-    	shouldRemoveTheStoryFromRepository(returned);
-    	shouldRemoveTheStoryFromRepository(substory);
+    	shouldRemoveTheCardFromRepository(returned);
+    	shouldRemoveTheCardFromRepository(subcard);
 
-    	String status = logic.delete(story, true);
+    	String status = logic.delete(card, true);
     	assertThat(status, is("ok"));
     }
     @Test
-    public void removeAStoryButNotSubstories() throws Exception {
-    	Card story = givenAStory();
+    public void removeACardButNotSubcards() throws Exception {
+    	Card card = givenACard();
     	givenTheProjectIsOwnedBy(currentUser);
 
-    	Card substory = givenAStory();
-    	substory.setParent(story);
+    	Card subCard = givenACard();
+    	subCard.setParent(card);
 
-    	Card returned = givenTheStoryIsInThisProject(story);
-    	returned.getSubcards().add(substory);
+    	Card returned = givenTheCardIsInThisProject(card);
+    	returned.getSubcards().add(subCard);
 
-    	shouldRemoveTheStoryFromRepository(returned);
-    	shouldUpdateTheStoryFromRepository(substory);
+    	shouldRemoveTheCardFromRepository(returned);
+    	shouldUpdateTheCardFromRepository(subCard);
 
-    	String status = logic.delete(story, false);
+    	String status = logic.delete(card, false);
     	assertThat(status, is("ok"));
 
-    	assertThat(substory.getParent(), is(nullValue()));
+    	assertThat(subCard.getParent(), is(nullValue()));
     }
 
-    private Card givenTheStoryIsInThisProject(final Card story) {
+    private Card givenTheCardIsInThisProject(final Card card) {
         final Card returned = new Card();
         returned.setProject(this.project);
 
         mockery.checking(new Expectations() {
             {
 
-                one(repository).load(story);
+                one(repository).load(card);
                 will(returnValue(returned));
             }
         });
@@ -176,15 +176,15 @@ public class CardTest {
         project.setOwner(user);
     }
 
-	private void shouldUpdateTheStoryFromRepository(final Card substory) {
+	private void shouldUpdateTheCardFromRepository(final Card subcard) {
 		mockery.checking(new Expectations() {
 			{
-				one(repository).update(substory);
+				one(repository).update(subcard);
 			}
 		});
 	}
 
-	private void shouldNotRemoveTheStoryFromRepository(final Card returned) {
+	private void shouldNotRemoveTheCardFromRepository(final Card returned) {
 		mockery.checking(new Expectations() {
 			{
 				never(repository).remove(returned);
@@ -199,7 +199,7 @@ public class CardTest {
 		return user;
 	}
 
-	private void shouldRemoveTheStoryFromRepository(final Card returned) {
+	private void shouldRemoveTheCardFromRepository(final Card returned) {
 
 		mockery.checking(new Expectations() {
 			{
@@ -208,15 +208,15 @@ public class CardTest {
 		});
 	}
 
-	private String whenIRemove(Card story) {
-		return logic.delete(story, false);
+	private String whenIRemove(Card card) {
+		return logic.delete(card, false);
 	}
 
-	private void shouldReturnTheStories(final Card... stories) {
+	private void shouldReturnTheCards(final Card... cards) {
 		mockery.checking(new Expectations() {
 			{
 				one(projectRepository).listCardsFrom(with(any(Project.class)));
-				will(returnValue(Arrays.asList(stories)));
+				will(returnValue(Arrays.asList(cards)));
 
 				allowing(projectRepository);
 			}
@@ -227,74 +227,74 @@ public class CardTest {
 		logic.prioritization(givenAProject());
 	}
 
-	private Card givenAStory(int priority) {
-		Card story = givenAStory();
-		story.setPriority(priority);
-		return story;
+	private Card givenACard(int priority) {
+		Card card = givenACard();
+		card.setPriority(priority);
+		return card;
 	}
 
 	private int withPriority(int i) {
 		return i;
 	}
 
-	private CardTest givenTheStory(Card story) {
-		currentStory = story;
+	private CardTest givenTheCard(Card card) {
+		currentCard = card;
 		return this;
 	}
 
-	private CardTest withName(String storyName) {
-		currentStory.setName(storyName);
+	private CardTest withName(String cardName) {
+		currentCard.setName(cardName);
 		return this;
 	}
 
-	private CardTest withDescription(String storyDescription) {
-		currentStory.setDescription(storyDescription);
+	private CardTest withDescription(String cardDescription) {
+		currentCard.setDescription(cardDescription);
 		return this;
 	}
 
-	private Card shouldLoadTheStory(final Card story) {
-		final Card newStory = new Card();
+	private Card shouldLoadTheCard(final Card card) {
+		final Card newcard = new Card();
 
 		mockery.checking(new Expectations() {
 			{
 				allowing(projectRepository);
 
-				one(repository).load(story);
-				will(returnValue(newStory));
+				one(repository).load(card);
+				will(returnValue(newcard));
 			}
 		});
-		return newStory;
+		return newcard;
 	}
 
-	private void shouldUpdateOnTheRepositoryTheStory(final Card story) {
+	private void shouldUpdateOnTheRepositoryTheCard(final Card card) {
 		mockery.checking(new Expectations() {
 			{
 				allowing(projectRepository);
-				one(repository).update(story);
+				one(repository).update(card);
 			}
 		});
 	}
 
-	private String changingNameTo(String storyName) {
-		return storyName;
+	private String changingNameTo(String cardName) {
+		return cardName;
 	}
 
 	private String changingDescriptionTo(String newDescription) {
 		return newDescription;
 	}
 
-	private void whenIEditTheStory(Card story, String newName, String newDescription) {
-		story.setName(newName);
-		story.setDescription(newDescription);
-		logic.update(story);
+	private void whenIEditTheCard(Card card, String newName, String newDescription) {
+		card.setName(newName);
+		card.setDescription(newDescription);
+		logic.update(card);
 	}
 
-	private void shouldSaveOnTheRepositoryTheStory(final Card story) {
+	private void shouldSaveOnTheRepositoryTheCard(final Card card) {
 		mockery.checking(new Expectations() {
 			{
 				allowing(projectRepository);
 
-				one(repository).add(story);
+				one(repository).add(card);
 			}
 		});
 
@@ -304,15 +304,15 @@ public class CardTest {
 		return project;
 	}
 
-	private void whenISaveTheStory(Card story, Project project) {
-		logic.save(story, project);
+	private void whenISaveTheCard(Card card, Project project) {
+		logic.save(card, project);
 	}
 
 	private Project givenAProject() {
 		return new Project();
 	}
 
-	private Card givenAStory() {
+	private Card givenACard() {
 		return new Card();
 	}
 }
