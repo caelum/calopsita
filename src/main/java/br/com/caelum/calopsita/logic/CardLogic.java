@@ -76,7 +76,7 @@ public class CardLogic {
 
 	public void prioritization(Project project) {
 		this.project = this.projectRepository.get(project.getId());
-		this.cards = this.projectRepository.listStoriesFrom(project);
+		this.cards = this.projectRepository.listCardsFrom(project);
 	}
 	public void prioritize(Project project, List<Card> cards) {
 		for (Card card : cards) {
