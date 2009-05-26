@@ -18,13 +18,13 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.calopsita.repository.StoryRepository;
+import br.com.caelum.calopsita.repository.CardRepository;
 
 public class IterationTest {
     private Mockery mockery;
     private IterationLogic logic;
     private IterationRepository iterationRepository;
-    private StoryRepository storyRepository;
+    private CardRepository storyRepository;
     private User currentUser;
     private Project project;
     private ProjectRepository projectRepository;
@@ -33,7 +33,7 @@ public class IterationTest {
     public void setUp() throws Exception {
         mockery = new Mockery();
         iterationRepository = mockery.mock(IterationRepository.class);
-        storyRepository = mockery.mock(StoryRepository.class);
+        storyRepository = mockery.mock(CardRepository.class);
         projectRepository = mockery.mock(ProjectRepository.class);
         
         currentUser = new User();

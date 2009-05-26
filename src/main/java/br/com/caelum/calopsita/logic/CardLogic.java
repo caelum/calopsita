@@ -13,20 +13,20 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.calopsita.repository.StoryRepository;
+import br.com.caelum.calopsita.repository.CardRepository;
 
 @Component
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
 public class CardLogic {
 
-	private final StoryRepository repository;
+	private final CardRepository repository;
 	private Project project;
 	private final User currentUser;
 	private final ProjectRepository projectRepository;
 	private List<Card> stories;
 	private Card story;
 
-	public CardLogic(User user, StoryRepository repository, ProjectRepository projectRepository) {
+	public CardLogic(User user, CardRepository repository, ProjectRepository projectRepository) {
 		this.currentUser = user;
 		this.repository = repository;
 		this.projectRepository = projectRepository;

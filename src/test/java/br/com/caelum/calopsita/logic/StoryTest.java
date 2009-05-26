@@ -18,12 +18,12 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.calopsita.repository.StoryRepository;
+import br.com.caelum.calopsita.repository.CardRepository;
 
 public class StoryTest {
     private Mockery mockery;
     private CardLogic logic;
-	private StoryRepository repository;
+	private CardRepository repository;
 	private User currentUser;
 	private Card currentStory;
 	private ProjectRepository projectRepository;
@@ -32,7 +32,7 @@ public class StoryTest {
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
-        repository = mockery.mock(StoryRepository.class);
+        repository = mockery.mock(CardRepository.class);
         currentUser = new User();
         currentUser.setLogin("me");
         project = new Project();

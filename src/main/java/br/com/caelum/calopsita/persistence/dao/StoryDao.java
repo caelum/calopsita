@@ -6,9 +6,9 @@ import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
-import br.com.caelum.calopsita.repository.StoryRepository;
+import br.com.caelum.calopsita.repository.CardRepository;
 
-public class StoryDao implements StoryRepository {
+public class StoryDao implements CardRepository {
 
 	private final Session session;
 	

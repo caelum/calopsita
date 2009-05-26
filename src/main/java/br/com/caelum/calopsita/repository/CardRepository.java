@@ -5,7 +5,7 @@ import java.util.List;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 
-public interface StoryRepository extends BaseRepository<Card>{
+public interface CardRepository extends BaseRepository<Card>{
 
 	Card load(Card story);
 

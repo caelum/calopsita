@@ -15,7 +15,7 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.calopsita.repository.StoryRepository;
+import br.com.caelum.calopsita.repository.CardRepository;
 
 @Component
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
@@ -24,13 +24,13 @@ public class IterationLogic {
     private Project project;
     private final IterationRepository repository;
 	private Iteration iteration;
-	private final StoryRepository storyRepository;
+	private final CardRepository storyRepository;
 	private List<Card> otherStories;
     private final User currentUser;
     private final ProjectRepository projectRepository;
     private List<Iteration> iterations;
 
-    public IterationLogic(User user, IterationRepository repository, StoryRepository storyRepository, ProjectRepository projectRepository) {
+    public IterationLogic(User user, IterationRepository repository, CardRepository storyRepository, ProjectRepository projectRepository) {
         this.currentUser = user;
         this.repository = repository;
 		this.storyRepository = storyRepository;
