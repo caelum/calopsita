@@ -24,7 +24,7 @@ public class AddStoryOnAnIterationStory extends DefaultStory {
 		when.iOpenProjectPageOf("IEs4Linux").and()
 		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("new release").and()
-			.iAddTheStory("support IE8").inThisIteration();
+			.iAddTheCard("support IE8").inThisIteration();
 		then.theCard("support IE8").appearsOnTodoList();
 	}
 

@@ -25,7 +25,7 @@ public class RemoveStoryOfAnIterationStory extends DefaultStory {
 		when.iOpenProjectPageOf("vim4dummies").and()
 		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("kill all emacsians").and()
-			.iRemoveTheStory("buy a weapon of mass destruction").ofThisIteration();
+			.iRemoveTheCard("buy a weapon of mass destruction").ofThisIteration();
 		then.theCard("buy a weapon of mass destruction").appearsOnBacklog();
 	}
 }

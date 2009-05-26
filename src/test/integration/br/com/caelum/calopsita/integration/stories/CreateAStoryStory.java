@@ -19,8 +19,8 @@ public class CreateAStoryStory extends DefaultStory {
 			.iAmLoggedInAs("David");
 		
 		when.iOpenProjectPageOf("Papyrus").and()
-		    .iOpenStoriesPage().and()
-			.iAddTheStory("Incidents").withDescription("create and update an incident");
+		    .iOpenCardsPage().and()
+			.iAddTheCard("Incidents").withDescription("create and update an incident");
 		
 		then.theCard("Incidents").appearsOnList();
 	}
@@ -35,8 +35,8 @@ public class CreateAStoryStory extends DefaultStory {
 			 .iAmLoggedInAs("Sonson");
 		
 		when.iOpenProjectPageOf("OpenMeetings").and()
-		    .iOpenStoriesPage().and()
-		    .iEditTheStory("Cinderella").changingDescriptionTo("Her sisters go blind.");
+		    .iOpenCardsPage().and()
+		    .iEditTheCard("Cinderella").changingDescriptionTo("Her sisters go blind.");
 		
 		then.theCard("Cinderella").hasDescription("Her sisters go blind.");
 	}

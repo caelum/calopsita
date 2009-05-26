@@ -51,8 +51,8 @@ public class DeleteEverythingStory extends DefaultStory {
 				.withACardNamed("Support everything").whichDescriptionIs("That is a mistake").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
-		    .iOpenStoriesPage().and()
-			.iDeleteTheStory("Support everything").andConfirm("deletion");
+		    .iOpenCardsPage().and()
+			.iDeleteTheCard("Support everything").andConfirm("deletion");
 		then.theCard("Support everything").shouldNotAppearOnCardList();
 	}
 	@Test
@@ -62,8 +62,8 @@ public class DeleteEverythingStory extends DefaultStory {
 				.withACardNamed("Support everything").whichDescriptionIs("That is a mistake").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
-		    .iOpenStoriesPage().and()
-			.iDeleteTheStory("Support everything").andDontConfirm("deletion");
+		    .iOpenCardsPage().and()
+			.iDeleteTheCard("Support everything").andDontConfirm("deletion");
 		then.theCard("Support everything").appearsOnList();
 	}
 	@Test
@@ -74,8 +74,8 @@ public class DeleteEverythingStory extends DefaultStory {
 					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
-		    .iOpenStoriesPage().and()
-			.iDeleteTheStory("Support everything").andConfirm("deletion").andConfirm("substories");
+		    .iOpenCardsPage().and()
+			.iDeleteTheCard("Support everything").andConfirm("deletion").andConfirm("substories");
 		then.theCard("Support everything").shouldNotAppearOnCardList().and()
 			.theCard("support continuations").shouldNotAppearOnCardList();
 	}
@@ -87,8 +87,8 @@ public class DeleteEverythingStory extends DefaultStory {
 					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
-		    .iOpenStoriesPage().and()
-			.iDeleteTheStory("Support everything").andConfirm("deletion").andDontConfirm("substories");
+		    .iOpenCardsPage().and()
+			.iDeleteTheCard("Support everything").andConfirm("deletion").andDontConfirm("substories");
 		then.theCard("Support everything").shouldNotAppearOnCardList().and()
 			.theCard("support continuations").appearsOnList();
 	}

@@ -25,7 +25,7 @@ public class StoriesMustBeOrderedByPriorityStory extends DefaultStory {
 					.withPriority(1).and()
 			.iAmLoggedInAs("caue");
 		when.iOpenProjectPageOf("htmlunit").and()
-		    .iOpenStoriesPage();
+		    .iOpenCardsPage();
 		then.theCard("step1")
 				.appearsOnCardsListAtPosition(2)
 			.theCard("step2")
