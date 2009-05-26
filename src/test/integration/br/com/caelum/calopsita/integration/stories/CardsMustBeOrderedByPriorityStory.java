@@ -7,13 +7,13 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 /**
  * <b>In order to</b> know what i need to do <br>
  * <b>As a</b> project developer <br>
- * <b>I want</b> be able to order stories by priority <br>
+ * <b>I want</b> be able to order cards by priority <br>
  * @author caueguerra
  *
  */
-public class StoriesMustBeOrderedByPriorityStory extends DefaultStory {
+public class CardsMustBeOrderedByPriorityStory extends DefaultStory {
 	@Test
-	public void storiesMustBeOrderedOutOfIterations() throws Exception {
+	public void cardsMustBeOrderedOutOfIterations() throws Exception {
 		given.thereIsAnUserNamed("caue").and()
 			.thereIsAProjectNamed("htmlunit")
 				.ownedBy("caue")
@@ -33,7 +33,7 @@ public class StoriesMustBeOrderedByPriorityStory extends DefaultStory {
 	}
 
 	@Test
-	public void storiesMustBeOrderedInIterations() throws Exception {
+	public void cardsMustBeOrderedInIterations() throws Exception {
 		given.thereIsAnUserNamed("caue").and()
 			.thereIsAProjectNamed("htmlunit")
 				.ownedBy("caue")
