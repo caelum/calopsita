@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.StoryRepository;
@@ -25,7 +25,7 @@ public class StoryTest {
     private StoryLogic logic;
 	private StoryRepository repository;
 	private User currentUser;
-	private Story currentStory;
+	private Card currentStory;
 	private ProjectRepository projectRepository;
     private Project project;
 
@@ -50,7 +50,7 @@ public class StoryTest {
     @Test
 	public void savingAStory() throws Exception {
     	Project project = givenAProject();
-		Story story = givenAStory();
+		Card story = givenAStory();
 	
 		shouldSaveOnTheRepositoryTheStory(story);
 		
@@ -61,11 +61,11 @@ public class StoryTest {
 
     @Test
 	public void editingAStorysDescription() throws Exception {
-    	Story story = givenAStory();
+    	Card story = givenAStory();
     	givenTheStory(story).withName("Huck Finn")
     						.withDescription("He is Tom Sawyer's best mate.");
 
-    	Story loadedStory = shouldLoadTheStory(story);
+    	Card loadedStory = shouldLoadTheStory(story);
     	shouldUpdateOnTheRepositoryTheStory(loadedStory);
 		
     	whenIEditTheStory(story, changingNameTo("Huckleberry Finn"), changingDescriptionTo("He has a drunk father."));
@@ -76,16 +76,16 @@ public class StoryTest {
     
     @Test
 	public void groupingStoriesByPriority() throws Exception {
-		Story story1 = givenAStory(withPriority(1));
-		Story story2 = givenAStory(withPriority(1));
-		Story story3 = givenAStory(withPriority(2));
-		Story story4 = givenAStory(withPriority(3));
-		Story story5 = givenAStory(withPriority(3));
+		Card story1 = givenAStory(withPriority(1));
+		Card story2 = givenAStory(withPriority(1));
+		Card story3 = givenAStory(withPriority(2));
+		Card story4 = givenAStory(withPriority(3));
+		Card story5 = givenAStory(withPriority(3));
 		
 		shouldReturnTheStories(story1, story2, story3, story4, story5);
 		whenIStartPrioritization();
 		
-		List<List<Story>> list = logic.getGroupedStories();
+		List<List<Card>> list = logic.getGroupedStories();
 		
 		assertThat(list.size(), is(4));
 		assertThat(list.get(1), hasItem(story1));
@@ -98,10 +98,10 @@ public class StoryTest {
     
     @Test
 	public void removeAStoryFromMyProject() throws Exception {
-		Story story = givenAStory();
+		Card story = givenAStory();
 		givenTheProjectIsOwnedBy(currentUser);
 		
-		Story returned = givenTheStoryIsInThisProject(story);
+		Card returned = givenTheStoryIsInThisProject(story);
 		
 		shouldRemoveTheStoryFromRepository(returned);
 		
@@ -111,10 +111,10 @@ public class StoryTest {
 
     @Test
     public void removeAStoryFromOtherProjectThanMine() throws Exception {
-        Story story = givenAStory();
+        Card story = givenAStory();
         givenTheProjectIsOwnedBy(anyUser());
         
-        Story returned = givenTheStoryIsInThisProject(story);
+        Card returned = givenTheStoryIsInThisProject(story);
         
     	shouldNotRemoveTheStoryFromRepository(returned);
     	
@@ -123,13 +123,13 @@ public class StoryTest {
     }
     @Test
     public void removeAStoryAndSubstories() throws Exception {
-    	Story story = givenAStory();
+    	Card story = givenAStory();
     	givenTheProjectIsOwnedBy(currentUser);
         
-    	Story substory = givenAStory();
+    	Card substory = givenAStory();
     	substory.setParent(story);
     	
-    	Story returned = givenTheStoryIsInThisProject(story);
+    	Card returned = givenTheStoryIsInThisProject(story);
     	returned.getSubstories().add(substory);
     	
     	shouldRemoveTheStoryFromRepository(returned);
@@ -140,13 +140,13 @@ public class StoryTest {
     }
     @Test
     public void removeAStoryButNotSubstories() throws Exception {
-    	Story story = givenAStory();
+    	Card story = givenAStory();
     	givenTheProjectIsOwnedBy(currentUser);
     	
-    	Story substory = givenAStory();
+    	Card substory = givenAStory();
     	substory.setParent(story);
     	
-    	Story returned = givenTheStoryIsInThisProject(story);
+    	Card returned = givenTheStoryIsInThisProject(story);
     	returned.getSubstories().add(substory);
     	
     	shouldRemoveTheStoryFromRepository(returned);
@@ -158,8 +158,8 @@ public class StoryTest {
     	assertThat(substory.getParent(), is(nullValue()));
     }
     
-    private Story givenTheStoryIsInThisProject(final Story story) {
-        final Story returned = new Story();
+    private Card givenTheStoryIsInThisProject(final Card story) {
+        final Card returned = new Card();
         returned.setProject(this.project);
         
         mockery.checking(new Expectations() {
@@ -176,7 +176,7 @@ public class StoryTest {
         project.setOwner(user);
     }
 
-	private void shouldUpdateTheStoryFromRepository(final Story substory) {
+	private void shouldUpdateTheStoryFromRepository(final Card substory) {
 		mockery.checking(new Expectations() {
 			{
 				one(repository).update(substory);
@@ -184,7 +184,7 @@ public class StoryTest {
 		});
 	}
 
-	private void shouldNotRemoveTheStoryFromRepository(final Story returned) {
+	private void shouldNotRemoveTheStoryFromRepository(final Card returned) {
 		mockery.checking(new Expectations() {
 			{
 				never(repository).remove(returned);
@@ -199,7 +199,7 @@ public class StoryTest {
 		return user;
 	}
 
-	private void shouldRemoveTheStoryFromRepository(final Story returned) {
+	private void shouldRemoveTheStoryFromRepository(final Card returned) {
 		
 		mockery.checking(new Expectations() {
 			{
@@ -208,11 +208,11 @@ public class StoryTest {
 		});
 	}
 
-	private String whenIRemove(Story story) {
+	private String whenIRemove(Card story) {
 		return logic.delete(story, false);
 	}
 
-	private void shouldReturnTheStories(final Story... stories) {
+	private void shouldReturnTheStories(final Card... stories) {
 		mockery.checking(new Expectations() {
 			{
 				one(projectRepository).listStoriesFrom(with(any(Project.class)));
@@ -227,8 +227,8 @@ public class StoryTest {
 		logic.prioritization(givenAProject());
 	}
 
-	private Story givenAStory(int priority) {
-		Story story = givenAStory();
+	private Card givenAStory(int priority) {
+		Card story = givenAStory();
 		story.setPriority(priority);
 		return story;
 	}
@@ -237,7 +237,7 @@ public class StoryTest {
 		return i;
 	}
 
-	private StoryTest givenTheStory(Story story) {
+	private StoryTest givenTheStory(Card story) {
 		currentStory = story;
 		return this;
 	}
@@ -252,8 +252,8 @@ public class StoryTest {
 		return this;
 	}
 	
-	private Story shouldLoadTheStory(final Story story) {
-		final Story newStory = new Story();
+	private Card shouldLoadTheStory(final Card story) {
+		final Card newStory = new Card();
 		
 		mockery.checking(new Expectations() {
 			{
@@ -266,7 +266,7 @@ public class StoryTest {
 		return newStory;
 	}
 	
-	private void shouldUpdateOnTheRepositoryTheStory(final Story story) {
+	private void shouldUpdateOnTheRepositoryTheStory(final Card story) {
 		mockery.checking(new Expectations() {
 			{
 				allowing(projectRepository);
@@ -283,13 +283,13 @@ public class StoryTest {
 		return newDescription;
 	}
 	
-	private void whenIEditTheStory(Story story, String newName, String newDescription) {
+	private void whenIEditTheStory(Card story, String newName, String newDescription) {
 		story.setName(newName);
 		story.setDescription(newDescription);
 		logic.update(story);
 	}
 	
-	private void shouldSaveOnTheRepositoryTheStory(final Story story) {
+	private void shouldSaveOnTheRepositoryTheStory(final Card story) {
 		mockery.checking(new Expectations() {
 			{
 				allowing(projectRepository);
@@ -304,7 +304,7 @@ public class StoryTest {
 		return project;
 	}
 
-	private void whenISaveTheStory(Story story, Project project) {
+	private void whenISaveTheStory(Card story, Project project) {
 		logic.save(story, project);
 	}
 
@@ -312,7 +312,7 @@ public class StoryTest {
 		return new Project();
 	}
 
-	private Story givenAStory() {
-		return new Story();
+	private Card givenAStory() {
+		return new Card();
 	}
 }

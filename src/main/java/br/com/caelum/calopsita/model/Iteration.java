@@ -13,7 +13,7 @@ import javax.persistence.OrderBy;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
-import br.com.caelum.calopsita.model.Story.Status;
+import br.com.caelum.calopsita.model.Card.Status;
 
 @Entity
 public class Iteration implements Identifiable {
@@ -28,7 +28,7 @@ public class Iteration implements Identifiable {
     
     @OneToMany(mappedBy="iteration")
     @OrderBy("priority")
-    private List<Story> stories;
+    private List<Card> stories;
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
     private LocalDate startDate;
@@ -88,35 +88,35 @@ public class Iteration implements Identifiable {
     	this.endDate = endDate;
     }
     
-    public void addStory(Story story){
+    public void addStory(Card story){
     	if (this.stories == null) {
-    		this.stories = new ArrayList<Story>();
+    		this.stories = new ArrayList<Card>();
     	}
     	this.stories.add(story);
     }
 
-	public void setStories(List<Story> stories) {
+	public void setStories(List<Card> stories) {
 		this.stories = stories;
 	}
 
-	public List<Story> getStories() {
+	public List<Card> getStories() {
 	    if (stories == null) {
-            stories = new ArrayList<Story>();
+            stories = new ArrayList<Card>();
         }
 	    
 		return stories;
 	}
 	
-	public List<Story> getTodoStories() {
+	public List<Card> getTodoStories() {
 		return storiesByStatus(Status.TODO);
 	}
-	public List<Story> getDoneStories() {
+	public List<Card> getDoneStories() {
 		return storiesByStatus(Status.DONE);
 	}
 
-	private List<Story> storiesByStatus(Status status) {
-		List<Story> result = new ArrayList<Story>();
-		for (Story story : stories) {
+	private List<Card> storiesByStatus(Status status) {
+		List<Card> result = new ArrayList<Card>();
+		for (Card story : stories) {
 			if (status.equals(story.getStatus())) {
 				result.add(story);
 			}

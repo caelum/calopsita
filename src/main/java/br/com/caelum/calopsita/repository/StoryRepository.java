@@ -3,16 +3,16 @@ package br.com.caelum.calopsita.repository;
 import java.util.List;
 
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 
-public interface StoryRepository extends BaseRepository<Story>{
+public interface StoryRepository extends BaseRepository<Card>{
 
-	Story load(Story story);
+	Card load(Card story);
 
-	void update(Story story);
+	void update(Card story);
 
-	List<Story> storiesWithoutIteration(Project project);
+	List<Card> storiesWithoutIteration(Project project);
 
-	List<Story> listSubstories(Story story);
+	List<Card> listSubstories(Card story);
 
 }

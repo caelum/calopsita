@@ -3,17 +3,17 @@ package br.com.caelum.calopsita.integration.stories.common;
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Iteration;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.seleniumdsl.Browser;
 
 public class StoryContexts<T extends ProjectContexts<T>> {
 
-	private final Story story;
+	private final Card story;
 	private final Session session;
 	private final T parent;
 	private final Browser browser;
 
-	public StoryContexts(Story story, Session session, Browser browser, T parent) {
+	public StoryContexts(Card story, Session session, Browser browser, T parent) {
 		this.story = story;
 		this.session = session;
 		this.browser = browser;
@@ -21,7 +21,7 @@ public class StoryContexts<T extends ProjectContexts<T>> {
 	}
 
 	public StoryContexts<T> withASubstoryNamed(String storyName) {
-		Story story = new Story();
+		Card story = new Card();
 		story.setName(storyName);
 		story.setProject(this.story.getProject());
 		story.setParent(this.story);

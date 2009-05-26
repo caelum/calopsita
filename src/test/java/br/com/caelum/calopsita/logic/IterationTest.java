@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
@@ -59,7 +59,7 @@ public class IterationTest {
     @Test
 	public void addingAStoryInAnIteration() throws Exception {
 		Iteration iteration = givenAnIteration();
-		Story story = givenAStory();
+		Card story = givenAStory();
 		
 		shouldUpdateTheStory(story);
 		
@@ -71,9 +71,9 @@ public class IterationTest {
     @Test
     public void removingAStoryOfAnIteration() throws Exception {
     	Iteration iteration = givenAnIteration();
-    	Story story = givenAStory();
+    	Card story = givenAStory();
     	
-    	Story loaded = givenLoadedStoryContainsIteration(story, iteration);
+    	Card loaded = givenLoadedStoryContainsIteration(story, iteration);
     	
     	whenIRemoveTheStoryOfIteration(story, iteration);
 
@@ -99,7 +99,7 @@ public class IterationTest {
         Iteration iteration = givenAnIteration();
         givenTheProjectIsOwnedBy(currentUser);
 
-        Story story = givenAStory();
+        Card story = givenAStory();
         Iteration returnedIteration = givenTheIterationIsInThisProject(iteration);
         
         givenTheIterationHasThisStory(story, returnedIteration);
@@ -264,7 +264,7 @@ public class IterationTest {
         return result;
 	}
 
-	private void givenTheIterationHasThisStory(Story story, Iteration returnedIteration) {
+	private void givenTheIterationHasThisStory(Card story, Iteration returnedIteration) {
         returnedIteration.addStory(story);
         story.setIteration(returnedIteration);
     }
@@ -313,12 +313,12 @@ public class IterationTest {
         return returned;
     }
 
-    private void whenIRemoveTheStoryOfIteration(Story story, Iteration iteration) {
+    private void whenIRemoveTheStoryOfIteration(Card story, Iteration iteration) {
 		logic.removeStories(iteration, Arrays.asList(story));
 	}
 
-	private Story givenLoadedStoryContainsIteration(final Story story, final Iteration iteration) {
-		final Story loaded = new Story();
+	private Card givenLoadedStoryContainsIteration(final Card story, final Iteration iteration) {
+		final Card loaded = new Card();
 		
 		mockery.checking(new Expectations() {
 			{
@@ -333,7 +333,7 @@ public class IterationTest {
 		return loaded;
 	}
 
-	private void shouldUpdateTheStory(final Story story) {
+	private void shouldUpdateTheStory(final Card story) {
     	
 		mockery.checking(new Expectations() {
 			{
@@ -345,12 +345,12 @@ public class IterationTest {
 		});
 	}
 
-	private void whenIAddTheStoryToIteration(Story story, Iteration iteration) {
+	private void whenIAddTheStoryToIteration(Card story, Iteration iteration) {
     	logic.updateStories(iteration, Arrays.asList(story));
 	}
 
-	private Story givenAStory() {
-		return new Story();
+	private Card givenAStory() {
+		return new Card();
 	}
 
 	private void shouldSaveOnTheRepositoryTheIteration(final Iteration iteration) {

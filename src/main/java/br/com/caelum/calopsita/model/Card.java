@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Story implements Identifiable {
+public class Card implements Identifiable {
 	
 	@Id
 	@GeneratedValue
@@ -31,10 +31,10 @@ public class Story implements Identifiable {
 	private Iteration iteration;
 
 	@ManyToOne
-	private Story parent;
+	private Card parent;
 	
 	@OneToMany(mappedBy="parent")
-	private List<Story> substories;
+	private List<Card> substories;
 	
 	private int priority;
 	
@@ -101,21 +101,21 @@ public class Story implements Identifiable {
 		return status;
 	}
 
-	public void setParent(Story parent) {
+	public void setParent(Card parent) {
 		this.parent = parent;
 	}
 
-	public Story getParent() {
+	public Card getParent() {
 		return parent;
 	}
 
-	public void setSubstories(List<Story> substories) {
+	public void setSubstories(List<Card> substories) {
 		this.substories = substories;
 	}
 
-	public List<Story> getSubstories() {
+	public List<Card> getSubstories() {
 		if (substories == null) {
-			substories = new ArrayList<Story>();
+			substories = new ArrayList<Card>();
 		}
 
 		return substories;

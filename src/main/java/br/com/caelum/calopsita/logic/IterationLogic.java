@@ -11,7 +11,7 @@ import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
@@ -25,7 +25,7 @@ public class IterationLogic {
     private final IterationRepository repository;
 	private Iteration iteration;
 	private final StoryRepository storyRepository;
-	private List<Story> otherStories;
+	private List<Card> otherStories;
     private final User currentUser;
     private final ProjectRepository projectRepository;
     private List<Iteration> iterations;
@@ -70,9 +70,9 @@ public class IterationLogic {
         return iterations;
     }
     
-    public void updateStories(Iteration iteration, List<Story> stories) {
-    	for (Story story : stories) {
-			Story loaded = storyRepository.load(story);
+    public void updateStories(Iteration iteration, List<Card> stories) {
+    	for (Card story : stories) {
+			Card loaded = storyRepository.load(story);
 			loaded.setIteration(iteration);
 			loaded.setStatus(story.getStatus());
 			storyRepository.update(loaded);
@@ -80,9 +80,9 @@ public class IterationLogic {
     	this.iteration = iteration;
     }
 
-    public void removeStories(Iteration iteration, List<Story> stories) {
-    	for (Story story : stories) {
-			Story loaded = storyRepository.load(story);
+    public void removeStories(Iteration iteration, List<Card> stories) {
+    	for (Card story : stories) {
+			Card loaded = storyRepository.load(story);
 			loaded.setIteration(null);
 			storyRepository.update(loaded);
 		}
@@ -92,7 +92,7 @@ public class IterationLogic {
 		return iteration;
 	}
     
-    public List<Story> getOtherStories() {
+    public List<Card> getOtherStories() {
 		return otherStories;
 	}
     
@@ -104,8 +104,8 @@ public class IterationLogic {
         Iteration loaded = repository.load(iteration);
         this.project = loaded.getProject();
         if(this.project.getColaborators().contains(currentUser) || this.project.getOwner().equals(currentUser)) {
-            for (Story story : loaded.getStories()) {
-                Story storyLoaded = storyRepository.load(story);
+            for (Card story : loaded.getStories()) {
+                Card storyLoaded = storyRepository.load(story);
                 storyLoaded.setIteration(null);
                 storyRepository.update(storyLoaded);
             }

@@ -4,7 +4,7 @@ import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.seleniumdsl.Browser;
@@ -52,7 +52,7 @@ public class ProjectContexts<T extends ProjectContexts<T>> extends GivenContexts
 	}
 
 	public StoryContexts<T> withAStoryNamed(String storyName) {
-		Story story = new Story();
+		Card story = new Card();
 		story.setName(storyName);
 		story.setProject(project);
 		session.save(story);

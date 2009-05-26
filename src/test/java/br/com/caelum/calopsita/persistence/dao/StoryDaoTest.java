@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 
 public class StoryDaoTest {
 
@@ -43,11 +43,11 @@ public class StoryDaoTest {
 	@Test
 	public void storiesWithoutIteration() throws Exception {
 		Iteration iteration = givenAnIteration();
-		Story story = givenAStory(iteration.getProject());
-		Story storyOfIteration = givenAStoryOfTheIteration(iteration);
-		Story storyOfOtherProject = givenAStory(givenAProject());
+		Card story = givenAStory(iteration.getProject());
+		Card storyOfIteration = givenAStoryOfTheIteration(iteration);
+		Card storyOfOtherProject = givenAStory(givenAProject());
 		
-		List<Story> list = dao.storiesWithoutIteration(iteration.getProject());
+		List<Card> list = dao.storiesWithoutIteration(iteration.getProject());
 		
 		assertThat(list, hasItem(story));
 		assertThat(list, not(hasItem(storyOfIteration)));
@@ -55,10 +55,10 @@ public class StoryDaoTest {
 	}
 	@Test
 	public void listingSubstories() throws Exception {
-		Story story = givenAStory();
-		Story substory = givenASubStory(story);
-		Story otherStory = givenAStory();
-		List<Story> list = dao.listSubstories(story);
+		Card story = givenAStory();
+		Card substory = givenASubStory(story);
+		Card otherStory = givenAStory();
+		List<Card> list = dao.listSubstories(story);
 		
 		assertThat(list, hasItem(substory));
 		assertThat(list, not(hasItem(story)));
@@ -66,16 +66,16 @@ public class StoryDaoTest {
 	}
 
 
-	private Story givenASubStory(Story story) {
-		Story sub = givenAStory();
+	private Card givenASubStory(Card story) {
+		Card sub = givenAStory();
 		sub.setParent(story);
 		session.flush();
 		return sub;
 	}
 
 
-	private Story givenAStoryOfTheIteration(Iteration iteration) {
-		Story story = givenAStory(iteration.getProject());
+	private Card givenAStoryOfTheIteration(Iteration iteration) {
+		Card story = givenAStory(iteration.getProject());
 		story.setIteration(iteration);
 		session.update(story);
 		session.flush();
@@ -84,8 +84,8 @@ public class StoryDaoTest {
 
 
 	
-	private Story givenAStory() {
-		Story story = new Story();
+	private Card givenAStory() {
+		Card story = new Card();
 		story.setName("Rumpelstitlskin");
 		story.setDescription("I hope I spelld his name correctly");
 		session.save(story);
@@ -93,8 +93,8 @@ public class StoryDaoTest {
 		return story;
 		
 	}
-	private Story givenAStory(Project project) {
-		Story story = givenAStory();
+	private Card givenAStory(Project project) {
+		Card story = givenAStory();
 		story.setProject(project);
 		session.flush();
 		return story;

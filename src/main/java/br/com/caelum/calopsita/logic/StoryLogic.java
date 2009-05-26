@@ -10,7 +10,7 @@ import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.StoryRepository;
@@ -23,8 +23,8 @@ public class StoryLogic {
 	private Project project;
 	private final User currentUser;
 	private final ProjectRepository projectRepository;
-	private List<Story> stories;
-	private Story story;
+	private List<Card> stories;
+	private Card story;
 
 	public StoryLogic(User user, StoryRepository repository, ProjectRepository projectRepository) {
 		this.currentUser = user;
@@ -32,31 +32,31 @@ public class StoryLogic {
 		this.projectRepository = projectRepository;
 	}
 
-	public void save(Story story, Project project) {
+	public void save(Card story, Project project) {
 		this.project = project;
 		story.setProject(project);
 		repository.add(story);
 		this.stories = this.projectRepository.listStoriesFrom(project);
 	}
 	
-	public void saveSub(Story story) {
+	public void saveSub(Card story) {
 		repository.add(story);
 		this.stories = this.repository.listSubstories(story.getParent());
 		this.story = story.getParent();
 		this.project = story.getProject();
 	}
 	
-	public void edit(Story story) {
+	public void edit(Card story) {
 		this.story = this.repository.load(story);
 		this.stories = this.repository.listSubstories(story);
 	}
 
-	public Story getStory() {
+	public Card getStory() {
 		return story;
 	}
 	
-	public void update(Story story) {
-		Story managedStory = repository.load(story);
+	public void update(Card story) {
+		Card managedStory = repository.load(story);
 		this.project = managedStory.getProject();
 		managedStory.setName(story.getName());
 		managedStory.setDescription(story.getDescription());
@@ -68,33 +68,33 @@ public class StoryLogic {
 		this.project = this.projectRepository.get(project.getId());
 		this.stories = this.projectRepository.listStoriesFrom(project);
 	}
-	public void prioritize(Project project, List<Story> stories) {
-		for (Story story : stories) {
-			Story loaded = repository.load(story);
+	public void prioritize(Project project, List<Card> stories) {
+		for (Card story : stories) {
+			Card loaded = repository.load(story);
 			loaded.setPriority(story.getPriority());
 		}
 		prioritization(project);
 	}
-	public List<Story> getStories() {
+	public List<Card> getStories() {
 		return stories;
 	}
 	
-	public List<List<Story>> getGroupedStories() {
-		List<List<Story>> result = new ArrayList<List<Story>>();
+	public List<List<Card>> getGroupedStories() {
+		List<List<Card>> result = new ArrayList<List<Card>>();
 		if (stories != null) {
 			for (int i = maxPriority(stories); i >= 0; i--) {
-				result.add(new ArrayList<Story>());
+				result.add(new ArrayList<Card>());
 			}
-			for (Story story : stories) {
+			for (Card story : stories) {
 				result.get(story.getPriority()).add(story);
 			}
 		}
 		return result;
 	}
 
-	private int maxPriority(List<Story> stories2) {
+	private int maxPriority(List<Card> stories2) {
 		int max = 0;
-		for (Story story : stories2) {
+		for (Card story : stories2) {
 			if (story.getPriority() > max) {
 				max = story.getPriority();
 			}
@@ -106,17 +106,17 @@ public class StoryLogic {
 		return project;
 	}
 
-	public String delete(Story story, boolean deleteSubstories) {
-		Story loaded = repository.load(story);
+	public String delete(Card story, boolean deleteSubstories) {
+		Card loaded = repository.load(story);
 		this.project = loaded.getProject();
 		if (this.project.getColaborators().contains(currentUser) || this.project.getOwner().equals(currentUser)) {
 		    this.project = loaded.getProject();
 	        if (deleteSubstories) {
-	            for (Story sub : loaded.getSubstories()) {
+	            for (Card sub : loaded.getSubstories()) {
 	                repository.remove(sub);
 	            }
 	        } else {
-	            for (Story sub : loaded.getSubstories()) {
+	            for (Card sub : loaded.getSubstories()) {
 	                sub.setParent(null);
 	                repository.update(sub);
 	            }

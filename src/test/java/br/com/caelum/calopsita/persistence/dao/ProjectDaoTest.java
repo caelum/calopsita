@@ -19,7 +19,7 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 
 public class ProjectDaoTest {
@@ -78,10 +78,10 @@ public class ProjectDaoTest {
 	@Test
     public void onlyListStoriesFromTheGivenProject() throws Exception {
         Project project = givenAProject();
-        Story storyFromOtherProject = givenAStory();
-        Story storyFromThisProject = givenAStoryOfProject(project);
+        Card storyFromOtherProject = givenAStory();
+        Card storyFromThisProject = givenAStoryOfProject(project);
         
-        List<Story> list = dao.listStoriesFrom(project);
+        List<Card> list = dao.listStoriesFrom(project);
         
         assertThat(list, not(hasItem(hasSameId(storyFromOtherProject))));
         assertThat(list, hasItem(hasSameId(storyFromThisProject)));
@@ -130,8 +130,8 @@ public class ProjectDaoTest {
     }
 
 
-    private Story givenAStoryOfProject(Project project) {
-		Story story = givenAStory();
+    private Card givenAStoryOfProject(Project project) {
+		Card story = givenAStory();
 		story.setProject(project);
 		session.update(story);
 		session.flush();
@@ -139,8 +139,8 @@ public class ProjectDaoTest {
 	}
 
 
-	private Story givenAStory() {
-		Story story = new Story();
+	private Card givenAStory() {
+		Card story = new Card();
 		story.setName("Snow White");
 		story.setDescription("She hangs out with the dwarves");
 		session.save(story);

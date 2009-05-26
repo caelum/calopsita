@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.repository.StoryRepository;
 
 public class StoryDao implements StoryRepository {
@@ -17,32 +17,32 @@ public class StoryDao implements StoryRepository {
 	}
 	
 	@Override
-	public void add(Story story) {
+	public void add(Card story) {
 		session.save(story);
 	}
 	@Override
-	public Story load(Story story) {
-		return (Story) session.load(Story.class, story.getId());
+	public Card load(Card story) {
+		return (Card) session.load(Card.class, story.getId());
 	}
 	@Override
-	public void update(Story story) {
+	public void update(Card story) {
 		session.update(story);
 	}
 
 	@Override
-	public void remove(Story story) {
+	public void remove(Card story) {
 		session.delete(story);
 	}
 	
 	@Override
-	public List<Story> storiesWithoutIteration(Project project) {
+	public List<Card> storiesWithoutIteration(Project project) {
 		return session.createQuery("from Story s where s.project = :project and " +
 				" s.iteration is null order by priority")
 				.setParameter("project", project).list();
 	}
 	
 	@Override
-	public List<Story> listSubstories(Story story) {
+	public List<Card> listSubstories(Card story) {
 		return session.createQuery("from Story s where s.parent = :story order by priority")
 			.setParameter("story", story).list();
 	}
