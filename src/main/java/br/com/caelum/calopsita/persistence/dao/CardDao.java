@@ -8,11 +8,11 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.repository.CardRepository;
 
-public class StoryDao implements CardRepository {
+public class CardDao implements CardRepository {
 
 	private final Session session;
 	
-	public StoryDao(Session session) {
+	public CardDao(Session session) {
 		this.session = session;
 	}
 	

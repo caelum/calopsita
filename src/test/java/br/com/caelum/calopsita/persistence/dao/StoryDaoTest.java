@@ -21,14 +21,14 @@ public class StoryDaoTest {
 
 	
 	private Session session;
-	private StoryDao dao;
+	private CardDao dao;
 	private Transaction transaction;
 
 	@Before
 	public void setUp() throws Exception {
 		session = new AnnotationConfiguration().configure().buildSessionFactory().openSession();
 		
-		dao = new StoryDao(session);
+		dao = new CardDao(session);
 		transaction = session.beginTransaction();
 	}
 	
