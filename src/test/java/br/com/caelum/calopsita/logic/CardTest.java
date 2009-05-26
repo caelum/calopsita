@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.logic;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -10,15 +11,21 @@ import java.util.List;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.calopsita.controller.StoriesController;
+import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.calopsita.repository.StoryRepository;
+import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
 
 public class CardTest {
     private Mockery mockery;
@@ -39,7 +46,7 @@ public class CardTest {
 
 		projectRepository = mockery.mock(ProjectRepository.class);
 
-		logic = new CardLogic(currentUser, repository, projectRepository);
+		logic = new StoriesController(mockery.mock(Result.class), mockery.mock(Validator.class), currentUser, repository, projectRepository);
     }
 
 
@@ -249,6 +256,9 @@ public class CardTest {
 
 		mockery.checking(new Expectations() {
 			{
+				one(projectRepository).listCardsFrom(with(any(Project.class)));
+				will(returnValue(Arrays.asList(stories)));
+
 				allowing(projectRepository);
 
 				one(repository).load(card);
