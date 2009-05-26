@@ -34,7 +34,7 @@ public class Card implements Identifiable {
 	private Card parent;
 	
 	@OneToMany(mappedBy="parent")
-	private List<Card> substories;
+	private List<Card> subcards;
 	
 	private int priority;
 	
@@ -109,16 +109,16 @@ public class Card implements Identifiable {
 		return parent;
 	}
 
-	public void setSubstories(List<Card> substories) {
-		this.substories = substories;
+	public void setSubcards(List<Card> subcards) {
+		this.subcards = subcards;
 	}
 
 	public List<Card> getSubcards() {
-		if (substories == null) {
-			substories = new ArrayList<Card>();
+		if (subcards == null) {
+			subcards = new ArrayList<Card>();
 		}
 
-		return substories;
+		return subcards;
 	}
 
 }

@@ -24,7 +24,7 @@ public class ProjectLogic {
 	private Project project;
 	private final UserRepository userRepository;
 	private List<User> users;
-	private List<Card> stories;
+	private List<Card> cards;
 
     public ProjectLogic(ProjectRepository repository, UserRepository userRepository, User user) {
         this.repository = repository;
@@ -43,7 +43,7 @@ public class ProjectLogic {
 
     public void cards(Project project) {
         this.project = this.repository.get(project.getId());
-        this.stories = this.repository.listCardsFrom(project);
+        this.cards = this.repository.listCardsFrom(project);
     }
     
     public void save(Project project) {
@@ -73,8 +73,8 @@ public class ProjectLogic {
 		return users;
 	}
 
-    public List<Card> getStories() {
-    	return stories;
+    public List<Card> getCards() {
+    	return cards;
     }
 
     public Project getProject() {
