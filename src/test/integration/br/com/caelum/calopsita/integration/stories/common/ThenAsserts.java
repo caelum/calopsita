@@ -56,7 +56,7 @@ public class ThenAsserts {
     }
 
     public void appearsOnTodoList() {
-    	this.divName = "todo_stories";
+    	this.divName = "todo_cards";
     	appearsOnList();
     }
 
@@ -97,9 +97,9 @@ public class ThenAsserts {
 		};
 	}
 
-	public ThenAsserts theStory(String storyName) {
-		this.name = storyName;
-		this.divName = "stories";
+	public ThenAsserts theCard(String cardName) {
+		this.name = cardName;
+		this.divName = "cards";
 		return this;
 	}
 
@@ -117,12 +117,12 @@ public class ThenAsserts {
 		assertThat(browser.currentPage().title(), containsString("Project"));
 	}
 
-	public ThenAsserts appearsOnStoriesListAtPosition(int i) {
-		assertThat(browser.currentPage().div("stories_"+i), divContainsString(name));
+	public ThenAsserts appearsOnCardsListAtPosition(int i) {
+		assertThat(browser.currentPage().div("cards_"+i), divContainsString(name));
 		return this;
 	}
 
-	public ThenAsserts appearsOnOtherStoriesListAtPosition(int i) {
+	public ThenAsserts appearsOnBacklogListAtPosition(int i) {
 		assertThat(browser.currentPage().div("backlog_"+i), divContainsString(name));
 		return this;
 	}
@@ -138,7 +138,7 @@ public class ThenAsserts {
 	}
 
 	public void appearsAsDone() {
-		assertThat(browser.currentPage().div("done_stories"), divContainsString(name));
+		assertThat(browser.currentPage().div("done_cards"), divContainsString(name));
 	}
 
 	public ThenAsserts notAppearsOnBacklog() {
@@ -151,8 +151,8 @@ public class ThenAsserts {
 		appearsOnList();
 	}
 
-	public ThenAsserts shouldNotAppearOnStoryList() {
-		assertThat(this.browser.currentPage().div("stories"), not(divContainsString(name)));
+	public ThenAsserts shouldNotAppearOnCardList() {
+		assertThat(this.browser.currentPage().div("cards"), not(divContainsString(name)));
 		return this;
 	}
 

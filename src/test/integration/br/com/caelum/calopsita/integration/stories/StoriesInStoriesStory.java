@@ -25,7 +25,7 @@ public class StoriesInStoriesStory extends DefaultStory {
 		    .iOpenStoriesPage()
 			.iOpenThePageOfStoryNamed("left arm tatoo").and()
 			.iAddTheSubstory("draw some notes").withDescription("tatoo some musical notes, and cleffs");
-		then.theStory("draw some notes").appearsOnList();
+		then.theCard("draw some notes").appearsOnList();
 		
 	}
 }

@@ -26,6 +26,6 @@ public class MarkAsDoneStory extends DefaultStory {
 		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("make it work").and()
 			.iFlagTheStory("support Vraptor 2").asDone();
-		then.theStory("support Vraptor 2").appearsAsDone();
+		then.theCard("support Vraptor 2").appearsAsDone();
 	}
 }

@@ -26,10 +26,10 @@ public class StoriesMustBeOrderedByPriorityStory extends DefaultStory {
 			.iAmLoggedInAs("caue");
 		when.iOpenProjectPageOf("htmlunit").and()
 		    .iOpenStoriesPage();
-		then.theStory("step1")
-				.appearsOnStoriesListAtPosition(2)
-			.theStory("step2")
-				.appearsOnStoriesListAtPosition(1);
+		then.theCard("step1")
+				.appearsOnCardsListAtPosition(2)
+			.theCard("step2")
+				.appearsOnCardsListAtPosition(1);
 	}
 
 	@Test
@@ -54,10 +54,10 @@ public class StoriesMustBeOrderedByPriorityStory extends DefaultStory {
 		when.iOpenProjectPageOf("htmlunit").and()
 		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("make it works");
-		then.theStory("step1").appearsOnStoriesListAtPosition(2)
-			.theStory("step2").appearsOnStoriesListAtPosition(1)
-			.theStory("step3").appearsOnOtherStoriesListAtPosition(2)
-			.theStory("step4").appearsOnOtherStoriesListAtPosition(1);
+		then.theCard("step1").appearsOnCardsListAtPosition(2)
+			.theCard("step2").appearsOnCardsListAtPosition(1)
+			.theCard("step3").appearsOnBacklogListAtPosition(2)
+			.theCard("step4").appearsOnBacklogListAtPosition(1);
 
 	}
 }

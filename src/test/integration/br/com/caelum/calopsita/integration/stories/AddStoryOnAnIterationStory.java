@@ -25,7 +25,7 @@ public class AddStoryOnAnIterationStory extends DefaultStory {
 		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("new release").and()
 			.iAddTheStory("support IE8").inThisIteration();
-		then.theStory("support IE8").appearsOnTodoList();
+		then.theCard("support IE8").appearsOnTodoList();
 	}
 
 
@@ -44,12 +44,12 @@ public class AddStoryOnAnIterationStory extends DefaultStory {
 		when.iOpenProjectPageOf("IEs4Linux").and()
 		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("new release");
-		then.theStory("support IE8").appearsOnBacklog().and()
-			.theStory("I am promiscuous").notAppearsOnBacklog();
+		then.theCard("support IE8").appearsOnBacklog().and()
+			.theCard("I am promiscuous").notAppearsOnBacklog();
 		when.iOpenProjectPageOf("Tatanka").and()
 		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("get promiscuous");
-		then.theStory("support IE8").notAppearsOnBacklog().and()
-			.theStory("I am promiscuous").appearsOnBacklog();
+		then.theCard("support IE8").notAppearsOnBacklog().and()
+			.theCard("I am promiscuous").appearsOnBacklog();
 	}
 }

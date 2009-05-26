@@ -27,8 +27,8 @@ public class PrioritizeStoriesStory extends DefaultStory{
 			.iOpenPriorizationPage().and()
 			.iLowerPriorityOf("Remove all annotations").and()
 			.iSaveThePriorization();
-		then.theStory("Remove all generics").appearsOnStoriesListAtPosition(1).and()
-			.theStory("Remove all annotations").appearsOnStoriesListAtPosition(2);
+		then.theCard("Remove all generics").appearsOnCardsListAtPosition(1).and()
+			.theCard("Remove all annotations").appearsOnCardsListAtPosition(2);
 	}
 
 }

@@ -22,7 +22,7 @@ public class CreateAStoryStory extends DefaultStory {
 		    .iOpenStoriesPage().and()
 			.iAddTheStory("Incidents").withDescription("create and update an incident");
 		
-		then.theStory("Incidents").appearsOnList();
+		then.theCard("Incidents").appearsOnList();
 	}
 	
 	@Test
@@ -38,6 +38,6 @@ public class CreateAStoryStory extends DefaultStory {
 		    .iOpenStoriesPage().and()
 		    .iEditTheStory("Cinderella").changingDescriptionTo("Her sisters go blind.");
 		
-		then.theStory("Cinderella").hasDescription("Her sisters go blind.");
+		then.theCard("Cinderella").hasDescription("Her sisters go blind.");
 	}
 }

@@ -51,13 +51,13 @@ public class ProjectContexts<T extends ProjectContexts<T>> extends GivenContexts
 		return new IterationContexts(iteration, session, browser);
 	}
 
-	public CardContexts<T> withACardNamed(String storyName) {
-		Card story = new Card();
-		story.setName(storyName);
-		story.setProject(project);
-		session.save(story);
+	public CardContexts<T> withACardNamed(String cardName) {
+		Card card = new Card();
+		card.setName(cardName);
+		card.setProject(project);
+		session.save(card);
 		session.flush();
-		return new CardContexts<T>(story, session, browser, (T) this);
+		return new CardContexts<T>(card, session, browser, (T) this);
 	}
 
 	public T whichDescriptionIs(String description) {

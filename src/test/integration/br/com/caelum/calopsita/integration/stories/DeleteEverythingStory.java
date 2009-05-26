@@ -25,7 +25,7 @@ public class DeleteEverythingStory extends DefaultStory {
             .iDeleteTheIterationWithGoal("make it work").andConfirm("deletion");
         then.theIteration("make it work").notAppearsOnList();
         when.iOpenThePageOfIterationWithGoal("i18n");
-        then.theStory("support Vraptor 2")
+        then.theCard("support Vraptor 2")
             .appearsOnBacklog();
     }
 
@@ -53,7 +53,7 @@ public class DeleteEverythingStory extends DefaultStory {
 		when.iOpenProjectPageOf("method-finder").and()
 		    .iOpenStoriesPage().and()
 			.iDeleteTheStory("Support everything").andConfirm("deletion");
-		then.theStory("Support everything").shouldNotAppearOnStoryList();
+		then.theCard("Support everything").shouldNotAppearOnCardList();
 	}
 	@Test
 	public void deleteAStoryAndDontConfirm() {
@@ -64,7 +64,7 @@ public class DeleteEverythingStory extends DefaultStory {
 		when.iOpenProjectPageOf("method-finder").and()
 		    .iOpenStoriesPage().and()
 			.iDeleteTheStory("Support everything").andDontConfirm("deletion");
-		then.theStory("Support everything").appearsOnList();
+		then.theCard("Support everything").appearsOnList();
 	}
 	@Test
 	public void deleteAStoryAndSubstories() {
@@ -76,8 +76,8 @@ public class DeleteEverythingStory extends DefaultStory {
 		when.iOpenProjectPageOf("method-finder").and()
 		    .iOpenStoriesPage().and()
 			.iDeleteTheStory("Support everything").andConfirm("deletion").andConfirm("substories");
-		then.theStory("Support everything").shouldNotAppearOnStoryList().and()
-			.theStory("support continuations").shouldNotAppearOnStoryList();
+		then.theCard("Support everything").shouldNotAppearOnCardList().and()
+			.theCard("support continuations").shouldNotAppearOnCardList();
 	}
 	@Test
 	public void deleteAStoryButNotSubstories() {
@@ -89,8 +89,8 @@ public class DeleteEverythingStory extends DefaultStory {
 		when.iOpenProjectPageOf("method-finder").and()
 		    .iOpenStoriesPage().and()
 			.iDeleteTheStory("Support everything").andConfirm("deletion").andDontConfirm("substories");
-		then.theStory("Support everything").shouldNotAppearOnStoryList().and()
-			.theStory("support continuations").appearsOnList();
+		then.theCard("Support everything").shouldNotAppearOnCardList().and()
+			.theCard("support continuations").appearsOnList();
 	}
 
 
