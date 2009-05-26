@@ -26,7 +26,7 @@
 	</p>
 	<p>
 		<input class="buttons" type="submit" value="<fmt:message key="update"/>"/>
-		<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="$('#back').click()"/>
+		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="window.location = $('#back').attr('href')"/>
 	</p>
 </form>
 
@@ -51,11 +51,11 @@
 	</p>
     <p>
     	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
-  		<input class="buttons" type="button" value="<fmt:message key="cancel"/>" onclick="document.addStory.reset(); toggle('storyForm');"/>
+  		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('storyForm');"/>
   	</p>
 </form>
 
-<a id="back" href="<c:url value="/project/${story.project.id }/show/"/>"><fmt:message key="back"/></a>
+<a id="back" href="<c:url value="/project/${story.project.id }/cards/"/>"><fmt:message key="back"/></a>
 
 </body>
 </html>
