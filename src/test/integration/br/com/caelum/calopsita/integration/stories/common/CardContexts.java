@@ -8,43 +8,43 @@ import br.com.caelum.seleniumdsl.Browser;
 
 public class CardContexts<T extends ProjectContexts<T>> {
 
-	private final Card story;
+	private final Card card;
 	private final Session session;
 	private final T parent;
 	private final Browser browser;
 
-	public CardContexts(Card story, Session session, Browser browser, T parent) {
-		this.story = story;
+	public CardContexts(Card card, Session session, Browser browser, T parent) {
+		this.card = card;
 		this.session = session;
 		this.browser = browser;
 		this.parent = parent;
 	}
 
-	public CardContexts<T> withASubstoryNamed(String storyName) {
-		Card story = new Card();
-		story.setName(storyName);
-		story.setProject(this.story.getProject());
-		story.setParent(this.story);
-		session.save(story);
+	public CardContexts<T> withASubcardNamed(String cardName) {
+		Card card = new Card();
+		card.setName(cardName);
+		card.setProject(this.card.getProject());
+		card.setParent(this.card);
+		session.save(card);
 		session.flush();
-		return new CardContexts<T>(story, session, browser, parent);
+		return new CardContexts<T>(card, session, browser, parent);
 	}
 
-	public CardContexts<T> whichDescriptionIs(String storyDescription) {
-		story.setDescription(storyDescription);
+	public CardContexts<T> whichDescriptionIs(String cardDescription) {
+		card.setDescription(cardDescription);
 		session.flush();
 		return this;
 	}
 
 	public CardContexts<T> withPriority(int priority) {
-		story.setPriority(priority);
-		session.saveOrUpdate(story);
+		card.setPriority(priority);
+		session.saveOrUpdate(card);
 		session.flush();
 		return this;
 	}
 
 	public void setIteration(Iteration iteration) {
-		story.setIteration(iteration);
+		card.setIteration(iteration);
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class CardContexts<T extends ProjectContexts<T>> {
 	 * @return
 	 */
 	public ProjectContexts<?> also() {
-		return new ProjectContexts<T>(story.getProject(), session, browser);
+		return new ProjectContexts<T>(card.getProject(), session, browser);
 	}
 
 }

@@ -71,7 +71,7 @@ public class DeleteEverythingStory extends DefaultStory {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
 				.withACardNamed("Support everything").whichDescriptionIs("That is a mistake")
-					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
+					.withASubcardNamed("support continuations").whichDescriptionIs("continuations is good").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
 		    .iOpenCardsPage().and()
@@ -84,7 +84,7 @@ public class DeleteEverythingStory extends DefaultStory {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
 				.withACardNamed("Support everything").whichDescriptionIs("That is a mistake")
-					.withASubstoryNamed("support continuations").whichDescriptionIs("continuations is good").and()
+					.withASubcardNamed("support continuations").whichDescriptionIs("continuations is good").and()
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
 		    .iOpenCardsPage().and()
