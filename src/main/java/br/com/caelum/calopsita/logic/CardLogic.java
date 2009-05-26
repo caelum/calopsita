@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.vraptor.annotations.Component;
