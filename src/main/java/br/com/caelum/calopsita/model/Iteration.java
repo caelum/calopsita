@@ -28,7 +28,7 @@ public class Iteration implements Identifiable {
     
     @OneToMany(mappedBy="iteration")
     @OrderBy("priority")
-    private List<Card> stories;
+    private List<Card> cards;
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
     private LocalDate startDate;
@@ -89,22 +89,22 @@ public class Iteration implements Identifiable {
     }
     
     public void addStory(Card story){
-    	if (this.stories == null) {
-    		this.stories = new ArrayList<Card>();
+    	if (this.cards == null) {
+    		this.cards = new ArrayList<Card>();
     	}
-    	this.stories.add(story);
+    	this.cards.add(story);
     }
 
-	public void setStories(List<Card> stories) {
-		this.stories = stories;
+	public void setCards(List<Card> stories) {
+		this.cards = stories;
 	}
 
-	public List<Card> getStories() {
-	    if (stories == null) {
-            stories = new ArrayList<Card>();
+	public List<Card> getCards() {
+	    if (cards == null) {
+            cards = new ArrayList<Card>();
         }
 	    
-		return stories;
+		return cards;
 	}
 	
 	public List<Card> getTodoStories() {
@@ -116,7 +116,7 @@ public class Iteration implements Identifiable {
 
 	private List<Card> storiesByStatus(Status status) {
 		List<Card> result = new ArrayList<Card>();
-		for (Card story : stories) {
+		for (Card story : cards) {
 			if (status.equals(story.getStatus())) {
 				result.add(story);
 			}

@@ -9,11 +9,11 @@ import org.vraptor.annotations.InterceptedBy;
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
-import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
-import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.CardRepository;
+import br.com.caelum.calopsita.repository.ProjectRepository;
 
 @Component
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
@@ -32,71 +32,71 @@ public class CardLogic {
 		this.projectRepository = projectRepository;
 	}
 
-	public void save(Card story, Project project) {
+	public void save(Card card, Project project) {
 		this.project = project;
-		story.setProject(project);
-		repository.add(story);
+		card.setProject(project);
+		repository.add(card);
 		this.cards = this.projectRepository.listStoriesFrom(project);
-	}
-	
-	public void saveSub(Card story) {
-		repository.add(story);
-		this.cards = this.repository.listSubstories(story.getParent());
-		this.card = story.getParent();
-		this.project = story.getProject();
-	}
-	
-	public void edit(Card story) {
-		this.card = this.repository.load(story);
-		this.cards = this.repository.listSubstories(story);
 	}
 
-	public Card getStory() {
+	public void saveSub(Card card) {
+		repository.add(card);
+		this.cards = this.repository.listSubstories(card.getParent());
+		this.card = card.getParent();
+		this.project = card.getProject();
+	}
+
+	public void edit(Card card) {
+		this.card = this.repository.load(card);
+		this.cards = this.repository.listSubstories(card);
+	}
+
+	public Card getCard() {
 		return card;
 	}
-	
-	public void update(Card story) {
-		Card managedStory = repository.load(story);
-		this.project = managedStory.getProject();
-		managedStory.setName(story.getName());
-		managedStory.setDescription(story.getDescription());
-		repository.update(managedStory);
+
+	public void update(Card card) {
+		Card managedCard = repository.load(card);
+		this.project = managedCard.getProject();
+		managedCard.setName(card.getName());
+		managedCard.setDescription(card.getDescription());
+		repository.update(managedCard);
 		this.cards = this.projectRepository.listStoriesFrom(project);
 	}
-	
+
 	public void prioritization(Project project) {
 		this.project = this.projectRepository.get(project.getId());
 		this.cards = this.projectRepository.listStoriesFrom(project);
 	}
-	public void prioritize(Project project, List<Card> stories) {
-		for (Card story : stories) {
-			Card loaded = repository.load(story);
-			loaded.setPriority(story.getPriority());
+	public void prioritize(Project project, List<Card> cards) {
+		for (Card card : cards) {
+			Card loaded = repository.load(card);
+			loaded.setPriority(card.getPriority());
 		}
 		prioritization(project);
 	}
-	public List<Card> getStories() {
+	public List<Card> getCards() {
 		return cards;
 	}
-	
-	public List<List<Card>> getGroupedStories() {
+
+	public List<List<Card>> getGroupedCards() {
 		List<List<Card>> result = new ArrayList<List<Card>>();
 		if (cards != null) {
 			for (int i = maxPriority(cards); i >= 0; i--) {
 				result.add(new ArrayList<Card>());
 			}
-			for (Card story : cards) {
-				result.get(story.getPriority()).add(story);
+			for (Card card : cards) {
+				result.get(card.getPriority()).add(card);
 			}
 		}
 		return result;
 	}
 
-	private int maxPriority(List<Card> stories2) {
+	private int maxPriority(List<Card> cards) {
 		int max = 0;
-		for (Card story : stories2) {
-			if (story.getPriority() > max) {
-				max = story.getPriority();
+		for (Card card : cards) {
+			if (card.getPriority() > max) {
+				max = card.getPriority();
 			}
 		}
 		return max;
@@ -106,8 +106,8 @@ public class CardLogic {
 		return project;
 	}
 
-	public String delete(Card story, boolean deleteSubstories) {
-		Card loaded = repository.load(story);
+	public String delete(Card card, boolean deleteSubstories) {
+		Card loaded = repository.load(card);
 		this.project = loaded.getProject();
 		if (this.project.getColaborators().contains(currentUser) || this.project.getOwner().equals(currentUser)) {
 		    this.project = loaded.getProject();
@@ -126,6 +126,6 @@ public class CardLogic {
 		} else {
 			return "invalid";
 		}
-		
+
 	}
 }
