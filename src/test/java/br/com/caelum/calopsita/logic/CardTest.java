@@ -20,7 +20,7 @@ import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 
-public class StoryTest {
+public class CardTest {
     private Mockery mockery;
     private CardLogic logic;
 	private CardRepository repository;
@@ -237,17 +237,17 @@ public class StoryTest {
 		return i;
 	}
 
-	private StoryTest givenTheStory(Card story) {
+	private CardTest givenTheStory(Card story) {
 		currentStory = story;
 		return this;
 	}
 
-	private StoryTest withName(String storyName) {
+	private CardTest withName(String storyName) {
 		currentStory.setName(storyName);
 		return this;
 	}
 
-	private StoryTest withDescription(String storyDescription) {
+	private CardTest withDescription(String storyDescription) {
 		currentStory.setDescription(storyDescription);
 		return this;
 	}
