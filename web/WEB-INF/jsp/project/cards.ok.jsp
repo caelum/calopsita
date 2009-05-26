@@ -25,7 +25,7 @@
   
   <div id="cards">
   	<c:if test="${not empty cards}">
-  		<%@include file="../story/update.ok.jsp" %>
+  		<%@include file="../card/update.ok.jsp" %>
   	</c:if>
   </div>
   <a href="javascript:toggle('cardForm'); document.addCard.reset();"><fmt:message key="project.addCard"/></a><br/>

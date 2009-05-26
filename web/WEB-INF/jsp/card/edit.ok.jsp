@@ -32,7 +32,7 @@
 
 <div id="cards">
 	<c:if test="${not empty cards}">
-		<%@include file="../story/update.ok.jsp" %>
+		<%@include file="../card/update.ok.jsp" %>
 	</c:if>
 </div>
 
