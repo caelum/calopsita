@@ -88,7 +88,8 @@ public class CardTest {
 
 		shouldRemoveTheCardFromRepository(returned);
 
-		String status = whenIRemove(card);
+		String status = null;
+		whenIRemove(card);
 		assertThat(status, is("ok"));
 		mockery.assertIsSatisfied();
 	}
