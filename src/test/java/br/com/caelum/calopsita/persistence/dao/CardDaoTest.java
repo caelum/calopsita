@@ -41,63 +41,63 @@ public class CardDaoTest {
 	}
 	
 	@Test
-	public void storiesWithoutIteration() throws Exception {
+	public void cardsWithoutIteration() throws Exception {
 		Iteration iteration = givenAnIteration();
-		Card story = givenAStory(iteration.getProject());
-		Card storyOfIteration = givenAStoryOfTheIteration(iteration);
-		Card storyOfOtherProject = givenAStory(givenAProject());
+		Card card = givenACard(iteration.getProject());
+		Card cardOfIteration = givenACardOfTheIteration(iteration);
+		Card cardOfOtherProject = givenACard(givenAProject());
 		
 		List<Card> list = dao.cardsWithoutIteration(iteration.getProject());
 		
-		assertThat(list, hasItem(story));
-		assertThat(list, not(hasItem(storyOfIteration)));
-		assertThat(list, not(hasItem(storyOfOtherProject)));
+		assertThat(list, hasItem(card));
+		assertThat(list, not(hasItem(cardOfIteration)));
+		assertThat(list, not(hasItem(cardOfOtherProject)));
 	}
 	@Test
-	public void listingSubstories() throws Exception {
-		Card story = givenAStory();
-		Card substory = givenASubStory(story);
-		Card otherStory = givenAStory();
-		List<Card> list = dao.listSubcards(story);
+	public void listingSubcard() throws Exception {
+		Card card = givenACard();
+		Card subcard = givenASubcard(card);
+		Card otherCard = givenACard();
+		List<Card> list = dao.listSubcards(card);
 		
-		assertThat(list, hasItem(substory));
-		assertThat(list, not(hasItem(story)));
-		assertThat(list, not(hasItem(otherStory)));
+		assertThat(list, hasItem(subcard));
+		assertThat(list, not(hasItem(card)));
+		assertThat(list, not(hasItem(otherCard)));
 	}
 
 
-	private Card givenASubStory(Card story) {
-		Card sub = givenAStory();
-		sub.setParent(story);
+	private Card givenASubcard(Card card) {
+		Card sub = givenACard();
+		sub.setParent(card);
 		session.flush();
 		return sub;
 	}
 
 
-	private Card givenAStoryOfTheIteration(Iteration iteration) {
-		Card story = givenAStory(iteration.getProject());
-		story.setIteration(iteration);
-		session.update(story);
+	private Card givenACardOfTheIteration(Iteration iteration) {
+		Card card = givenACard(iteration.getProject());
+		card.setIteration(iteration);
+		session.update(card);
 		session.flush();
-		return story;
+		return card;
 	}
 
 
 	
-	private Card givenAStory() {
-		Card story = new Card();
-		story.setName("Rumpelstitlskin");
-		story.setDescription("I hope I spelld his name correctly");
-		session.save(story);
+	private Card givenACard() {
+		Card card = new Card();
+		card.setName("Rumpelstitlskin");
+		card.setDescription("I hope I spelld his name correctly");
+		session.save(card);
 		session.flush();
-		return story;
+		return card;
 		
 	}
-	private Card givenAStory(Project project) {
-		Card story = givenAStory();
-		story.setProject(project);
+	private Card givenACard(Project project) {
+		Card card = givenACard();
+		card.setProject(project);
 		session.flush();
-		return story;
+		return card;
 	}
 
 
