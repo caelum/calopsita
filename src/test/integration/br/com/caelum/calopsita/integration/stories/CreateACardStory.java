@@ -10,7 +10,7 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  * <b>I want to</b> create and edit stories (with name and description) <br>
  * 
  */
-public class CreateAStoryStory extends DefaultStory {
+public class CreateACardStory extends DefaultStory {
 
 	@Test
 	public void storyCreation() throws Exception {

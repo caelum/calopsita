@@ -30,7 +30,7 @@ public class AddCardOnAnIterationStory extends DefaultStory {
 
 
 	@Test
-	public void promiscuousStoriesBugDontHappen() {
+	public void promiscuousCardsBugDontHappen() {
 		given.thereIsAnUserNamed("sergio").and()
 			.thereIsAProjectNamed("IEs4Linux")
 				.ownedBy("sergio")
