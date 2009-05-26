@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 
@@ -22,7 +22,7 @@ public class ProjectDao implements ProjectRepository {
     public Project get(Long id) {
     	return (Project) session.get(Project.class, id);
     }
-    
+
     @Override
     public Project load(Project project) {
     	return (Project) session.load(Project.class, project.getId());
@@ -39,7 +39,7 @@ public class ProjectDao implements ProjectRepository {
 
     @Override
     public void remove(Project project) {
-    	this.session.createQuery("delete from Story s where s.project = :project")
+    	this.session.createQuery("delete from Card s where s.project = :project")
 			.setParameter("project", project).executeUpdate();
     	this.session.createQuery("delete from Iteration i where i.project = :project")
     		.setParameter("project", project).executeUpdate();
@@ -55,10 +55,10 @@ public class ProjectDao implements ProjectRepository {
 
 	@Override
 	public List<Card> listCardsFrom(Project project) {
-		return this.session.createQuery("from Story s where s.project = :project order by priority")
+		return this.session.createQuery("from Card s where s.project = :project order by priority")
 			.setParameter("project", project).list();
 	}
-	
+
 	@Override
     public List<Iteration> listIterationsFrom(Project project) {
         return this.session.createQuery("from Iteration i where i.project = :project")
