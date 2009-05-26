@@ -7,14 +7,14 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 /**
  * <b>In order to</b> plan my team's work <br>
  * <b>As a</b> client <br>
- * <b>I want</b> remove stories from an existing iteration <br>
+ * <b>I want</b> remove cards from an existing iteration <br>
  * @author lucascs
  *
  */
-public class RemoveStoryOfAnIterationStory extends DefaultStory {
+public class RemoveCardOfAnIterationStory extends DefaultStory {
 
 	@Test
-	public void removeAStoryOfAnIteration() {
+	public void removeACardOfAnIteration() {
 		given.thereIsAnUserNamed("harry").and()
 			.thereIsAProjectNamed("vim4dummies")
 				.ownedBy("harry")

@@ -7,14 +7,14 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 /**
  * <b>In order to</b> define what is more important <br />
  * <b>As a</b> project client <br />
- * <b>I want to</b> be able to prioritize stories using an integer number <br />
+ * <b>I want to</b> be able to prioritize cards using an integer number <br />
  *
  * @author ceci
  */
 public class PrioritizeCardsStory extends DefaultStory{
 
 	@Test
-	public void prioritizeStoriesWithDifferentPriorities() throws Exception {
+	public void prioritizeCardsWithDifferentPriorities() throws Exception {
 		given.thereIsAnUserNamed("Doni").and()
 			.thereIsAProjectNamed("Mirror").ownedBy("Doni")
 				.withACardNamed("Remove all annotations")
