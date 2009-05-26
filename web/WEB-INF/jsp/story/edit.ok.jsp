@@ -8,21 +8,21 @@
 
 <body>
 
-<div id="story">
-    <p><fmt:message key="project.name"/>: ${story.name}</p>
-    <p><fmt:message key="project.description"/>: ${story.description}</p>
+<div id="card">
+    <p><fmt:message key="project.name"/>: ${card.name}</p>
+    <p><fmt:message key="project.description"/>: ${card.description}</p>
 </div>
 
-<form name="editStory" action="<c:url value='/story/update/' />" method="post">
-	<input type="hidden" name="story.id" value="${story.id }"/>
-	<input type="hidden" name="project.id" value="${story.project.id }"/>
+<form name="editCard" action="<c:url value='/card/update/' />" method="post">
+	<input type="hidden" name="card.id" value="${card.id }"/>
+	<input type="hidden" name="project.id" value="${card.project.id }"/>
 	<p>
-		<label><fmt:message key="story.name"/></label>
-		<em>*</em><input type="text" name="story.name" value="${story.name }"/>
+		<label><fmt:message key="card.name"/></label>
+		<em>*</em><input type="text" name="card.name" value="${card.name }"/>
 	</p>
 	<p>
-		<label><fmt:message key="story.description"/></label>
-		<em>*</em><textarea name="story.description" >${story.description }</textarea>
+		<label><fmt:message key="card.description"/></label>
+		<em>*</em><textarea name="card.description" >${card.description }</textarea>
 	</p>
 	<p>
 		<input class="buttons" type="submit" value="<fmt:message key="update"/>"/>
@@ -30,32 +30,32 @@
 	</p>
 </form>
 
-<div id="stories">
-	<c:if test="${not empty stories}">
+<div id="cards">
+	<c:if test="${not empty cards}">
 		<%@include file="../story/update.ok.jsp" %>
 	</c:if>
 </div>
 
-<a href="javascript:toggle('storyForm'); document.addStory.reset();">Add Substory</a><br/>
+<a href="javascript:toggle('cardForm'); document.addCard.reset();">Add Subcard</a><br/>
 
-<form id="storyForm" class="hidden" name="addStory" action="<c:url value="/substory/save/"/>" method="post">
-	<input type="hidden" name="story.project.id" value="${story.project.id }" />
-	<input type="hidden" name="story.parent.id" value="${story.id }" />
+<form id="cardForm" class="hidden" name="addCard" action="<c:url value="/subcard/save/"/>" method="post">
+	<input type="hidden" name="card.project.id" value="${card.project.id }" />
+	<input type="hidden" name="card.parent.id" value="${card.id }" />
 	<p>
-		<label><fmt:message key="story.name"/></label>
-		<em>*</em><input type="text" name="story.name"/>
+		<label><fmt:message key="card.name"/></label>
+		<em>*</em><input type="text" name="card.name"/>
 	</p>
 	<p>
-		<label><fmt:message key="story.description"/></label>
-		<em>*</em><textarea name="story.description"></textarea>
+		<label><fmt:message key="card.description"/></label>
+		<em>*</em><textarea name="card.description"></textarea>
 	</p>
     <p>
     	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
-  		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('storyForm');"/>
+  		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');"/>
   	</p>
 </form>
 
-<a id="back" href="<c:url value="/project/${story.project.id }/cards/"/>"><fmt:message key="back"/></a>
+<a id="back" href="<c:url value="/project/${card.project.id }/cards/"/>"><fmt:message key="back"/></a>
 
 </body>
 </html>

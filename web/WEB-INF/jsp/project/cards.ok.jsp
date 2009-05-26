@@ -23,26 +23,26 @@
       <p><fmt:message key="project.name"/>: ${project.name}</p>
   </div>
   
-  <div id="stories">
-  	<c:if test="${not empty stories}">
+  <div id="cards">
+  	<c:if test="${not empty cards}">
   		<%@include file="../story/update.ok.jsp" %>
   	</c:if>
   </div>
-  <a href="javascript:toggle('storyForm'); document.addStory.reset();"><fmt:message key="project.addStory"/></a><br/>
+  <a href="javascript:toggle('cardForm'); document.addCard.reset();"><fmt:message key="project.addCard"/></a><br/>
   
-  <form id="storyForm" class="hidden" name="addStory" action="<c:url value="/story/save/"/>" method="post">
+  <form id="cardForm" class="hidden" name="addCard" action="<c:url value="/card/save/"/>" method="post">
   	<input type="hidden" name="project.id" value="${project.id }" />
   	<p>
-  		<label><fmt:message key="story.name"/></label>
-  		<em>*</em><input type="text" name="story.name"/>
+  		<label><fmt:message key="card.name"/></label>
+  		<em>*</em><input type="text" name="card.name"/>
   	</p>
   	<p>
-  		<label><fmt:message key="story.description"/></label>
-  		<em>*</em><textarea name="story.description"></textarea>
+  		<label><fmt:message key="card.description"/></label>
+  		<em>*</em><textarea name="card.description"></textarea>
   	</p>
       <p>
       	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
-    		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('storyForm');"/>
+    		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');"/>
     	</p>
   </form>
 </div>

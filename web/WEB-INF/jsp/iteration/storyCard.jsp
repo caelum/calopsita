@@ -1,5 +1,5 @@
-<li class="story" id="${storyId}_${s.count}" name="${story.name }" ondblclick="showDialog('${story.name}', 'description_${story.id }')">
-	<p>${story.name }</p>
-	<pre class="hidden" id="description_${story.id }">${fn:escapeXml(story.description) }</pre>
-	<span class="hidden">${story.id }</span>
+<li class="card" id="${cardId}_${s.count}" name="${card.name }" ondblclick="showDialog('${card.name}', 'description_${card.id }')">
+	<p>${card.name }</p>
+	<pre class="hidden" id="description_${card.id }">${fn:escapeXml(card.description) }</pre>
+	<span class="hidden">${card.id }</span>
 </li>

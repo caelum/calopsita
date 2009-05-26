@@ -48,8 +48,8 @@
   	<h2><fmt:message key="backlog"/></h2>
   
   	<ol id="backlog_list" class="board">
-  		<c:forEach items="${otherStories}" var="story" varStatus="s">
-  			<c:set var="storyId">backlog</c:set>
+  		<c:forEach items="${otherCards}" var="card" varStatus="s">
+  			<c:set var="cardId">backlog</c:set>
   			<%@include file="storyCard.jsp" %>
   		</c:forEach>
   	</ol>
