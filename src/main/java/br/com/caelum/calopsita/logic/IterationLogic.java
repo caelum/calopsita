@@ -25,7 +25,7 @@ public class IterationLogic {
     private final IterationRepository repository;
 	private Iteration iteration;
 	private final CardRepository cardRepository;
-	private List<Card> otherStories;
+	private List<Card> otherCards;
     private final User currentUser;
     private final ProjectRepository projectRepository;
     private List<Iteration> iterations;
@@ -53,7 +53,7 @@ public class IterationLogic {
     public void show(Iteration iteration) {
     	this.iteration = repository.load(iteration);
     	this.project = this.iteration.getProject();
-    	otherStories = cardRepository.storiesWithoutIteration(project);
+    	otherCards = cardRepository.cardsWithoutIteration(project);
     }
 
     public void current(Project project) {
@@ -70,7 +70,7 @@ public class IterationLogic {
         return iterations;
     }
 
-    public void updateStories(Iteration iteration, List<Card> cards) {
+    public void updateCards(Iteration iteration, List<Card> cards) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
 			loaded.setIteration(iteration);
@@ -80,7 +80,7 @@ public class IterationLogic {
     	this.iteration = iteration;
     }
 
-    public void removeStories(Iteration iteration, List<Card> cards) {
+    public void removeCards(Iteration iteration, List<Card> cards) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
 			loaded.setIteration(null);
@@ -92,8 +92,8 @@ public class IterationLogic {
 		return iteration;
 	}
 
-    public List<Card> getOtherStories() {
-		return otherStories;
+    public List<Card> getOtherCards() {
+		return otherCards;
 	}
 
     public Project getProject() {

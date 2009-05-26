@@ -47,7 +47,7 @@ public class StoryDaoTest {
 		Card storyOfIteration = givenAStoryOfTheIteration(iteration);
 		Card storyOfOtherProject = givenAStory(givenAProject());
 		
-		List<Card> list = dao.storiesWithoutIteration(iteration.getProject());
+		List<Card> list = dao.cardsWithoutIteration(iteration.getProject());
 		
 		assertThat(list, hasItem(story));
 		assertThat(list, not(hasItem(storyOfIteration)));

@@ -11,7 +11,7 @@ public interface CardRepository extends BaseRepository<Card>{
 
 	void update(Card story);
 
-	List<Card> storiesWithoutIteration(Project project);
+	List<Card> cardsWithoutIteration(Project project);
 
 	List<Card> listSubcards(Card story);
 

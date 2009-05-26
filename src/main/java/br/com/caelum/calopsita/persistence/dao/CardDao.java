@@ -35,7 +35,7 @@ public class CardDao implements CardRepository {
 	}
 	
 	@Override
-	public List<Card> storiesWithoutIteration(Project project) {
+	public List<Card> cardsWithoutIteration(Project project) {
 		return session.createQuery("from Story s where s.project = :project and " +
 				" s.iteration is null order by priority")
 				.setParameter("project", project).list();

@@ -314,7 +314,7 @@ public class IterationTest {
     }
 
     private void whenIRemoveTheStoryOfIteration(Card story, Iteration iteration) {
-		logic.removeStories(iteration, Arrays.asList(story));
+		logic.removeCards(iteration, Arrays.asList(story));
 	}
 
 	private Card givenLoadedStoryContainsIteration(final Card story, final Iteration iteration) {
@@ -346,7 +346,7 @@ public class IterationTest {
 	}
 
 	private void whenIAddTheStoryToIteration(Card story, Iteration iteration) {
-    	logic.updateStories(iteration, Arrays.asList(story));
+    	logic.updateCards(iteration, Arrays.asList(story));
 	}
 
 	private Card givenAStory() {
