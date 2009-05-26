@@ -17,7 +17,7 @@ import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 
-public class StoryDaoTest {
+public class CardDaoTest {
 
 	
 	private Session session;
