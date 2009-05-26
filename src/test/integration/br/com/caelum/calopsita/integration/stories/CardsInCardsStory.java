@@ -11,7 +11,7 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  * @author lucascs
  *
  */
-public class StoriesInStoriesStory extends DefaultStory {
+public class CardsInCardsStory extends DefaultStory {
 	
 	@Test
 	public void addAStoryInAnotherStory() throws Exception {
