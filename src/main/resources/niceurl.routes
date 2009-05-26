@@ -2,15 +2,15 @@
 /											=>  project.list
 /javascript/:{file}							==> /javascript/#{file}
 /javascript/:{file}							==> /javascript/#{file}
-/substory/save/								=>  story.saveSub
-/project/:{project.id}/prioritization/		=>  story.prioritization
+/subcard/save/								=>  card.saveSub
+/project/:{project.id}/prioritization/		=>  card.prioritization
 /iterations/:{project.id}/:{logic}/			=>  iteration.#{logic}
 /add/colaborator/							=> 	project.addColaborator
 /project/:{project.id}/:{logic}/			=>  project.#{logic}
 /iteration/:{iteration.id}/:{logic}/		=>  iteration.#{logic}
-/story/:{story.id}/edit/					=>  story.edit
-/story/:{story.id}/delete/					=>  story.delete
-/story/:{project.id}/:{logic}/				=>  story.#{logic}
+/card/:{card.id}/edit/					=>  card.edit
+/card/:{card.id}/delete/					=>  card.delete
+/card/:{project.id}/:{logic}/				=>  card.#{logic}
 /:{component}/:{logic}/						=> #{component}.#{logic}
 #/user/:{logic}/							=>  user.#{logic}
 
