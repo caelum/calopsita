@@ -30,7 +30,7 @@ public class CreateAStoryStory extends DefaultStory {
 		given.thereIsAnUserNamed("Sonson").and()
 		     .thereIsAProjectNamed("OpenMeetings")
 			     .ownedBy("Sonson")
-			     .withAStoryNamed("Cinderella")
+			     .withACardNamed("Cinderella")
 			     .whichDescriptionIs("She loses her shoe.").and()
 			 .iAmLoggedInAs("Sonson");
 		

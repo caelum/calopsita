@@ -6,37 +6,37 @@ import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.seleniumdsl.Browser;
 
-public class StoryContexts<T extends ProjectContexts<T>> {
+public class CardContexts<T extends ProjectContexts<T>> {
 
 	private final Card story;
 	private final Session session;
 	private final T parent;
 	private final Browser browser;
 
-	public StoryContexts(Card story, Session session, Browser browser, T parent) {
+	public CardContexts(Card story, Session session, Browser browser, T parent) {
 		this.story = story;
 		this.session = session;
 		this.browser = browser;
 		this.parent = parent;
 	}
 
-	public StoryContexts<T> withASubstoryNamed(String storyName) {
+	public CardContexts<T> withASubstoryNamed(String storyName) {
 		Card story = new Card();
 		story.setName(storyName);
 		story.setProject(this.story.getProject());
 		story.setParent(this.story);
 		session.save(story);
 		session.flush();
-		return new StoryContexts<T>(story, session, browser, parent);
+		return new CardContexts<T>(story, session, browser, parent);
 	}
 
-	public StoryContexts<T> whichDescriptionIs(String storyDescription) {
+	public CardContexts<T> whichDescriptionIs(String storyDescription) {
 		story.setDescription(storyDescription);
 		session.flush();
 		return this;
 	}
 
-	public StoryContexts<T> withPriority(int priority) {
+	public CardContexts<T> withPriority(int priority) {
 		story.setPriority(priority);
 		session.saveOrUpdate(story);
 		session.flush();

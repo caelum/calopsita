@@ -44,9 +44,9 @@ public class IterationContexts extends ProjectContexts<IterationContexts> {
 	}
 
 	@Override
-	public StoryContexts<IterationContexts> withAStoryNamed(String storyName) {
-		StoryContexts<IterationContexts> story = super.withAStoryNamed(storyName);
-		story.setIteration(iteration);
-		return story;
+	public CardContexts<IterationContexts> withACardNamed(String cardName) {
+		CardContexts<IterationContexts> card = super.withACardNamed(cardName);
+		card.setIteration(iteration);
+		return card;
 	}
 }

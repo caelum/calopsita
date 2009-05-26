@@ -17,9 +17,9 @@ public class PrioritizeStoriesStory extends DefaultStory{
 	public void prioritizeStoriesWithDifferentPriorities() throws Exception {
 		given.thereIsAnUserNamed("Doni").and()
 			.thereIsAProjectNamed("Mirror").ownedBy("Doni")
-				.withAStoryNamed("Remove all annotations")
+				.withACardNamed("Remove all annotations")
 					.whichDescriptionIs("annotations are useless").and()
-				.withAStoryNamed("Remove all generics")
+				.withACardNamed("Remove all generics")
 					.whichDescriptionIs("we want obfuscated code").and()
 			.iAmLoggedInAs("Doni");
 		when.iOpenProjectPageOf("Mirror").and()

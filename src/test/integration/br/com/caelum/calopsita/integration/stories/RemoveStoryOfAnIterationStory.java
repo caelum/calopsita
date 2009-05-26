@@ -19,7 +19,7 @@ public class RemoveStoryOfAnIterationStory extends DefaultStory {
 			.thereIsAProjectNamed("vim4dummies")
 				.ownedBy("harry")
 				.withAnIterationWhichGoalIs("kill all emacsians")
-					.withAStoryNamed("buy a weapon of mass destruction")
+					.withACardNamed("buy a weapon of mass destruction")
 						.whichDescriptionIs("This way we'll kill'em all").and()
 			.iAmLoggedInAs("harry");
 		when.iOpenProjectPageOf("vim4dummies").and()

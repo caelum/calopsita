@@ -18,7 +18,7 @@ public class StoriesInStoriesStory extends DefaultStory {
 		given.thereIsAnUserNamed("lipe").and()
 			.thereIsAProjectNamed("tattoos")
 				.ownedBy("lipe")
-				.withAStoryNamed("left arm tatoo")
+				.withACardNamed("left arm tatoo")
 					.whichDescriptionIs("I want my arm full of tatoos").and()
 			.iAmLoggedInAs("lipe");
 		when.iOpenProjectPageOf("tattoos").and()

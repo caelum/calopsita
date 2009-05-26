@@ -19,7 +19,7 @@ public class MarkAsDoneStory extends DefaultStory {
 			.thereIsAProjectNamed("Vraptor 3")
 				.ownedBy("kung")
 				.withAnIterationWhichGoalIs("make it work")
-					.withAStoryNamed("support Vraptor 2")
+					.withACardNamed("support Vraptor 2")
 						.whichDescriptionIs("some stuff should be backward compatible").and()
 			.iAmLoggedInAs("kung");
 		when.iOpenProjectPageOf("Vraptor 3").and()
