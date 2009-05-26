@@ -1,4 +1,4 @@
-function confirmStoryDeletion(url, hasSubstories) {
+function confirmCardDeletion(url, hasSubcards) {
     var msg = {};
     msg['deletion'] = {
         html : 'Are you sure to delete?',
@@ -8,7 +8,7 @@ function confirmStoryDeletion(url, hasSubstories) {
         },
         submit : function(confirm) {
             if (confirm) {
-                if (hasSubstories) {
+                if (hasSubcards) {
                     $.prompt.nextState();
                     return false;
                 } else {
@@ -17,26 +17,26 @@ function confirmStoryDeletion(url, hasSubstories) {
             }
         }
     };
-    msg['substories'] = {
-        html : 'Delete substories also?',
+    msg['subcards'] = {
+        html : 'Delete subcards also?',
         buttons : {
             'Yes' : true,
             'No' : false
         },
         submit : function(choice) {
-            window.location.href = url + "?deleteSubstories=" + choice;
+            window.location.href = url + "?deleteSubcards=" + choice;
         }
     };
     $.prompt(msg);
 }
 $( function() {
     function bind() {
-        $('form[name="editStory"]').ajaxForm( {
+        $('form[name="editCard"]').ajaxForm( {
             beforeSubmit : function() {
-                $('[id*="story_edit"]:visible').slideToggle("normal");
+                $('[id*="card_edit"]:visible').slideToggle("normal");
             },
             success : function(data) {
-                $('#stories').html(data);
+                $('#cards').html(data);
                 bind();
             }
         });
