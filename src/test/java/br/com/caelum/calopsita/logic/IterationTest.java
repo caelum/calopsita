@@ -265,7 +265,7 @@ public class IterationTest {
 	}
 
 	private void givenTheIterationHasThisStory(Card story, Iteration returnedIteration) {
-        returnedIteration.addStory(story);
+        returnedIteration.addCard(story);
         story.setIteration(returnedIteration);
     }
 

@@ -88,15 +88,15 @@ public class Iteration implements Identifiable {
     	this.endDate = endDate;
     }
     
-    public void addStory(Card story){
+    public void addCard(Card card){
     	if (this.cards == null) {
     		this.cards = new ArrayList<Card>();
     	}
-    	this.cards.add(story);
+    	this.cards.add(card);
     }
 
-	public void setCards(List<Card> stories) {
-		this.cards = stories;
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
 	}
 
 	public List<Card> getCards() {
@@ -107,18 +107,18 @@ public class Iteration implements Identifiable {
 		return cards;
 	}
 	
-	public List<Card> getTodoStories() {
-		return storiesByStatus(Status.TODO);
+	public List<Card> getTodoCards() {
+		return cardsByStatus(Status.TODO);
 	}
-	public List<Card> getDoneStories() {
-		return storiesByStatus(Status.DONE);
+	public List<Card> getDoneCards() {
+		return cardsByStatus(Status.DONE);
 	}
 
-	private List<Card> storiesByStatus(Status status) {
+	private List<Card> cardsByStatus(Status status) {
 		List<Card> result = new ArrayList<Card>();
-		for (Card story : cards) {
-			if (status.equals(story.getStatus())) {
-				result.add(story);
+		for (Card card : cards) {
+			if (status.equals(card.getStatus())) {
+				result.add(card);
 			}
 		}
 		return result;
