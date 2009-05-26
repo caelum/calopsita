@@ -23,8 +23,8 @@ public class CardLogic {
 	private Project project;
 	private final User currentUser;
 	private final ProjectRepository projectRepository;
-	private List<Card> stories;
-	private Card story;
+	private List<Card> cards;
+	private Card card;
 
 	public CardLogic(User user, CardRepository repository, ProjectRepository projectRepository) {
 		this.currentUser = user;
@@ -36,23 +36,23 @@ public class CardLogic {
 		this.project = project;
 		story.setProject(project);
 		repository.add(story);
-		this.stories = this.projectRepository.listStoriesFrom(project);
+		this.cards = this.projectRepository.listStoriesFrom(project);
 	}
 	
 	public void saveSub(Card story) {
 		repository.add(story);
-		this.stories = this.repository.listSubstories(story.getParent());
-		this.story = story.getParent();
+		this.cards = this.repository.listSubstories(story.getParent());
+		this.card = story.getParent();
 		this.project = story.getProject();
 	}
 	
 	public void edit(Card story) {
-		this.story = this.repository.load(story);
-		this.stories = this.repository.listSubstories(story);
+		this.card = this.repository.load(story);
+		this.cards = this.repository.listSubstories(story);
 	}
 
 	public Card getStory() {
-		return story;
+		return card;
 	}
 	
 	public void update(Card story) {
@@ -61,12 +61,12 @@ public class CardLogic {
 		managedStory.setName(story.getName());
 		managedStory.setDescription(story.getDescription());
 		repository.update(managedStory);
-		this.stories = this.projectRepository.listStoriesFrom(project);
+		this.cards = this.projectRepository.listStoriesFrom(project);
 	}
 	
 	public void prioritization(Project project) {
 		this.project = this.projectRepository.get(project.getId());
-		this.stories = this.projectRepository.listStoriesFrom(project);
+		this.cards = this.projectRepository.listStoriesFrom(project);
 	}
 	public void prioritize(Project project, List<Card> stories) {
 		for (Card story : stories) {
@@ -76,16 +76,16 @@ public class CardLogic {
 		prioritization(project);
 	}
 	public List<Card> getStories() {
-		return stories;
+		return cards;
 	}
 	
 	public List<List<Card>> getGroupedStories() {
 		List<List<Card>> result = new ArrayList<List<Card>>();
-		if (stories != null) {
-			for (int i = maxPriority(stories); i >= 0; i--) {
+		if (cards != null) {
+			for (int i = maxPriority(cards); i >= 0; i--) {
 				result.add(new ArrayList<Card>());
 			}
-			for (Card story : stories) {
+			for (Card story : cards) {
 				result.get(story.getPriority()).add(story);
 			}
 		}
