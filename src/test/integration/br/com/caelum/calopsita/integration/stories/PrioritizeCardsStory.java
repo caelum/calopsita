@@ -11,7 +11,7 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  *
  * @author ceci
  */
-public class PrioritizeStoriesStory extends DefaultStory{
+public class PrioritizeCardsStory extends DefaultStory{
 
 	@Test
 	public void prioritizeStoriesWithDifferentPriorities() throws Exception {

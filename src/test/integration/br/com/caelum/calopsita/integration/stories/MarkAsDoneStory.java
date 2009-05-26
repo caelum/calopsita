@@ -7,14 +7,14 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 /**
  * <b>In order to</b> follow the iteration's progress <br>
  * <b>As a</b> client or developer <br>
- * <b>I want</b> to flag a story as done. <br>
+ * <b>I want</b> to flag a card as done. <br>
  * @author lucascs
  *
  */
 public class MarkAsDoneStory extends DefaultStory {
 
 	@Test
-	public void flagStoryAsDone() {
+	public void flagCardAsDone() {
 		given.thereIsAnUserNamed("kung").and()
 			.thereIsAProjectNamed("Vraptor 3")
 				.ownedBy("kung")

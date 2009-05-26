@@ -7,7 +7,7 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 /**
  * <b>In order to</b> be able to make a mistake with no fear <br>
  * <b>As</b> Fabs<br>
- * <b>I want to</b> delete stories, iterations and projects that I have created<br>
+ * <b>I want to</b> delete cards, iterations and projects that I have created<br>
  *
  */
 public class DeleteEverythingStory extends DefaultStory {
@@ -45,7 +45,7 @@ public class DeleteEverythingStory extends DefaultStory {
     }
 
 	@Test
-	public void deleteAStoryAndConfirm() {
+	public void deleteACardAndConfirm() {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
 				.withACardNamed("Support everything").whichDescriptionIs("That is a mistake").and()
@@ -56,7 +56,7 @@ public class DeleteEverythingStory extends DefaultStory {
 		then.theCard("Support everything").shouldNotAppearOnCardList();
 	}
 	@Test
-	public void deleteAStoryAndDontConfirm() {
+	public void deleteACardAndDontConfirm() {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
 				.withACardNamed("Support everything").whichDescriptionIs("That is a mistake").and()
@@ -67,7 +67,7 @@ public class DeleteEverythingStory extends DefaultStory {
 		then.theCard("Support everything").appearsOnList();
 	}
 	@Test
-	public void deleteAStoryAndSubstories() {
+	public void deleteACardAndSubcards() {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
 				.withACardNamed("Support everything").whichDescriptionIs("That is a mistake")
@@ -75,12 +75,12 @@ public class DeleteEverythingStory extends DefaultStory {
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
 		    .iOpenCardsPage().and()
-			.iDeleteTheCard("Support everything").andConfirm("deletion").andConfirm("substories");
+			.iDeleteTheCard("Support everything").andConfirm("deletion").andConfirm("subcards");
 		then.theCard("Support everything").shouldNotAppearOnCardList().and()
 			.theCard("support continuations").shouldNotAppearOnCardList();
 	}
 	@Test
-	public void deleteAStoryButNotSubstories() {
+	public void deleteACardButNotSubcards() {
 		given.thereIsAnUserNamed("fabs").and()
 			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
 				.withACardNamed("Support everything").whichDescriptionIs("That is a mistake")
@@ -88,7 +88,7 @@ public class DeleteEverythingStory extends DefaultStory {
 			.iAmLoggedInAs("fabs");
 		when.iOpenProjectPageOf("method-finder").and()
 		    .iOpenCardsPage().and()
-			.iDeleteTheCard("Support everything").andConfirm("deletion").andDontConfirm("substories");
+			.iDeleteTheCard("Support everything").andConfirm("deletion").andDontConfirm("subcards");
 		then.theCard("Support everything").shouldNotAppearOnCardList().and()
 			.theCard("support continuations").appearsOnList();
 	}
