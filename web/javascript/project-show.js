@@ -38,6 +38,7 @@ $( function() {
                     window.location.href = window.location + '../../../';
                 }
             });
+            $('[name=story.name]').focus();
             return false;
         }
     });

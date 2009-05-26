@@ -44,7 +44,7 @@
   		</c:forEach>
   	</ol>
   </div>
-  <div id="backlog" class="selectable">
+  <div id="backlog" class="selectable clear">
   	<h2><fmt:message key="backlog"/></h2>
   
   	<ol id="backlog_list" class="board">
