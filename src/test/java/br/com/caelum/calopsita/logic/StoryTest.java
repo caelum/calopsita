@@ -22,7 +22,7 @@ import br.com.caelum.calopsita.repository.StoryRepository;
 
 public class StoryTest {
     private Mockery mockery;
-    private StoryLogic logic;
+    private CardLogic logic;
 	private StoryRepository repository;
 	private User currentUser;
 	private Card currentStory;
@@ -39,7 +39,7 @@ public class StoryTest {
         
 		projectRepository = mockery.mock(ProjectRepository.class);
 
-		logic = new StoryLogic(currentUser, repository, projectRepository);
+		logic = new CardLogic(currentUser, repository, projectRepository);
     }
 
     @After

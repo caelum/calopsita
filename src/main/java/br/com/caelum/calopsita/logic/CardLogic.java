@@ -17,7 +17,7 @@ import br.com.caelum.calopsita.repository.StoryRepository;
 
 @Component
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
-public class StoryLogic {
+public class CardLogic {
 
 	private final StoryRepository repository;
 	private Project project;
@@ -26,7 +26,7 @@ public class StoryLogic {
 	private List<Card> stories;
 	private Card story;
 
-	public StoryLogic(User user, StoryRepository repository, ProjectRepository projectRepository) {
+	public CardLogic(User user, StoryRepository repository, ProjectRepository projectRepository) {
 		this.currentUser = user;
 		this.repository = repository;
 		this.projectRepository = projectRepository;
