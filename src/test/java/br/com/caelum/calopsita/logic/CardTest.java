@@ -44,7 +44,7 @@ public class CardTest {
 
 		projectRepository = mockery.mock(ProjectRepository.class);
 
-		logic = new CardsController(mockery.mock(Result.class), mockery.mock(Validator.class), currentUser, repository, projectRepository);
+		logic = new CardLogic(currentUser, repository, projectRepository);
     }
 
 
