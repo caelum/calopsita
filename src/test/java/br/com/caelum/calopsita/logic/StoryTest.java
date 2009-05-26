@@ -130,7 +130,7 @@ public class StoryTest {
     	substory.setParent(story);
 
     	Card returned = givenTheStoryIsInThisProject(story);
-    	returned.getSubstories().add(substory);
+    	returned.getSubcards().add(substory);
 
     	shouldRemoveTheStoryFromRepository(returned);
     	shouldRemoveTheStoryFromRepository(substory);
@@ -147,7 +147,7 @@ public class StoryTest {
     	substory.setParent(story);
 
     	Card returned = givenTheStoryIsInThisProject(story);
-    	returned.getSubstories().add(substory);
+    	returned.getSubcards().add(substory);
 
     	shouldRemoveTheStoryFromRepository(returned);
     	shouldUpdateTheStoryFromRepository(substory);
@@ -215,7 +215,7 @@ public class StoryTest {
 	private void shouldReturnTheStories(final Card... stories) {
 		mockery.checking(new Expectations() {
 			{
-				one(projectRepository).listStoriesFrom(with(any(Project.class)));
+				one(projectRepository).listCardsFrom(with(any(Project.class)));
 				will(returnValue(Arrays.asList(stories)));
 
 				allowing(projectRepository);

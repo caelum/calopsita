@@ -36,19 +36,19 @@ public class CardLogic {
 		this.project = project;
 		card.setProject(project);
 		repository.add(card);
-		this.cards = this.projectRepository.listStoriesFrom(project);
+		this.cards = this.projectRepository.listCardsFrom(project);
 	}
 
 	public void saveSub(Card card) {
 		repository.add(card);
-		this.cards = this.repository.listSubstories(card.getParent());
+		this.cards = this.repository.listSubcards(card.getParent());
 		this.card = card.getParent();
 		this.project = card.getProject();
 	}
 
 	public void edit(Card card) {
 		this.card = this.repository.load(card);
-		this.cards = this.repository.listSubstories(card);
+		this.cards = this.repository.listSubcards(card);
 	}
 
 	public Card getCard() {
@@ -61,12 +61,12 @@ public class CardLogic {
 		managedCard.setName(card.getName());
 		managedCard.setDescription(card.getDescription());
 		repository.update(managedCard);
-		this.cards = this.projectRepository.listStoriesFrom(project);
+		this.cards = this.projectRepository.listCardsFrom(project);
 	}
 
 	public void prioritization(Project project) {
 		this.project = this.projectRepository.get(project.getId());
-		this.cards = this.projectRepository.listStoriesFrom(project);
+		this.cards = this.projectRepository.listCardsFrom(project);
 	}
 	public void prioritize(Project project, List<Card> cards) {
 		for (Card card : cards) {
@@ -106,17 +106,17 @@ public class CardLogic {
 		return project;
 	}
 
-	public String delete(Card card, boolean deleteSubstories) {
+	public String delete(Card card, boolean deleteSubcards) {
 		Card loaded = repository.load(card);
 		this.project = loaded.getProject();
 		if (this.project.getColaborators().contains(currentUser) || this.project.getOwner().equals(currentUser)) {
 		    this.project = loaded.getProject();
-	        if (deleteSubstories) {
-	            for (Card sub : loaded.getSubstories()) {
+	        if (deleteSubcards) {
+	            for (Card sub : loaded.getSubcards()) {
 	                repository.remove(sub);
 	            }
 	        } else {
-	            for (Card sub : loaded.getSubstories()) {
+	            for (Card sub : loaded.getSubcards()) {
 	                sub.setParent(null);
 	                repository.update(sub);
 	            }

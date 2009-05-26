@@ -42,7 +42,7 @@ public class CardDao implements CardRepository {
 	}
 	
 	@Override
-	public List<Card> listSubstories(Card story) {
+	public List<Card> listSubcards(Card story) {
 		return session.createQuery("from Story s where s.parent = :story order by priority")
 			.setParameter("story", story).list();
 	}

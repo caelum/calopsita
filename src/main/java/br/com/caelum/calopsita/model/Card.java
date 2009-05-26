@@ -113,7 +113,7 @@ public class Card implements Identifiable {
 		this.substories = substories;
 	}
 
-	public List<Card> getSubstories() {
+	public List<Card> getSubcards() {
 		if (substories == null) {
 			substories = new ArrayList<Card>();
 		}

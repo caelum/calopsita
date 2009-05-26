@@ -13,6 +13,6 @@ public interface CardRepository extends BaseRepository<Card>{
 
 	List<Card> storiesWithoutIteration(Project project);
 
-	List<Card> listSubstories(Card story);
+	List<Card> listSubcards(Card story);
 
 }

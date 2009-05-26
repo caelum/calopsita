@@ -43,7 +43,7 @@ public class ProjectLogic {
 
     public void cards(Project project) {
         this.project = this.repository.get(project.getId());
-        this.stories = this.repository.listStoriesFrom(project);
+        this.stories = this.repository.listCardsFrom(project);
     }
     
     public void save(Project project) {

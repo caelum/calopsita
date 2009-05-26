@@ -81,7 +81,7 @@ public class ProjectDaoTest {
         Card storyFromOtherProject = givenAStory();
         Card storyFromThisProject = givenAStoryOfProject(project);
         
-        List<Card> list = dao.listStoriesFrom(project);
+        List<Card> list = dao.listCardsFrom(project);
         
         assertThat(list, not(hasItem(hasSameId(storyFromOtherProject))));
         assertThat(list, hasItem(hasSameId(storyFromThisProject)));
@@ -108,7 +108,7 @@ public class ProjectDaoTest {
 		dao.remove(project);
 		
 		assertThat(dao.listIterationsFrom(project), isEmpty());
-		assertThat(dao.listStoriesFrom(project), isEmpty());
+		assertThat(dao.listCardsFrom(project), isEmpty());
 	}
 	private Iteration givenAnIterationOfProject(Project project) throws ParseException {
         Iteration iteration = givenAnIteration();

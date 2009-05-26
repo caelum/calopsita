@@ -54,7 +54,7 @@ public class ProjectDao implements ProjectRepository {
     }
 
 	@Override
-	public List<Card> listStoriesFrom(Project project) {
+	public List<Card> listCardsFrom(Project project) {
 		return this.session.createQuery("from Story s where s.project = :project order by priority")
 			.setParameter("project", project).list();
 	}

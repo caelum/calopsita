@@ -58,7 +58,7 @@ public class StoryDaoTest {
 		Card story = givenAStory();
 		Card substory = givenASubStory(story);
 		Card otherStory = givenAStory();
-		List<Card> list = dao.listSubstories(story);
+		List<Card> list = dao.listSubcards(story);
 		
 		assertThat(list, hasItem(substory));
 		assertThat(list, not(hasItem(story)));
