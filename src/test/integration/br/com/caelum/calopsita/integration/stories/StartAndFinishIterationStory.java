@@ -21,6 +21,8 @@ public class StartAndFinishIterationStory extends DefaultStory {
             .iOpenIterationsPage().and()
         	.iStartTheIteration("start singing");
         then.theCurrentIterationIs("start singing");
+        when.iOpenProjectPageOf("arca");
+        then.theIterationThatAppearsIs("start singing");
     }
     
     @Test
