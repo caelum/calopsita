@@ -15,7 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.calopsita.controller.StoriesController;
+import br.com.caelum.calopsita.controller.CardsController;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadgets;
@@ -46,7 +46,7 @@ public class CardTest {
 
 		projectRepository = mockery.mock(ProjectRepository.class);
 
-		logic = new StoriesController(mockery.mock(Result.class), mockery.mock(Validator.class), currentUser, repository, projectRepository);
+		logic = new CardsController(mockery.mock(Result.class), mockery.mock(Validator.class), currentUser, repository, projectRepository);
     }
 
 

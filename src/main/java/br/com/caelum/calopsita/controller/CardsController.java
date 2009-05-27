@@ -10,11 +10,12 @@ import org.vraptor.annotations.InterceptedBy;
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.calopsita.repository.StoryRepository;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -27,16 +28,16 @@ import br.com.caelum.vraptor.validator.Validations;
 
 @Resource
 @InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
-public class StoriesController {
+public class CardsController {
 
-	private final StoryRepository repository;
+	private final CardRepository repository;
 	private final User currentUser;
 	private final ProjectRepository projectRepository;
 	private List<Story> stories;
     private final Validator validator;
     private final Result result;
 
-	public StoriesController(Result result, Validator validator, User user, StoryRepository repository, ProjectRepository projectRepository) {
+	public CardsController(Result result, Validator validator, User user, CardRepository repository, ProjectRepository projectRepository) {
 		this.result = result;
         this.validator = validator;
         this.currentUser = user;
@@ -45,38 +46,38 @@ public class StoriesController {
 	}
 
 	@Path("/projects/{project.id}/stories/") @Post
-	public void save(final Story story, Project project) {
-		story.setProject(project);
+	public void save(final Card card, Project project) {
+		card.setProject(project);
 		validator.checking(new Validations() {
             {
-                that(Hibernate.validate(story));
+                that(Hibernate.validate(card));
             }
         });
-		repository.add(story);
+		repository.add(card);
 		result.include("project", project);
-		result.include("stories", this.projectRepository.listCardsFrom(project));
+		result.include("cards", this.projectRepository.listCardsFrom(project));
 	}
-	
+
 	@Path("/projects/{project.id}/stories/saveSub/") @Post
-	public void saveSub(Story story) {
-		repository.add(story);
-		result.include("stories", this.repository.listSubstories(story.getParent()));
-		result.include("story", story.getParent());
-		result.include("project", story.getProject());
+	public void saveSub(Card card) {
+		repository.add(card);
+		result.include("stories", this.repository.listSubcards(card.getParent()));
+		result.include("story", card.getParent());
+		result.include("project", card.getProject());
 	}
 
 	@Path("/projects/{project.id}/stories/{story.id}/edit/") @Post
-	public void edit(Story story) {
-	    result.include("story", this.repository.load(story));
-	    result.include("stories", this.repository.listSubstories(story));
+	public void edit(Card card) {
+	    result.include("story", this.repository.load(card));
+	    result.include("stories", this.repository.listSubcards(card));
 	}
 
 	@Path("/projects/{project.id}/stories/{story.id}/") @Post
-	public void update(Story story) {
-		Story loaded = repository.load(story);
+	public void update(Card card) {
+		Card loaded = repository.load(card);
 		Project project = loaded.getProject();
-		loaded.setName(story.getName());
-		loaded.setDescription(story.getDescription());
+		loaded.setName(card.getName());
+		loaded.setDescription(card.getDescription());
 		repository.update(loaded);
 		result.include("project", project);
 		result.include("stories", this.projectRepository.listCardsFrom(project));
@@ -84,12 +85,12 @@ public class StoriesController {
 	}
 
 	@Path("/projects/{project.id}/stories/prioritize/") @Post
-	public void prioritize(Project project, List<Story> stories) {
-		for (Story story : stories) {
-			Story loaded = repository.load(story);
-			loaded.setPriority(story.getPriority());
+	public void prioritize(Project project, List<Card> cards) {
+		for (Card card : cards) {
+			Card loaded = repository.load(card);
+			loaded.setPriority(card.getPriority());
 		}
-		result.use(logic()).redirectTo(StoriesController.class).prioritization(project);
+		result.use(logic()).redirectTo(CardsController.class).prioritization(project);
 	}
 
 	//TODO: Deveria ser método de algum modelo, n?
@@ -118,17 +119,17 @@ public class StoriesController {
 	}
 
 	@Path("/projects/{project.id}/stories/{story.id}/") @Delete
-	public void delete(Story story, boolean deleteSubstories) {
-		Story loaded = repository.load(story);
+	public void delete(Card card, boolean deleteSubstories) {
+		Card loaded = repository.load(card);
 		Project project = loaded.getProject();
 		if (project.getColaborators().contains(currentUser) || project.getOwner().equals(currentUser)) {
 		    project = loaded.getProject();
 	        if (deleteSubstories) {
-	            for (Story sub : loaded.getSubstories()) {
+	            for (Card sub : loaded.getSubcards()) {
 	                repository.remove(sub);
 	            }
 	        } else {
-	            for (Story sub : loaded.getSubstories()) {
+	            for (Card sub : loaded.getSubcards()) {
 	                sub.setParent(null);
 	                repository.update(sub);
 	            }
