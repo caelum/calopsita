@@ -13,10 +13,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.IterationsController;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
@@ -39,7 +40,7 @@ public class IterationTest {
         iterationRepository = mockery.mock(IterationRepository.class);
         cardRepository = mockery.mock(CardRepository.class);
         projectRepository = mockery.mock(ProjectRepository.class);
-        
+
         currentUser = new User();
         currentUser.setLogin("me");
         project = new Project();
@@ -52,11 +53,11 @@ public class IterationTest {
     @Test
     public void savingAnIteration() throws Exception {
         Iteration iteration = givenAnIteration();
-    
+
         shouldSaveOnTheRepositoryTheIteration(iteration);
-        
+
         whenISaveTheIteration(iteration);
-        
+
         mockery.assertIsSatisfied();
     }
 
@@ -64,11 +65,11 @@ public class IterationTest {
 	public void addingACardInAnIteration() throws Exception {
 		Iteration iteration = givenAnIteration();
 		Card card = givenACard();
-		
+
 		shouldUpdateTheCard(card);
-		
+
 		whenIAddTheCardToIteration(card, iteration);
-		
+
 		assertThat(card.getIteration(), is(iteration));
 		mockery.assertIsSatisfied();
 	}
@@ -76,29 +77,29 @@ public class IterationTest {
     public void removingACardOfAnIteration() throws Exception {
     	Iteration iteration = givenAnIteration();
     	Card card = givenACard();
-    	
+
     	Card loaded = givenLoadedCardContainsIteration(card, iteration);
-    	
+
     	whenIRemoveTheCardOfIteration(card, iteration);
 
     	assertThat(loaded.getIteration(), is(nullValue()));
     	mockery.assertIsSatisfied();
     }
-    
+
     @Test
     public void removeAnIterationFromOtherProject() throws Exception {
         Iteration iteration = givenAnIteration();
         givenTheProjectIsOwnedBy(anyUser());
         Iteration returned = givenTheIterationIsInThisProject(iteration);
-        
+
         shouldNotRemoveTheIterationFromRepository(returned);
-        
+
         String status = null;
         whenIRemove(iteration);
         assertThat(status, is("invalid"));
         mockery.assertIsSatisfied();
     }
-    
+
     @Test
     public void removeAnIterationFromMyProject() throws Exception {
         Iteration iteration = givenAnIteration();
@@ -106,12 +107,12 @@ public class IterationTest {
 
         Card card = givenACard();
         Iteration returnedIteration = givenTheIterationIsInThisProject(iteration);
-        
+
         givenTheIterationHasThisCard(card, returnedIteration);
-        
+
         shouldUpdateTheCard(card);
         shouldRemoveTheIterationFromRepository(returnedIteration);
-        
+
         String status = null;
         whenIRemove(iteration);
         assertThat(status, is("ok"));
@@ -123,39 +124,39 @@ public class IterationTest {
         Iteration iteration = givenAnIteration();
         iteration.setStartDate(new LocalDate(2005,10,1));
         iteration.setEndDate(new LocalDate(2005,8,1));
-    
+
         whenISaveTheIteration(iteration);
         //should throw exception
     }
-    
+
     @Test
     public void startingAnIteration() throws Exception {
         Iteration iteration = givenAnIteration();
-        
+
         Iteration loaded = givenTheIterationHaveNoStartDate(iteration);
-        
+
         whenIStartTheIteration(iteration);
-        
+
         assertThat(loaded.getStartDate(), is(today()));
         mockery.assertIsSatisfied();
     }
     @Test(expected=IllegalArgumentException.class)
     public void startingAnIterationAlreadyStarted() throws Exception {
         Iteration iteration = givenAnIteration();
-        
+
         givenTheIterationAlreadyStarted(iteration);
-        
+
         whenIStartTheIteration(iteration);
     }
-    
+
     @Test
     public void endingAnIteration() throws Exception {
         Iteration iteration = givenAnIteration();
-        
+
         Iteration loaded = givenTheIterationStartedYesterday(iteration);
-        
+
         whenIEndTheIteration(iteration);
-        
+
         assertThat(loaded.getEndDate(), is(today()));
         mockery.assertIsSatisfied();
     }
@@ -164,9 +165,9 @@ public class IterationTest {
     @Test(expected=IllegalArgumentException.class)
     public void endingAnIterationAlreadyStarted() throws Exception {
         Iteration iteration = givenAnIteration();
-        
+
         givenTheIterationNotStarted(iteration);
-        
+
         whenIEndTheIteration(iteration);
     }
 
@@ -184,22 +185,22 @@ public class IterationTest {
     @Test
 	public void editingAnIteration() throws Exception {
 		Iteration iteration = givenAnIteration();
-		
+
 		Iteration loaded = shouldLoadFromRepository(iteration);
-		
+
 		iteration.setGoal("Altered goal");
 		iteration.setStartDate(today());
 		iteration.setEndDate(tomorrow());
-		
+
 		logic.update(iteration);
-		
-		
+
+
 		assertThat(loaded.getGoal(), is("Altered goal"));
 		assertThat(loaded.getStartDate(), is(today()));
 		assertThat(loaded.getEndDate(), is(tomorrow()));
-		
+
 		mockery.assertIsSatisfied();
-		
+
 	}
     private LocalDate tomorrow() {
 		return new LocalDate().plusDays(1);
@@ -213,8 +214,8 @@ public class IterationTest {
 
 	private Iteration shouldLoadFromRepository(final Iteration iteration) {
     	final Iteration result = new Iteration();
-    	
-    	
+
+
 		mockery.checking(new Expectations() {
 			{
 				one(iterationRepository).load(iteration);
@@ -245,10 +246,10 @@ public class IterationTest {
 	private void whenIEndTheIteration(Iteration iteration) {
 	    logic.end(iteration);
 	}
-	
+
 	private Iteration givenTheIterationHaveNoStartDate(final Iteration iteration) {
     	final Iteration result = new Iteration();
-    	
+
 		mockery.checking(new Expectations() {
 			{
 				one(iterationRepository).load(iteration);
@@ -296,7 +297,7 @@ public class IterationTest {
     private void whenIRemove(Iteration iteration) {
 	    logic.delete(iteration);
     }
-    
+
     private void shouldRemoveTheIterationFromRepository(final Iteration returned) {
 	    mockery.checking(new Expectations() {
             {
@@ -308,10 +309,10 @@ public class IterationTest {
     private Iteration givenTheIterationIsInThisProject(final Iteration iteration) {
 	    final Iteration returned = new Iteration();
         returned.setProject(this.project);
-        
+
         mockery.checking(new Expectations() {
             {
-                
+
                 one(iterationRepository).load(iteration);
                 will(returnValue(returned));
             }
@@ -325,14 +326,14 @@ public class IterationTest {
 
 	private Card givenLoadedCardContainsIteration(final Card card, final Iteration iteration) {
 		final Card loaded = new Card();
-		
+
 		mockery.checking(new Expectations() {
 			{
 				loaded.setIteration(iteration);
-				
+
 				one(cardRepository).load(card);
 				will(returnValue(loaded));
-				
+
 				one(cardRepository).update(loaded);
 			}
 		});
@@ -340,11 +341,11 @@ public class IterationTest {
 	}
 
 	private void shouldUpdateTheCard(final Card card) {
-    	
+
 		mockery.checking(new Expectations() {
 			{
 				one(cardRepository).update(card);
-				
+
 				one(cardRepository).load(card);
 				will(returnValue(card));
 			}
@@ -360,7 +361,7 @@ public class IterationTest {
 	}
 
 	private void shouldSaveOnTheRepositoryTheIteration(final Iteration iteration) {
-        
+
         mockery.checking(new Expectations() {
             {
                 one(iterationRepository).add(iteration);
