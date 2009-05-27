@@ -15,11 +15,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.CardsController;
-import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
@@ -233,8 +233,8 @@ public class CardTest {
 		});
 	}
 
-	private String whenIRemove(Card card) {
-		return logic.delete(card, false);
+	private void whenIRemove(Card card) {
+		logic.delete(card, false);
 	}
 
 	private CardTest givenTheCard(Card card) {
