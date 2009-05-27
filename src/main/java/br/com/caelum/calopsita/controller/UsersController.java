@@ -6,9 +6,6 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import javax.servlet.http.HttpSession;
 
-import org.vraptor.annotations.InterceptedBy;
-
-import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.Get;
@@ -21,7 +18,6 @@ import br.com.caelum.vraptor.validator.Hibernate;
 import br.com.caelum.vraptor.validator.Validations;
 
 @Resource
-@InterceptedBy( { HibernateInterceptor.class })
 public class UsersController {
     private final UserRepository repository;
     private final HttpSession session;
