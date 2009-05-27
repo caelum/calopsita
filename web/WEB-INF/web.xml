@@ -29,7 +29,7 @@
 	</error-page>
 	<context-param>
 		<param-name>br.com.caelum.vraptor.provider</param-name>
-		<param-value>br.com.caelum.vraptor.vraptor2.Provider</param-value>
+		<param-value>br.com.caelum.vraptor.ioc.pico.PicoProvider</param-value>
 	</context-param>
 
 	<filter>
