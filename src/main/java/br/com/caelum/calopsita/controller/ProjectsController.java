@@ -73,7 +73,7 @@ public class ProjectsController {
     	Project loaded = this.repository.load(project);
     	if (currentUser.equals(loaded.getOwner())) {
     		loaded.setDescription(project.getDescription());
-    		result.use(logic()).redirectTo(ProjectsController.class).show(loaded);
+    		result.use(logic()).redirectTo(IterationsController.class).current(loaded);
     	}
     }
     @Path("/projects/{project.id}/") @Post
@@ -92,17 +92,6 @@ public class ProjectsController {
     	    this.repository.remove(loaded);
     	    result.use(logic()).redirectTo(ProjectsController.class).list();
     	}
-    }
-
-    @Path("/projects/{project.id}/") @Post
-    public String update(Project project) {
-    	Project loaded = this.repository.load(project);
-    	if (currentUser.equals(loaded.getOwner())) {
-    		loaded.setDescription(project.getDescription());
-    		return "invalid";
-    	}
-    	this.result.include("project", loaded);
-    	return "ok";
     }
 
     @Path("/projects/") @Get
