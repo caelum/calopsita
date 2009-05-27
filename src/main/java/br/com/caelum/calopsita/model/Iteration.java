@@ -1,7 +1,5 @@
 package br.com.caelum.calopsita.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +13,7 @@ import javax.persistence.OrderBy;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
-import br.com.caelum.calopsita.model.Story.Status;
+import br.com.caelum.calopsita.model.Card.Status;
 
 @Entity
 public class Iteration implements Identifiable {
@@ -30,7 +28,7 @@ public class Iteration implements Identifiable {
     
     @OneToMany(mappedBy="iteration")
     @OrderBy("priority")
-    private List<Story> stories;
+    private List<Card> cards;
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
     private LocalDate startDate;
@@ -77,29 +75,7 @@ public class Iteration implements Identifiable {
     	}
     	return endDate.toString("MM/dd/yyyy");
     }
-    
-    
 
-    public void setStartDate(String date) {
-    	if (date != null && !date.isEmpty()) {
-	    	SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-	    	try {
-				this.startDate = new LocalDate(format.parse(date));
-			} catch (ParseException e) {
-				throw new IllegalArgumentException("invalid date", e);
-			}
-    	}
-    }
-    public void setEndDate(String date) {
-    	if (date != null && !date.isEmpty()) {
-	    	SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-	    	try {
-	    		this.endDate = new LocalDate(format.parse(date));
-	    	} catch (ParseException e) {
-	    		throw new IllegalArgumentException("invalid date", e);
-	    	}
-    	}
-    }
     public void setStartDate(LocalDate startDate) {
     	this.startDate = startDate;
     }
@@ -112,37 +88,37 @@ public class Iteration implements Identifiable {
     	this.endDate = endDate;
     }
     
-    public void addStory(Story story){
-    	if (this.stories == null) {
-    		this.stories = new ArrayList<Story>();
+    public void addCard(Card card){
+    	if (this.cards == null) {
+    		this.cards = new ArrayList<Card>();
     	}
-    	this.stories.add(story);
+    	this.cards.add(card);
     }
 
-	public void setStories(List<Story> stories) {
-		this.stories = stories;
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
 	}
 
-	public List<Story> getStories() {
-	    if (stories == null) {
-            stories = new ArrayList<Story>();
+	public List<Card> getCards() {
+	    if (cards == null) {
+            cards = new ArrayList<Card>();
         }
 	    
-		return stories;
+		return cards;
 	}
 	
-	public List<Story> getTodoStories() {
-		return storiesByStatus(Status.TODO);
+	public List<Card> getTodoCards() {
+		return cardsByStatus(Status.TODO);
 	}
-	public List<Story> getDoneStories() {
-		return storiesByStatus(Status.DONE);
+	public List<Card> getDoneCards() {
+		return cardsByStatus(Status.DONE);
 	}
 
-	private List<Story> storiesByStatus(Status status) {
-		List<Story> result = new ArrayList<Story>();
-		for (Story story : stories) {
-			if (status.equals(story.getStatus())) {
-				result.add(story);
+	private List<Card> cardsByStatus(Status status) {
+		List<Card> result = new ArrayList<Card>();
+		for (Card card : cards) {
+			if (status.equals(card.getStatus())) {
+				result.add(card);
 			}
 		}
 		return result;

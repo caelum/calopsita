@@ -4,21 +4,26 @@ function initialize(msg) {
 }
 
 $( function() {
-    $.validator.addMethod("greater", function(value, element, params) {
-    	return this.optional(element) || $(element).datepicker('getDate') >= $(params).datepicker('getDate');
+    $.validator.addMethod("validateRange", function(value, element, params) {
+    	var start = $('[name=iteration.startDate]').datepicker('getDate');
+    	var end = $('[name=iteration.endDate]').datepicker('getDate'); 
+    	return this.optional(element) ||
+    		end == null ||
+    		start == null ||
+    		start <= end;
     }, message);
     $("#iteration").validate( {
         rules : {
             "iteration.goal" : {
                 required : true,
-                minlength : 4
+                minlength : 4,
+                validateRange : true
             },
             "iteration.startDate" : {
                 date : true
             },
             "iteration.endDate" : {
-                date : true,
-                greater: '[name=iteration.startDate]'
+                date : true//,
             }
         }
     });

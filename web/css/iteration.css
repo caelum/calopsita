@@ -33,9 +33,10 @@
 	display: none;
 }
 
-.story {
+.card {
 	margin: 3px;
-	display: table-cell;
+	display: table;
+	float: left;
 	padding: 0.4em;
 	border: thin solid gray;
 	width: 100px;

@@ -7,55 +7,57 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 /**
  * <b>In order to</b> know what i need to do <br>
  * <b>As a</b> project developer <br>
- * <b>I want</b> be able to order stories by priority <br>
+ * <b>I want</b> be able to order cards by priority <br>
  * @author caueguerra
  *
  */
-public class StoriesMustBeOrderedByPriorityStory extends DefaultStory {
+public class CardsMustBeOrderedByPriorityStory extends DefaultStory {
 	@Test
-	public void storiesMustBeOrderedOutOfIterations() throws Exception {
+	public void cardsMustBeOrderedOutOfIterations() throws Exception {
 		given.thereIsAnUserNamed("caue").and()
 			.thereIsAProjectNamed("htmlunit")
 				.ownedBy("caue")
-				.withAStoryNamed("step1")
+				.withACardNamed("step1")
 					.whichDescriptionIs("this is just step 1")
 					.withPriority(3).and()
-				.withAStoryNamed("step2")
+				.withACardNamed("step2")
 					.whichDescriptionIs("step 2 duh")
 					.withPriority(1).and()
 			.iAmLoggedInAs("caue");
-		when.iOpenProjectPageOf("htmlunit");
-		then.theStory("step1")
-				.appearsOnStoriesListAtPosition(2)
-			.theStory("step2")
-				.appearsOnStoriesListAtPosition(1);
+		when.iOpenProjectPageOf("htmlunit").and()
+		    .iOpenCardsPage();
+		then.theCard("step1")
+				.appearsOnCardsListAtPosition(2)
+			.theCard("step2")
+				.appearsOnCardsListAtPosition(1);
 	}
 
 	@Test
-	public void storiesMustBeOrderedInIterations() throws Exception {
+	public void cardsMustBeOrderedInIterations() throws Exception {
 		given.thereIsAnUserNamed("caue").and()
 			.thereIsAProjectNamed("htmlunit")
 				.ownedBy("caue")
 				.withAnIterationWhichGoalIs("make it works")
-					.withAStoryNamed("step1")
+					.withACardNamed("step1")
 						.whichDescriptionIs("this is just step 1")
 						.withPriority(3).and()
-					.withAStoryNamed("step2")
+					.withACardNamed("step2")
 						.whichDescriptionIs("step 2 duh")
 						.withPriority(1).also()
-				.withAStoryNamed("step3")
+				.withACardNamed("step3")
 					.whichDescriptionIs("step 3 duh")
 					.withPriority(5).and()
-				.withAStoryNamed("step4")
+				.withACardNamed("step4")
 					.whichDescriptionIs("step 4 duh")
 					.withPriority(2).and()
 			.iAmLoggedInAs("caue");
 		when.iOpenProjectPageOf("htmlunit").and()
+		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("make it works");
-		then.theStory("step1").appearsOnStoriesListAtPosition(2)
-			.theStory("step2").appearsOnStoriesListAtPosition(1)
-			.theStory("step3").appearsOnOtherStoriesListAtPosition(2)
-			.theStory("step4").appearsOnOtherStoriesListAtPosition(1);
+		then.theCard("step1").appearsOnCardsListAtPosition(2)
+			.theCard("step2").appearsOnCardsListAtPosition(1)
+			.theCard("step3").appearsOnBacklogListAtPosition(2)
+			.theCard("step4").appearsOnBacklogListAtPosition(1);
 
 	}
 }

@@ -1,89 +1,94 @@
-var updateStoriesUrl;
-var removeStoriesUrl;
+var updateCardsUrl;
+var removeCardsUrl;
 var iterationId;
 function initialize(iteration, update, remove) {
-	iterationId = iteration;
-	updateStoriesUrl = update;
-	removeStoriesUrl = remove;
+    iterationId = iteration;
+    updateCardsUrl = update;
+    removeCardsUrl = remove;
 }
 
 function prepare() {
-	$('.selectable').selectable({
-		filter:'li'
-	});
+    $('.selectable').selectable( {
+        filter : 'li'
+    });
 
-	$(".selectable li").selectableAndDraggable();
-	
+    $(".selectable li").selectableAndDraggable();
 
-	$('#todo_stories').droppable({
-		accept: '.story',
-		tolerance: 'pointer',
-		drop: todo_stories
-	});
-	$('#done_stories').droppable({
-		accept: '.story',
-		tolerance: 'pointer',
-		drop: done_stories
-	});
-	$('#backlog').droppable({
-		accept: '.story',
-		tolerance: 'pointer',
-		drop: remove_stories
-	});
-	$('.dialog').dialog({
-		autoOpen: false,
-		bgiframe: true,
-		modal: true,
-		width: '500px',
-		show: 'highlight',
-		hide: 'highlight'
-	});
-	
-	function fixWidth() {
-		var width = $('body').width();
-		$('#todo_stories').css({width: 0.48*width, 'float': 'left'});
-		$('#done_stories').css({width: 0.48*width, 'float': 'right'});
-	}
-	fixWidth();
-	$(window).resize(fixWidth);
+    $('#todo_cards').droppable( {
+        accept : '.card',
+        tolerance : 'pointer',
+        drop : todo_cards
+    });
+    $('#done_cards').droppable( {
+        accept : '.card',
+        tolerance : 'pointer',
+        drop : done_cards
+    });
+    $('#backlog').droppable( {
+        accept : '.card',
+        tolerance : 'pointer',
+        drop : remove_cards
+    });
+    $('.dialog').dialog( {
+        autoOpen : false,
+        bgiframe : true,
+        modal : true,
+        width : '500px',
+        show : 'highlight',
+        hide : 'highlight'
+    });
+
+    function fixWidth() {
+        var width = $('body').width();
+        $('#todo_cards').css( {
+            width : 0.48 * width,
+            'float' : 'left'
+        });
+        $('#done_cards').css( {
+            width : 0.48 * width,
+            'float' : 'right'
+        });
+    }
+    fixWidth();
+    $(window).resize(fixWidth);
 };
 $(prepare);
 function get_params(div, status) {
-	var params = {};
-	$(div + ' .ui-selected').not('.clone').each(function(c, e) {
-		params['stories[' + c + '].id'] = $('span', e).text();
-		params['stories[' + c + '].status'] = status;
-	});
-	params['iteration.id']= iterationId;
-	return params;
+    var params = {};
+    $(div + ' .ui-selected').not('.clone').each( function(c, e) {
+        params['cards[' + c + '].id'] = $('span', e).text();
+        params['cards[' + c + '].status'] = status;
+    });
+    params['iteration.id'] = iterationId;
+    return params;
 }
-function modifyStories(div, status, logic) {
-	var params = get_params(div, status);
+function modifyCards(div, status, logic) {
+    var params = get_params(div, status);
 
-	$.ajax({
-		url: logic,
-		data: params,
-		success: function(data) {
-			$('#todo_stories ol').html($('#todo_stories ol', data).html());
-			$('#done_stories ol').html($('#done_stories ol', data).html());
-			$('#backlog ol').html($('#backlog ol', data).html());
-			prepare();
-		}
-	});
+    $.ajax( {
+        url : logic,
+        data : params,
+        success : function(data) {
+            $('#todo_cards ol').html($('#todo_cards ol', data).html());
+            $('#done_cards ol').html($('#done_cards ol', data).html());
+            $('#backlog ol').html($('#backlog ol', data).html());
+            prepare();
+        }
+    });
 }
-function todo_stories() {
-	modifyStories('.selectable', 'TODO', updateStoriesUrl);	
+function todo_cards() {
+    modifyCards('.selectable', 'TODO', updateCardsUrl);
 }
-function done_stories() {
-	modifyStories('.selectable', 'DONE', updateStoriesUrl);	
+function done_cards() {
+    modifyCards('.selectable', 'DONE', updateCardsUrl);
 }
-function remove_stories() {
-	modifyStories('.stories', 'TODO', removeStoriesUrl);
+function remove_cards() {
+    modifyCards('.cards', 'TODO', removeCardsUrl);
 }
 function show_help() {
-	$('#help').dialog('open');
-	return false;
+    $('#help').dialog('open');
+    return false;
 }
 function open_dialog(id) {
-	$('#dialog_' + id).dialog('open');
+    $('#dialog_' + id).dialog('open');
 }

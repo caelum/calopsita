@@ -14,30 +14,33 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.IterationRepository;
-import br.com.caelum.calopsita.repository.StoryRepository;
+import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.calopsita.repository.CardRepository;
 
 public class IterationTest {
     private Mockery mockery;
     private IterationLogic logic;
     private IterationRepository iterationRepository;
-    private StoryRepository storyRepository;
+    private CardRepository cardRepository;
     private User currentUser;
     private Project project;
+    private ProjectRepository projectRepository;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         iterationRepository = mockery.mock(IterationRepository.class);
-        storyRepository = mockery.mock(StoryRepository.class);
+        cardRepository = mockery.mock(CardRepository.class);
+        projectRepository = mockery.mock(ProjectRepository.class);
         
         currentUser = new User();
         currentUser.setLogin("me");
         project = new Project();
 
-        logic = new IterationLogic(currentUser, iterationRepository, storyRepository);
+        logic = new IterationLogic(currentUser, iterationRepository, cardRepository, projectRepository);
         
     }
 
@@ -54,25 +57,25 @@ public class IterationTest {
     }
 
     @Test
-	public void addingAStoryInAnIteration() throws Exception {
+	public void addingACardInAnIteration() throws Exception {
 		Iteration iteration = givenAnIteration();
-		Story story = givenAStory();
+		Card card = givenACard();
 		
-		shouldUpdateTheStory(story);
+		shouldUpdateTheCard(card);
 		
-		whenIAddTheStoryToIteration(story, iteration);
+		whenIAddTheCardToIteration(card, iteration);
 		
-		assertThat(story.getIteration(), is(iteration));
+		assertThat(card.getIteration(), is(iteration));
 		mockery.assertIsSatisfied();
 	}
     @Test
-    public void removingAStoryOfAnIteration() throws Exception {
+    public void removingACardOfAnIteration() throws Exception {
     	Iteration iteration = givenAnIteration();
-    	Story story = givenAStory();
+    	Card card = givenACard();
     	
-    	Story loaded = givenLoadedStoryContainsIteration(story, iteration);
+    	Card loaded = givenLoadedCardContainsIteration(card, iteration);
     	
-    	whenIRemoveTheStoryOfIteration(story, iteration);
+    	whenIRemoveTheCardOfIteration(card, iteration);
 
     	assertThat(loaded.getIteration(), is(nullValue()));
     	mockery.assertIsSatisfied();
@@ -96,12 +99,12 @@ public class IterationTest {
         Iteration iteration = givenAnIteration();
         givenTheProjectIsOwnedBy(currentUser);
 
-        Story story = givenAStory();
+        Card card = givenACard();
         Iteration returnedIteration = givenTheIterationIsInThisProject(iteration);
         
-        givenTheIterationHasThisStory(story, returnedIteration);
+        givenTheIterationHasThisCard(card, returnedIteration);
         
-        shouldUpdateTheStory(story);
+        shouldUpdateTheCard(card);
         shouldRemoveTheIterationFromRepository(returnedIteration);
         
         String status = whenIRemove(iteration);
@@ -261,9 +264,9 @@ public class IterationTest {
         return result;
 	}
 
-	private void givenTheIterationHasThisStory(Story story, Iteration returnedIteration) {
-        returnedIteration.addStory(story);
-        story.setIteration(returnedIteration);
+	private void givenTheIterationHasThisCard(Card card, Iteration returnedIteration) {
+        returnedIteration.addCard(card);
+        card.setIteration(returnedIteration);
     }
 
     private void givenTheProjectIsOwnedBy(User user) {
@@ -310,44 +313,44 @@ public class IterationTest {
         return returned;
     }
 
-    private void whenIRemoveTheStoryOfIteration(Story story, Iteration iteration) {
-		logic.removeStories(iteration, Arrays.asList(story));
+    private void whenIRemoveTheCardOfIteration(Card card, Iteration iteration) {
+		logic.removeCards(iteration, Arrays.asList(card));
 	}
 
-	private Story givenLoadedStoryContainsIteration(final Story story, final Iteration iteration) {
-		final Story loaded = new Story();
+	private Card givenLoadedCardContainsIteration(final Card card, final Iteration iteration) {
+		final Card loaded = new Card();
 		
 		mockery.checking(new Expectations() {
 			{
 				loaded.setIteration(iteration);
 				
-				one(storyRepository).load(story);
+				one(cardRepository).load(card);
 				will(returnValue(loaded));
 				
-				one(storyRepository).update(loaded);
+				one(cardRepository).update(loaded);
 			}
 		});
 		return loaded;
 	}
 
-	private void shouldUpdateTheStory(final Story story) {
+	private void shouldUpdateTheCard(final Card card) {
     	
 		mockery.checking(new Expectations() {
 			{
-				one(storyRepository).update(story);
+				one(cardRepository).update(card);
 				
-				one(storyRepository).load(story);
-				will(returnValue(story));
+				one(cardRepository).load(card);
+				will(returnValue(card));
 			}
 		});
 	}
 
-	private void whenIAddTheStoryToIteration(Story story, Iteration iteration) {
-    	logic.updateStories(iteration, Arrays.asList(story));
+	private void whenIAddTheCardToIteration(Card card, Iteration iteration) {
+    	logic.updateCards(iteration, Arrays.asList(card));
 	}
 
-	private Story givenAStory() {
-		return new Story();
+	private Card givenACard() {
+		return new Card();
 	}
 
 	private void shouldSaveOnTheRepositoryTheIteration(final Iteration iteration) {

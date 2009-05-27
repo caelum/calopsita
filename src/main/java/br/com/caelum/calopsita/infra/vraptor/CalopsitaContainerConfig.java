@@ -9,11 +9,11 @@ import org.vraptor.plugin.pico.ContainerConfig;
 import br.com.caelum.calopsita.infra.di.SessionInjector;
 import br.com.caelum.calopsita.persistence.dao.IterationDao;
 import br.com.caelum.calopsita.persistence.dao.ProjectDao;
-import br.com.caelum.calopsita.persistence.dao.StoryDao;
+import br.com.caelum.calopsita.persistence.dao.CardDao;
 import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.calopsita.repository.StoryRepository;
+import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
 
 public class CalopsitaContainerConfig implements ContainerConfig {
@@ -29,7 +29,7 @@ public class CalopsitaContainerConfig implements ContainerConfig {
         // register DAOs
         container.addComponent(ProjectRepository.class.getName(), ProjectDao.class);
         container.addComponent(UserRepository.class.getName(), UserDao.class);
-        container.addComponent(StoryRepository.class.getName(), StoryDao.class);
+        container.addComponent(CardRepository.class.getName(), CardDao.class);
         container.addComponent(IterationRepository.class.getName(), IterationDao.class);
     }
 

@@ -19,25 +19,26 @@ function toggleDescription() {
 	$('.description').slideToggle();
 }
 $( function() {
-    $("#storyForm").validate( {
+    $("#cardForm").validate( {
         rules : {
-            "story.name" : {
+            "card.name" : {
                 required : true,
                 minlength : 4
             },
-            "story.description" : {
+            "card.description" : {
                 required : true,
                 minlength : 8
             }
         },
         submitHandler : function(form) {
             $(form).ajaxSubmit( {
-                target : "#stories",
+                target : "#cards",
                 resetForm : true,
                 error : function() {
                     window.location.href = window.location + '../../../';
                 }
             });
+            $('[name=card.name]').focus();
             return false;
         }
     });

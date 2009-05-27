@@ -4,7 +4,7 @@ import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.seleniumdsl.Browser;
@@ -51,13 +51,13 @@ public class ProjectContexts<T extends ProjectContexts<T>> extends GivenContexts
 		return new IterationContexts(iteration, session, browser);
 	}
 
-	public StoryContexts<T> withAStoryNamed(String storyName) {
-		Story story = new Story();
-		story.setName(storyName);
-		story.setProject(project);
-		session.save(story);
+	public CardContexts<T> withACardNamed(String cardName) {
+		Card card = new Card();
+		card.setName(cardName);
+		card.setProject(project);
+		session.save(card);
 		session.flush();
-		return new StoryContexts<T>(story, session, browser, (T) this);
+		return new CardContexts<T>(card, session, browser, (T) this);
 	}
 
 	public T whichDescriptionIs(String description) {

@@ -22,9 +22,12 @@ public class EditProjectAndIterationStory extends DefaultStory {
 			.iAmLoggedInAs("ferreira");
 
 		when.iOpenProjectPageOf("scala").and()
+		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("support DSLs").and()
 			.iEditTheIteration().withGoal("support Continuations")
-				.withStartDate("10/10/2010").withEndDate("11/11/2010");
+				.withStartDate("10/10/2010").withEndDate("11/11/2010").and()
+			.iOpenIterationsPage().and()
+			.iOpenThePageOfIterationWithGoal("support Continuations");
 		then.theIteration("support Continuations").startsAt("10/10/2010").and().endsAt("11/11/2010");
 	}
 
@@ -36,6 +39,7 @@ public class EditProjectAndIterationStory extends DefaultStory {
 				.whichDescriptionIs("A graph library").and()
 			.iAmLoggedInAs("matiello");
 		when.iOpenProjectPageOf("python Graphs").and()
+		    .iOpenAdminPage().and()
 			.iChangeDescriptionTo("A graph library written in python");
 		then.project("python").hasDescription("A graph library written in python");
 	}

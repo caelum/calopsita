@@ -23,6 +23,10 @@ body {
 	display: none;	
 }
 
+.clear {
+	clear: both;	
+}
+
 #header #user {
 	float: left;
 	margin-left: 300px;

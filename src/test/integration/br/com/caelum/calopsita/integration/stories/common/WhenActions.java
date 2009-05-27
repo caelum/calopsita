@@ -10,7 +10,7 @@ public class WhenActions {
     private final Browser browser;
 	private String user;
 	private final Session session;
-	private String storyName;
+	private String cardName;
     private String iterationGoal;
 	private String linkName;
 
@@ -83,40 +83,40 @@ public class WhenActions {
 	public WhenActions iDirectlyOpenProjectPageOf(String projectName) {
 		Long id = (Long) session.createQuery("select id from Project p where p.name = :name")
 			.setParameter("name", projectName).setMaxResults(1).uniqueResult();
-		browser.open("/calopsita/project/" + id + "/show/");
+		browser.open("/calopsita/project/" + id + "/admin/");
 		return this;
 	}
 
-	public WhenActions iAddTheStory(String storyName) {
-		this.storyName = storyName;
-		this.linkName = "Add Story";
+	public WhenActions iAddTheCard(String cardName) {
+		this.cardName = cardName;
+		this.linkName = "Add Card";
 		return this;
 	}
-	public WhenActions iAddTheSubstory(String storyName) {
-		this.storyName = storyName;
-		this.linkName = "Add Substory";
+	public WhenActions iAddTheSubcard(String cardName) {
+		this.cardName = cardName;
+		this.linkName = "Add Subcard";
 		return this;
 	}
 
 	public void withDescription(String description) {
 		iClickOn(linkName);
 		browser.currentPage()
-			.form("addStory")
-				.field("story.name").type(storyName)
-				.field("story.description").type(description)
+			.form("addCard")
+				.field("card.name").type(cardName)
+				.field("card.description").type(description)
 				.submit();
 		iClickOn(linkName);
-		browser.currentPage().waitUntil("!($('#stories').is(':empty'))", 1000);
+		browser.currentPage().waitUntil("!($('#cards').is(':empty'))", 1000);
 	}
 
-	public WhenActions iEditTheStory(String storyName) {
-		iClickOn(storyName);
+	public WhenActions iEditTheCard(String cardName) {
+		iClickOn(cardName);
 		return this;
 	}
 
-	public void changingDescriptionTo(String storyDescription) {
-		browser.currentPage().form("editStory")
-							.field("story.description").type(storyDescription)
+	public void changingDescriptionTo(String cardDescription) {
+		browser.currentPage().form("editCard")
+							.field("card.description").type(cardDescription)
 							.submit();
 	}
 
@@ -134,11 +134,12 @@ public class WhenActions {
         return this;
     }
 
-    public void withEndDate(String date) {
+    public WhenActions withEndDate(String date) {
         browser.currentPage()
 	        .form("addIteration")
 	            .field("iteration.endDate").type(date)
 	            .submit();
+        return this;
     }
 
 	public WhenActions iOpenThePageOfIterationWithGoal(String goal) {
@@ -155,17 +156,17 @@ public class WhenActions {
 	}
 
 	public void inThisIteration() {
-		browser.currentPage().dragAndDrop(storyName, "todo_stories");
+		browser.currentPage().dragAndDrop(cardName, "todo_cards");
 		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
 	}
 
-	public WhenActions iRemoveTheStory(String name) {
-		this.storyName = name;
+	public WhenActions iRemoveTheCard(String name) {
+		this.cardName = name;
 		return this;
 	}
 
 	public void ofThisIteration() {
-		browser.currentPage().dragAndDrop(storyName, "backlog_list");
+		browser.currentPage().dragAndDrop(cardName, "backlog_list");
 		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
 	}
 
@@ -174,8 +175,8 @@ public class WhenActions {
 		return this;
 	}
 
-	public WhenActions iLowerPriorityOf(String storyName) {
-		browser.currentPage().dragAndDrop(storyName, "lowerPriority");
+	public WhenActions iLowerPriorityOf(String cardName) {
+		browser.currentPage().dragAndDrop(cardName, "lowerPriority");
 		return this;
 	}
 
@@ -184,18 +185,18 @@ public class WhenActions {
 		return this;
 	}
 
-	public WhenActions iFlagTheStory(String storyName) {
-		this.storyName = storyName;
+	public WhenActions iFlagTheCard(String cardName) {
+		this.cardName = cardName;
 		return this;
 	}
 
 	public void asDone() {
-		browser.currentPage().dragAndDrop(storyName, "done_stories");
-		browser.currentPage().waitUntil("$('#done_stories .story').length > 0", 5000);
+		browser.currentPage().dragAndDrop(cardName, "done_cards");
+		browser.currentPage().waitUntil("$('#done_cards .card').length > 0", 5000);
 	}
 
-	public WhenActions iOpenThePageOfStoryNamed(String storyName) {
-		iClickOn(storyName);
+	public WhenActions iOpenThePageOfCardNamed(String cardName) {
+		iClickOn(cardName);
 		return this;
 	}
 
@@ -203,8 +204,8 @@ public class WhenActions {
         browser.currentPage().click("delete " + goal);
         return this;
     }
-	public WhenActions iDeleteTheStory(String storyName) {
-		browser.currentPage().click("delete " + storyName);
+	public WhenActions iDeleteTheCard(String cardName) {
+		browser.currentPage().click("delete " + cardName);
 		return this;
 	}
 
@@ -220,7 +221,7 @@ public class WhenActions {
 	}
 
 	public WhenActions iDeleteTheProject(String projectName) {
-		iDeleteTheStory(projectName);
+		iDeleteTheCard(projectName);
 		return this;
 	}
 
@@ -247,4 +248,19 @@ public class WhenActions {
 			.field("project.description").type(description)
 			.submit();
 	}
+
+    public WhenActions iOpenAdminPage() {
+        iClickOn("Admin");
+        return this;
+    }
+
+    public WhenActions iOpenIterationsPage() {
+        iClickOn("Iterations");
+        return this;
+    }
+
+    public WhenActions iOpenCardsPage() {
+        iClickOn("Cards");
+        return this;
+    }
 }

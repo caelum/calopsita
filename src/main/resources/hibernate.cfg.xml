@@ -26,7 +26,7 @@
 		<property name="hibernate.c3p0.acquire_increment">1</property>
 
 		<mapping class="br.com.caelum.calopsita.model.Project" />
-		<mapping class="br.com.caelum.calopsita.model.Story" />
+		<mapping class="br.com.caelum.calopsita.model.Card" />
 		<mapping class="br.com.caelum.calopsita.model.User" />
 		<mapping class="br.com.caelum.calopsita.model.Iteration" />
 	</session-factory>

@@ -18,6 +18,7 @@ public class StartAndFinishIterationStory extends DefaultStory {
         		.withAnIterationWhichGoalIs("start singing").and()
         	.iAmLoggedInAs("vinicius");
         when.iOpenProjectPageOf("arca").and()
+            .iOpenIterationsPage().and()
         	.iStartTheIteration("start singing");
         then.theCurrentIterationIs("start singing");
     }
@@ -30,6 +31,7 @@ public class StartAndFinishIterationStory extends DefaultStory {
         .iAmLoggedInAs("vinicius");
     
         when.iOpenProjectPageOf("arca").and()
+            .iOpenIterationsPage().and()
             .iEndTheIteration("start singing");
 
         then.theCurrentIterationEndsToday();

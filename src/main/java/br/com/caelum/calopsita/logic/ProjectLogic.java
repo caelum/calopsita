@@ -9,7 +9,7 @@ import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
@@ -24,7 +24,7 @@ public class ProjectLogic {
 	private Project project;
 	private final UserRepository userRepository;
 	private List<User> users;
-	private List<Story> stories;
+	private List<Card> cards;
 
     public ProjectLogic(ProjectRepository repository, UserRepository userRepository, User user) {
         this.repository = repository;
@@ -35,16 +35,20 @@ public class ProjectLogic {
     public void form() {
 
     }
+    
+    public void admin(Project project) {
+        this.project = this.repository.get(project.getId());
+        this.users = this.userRepository.listUnrelatedUsers(this.project);
+    }
 
+    public void cards(Project project) {
+        this.project = this.repository.get(project.getId());
+        this.cards = this.repository.listCardsFrom(project);
+    }
+    
     public void save(Project project) {
         project.setOwner(currentUser);
         this.repository.add(project);
-    }
-
-    public void show(Project project) {
-    	this.project = this.repository.get(project.getId());
-    	this.users = this.userRepository.listUnrelatedUsers(this.project);
-    	this.stories = this.repository.listStoriesFrom(project);
     }
 
     public String delete(Project project) {
@@ -69,8 +73,8 @@ public class ProjectLogic {
 		return users;
 	}
 
-    public List<Story> getStories() {
-    	return stories;
+    public List<Card> getCards() {
+    	return cards;
     }
 
     public Project getProject() {

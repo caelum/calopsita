@@ -32,7 +32,7 @@ function moveSelectedTo(div) {
     });
 }
 function fixParameters() {
-	$('.story').each(function(c, li) {
+	$('.card').each(function(c, li) {
 		$('input', li).each(function(i, input) {
 			input.name = input.name.replace('#', '' + c);
 		});
@@ -55,7 +55,7 @@ $(function() {
 	function bind() {
 		$('.board').not('#lowerPriority').droppable({
 			accept: function (element) {
-				return $(element).is('.story') && $(element).parents('#' + this.id).length == 0;
+				return $(element).is('.card') && $(element).parents('#' + this.id).length == 0;
 			},
 			tolerance: 'pointer',
 			drop: function(event, ui) {
@@ -64,11 +64,11 @@ $(function() {
 		});
 	}
 	bind();
-	$('#prioritizationForm').selectable({filter: '.story'});
-	$('.story').selectableAndDraggable();
+	$('#prioritizationForm').selectable({filter: '.card'});
+	$('.card').selectableAndDraggable();
 	
 	$('#lowerPriority').droppable({
-		accept: '.story',
+		accept: '.card',
 		tolerance: 'pointer',
 		drop: function(event, ui) {
 			var div = createPriorityLevel();

@@ -1,0 +1,3 @@
+renamed Story to Card
+
+Iteration.stories to Iteration.cards
