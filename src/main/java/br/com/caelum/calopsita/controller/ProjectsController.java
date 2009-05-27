@@ -94,14 +94,20 @@ public class ProjectsController {
     	}
     }
 
+    @Path("/projects/{project.id}/") @Post
+    public String update(Project project) {
+    	Project loaded = this.repository.load(project);
+    	if (currentUser.equals(loaded.getOwner())) {
+    		loaded.setDescription(project.getDescription());
+    		return "invalid";
+    	}
+    	this.result.include("project", loaded);
+    	return "ok";
+    }
+
     @Path("/projects/") @Get
     public void list() {
         result.include("projects", repository.listAllFrom(currentUser));
-    }
-
-    @Path("/") @Get
-    public void index() {
-    	list();
     }
 
     @Path("/") @Get
