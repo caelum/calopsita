@@ -11,7 +11,7 @@
 	<div id="signUp">
 		<fmt:message key="user.alreadyOnCalopsita"/>? <a href="<c:url value="/"/>"><fmt:message key="user.login"/></a>
 	
-		<form id="form" name="signUp" action="<c:url value="/user/save/"/>" method="post">
+		<form id="form" name="signUp" action="<c:url value="/users/"/>" method="post">
 		  <p>
 		    <label><fmt:message key="user.name"/></label>
 		    <em>*</em><input type="text" name="user.name"/>
