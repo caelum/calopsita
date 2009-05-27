@@ -44,15 +44,16 @@ public class ProjectsController {
     public Project form() {
         return new Project();
     }
-    
+
+    @Path("/projects/admin/") @Get
     public void admin(Project project) {
-        this.project = this.repository.get(project.getId());
-        this.users = this.userRepository.listUnrelatedUsers(this.project);
+    	this.result.include("project", this.repository.get(project.getId()));
+    	this.result.include("users", this.userRepository.listUnrelatedUsers(project));
     }
 
     public void cards(Project project) {
-        this.project = this.repository.get(project.getId());
-        this.cards = this.repository.listCardsFrom(project);
+    	this.result.include("project", this.repository.get(project.getId()));
+    	this.result.include("cards",  this.repository.listCardsFrom(project));
     }
     
     @Path("/projects/") @Post
@@ -76,36 +77,22 @@ public class ProjectsController {
     	}
     }
 
+    @Path("/projects/{project.id}/") @Post
     public String update(Project project) {
     	Project loaded = this.repository.load(project);
-    	if (!currentUser.equals(loaded.getOwner())) {
+    	if (currentUser.equals(loaded.getOwner())) {
+    		loaded.setDescription(project.getDescription());
     		return "invalid";
     	}
-    	loaded.setDescription(project.getDescription());
-    	this.project = loaded;
+    	this.result.include("project", loaded);
     	return "ok";
     }
-	public List<User> getUsers() {
-		return users;
-	}
 
-    public List<Card> getCards() {
-    	return cards;
-    }
-
-    public Project getProject() {
-		return project;
-	}
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-	@Path("/projects/") @Get
+    @Path("/projects/") @Get
     public void list() {
         result.include("projects", repository.listAllFrom(currentUser));
     }
-    
+
     @Path("/") @Get
     public void index() {
     	list();
@@ -117,6 +104,6 @@ public class ProjectsController {
         loaded.getColaborators().add(colaborator);
         repository.update(loaded);
         result.include("project", loaded);
-        result.use(logic()).redirectTo(ProjectsController.class).show(project);
+        result.use(logic()).redirectTo(IterationsController.class).current(project);
     }
 }
