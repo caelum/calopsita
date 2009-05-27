@@ -94,7 +94,7 @@ public class CardsController {
 	}
 
 	//TODO: Deveria ser método de algum modelo, n?
-	public List<List<Story>> getGroupedStories() {
+	public List<List<Card>> getGroupedCards() {
 		List<List<Story>> result = new ArrayList<List<Story>>();
 		if (stories != null) {
 			for (int i = maxPriority(stories); i >= 0; i--) {

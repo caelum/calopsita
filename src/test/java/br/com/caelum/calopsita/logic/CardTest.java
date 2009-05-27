@@ -16,20 +16,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.CardsController;
-import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.calopsita.repository.StoryRepository;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 
 public class CardTest {
     private Mockery mockery;
-    private CardLogic logic;
+    private CardsController logic;
 	private CardRepository repository;
 	private User currentUser;
 	private Card currentCard;
@@ -103,7 +101,8 @@ public class CardTest {
 
     	shouldNotRemoveTheCardFromRepository(returned);
 
-    	String status = whenIRemove(card);
+    	String status = null;
+    	whenIRemove(card);
     	assertThat(status, is("invalid"));
     	mockery.assertIsSatisfied();
     }
@@ -121,7 +120,8 @@ public class CardTest {
     	shouldRemoveTheCardFromRepository(returned);
     	shouldRemoveTheCardFromRepository(subcard);
 
-    	String status = logic.delete(card, true);
+    	String status = null;
+    	logic.delete(card, true);
     	assertThat(status, is("ok"));
     	mockery.assertIsSatisfied();
     }
@@ -139,7 +139,8 @@ public class CardTest {
     	shouldRemoveTheCardFromRepository(returned);
     	shouldUpdateTheCardFromRepository(subCard);
 
-    	String status = logic.delete(card, false);
+    	String status = null;
+    	logic.delete(card, false);
     	assertThat(status, is("ok"));
 
     	assertThat(subCard.getParent(), is(nullValue()));
@@ -233,8 +234,8 @@ public class CardTest {
 		});
 	}
 
-	private String whenIRemove(Card card) {
-		return logic.delete(card, false);
+	private void whenIRemove(Card card) {
+		logic.delete(card, false);
 	}
 
 	private CardTest givenTheCard(Card card) {
