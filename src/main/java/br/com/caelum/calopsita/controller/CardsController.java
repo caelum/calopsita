@@ -95,14 +95,14 @@ public class CardsController {
 
 	//TODO: Deveria ser método de algum modelo, n?
 	public List<List<Card>> getGroupedCards() {
-		List<List<Story>> result = new ArrayList<List<Story>>();
+		List<List<Card>> result = new ArrayList<List<Card>>();
 		if (stories != null) {
 			for (int i = maxPriority(stories); i >= 0; i--) {
-				result.add(new ArrayList<Story>());
+				result.add(new ArrayList<Card>());
 			}
-			for (Story story : stories) {
-				result.get(story.getPriority()).add(story);
-			}
+//			for (Story story : stories) {
+//				result.get(story.getPriority()).add(story);
+//			}
 		}
 		return result;
 	}
