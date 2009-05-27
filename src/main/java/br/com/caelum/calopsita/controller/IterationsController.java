@@ -18,7 +18,7 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.IterationRepository;
-import br.com.caelum.calopsita.repository.StoryRepository;
+import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -36,13 +36,14 @@ public class IterationsController {
     private final IterationRepository repository;
 	private final CardRepository cardRepository;
     private final User currentUser;
-    private final Result result;
+    private final ProjectRepository projectRepository;
+	private final Result result;
     private final Validator validator;
 
-    public IterationsController(Validator validator, Result result, User user, IterationRepository repository, StoryRepository storyRepository) {
-        this.validator = validator;
+    public IterationsController(Result result, Validator validator, User user, IterationRepository repository, CardRepository cardRepository, ProjectRepository projectRepository) {
         this.result = result;
-        this.currentUser = user;
+		this.validator = validator;
+		this.currentUser = user;
         this.repository = repository;
 		this.cardRepository = cardRepository;
         this.projectRepository = projectRepository;
@@ -52,7 +53,7 @@ public class IterationsController {
     public void save(final Iteration iteration) {
         validateDate(iteration);
         repository.add(iteration);
-        result.use(logic()).redirectTo(ProjectsController.class).show(iteration.getProject());
+        result.use(logic()).redirectTo(IterationsController.class).current(iteration.getProject());
     }
 
 	private void validateDate(final Iteration iteration) {
@@ -66,20 +67,16 @@ public class IterationsController {
         });
 	}
 
-    public void show(Iteration iteration) {
-    	this.iteration = repository.load(iteration);
-    	this.project = this.iteration.getProject();
-    	otherCards = cardRepository.cardsWithoutIteration(project);
-    }
-
+	@Path("/iterations/{project.id}/current/") @Get
     public void current(Project project) {
-        this.project = this.projectRepository.get(project.getId());
-        this.iteration = this.repository.getCurrentIterationFromProject(project);
+		this.result.include("project", this.projectRepository.get(project.getId()));
+        this.result.include("iteration", this.repository.getCurrentIterationFromProject(project));
     }
 
+	@Path("/projects/") @Get
     public void list(Project project) {
-        this.project = this.projectRepository.get(project.getId());
-        this.iterations = this.projectRepository.listIterationsFrom(project);
+        this.result.include("project", this.projectRepository.get(project.getId()));
+        this.result.include("iterations", this.projectRepository.listIterationsFrom(project));
     }
 
 	@Path("/iterations/{iteration.id}/") @Get
@@ -88,7 +85,7 @@ public class IterationsController {
     	Project project = loaded.getProject();
     	result.include("iteration", loaded);
     	result.include("project", project);
-    	result.include("otherStories", storyRepository.storiesWithoutIteration(project));
+    	result.include("otherStories", cardRepository.cardsWithoutIteration(project));
     }
     
 	public void current(Project project) {
@@ -128,15 +125,15 @@ public class IterationsController {
     @Path("/iterations/{iteration.id}/") @Delete
     public void delete(Iteration iteration) {
         Iteration loaded = repository.load(iteration);
-        this.project = loaded.getProject();
-        if(this.project.getColaborators().contains(currentUser) || this.project.getOwner().equals(currentUser)) {
+        Project project = loaded.getProject();
+        if(project.getColaborators().contains(currentUser) || project.getOwner().equals(currentUser)) {
             for (Card cards : loaded.getCards()) {
                 Card cardLoaded = cardRepository.load(cards);
                 cardLoaded.setIteration(null);
                 cardRepository.update(cardLoaded);
             }
             repository.remove(loaded);
-            result.use(logic()).redirectTo(ProjectsController.class).show(project);
+            result.use(logic()).redirectTo(IterationsController.class).current(project);
         }
     }
 
@@ -148,7 +145,7 @@ public class IterationsController {
 		}
 		loaded.setStartDate(new LocalDate());
 		Project project = loaded.getProject();
-		result.use(logic()).redirectTo(ProjectsController.class).show(project);
+		result.use(logic()).redirectTo(IterationsController.class).current(project);
 	}
 
     @Path("/iterations/{iteration.id}/end/") @Post
@@ -159,9 +156,9 @@ public class IterationsController {
         }
         loaded.setEndDate(new LocalDate());
         Project project = loaded.getProject();
-        result.use(logic()).redirectTo(ProjectsController.class).show(project);
+        result.use(logic()).redirectTo(IterationsController.class).current(project);
     }
-    
+
     @Path("/iterations/{iteration.id}/") @Post
     public Iteration update(Iteration iteration) {
 		validateDate(iteration);
