@@ -54,7 +54,7 @@ public class StoriesController {
         });
 		repository.add(story);
 		result.include("project", project);
-		result.include("stories", this.projectRepository.listStoriesFrom(project));
+		result.include("stories", this.projectRepository.listCardsFrom(project));
 	}
 	
 	@Path("/projects/{project.id}/stories/saveSub/") @Post
@@ -64,7 +64,7 @@ public class StoriesController {
 		result.include("story", story.getParent());
 		result.include("project", story.getProject());
 	}
-	
+
 	@Path("/projects/{project.id}/stories/{story.id}/edit/") @Post
 	public void edit(Story story) {
 	    result.include("story", this.repository.load(story));
@@ -79,10 +79,10 @@ public class StoriesController {
 		loaded.setDescription(story.getDescription());
 		repository.update(loaded);
 		result.include("project", project);
-		result.include("stories", this.projectRepository.listStoriesFrom(project));
-		result.use(logic()).redirectTo(ProjectsController.class).show(project);
+		result.include("stories", this.projectRepository.listCardsFrom(project));
+		result.use(logic()).redirectTo(IterationsController.class).current(project);
 	}
-	
+
 	@Path("/projects/{project.id}/stories/prioritize/") @Post
 	public void prioritize(Project project, List<Story> stories) {
 		for (Story story : stories) {
@@ -91,7 +91,7 @@ public class StoriesController {
 		}
 		result.use(logic()).redirectTo(StoriesController.class).prioritization(project);
 	}
-	
+
 	//TODO: Deveria ser método de algum modelo, n?
 	public List<List<Story>> getGroupedStories() {
 		List<List<Story>> result = new ArrayList<List<Story>>();
@@ -134,13 +134,13 @@ public class StoriesController {
 	            }
 	        }
 	        repository.remove(loaded);
-	        result.use(logic()).redirectTo(ProjectsController.class).show(project);
-		} 
+	        result.use(logic()).redirectTo(IterationsController.class).current(project);
+		}
 	}
-	
+
 	@Path("/projects/{project.id}/priorization/") @Get
     public void prioritization(Project project) {
         result.include("project", this.projectRepository.get(project.getId()));
-        result.include("stories", this.projectRepository.listStoriesFrom(project));
+        result.include("stories", this.projectRepository.listCardsFrom(project));
     }
 }
