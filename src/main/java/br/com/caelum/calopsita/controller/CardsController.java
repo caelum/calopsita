@@ -5,6 +5,11 @@ import static br.com.caelum.vraptor.view.Results.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.vraptor.annotations.InterceptedBy;
+
+import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
+import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
+import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
@@ -18,10 +23,9 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.validator.Hibernate;
-import br.com.caelum.vraptor.validator.Validations;
 
 @Resource
+@InterceptedBy( { HibernateInterceptor.class, AuthenticationInterceptor.class, AuthorizationInterceptor.class })
 public class CardsController {
 
 	private final CardRepository repository;
@@ -59,7 +63,7 @@ public class CardsController {
 		result.include("story", card.getParent());
 		result.include("project", card.getProject());
 	}
-
+	
 	@Path("/projects/{project.id}/stories/{story.id}/edit/") @Post
 	public void edit(Card card) {
 	    result.include("story", this.repository.load(card));
@@ -74,10 +78,10 @@ public class CardsController {
 		loaded.setDescription(card.getDescription());
 		repository.update(loaded);
 		result.include("project", project);
-		result.include("stories", this.projectRepository.listCardsFrom(project));
-		result.use(logic()).redirectTo(IterationsController.class).current(project);
+		result.include("stories", this.projectRepository.listStoriesFrom(project));
+		result.use(logic()).redirectTo(ProjectsController.class).show(project);
 	}
-
+	
 	@Path("/projects/{project.id}/stories/prioritize/") @Post
 	public void prioritize(Project project, List<Card> cards) {
 		for (Card card : cards) {
@@ -86,17 +90,17 @@ public class CardsController {
 		}
 		result.use(logic()).redirectTo(CardsController.class).prioritization(project);
 	}
-
+	
 	//TODO: Deveria ser método de algum modelo, n?
-	public List<List<Card>> getGroupedCards() {
-		List<List<Card>> result = new ArrayList<List<Card>>();
+	public List<List<Story>> getGroupedStories() {
+		List<List<Story>> result = new ArrayList<List<Story>>();
 		if (stories != null) {
 			for (int i = maxPriority(stories); i >= 0; i--) {
-				result.add(new ArrayList<Card>());
+				result.add(new ArrayList<Story>());
 			}
-//			for (Story story : stories) {
-//				result.get(story.getPriority()).add(story);
-//			}
+			for (Story story : stories) {
+				result.get(story.getPriority()).add(story);
+			}
 		}
 		return result;
 	}
@@ -129,13 +133,13 @@ public class CardsController {
 	            }
 	        }
 	        repository.remove(loaded);
-	        result.use(logic()).redirectTo(IterationsController.class).current(project);
-		}
+	        result.use(logic()).redirectTo(ProjectsController.class).show(project);
+		} 
 	}
-
+	
 	@Path("/projects/{project.id}/priorization/") @Get
     public void prioritization(Project project) {
         result.include("project", this.projectRepository.get(project.getId()));
-        result.include("stories", this.projectRepository.listCardsFrom(project));
+        result.include("stories", this.projectRepository.listStoriesFrom(project));
     }
 }

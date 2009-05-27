@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.CardsController;
+import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
