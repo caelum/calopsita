@@ -1,9 +1,5 @@
 package br.com.caelum.calopsita.infra.interceptor;
 
-import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -27,8 +23,7 @@ public class HibernateInterceptor implements Interceptor {
 
 	@Override
 	public boolean accepts(ResourceMethod method) {
-		List<Annotation> list = Arrays.asList(method.getMethod().getAnnotations());
-		return list.contains(Post.class) || list.contains(Delete.class);
+		return method.getMethod().isAnnotationPresent(Post.class) || method.getMethod().isAnnotationPresent(Delete.class);
 	}
 
 	@Override

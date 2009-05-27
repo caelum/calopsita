@@ -40,7 +40,7 @@ public class UsersController {
     public void save(final User user) {
         validator.checking(new Validations() {
             {
-                that(repository.find(user.getLogin())).shouldBe(null);
+                that(repository.find(user.getLogin())).shouldBe(notNullValue());
                 and(Hibernate.validate(user));
             }
         });
