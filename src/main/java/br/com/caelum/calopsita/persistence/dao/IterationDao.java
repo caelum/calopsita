@@ -38,7 +38,7 @@ public class IterationDao implements IterationRepository{
     @Override
     public Iteration getCurrentIterationFromProject(Project project) {
         return (Iteration) this.session.createQuery("from Iteration i where i.project = :project and " +
-        ":today >= i.startDate and (:today <= i.endDate or :today = null)")
+        ":today >= i.startDate and (i.endDate IS NULL OR :today <= i.endDate)")
         .setParameter("project", project).setParameter("today", new LocalDate()).uniqueResult();
     }
 }
