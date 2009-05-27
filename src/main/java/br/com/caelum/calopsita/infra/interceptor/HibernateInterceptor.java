@@ -1,5 +1,9 @@
 package br.com.caelum.calopsita.infra.interceptor;
 
+import java.lang.annotation.Annotation;
+import java.util.Arrays;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
