@@ -9,49 +9,51 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vraptor.LogicException;
-import org.vraptor.LogicFlow;
 import org.vraptor.view.ViewException;
 
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
+import br.com.caelum.vraptor.InterceptionException;
+import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.resource.ResourceMethod;
 
 public class HibernateInterceptorTest {
 
 	private Mockery mockery;
 	private HibernateInterceptor interceptor;
-	private LogicFlow flow;
+	private InterceptorStack stack;
 	private SessionFactory factory;
 
 	@Before
 	public void setUp() throws Exception {
 		mockery = new Mockery();
-		flow = mockery.mock(LogicFlow.class);
+		stack = mockery.mock(InterceptorStack.class);
 		factory = mockery.mock(SessionFactory.class);
 		interceptor = new HibernateInterceptor(factory);
 	}
-	
+
 	@After
 	public void tearDown() throws Exception {
 		mockery.assertIsSatisfied();
 	}
-	
+
 	@Test
 	public void openAndCloseTransactionWhenFlowIsSuccessful() throws Exception {
 		givenThatFlowWasSuccessful();
-		
+
 		Session session = shouldOpenASession();
 		Transaction t = shouldBeginATransaction(session);
 		shouldCommitTheTransaction(t);
-		
+
 		whenInterceptOccurs();
 	}
-	@Test(expected=LogicException.class)
+	@Test(expected=InterceptionException.class)
 	public void rollbackTransactionWhenFlowFails() throws Exception {
 		givenThatFlowThrowsAException();
-		
+
 		Session session = shouldOpenASession();
 		Transaction t = shouldBeginATransaction(session);
 		shouldRollbackTheTransaction(t);
-		
+
 		whenInterceptOccurs();
 	}
 	private void shouldRollbackTheTransaction(final Transaction t) {
@@ -65,15 +67,15 @@ public class HibernateInterceptorTest {
 	private void givenThatFlowThrowsAException() throws ViewException, LogicException {
 		mockery.checking(new Expectations() {
 			{
-				one(flow).execute();
+				one(stack).next(with(any(ResourceMethod.class)), with(any(Object.class)));
 				will(throwException(new ViewException()));
 			}
 		});
-		
+
 	}
 
 	private void shouldCommitTheTransaction(final Transaction t) {
-		
+
 		mockery.checking(new Expectations() {
 			{
 				one(t).commit();
@@ -82,7 +84,7 @@ public class HibernateInterceptorTest {
 	}
 
 	private Transaction shouldBeginATransaction(final Session session) {
-		
+
 		final Transaction transaction = mockery.mock(Transaction.class);
 		mockery.checking(new Expectations() {
 			{
@@ -94,7 +96,7 @@ public class HibernateInterceptorTest {
 	}
 
 	private Session shouldOpenASession() {
-		
+
 		final Session session = mockery.mock(org.hibernate.classic.Session.class);
 		mockery.checking(new Expectations() {
 			{
@@ -108,11 +110,11 @@ public class HibernateInterceptorTest {
 	private void givenThatFlowWasSuccessful() throws ViewException, LogicException {
 		mockery.checking(new Expectations() {
 			{
-				one(flow).execute();
+				one(stack).next(with(any(ResourceMethod.class)), with(any(Object.class)));
 			}
 		});
 	}
 	private void whenInterceptOccurs() throws LogicException, ViewException {
-		interceptor.intercept(flow);
+		interceptor.intercept(stack, null, null);
 	}
 }
