@@ -35,6 +35,12 @@ public class PrioritizationDao implements PrioritizationRepository {
 
 	private static class ListResultTransformer implements ResultTransformer {
 
+		/**
+		 *
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@SuppressWarnings("unchecked")
 		@Override
 		public List transformList(List list) {
 			List<List<Card>> result = new ArrayList<List<Card>>();
