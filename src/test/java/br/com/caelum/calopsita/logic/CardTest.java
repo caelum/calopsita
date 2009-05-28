@@ -11,6 +11,7 @@ import java.util.List;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -229,7 +230,8 @@ public class CardTest {
 
 	private Card givenACard(int priority) {
 		Card card = givenACard();
-		card.setPriority(priority);
+		Assert.fail();
+//		card.setPriority(priority);
 		return card;
 	}
 
