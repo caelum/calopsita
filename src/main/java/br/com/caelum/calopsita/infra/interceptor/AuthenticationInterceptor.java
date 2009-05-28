@@ -38,7 +38,7 @@ public class AuthenticationInterceptor implements Interceptor {
 			Object resourceInstance) throws InterceptionException {
 		if (this.sessionUser.getUser() == null) {
 			try {
-				response.sendRedirect(request.getContextPath() + "/home/login");
+				response.sendRedirect(request.getContextPath() + "/home/login/");
 			} catch (IOException e) {
 				throw new InterceptionException(e);
 			}
