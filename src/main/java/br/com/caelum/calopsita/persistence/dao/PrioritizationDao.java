@@ -13,6 +13,8 @@ import br.com.caelum.calopsita.repository.PrioritizationRepository;
 
 public class PrioritizationDao implements PrioritizationRepository {
 
+	private static final ResultTransformer TRANSFORMER = new ListResultTransformer();
+
 	private final Session session;
 
 	public PrioritizationDao(Session session) {
@@ -25,9 +27,9 @@ public class PrioritizationDao implements PrioritizationRepository {
 	}
 
 	public List<List<Card>> listCards(Project project) {
-		return session.createQuery("from PrioritizableCard c where c.project = :project order by c.priority")
+		return session.createQuery("from PrioritizableCard c where c.card.project = :project order by c.priority")
 			.setParameter("project", project)
-			.setResultTransformer(new ListResultTransformer())
+			.setResultTransformer(TRANSFORMER)
 			.list();
 	}
 
@@ -36,12 +38,14 @@ public class PrioritizationDao implements PrioritizationRepository {
 		@Override
 		public List transformList(List list) {
 			List<List<Card>> result = new ArrayList<List<Card>>();
-			List<PrioritizableCard> cards = list;
-			for (int i = 0; i < cards.get(list.size() - 1).getPriority(); i++) {
-				result.add(new ArrayList<Card>());
-			}
-			for (PrioritizableCard card : cards) {
-				result.get(card.getPriority()).add(card.getCard());
+			if (!list.isEmpty()) {
+				List<PrioritizableCard> cards = list;
+				for (int i = 0; i < cards.get(list.size() - 1).getPriority() + 1; i++) {
+					result.add(new ArrayList<Card>());
+				}
+				for (PrioritizableCard card : cards) {
+					result.get(card.getPriority()).add(card.getCard());
+				}
 			}
 			return result;
 		}

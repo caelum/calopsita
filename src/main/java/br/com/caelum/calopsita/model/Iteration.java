@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
@@ -25,9 +24,8 @@ public class Iteration implements Identifiable {
     private Project project;
 
     private String goal;
-    
+
     @OneToMany(mappedBy="iteration")
-    @OrderBy("priority")
     private List<Card> cards;
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
@@ -87,7 +85,7 @@ public class Iteration implements Identifiable {
     public void setEndDate(LocalDate endDate) {
     	this.endDate = endDate;
     }
-    
+
     public void addCard(Card card){
     	if (this.cards == null) {
     		this.cards = new ArrayList<Card>();
@@ -103,10 +101,10 @@ public class Iteration implements Identifiable {
 	    if (cards == null) {
             cards = new ArrayList<Card>();
         }
-	    
+
 		return cards;
 	}
-	
+
 	public List<Card> getTodoCards() {
 		return cardsByStatus(Status.TODO);
 	}
@@ -123,9 +121,9 @@ public class Iteration implements Identifiable {
 		}
 		return result;
 	}
-	
+
 	public boolean isCurrent() {
-	    if (this.startDate != null && 
+	    if (this.startDate != null &&
 	            this.startDate.compareTo(new LocalDate()) <= 0 &&
 	            (this.endDate == null || this.endDate.compareTo(new LocalDate()) >= 0)) {
 	        return true;
