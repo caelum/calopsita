@@ -6,6 +6,7 @@ import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
+import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.CardRepository;
 
@@ -61,5 +62,13 @@ public class CardDao implements CardRepository {
 		return (T) session.load(gadget.getClass(), gadget.getCard().getId());
 	}
 
+	@Override
+	public void orderCardsByPriority(Iteration iteration) {
+		session.evict(iteration);
+		List<Card> cards = session.createQuery("select c from PrioritizableCard p right join p.card c " +
+				"where c.iteration = :iteration " +
+				"order by p.priority").setParameter("iteration", iteration).list();
+		iteration.setCards(cards);
+	}
 
 }
