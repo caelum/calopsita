@@ -11,7 +11,7 @@
 <body>
 
 <div class="hidden" id="deletion_text"><fmt:message key="delete.project.confirmation"></fmt:message></div>
-<a href="<c:url value="/project/form/"/>"><fmt:message key="project.new"/></a>
+<a href="<c:url value="/projects/new/"/>"><fmt:message key="project.new"/></a>
 <div id="projects">
   <ul>
     <c:forEach var="project" items="${projects}">
@@ -21,6 +21,7 @@
 	        <a class="delete" name="delete ${project.name }" href="javascript:void(0)"
 				onclick="confirmProjectDeletion('<c:url value="/project/${project.id }/delete/"/>')">X</a>
         </c:if>
+        </p>
         <p><fmt:message key="project.description"/>: ${project.description}</p>
       </li>
     </c:forEach>
