@@ -92,11 +92,13 @@ public class WhenActions {
 	public WhenActions iAddTheCard(String cardName) {
 		this.cardName = cardName;
 		this.linkName = "Add Card";
+		iClickOn(linkName);
 		return this;
 	}
 	public WhenActions iAddTheSubcard(String cardName) {
 		this.cardName = cardName;
 		this.linkName = "Add Subcard";
+		iClickOn(linkName);
 		return this;
 	}
 
@@ -284,5 +286,7 @@ public class WhenActions {
 		browser.currentPage().form("editCard")
 			.uncheck(gadget.name())
 			.submit();
+	}
+}
 	}
 }
