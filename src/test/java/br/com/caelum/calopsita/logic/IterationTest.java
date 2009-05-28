@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
 
+import javax.servlet.http.HttpSession;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.joda.time.LocalDate;
@@ -31,9 +33,10 @@ public class IterationTest {
     private IterationsController logic;
     private IterationRepository iterationRepository;
     private CardRepository cardRepository;
-    private SessionUser currentUser;
     private Project project;
     private ProjectRepository projectRepository;
+	private HttpSession session;
+	private User currentUser;
 
     @Before
     public void setUp() throws Exception {
@@ -42,10 +45,11 @@ public class IterationTest {
         cardRepository = mockery.mock(CardRepository.class);
         projectRepository = mockery.mock(ProjectRepository.class);
 
-        currentUser = new SessionUser();
-        User user = new User();
-        user.setLogin("me");
-        currentUser.setUser(user);
+        session = mockery.mock(HttpSession.class);
+		SessionUser sessionUser = new SessionUser(session);
+        currentUser = new User();
+        currentUser.setLogin("me");
+        sessionUser.setUser(currentUser);
         project = new Project();
 
         logic = new IterationsController(mockery.mock(Validator.class), mockery.mock(Result.class), currentUser, iterationRepository, cardRepository, projectRepository);
@@ -106,7 +110,7 @@ public class IterationTest {
     @Test
     public void removeAnIterationFromMyProject() throws Exception {
         Iteration iteration = givenAnIteration();
-        givenTheProjectIsOwnedBy(currentUser.getUser());
+        givenTheProjectIsOwnedBy(currentUser);
 
         Card card = givenACard();
         Iteration returnedIteration = givenTheIterationIsInThisProject(iteration);

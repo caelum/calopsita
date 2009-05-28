@@ -5,6 +5,8 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import javax.servlet.http.HttpSession;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.After;
@@ -28,7 +30,7 @@ public class UserTest {
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
-        session = new SessionUser();
+        session = new SessionUser(mockery.mock(HttpSession.class));
         repository = mockery.mock(UserRepository.class);
         logic = new UsersController(mockery.mock(Result.class), mockery.mock(Validator.class), repository, session);
     }

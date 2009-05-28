@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
@@ -29,24 +31,26 @@ public class CardTest {
     private Mockery mockery;
     private CardsController logic;
 	private CardRepository repository;
-	private SessionUser currentUser;
 	private Card currentCard;
 	private ProjectRepository projectRepository;
     private Project project;
+	private HttpSession session;
+	private User currentUser;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(CardRepository.class);
-        currentUser = new SessionUser();
-        User user = new User();
-        user.setLogin("me");
-		currentUser.setUser(user);
+        session = mockery.mock(HttpSession.class);
+		SessionUser sessionUser = new SessionUser(session);
+        currentUser = new User();
+        currentUser.setLogin("me");
+		sessionUser.setUser(currentUser);
         project = new Project();
 
 		projectRepository = mockery.mock(ProjectRepository.class);
 
-		logic = new CardsController(mockery.mock(Result.class), mockery.mock(Validator.class), currentUser, repository, projectRepository);
+		logic = new CardsController(mockery.mock(Result.class), mockery.mock(Validator.class), sessionUser, repository, projectRepository);
     }
 
 
@@ -82,7 +86,7 @@ public class CardTest {
     @Test
 	public void removeACardFromMyProject() throws Exception {
 		Card card = givenACard();
-		givenTheProjectIsOwnedBy(currentUser.getUser());
+		givenTheProjectIsOwnedBy(currentUser);
 
 		Card returned = givenTheCardIsInThisProject(card);
 
@@ -111,7 +115,7 @@ public class CardTest {
     @Test
     public void removeACardAndSubcards() throws Exception {
     	Card card = givenACard();
-    	givenTheProjectIsOwnedBy(currentUser.getUser());
+    	givenTheProjectIsOwnedBy(currentUser);
 
     	Card subcard = givenACard();
     	subcard.setParent(card);
@@ -130,7 +134,7 @@ public class CardTest {
     @Test
     public void removeACardButNotSubcards() throws Exception {
     	Card card = givenACard();
-    	givenTheProjectIsOwnedBy(currentUser.getUser());
+    	givenTheProjectIsOwnedBy(currentUser);
 
     	Card subCard = givenACard();
     	subCard.setParent(card);

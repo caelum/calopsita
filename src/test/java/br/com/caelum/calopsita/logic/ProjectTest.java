@@ -8,6 +8,8 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Collections;
 
+import javax.servlet.http.HttpSession;
+
 import junit.framework.Assert;
 
 import org.jmock.Expectations;
@@ -29,16 +31,18 @@ public class ProjectTest {
     private Mockery mockery;
     private ProjectsController logic;
     private ProjectRepository repository;
-	private SessionUser currentUser;
+	private User currentUser;
 	private UserRepository userRepository;
+	private HttpSession session;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(ProjectRepository.class);
+        session = mockery.mock(HttpSession.class);
         currentUser = currentUser();
         userRepository = mockery.mock(UserRepository.class);
-		logic = new ProjectsController(mockery.mock(Validator.class), mockery.mock(Result.class), repository, userRepository, currentUser);
+		logic = new ProjectsController(mockery.mock(Validator.class), mockery.mock(Result.class), repository, userRepository, new SessionUser(session));
     }
 
     @After
@@ -60,7 +64,7 @@ public class ProjectTest {
 
     	whenISaveTheProject(project);
 
-    	assertThat(project.getOwner(), is(currentUser.getUser()));
+    	assertThat(project.getOwner(), is(currentUser));
     }
     @Test
     public void addingColaboratorsToAProject() throws Exception {
@@ -79,7 +83,7 @@ public class ProjectTest {
 	public void removingAProjectOwnedByMe() throws Exception {
 		Project project = givenAProject();
 
-		Project loaded = givenProjectIsOwnedBy(project, currentUser.getUser());
+		Project loaded = givenProjectIsOwnedBy(project, currentUser);
 
 		shouldRemoveFromRepository(loaded);
 		
@@ -107,7 +111,7 @@ public class ProjectTest {
     	Project project = givenAProject();
     	project.setDescription("New description");
 
-    	Project loaded = givenProjectIsOwnedBy(project, currentUser.getUser());
+    	Project loaded = givenProjectIsOwnedBy(project, currentUser);
 
     	String result = whenIEditTheProject(project);
 
@@ -222,14 +226,14 @@ public class ProjectTest {
         final Project project = new Project();
         mockery.checking(new Expectations() {
             {
-                one(repository).listAllFrom(currentUser.getUser());
+                one(repository).listAllFrom(currentUser);
                 will(returnValue(Collections.singletonList(project)));
             }
         });
         return project;
     }
 
-    private SessionUser currentUser() {
+    private User currentUser() {
         final User user = new User();
         String login = "caue";
         user.setLogin(login);
@@ -237,8 +241,6 @@ public class ProjectTest {
         user.setName(login);
         user.setPassword(login);
 
-        SessionUser sessionUser = new SessionUser();
-        sessionUser.setUser(user);
-        return sessionUser;
+        return user;
     }
 }
