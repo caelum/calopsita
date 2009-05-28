@@ -14,13 +14,13 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Card implements Identifiable {
-	
+
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	private String name;
-	
+
 	@Column(length=1024)
 	private String description;
 
@@ -32,19 +32,17 @@ public class Card implements Identifiable {
 
 	@ManyToOne
 	private Card parent;
-	
+
 	@OneToMany(mappedBy="parent")
 	private List<Card> subcards;
-	
-	private int priority;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.TODO;
-	
+
 	public static enum Status {
 		TODO, DONE
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -72,19 +70,11 @@ public class Card implements Identifiable {
 	public Project getProject() {
 		return this.project;
 	}
-	
+
 	public void setProject(Project project) {
 		this.project = project;
 	}
 
-	public int getPriority() {
-		return priority;
-	}
-
-	public void setPriority(int priority) {
-		this.priority = priority;
-	}
-	
 	public void setIteration(Iteration iteration) {
 		this.iteration = iteration;
 	}
