@@ -299,6 +299,7 @@ public class CardTest {
 				allowing(projectRepository);
 
 				one(repository).add(card);
+				one(repository).add(with(any(Gadget.class)));
 			}
 		});
 
