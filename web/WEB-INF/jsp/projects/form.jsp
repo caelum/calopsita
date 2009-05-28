@@ -9,7 +9,7 @@
 
 <body>
 
-<form id="addProject" name="addProject" action="<c:url value="/project/save/"/>" method="post">
+<form id="addProject" name="addProject" action="<c:url value="/projects/"/>" method="post">
   <p>
   	<label><fmt:message key="project.name"/></label>
   	<em>*</em><input type="text" name="project.name"/>

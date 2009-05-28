@@ -72,7 +72,7 @@ public class IterationsController {
         this.result.include("iteration", this.repository.getCurrentIterationFromProject(project));
     }
 
-	@Path("/projects/") @Get
+	@Path("/iterations/{project.id}/list/") @Get
     public void list(Project project) {
         this.result.include("project", this.projectRepository.get(project.getId()));
         this.result.include("iterations", this.projectRepository.listIterationsFrom(project));
