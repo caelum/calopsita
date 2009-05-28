@@ -25,6 +25,12 @@ public class PrioritizableCard implements Gadget {
 	private int priority;
 
 
+	public PrioritizableCard() {
+	}
+	public PrioritizableCard(Card card) {
+		this.card = card;
+	}
+
 	public Card getCard() {
 		return card;
 	}
