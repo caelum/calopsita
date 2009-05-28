@@ -37,14 +37,16 @@ public class CardDao implements CardRepository {
 
 	@Override
 	public List<Card> listFrom(Project project) {
-		return this.session.createQuery("from Card s where s.project = :project")
+		return this.session.createQuery("select c from PrioritizableCard p right join p.card c " +
+				"where c.project = :project order by p.priority")
 			.setParameter("project", project).list();
 	}
 
 	@Override
 	public List<Card> cardsWithoutIteration(Project project) {
-		return session.createQuery("from Card s where s.project = :project and " +
-				" s.iteration is null")
+		return session.createQuery("select c from PrioritizableCard p right join p.card c " +
+				"where c.project = :project and c.iteration is null " +
+				"order by p.priority")
 				.setParameter("project", project).list();
 	}
 
