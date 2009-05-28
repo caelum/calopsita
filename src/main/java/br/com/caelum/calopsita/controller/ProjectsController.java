@@ -4,7 +4,6 @@ import static br.com.caelum.vraptor.view.Results.logic;
 
 import org.vraptor.annotations.InterceptedBy;
 
-import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Project;
@@ -23,7 +22,7 @@ import br.com.caelum.vraptor.validator.Hibernate;
 import br.com.caelum.vraptor.validator.Validations;
 
 @Resource
-@InterceptedBy( { AuthenticationInterceptor.class, AuthorizationInterceptor.class })
+@InterceptedBy( { AuthorizationInterceptor.class })
 public class ProjectsController {
 
     private final ProjectRepository repository;

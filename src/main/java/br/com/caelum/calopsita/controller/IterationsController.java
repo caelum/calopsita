@@ -9,7 +9,6 @@ import java.util.List;
 import org.joda.time.LocalDate;
 import org.vraptor.annotations.InterceptedBy;
 
-import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
@@ -30,7 +29,7 @@ import br.com.caelum.vraptor.validator.Hibernate;
 import br.com.caelum.vraptor.validator.Validations;
 
 @Resource
-@InterceptedBy( { AuthenticationInterceptor.class, AuthorizationInterceptor.class })
+@InterceptedBy( { AuthorizationInterceptor.class })
 public class IterationsController {
 
     private final IterationRepository repository;
