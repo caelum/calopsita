@@ -18,9 +18,11 @@ public class PrioritizeCardsStory extends DefaultStory{
 		given.thereIsAnUserNamed("Doni").and()
 			.thereIsAProjectNamed("Mirror").ownedBy("Doni")
 				.withACardNamed("Remove all annotations")
-					.whichDescriptionIs("annotations are useless").and()
+					.whichDescriptionIs("annotations are useless")
+					.prioritizable().and()
 				.withACardNamed("Remove all generics")
-					.whichDescriptionIs("we want obfuscated code").and()
+					.whichDescriptionIs("we want obfuscated code")
+					.prioritizable().and()
 			.iAmLoggedInAs("Doni");
 		when.iOpenProjectPageOf("Mirror").and()
 		    .iOpenCardsPage().and()

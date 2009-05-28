@@ -66,9 +66,11 @@ public class CardContexts<T extends ProjectContexts<T>> {
 		return new ProjectContexts<T>(card.getProject(), session, browser);
 	}
 
-	public GivenContexts prioritizable() {
-		// TODO Auto-generated method stub
-		return null;
+	public CardContexts<T> prioritizable() {
+		PrioritizableCard pcard = new PrioritizableCard();
+		pcard.setCard(card);
+		session.save(pcard);
+		return this;
 	}
 
 }
