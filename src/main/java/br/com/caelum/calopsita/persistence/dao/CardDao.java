@@ -38,13 +38,13 @@ public class CardDao implements CardRepository {
 	@Override
 	public List<Card> cardsWithoutIteration(Project project) {
 		return session.createQuery("from Card s where s.project = :project and " +
-				" s.iteration is null order by priority")
+				" s.iteration is null")
 				.setParameter("project", project).list();
 	}
 
 	@Override
 	public List<Card> listSubcards(Card card) {
-		return session.createQuery("from Card s where s.parent = :card order by priority")
+		return session.createQuery("from Card s where s.parent = :card")
 			.setParameter("card", card).list();
 	}
 
