@@ -71,4 +71,9 @@ public class CardDao implements CardRepository {
 		iteration.setCards(cards);
 	}
 
+	@Override
+	public void add(Gadget gadget) {
+		session.save(gadget);
+	}
+
 }

@@ -23,4 +23,6 @@ public interface CardRepository extends BaseRepository<Card>{
 
 	void orderCardsByPriority(Iteration iteration);
 
+	void add(Gadget gadget);
+
 }
