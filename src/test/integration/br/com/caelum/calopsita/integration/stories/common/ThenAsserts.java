@@ -180,4 +180,9 @@ public class ThenAsserts {
     public void theIterationThatAppearsIs(String goal) {
         assertThat(this.browser.currentPage().div("iteration_text"), divContainsString("Goal: " + goal));
     }
+
+	public void isPrioritizable() {
+		// TODO Auto-generated method stub
+
+	}
 }

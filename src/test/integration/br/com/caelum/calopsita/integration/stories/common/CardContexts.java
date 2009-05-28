@@ -2,8 +2,8 @@ package br.com.caelum.calopsita.integration.stories.common;
 
 import org.hibernate.Session;
 
-import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.seleniumdsl.Browser;
 
 public class CardContexts<T extends ProjectContexts<T>> {
@@ -61,6 +61,11 @@ public class CardContexts<T extends ProjectContexts<T>> {
 	 */
 	public ProjectContexts<?> also() {
 		return new ProjectContexts<T>(card.getProject(), session, browser);
+	}
+
+	public GivenContexts prioritizable() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
