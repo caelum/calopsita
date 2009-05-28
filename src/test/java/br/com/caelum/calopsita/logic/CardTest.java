@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
@@ -244,6 +245,7 @@ public class CardTest {
 				allowing(projectRepository);
 
 				one(repository).add(card);
+				one(repository).add(with(any(Gadget.class)));
 			}
 		});
 
