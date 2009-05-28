@@ -3,7 +3,7 @@
 /javascript/:{file}							==> /javascript/#{file}
 /javascript/:{file}							==> /javascript/#{file}
 /subcard/save/								=>  card.saveSub
-/project/:{project.id}/prioritization/		=>  card.prioritization
+/project/:{project.id}/prioritization/		=>  prioritization.prioritization
 /iterations/:{project.id}/:{logic}/			=>  iteration.#{logic}
 /add/colaborator/							=> 	project.addColaborator
 /project/:{project.id}/:{logic}/			=>  project.#{logic}
