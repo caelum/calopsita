@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.CardsController;
+import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
@@ -28,7 +29,7 @@ public class CardTest {
     private Mockery mockery;
     private CardsController logic;
 	private CardRepository repository;
-	private User currentUser;
+	private SessionUser currentUser;
 	private Card currentCard;
 	private ProjectRepository projectRepository;
     private Project project;
@@ -37,8 +38,10 @@ public class CardTest {
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(CardRepository.class);
-        currentUser = new User();
-        currentUser.setLogin("me");
+        currentUser = new SessionUser();
+        User user = new User();
+        user.setLogin("me");
+		currentUser.setUser(user);
         project = new Project();
 
 		projectRepository = mockery.mock(ProjectRepository.class);
@@ -79,7 +82,7 @@ public class CardTest {
     @Test
 	public void removeACardFromMyProject() throws Exception {
 		Card card = givenACard();
-		givenTheProjectIsOwnedBy(currentUser);
+		givenTheProjectIsOwnedBy(currentUser.getUser());
 
 		Card returned = givenTheCardIsInThisProject(card);
 
@@ -108,7 +111,7 @@ public class CardTest {
     @Test
     public void removeACardAndSubcards() throws Exception {
     	Card card = givenACard();
-    	givenTheProjectIsOwnedBy(currentUser);
+    	givenTheProjectIsOwnedBy(currentUser.getUser());
 
     	Card subcard = givenACard();
     	subcard.setParent(card);
@@ -127,7 +130,7 @@ public class CardTest {
     @Test
     public void removeACardButNotSubcards() throws Exception {
     	Card card = givenACard();
-    	givenTheProjectIsOwnedBy(currentUser);
+    	givenTheProjectIsOwnedBy(currentUser.getUser());
 
     	Card subCard = givenACard();
     	subCard.setParent(card);

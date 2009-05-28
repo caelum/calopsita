@@ -1,6 +1,9 @@
 package br.com.caelum.calopsita.logic;
 
-import javax.servlet.http.HttpSession;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -10,13 +13,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.UsersController;
+import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 
 public class UserTest {
-    private HttpSession session;
+    private SessionUser session;
     private Mockery mockery;
     private UsersController logic;
     private UserRepository repository;
@@ -24,7 +28,7 @@ public class UserTest {
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
-        session = mockery.mock(HttpSession.class);
+        session = new SessionUser();
         repository = mockery.mock(UserRepository.class);
         logic = new UsersController(mockery.mock(Result.class), mockery.mock(Validator.class), repository, session);
     }
@@ -41,9 +45,10 @@ public class UserTest {
         givenThatUserDoesntExist(user);
 
         shouldSaveTheUser(user);
-        shouldPutUserInSession(user);
 
         whenISaveTheUser(user);
+
+        assertThat(session.getUser(), is(notNullValue()));
     }
 
     @Test
@@ -52,9 +57,11 @@ public class UserTest {
 
         givenThatUserExists(user);
 
-        shouldNeitherSaveNorPutInSession(user);
+        shouldNotSave(user);
 
         whenISaveTheUser(user);
+
+        assertThat(session.getUser(), is(nullValue()));
     }
 
     @Test
@@ -63,9 +70,9 @@ public class UserTest {
 
         givenThatUserExists(user);
 
-        shouldPutUserInSession(user);
-
         whenILoginWith(user);
+
+        assertThat(session.getUser(), is(notNullValue()));
     }
 
     @Test
@@ -74,16 +81,21 @@ public class UserTest {
 
         givenThatUserDoesntExist(user);
 
-        shouldNeitherSaveNorPutInSession(user);
+        shouldNotSave(user);
 
         whenILoginWith(user);
+
+		assertThat(session.getUser(), is(nullValue()));
+
     }
 
     @Test
     public void logout() throws Exception {
-        shouldRemoveFromSession();
+    	session.setUser(new User());
 
         whenILogout();
+
+        assertThat(session.getUser(), is(nullValue()));
     }
 
     @Test
@@ -97,24 +109,13 @@ public class UserTest {
         Assert.assertNotSame(user.getPassword(), login);
     }
 
-    private void shouldNeitherSaveNorPutInSession(final User user) {
+    private void shouldNotSave(final User user) {
         mockery.checking(new Expectations() {
             {
                 never(repository).add(user);
-                never(session).setAttribute(User.class.getName(), user);
-                never(session).setAttribute("currentUser", user);
             }
         });
 
-    }
-
-    private void shouldRemoveFromSession() {
-        mockery.checking(new Expectations() {
-            {
-                one(session).removeAttribute(User.class.getName());
-                one(session).removeAttribute("currentUser");
-            }
-        });
     }
 
     private void givenThatUserDoesntExist(final User user) {
@@ -155,15 +156,6 @@ public class UserTest {
 
     private void whenILogout() {
         logic.logout();
-    }
-
-    private void shouldPutUserInSession(final User user) {
-        mockery.checking(new Expectations() {
-            {
-                one(session).setAttribute(User.class.getName(), user);
-                one(session).setAttribute("currentUser", user);
-            }
-        });
     }
 
     private void shouldSaveTheUser(final User user) {

@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.ProjectsController;
+import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
@@ -28,7 +29,7 @@ public class ProjectTest {
     private Mockery mockery;
     private ProjectsController logic;
     private ProjectRepository repository;
-	private User currentUser;
+	private SessionUser currentUser;
 	private UserRepository userRepository;
 
     @Before
@@ -59,7 +60,7 @@ public class ProjectTest {
 
     	whenISaveTheProject(project);
 
-    	assertThat(project.getOwner(), is(currentUser));
+    	assertThat(project.getOwner(), is(currentUser.getUser()));
     }
     @Test
     public void addingColaboratorsToAProject() throws Exception {
@@ -78,7 +79,7 @@ public class ProjectTest {
 	public void removingAProjectOwnedByMe() throws Exception {
 		Project project = givenAProject();
 
-		Project loaded = givenProjectIsOwnedBy(project, currentUser);
+		Project loaded = givenProjectIsOwnedBy(project, currentUser.getUser());
 
 		shouldRemoveFromRepository(loaded);
 		
@@ -106,7 +107,7 @@ public class ProjectTest {
     	Project project = givenAProject();
     	project.setDescription("New description");
 
-    	Project loaded = givenProjectIsOwnedBy(project, currentUser);
+    	Project loaded = givenProjectIsOwnedBy(project, currentUser.getUser());
 
     	String result = whenIEditTheProject(project);
 
@@ -221,20 +222,23 @@ public class ProjectTest {
         final Project project = new Project();
         mockery.checking(new Expectations() {
             {
-                one(repository).listAllFrom(currentUser);
+                one(repository).listAllFrom(currentUser.getUser());
                 will(returnValue(Collections.singletonList(project)));
             }
         });
         return project;
     }
 
-    private User currentUser() {
+    private SessionUser currentUser() {
         final User user = new User();
         String login = "caue";
         user.setLogin(login);
         user.setEmail(login + "@caelum.com.br");
         user.setName(login);
         user.setPassword(login);
-        return user;
+
+        SessionUser sessionUser = new SessionUser();
+        sessionUser.setUser(user);
+        return sessionUser;
     }
 }

@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.IterationsController;
+import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
@@ -30,7 +31,7 @@ public class IterationTest {
     private IterationsController logic;
     private IterationRepository iterationRepository;
     private CardRepository cardRepository;
-    private User currentUser;
+    private SessionUser currentUser;
     private Project project;
     private ProjectRepository projectRepository;
 
@@ -41,8 +42,10 @@ public class IterationTest {
         cardRepository = mockery.mock(CardRepository.class);
         projectRepository = mockery.mock(ProjectRepository.class);
 
-        currentUser = new User();
-        currentUser.setLogin("me");
+        currentUser = new SessionUser();
+        User user = new User();
+        user.setLogin("me");
+        currentUser.setUser(user);
         project = new Project();
 
         logic = new IterationsController(mockery.mock(Validator.class), mockery.mock(Result.class), currentUser, iterationRepository, cardRepository, projectRepository);
@@ -103,7 +106,7 @@ public class IterationTest {
     @Test
     public void removeAnIterationFromMyProject() throws Exception {
         Iteration iteration = givenAnIteration();
-        givenTheProjectIsOwnedBy(currentUser);
+        givenTheProjectIsOwnedBy(currentUser.getUser());
 
         Card card = givenACard();
         Iteration returnedIteration = givenTheIterationIsInThisProject(iteration);

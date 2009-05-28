@@ -8,11 +8,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import br.com.caelum.vraptor.Delete;
+import br.com.caelum.calopsita.controller.HomeController;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Interceptor;
 import br.com.caelum.vraptor.Intercepts;
-import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
@@ -27,7 +26,7 @@ public class HibernateInterceptor implements Interceptor {
 
 	@Override
 	public boolean accepts(ResourceMethod method) {
-		return method.getMethod().isAnnotationPresent(Post.class) || method.getMethod().isAnnotationPresent(Delete.class);
+		return !method.getMethod().getDeclaringClass().equals(HomeController.class);
 	}
 
 	@Override
