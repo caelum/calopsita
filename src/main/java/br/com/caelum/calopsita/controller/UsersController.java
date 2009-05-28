@@ -4,9 +4,7 @@ import static br.com.caelum.vraptor.view.Results.logic;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
-
-import javax.servlet.http.HttpSession;
-
+import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.Get;
@@ -21,15 +19,15 @@ import br.com.caelum.vraptor.validator.Validations;
 @Resource
 public class UsersController {
     private final UserRepository repository;
-    private final HttpSession session;
     private final Validator validator;
     private final Result result;
+	private final SessionUser sessionUser;
 
-    public UsersController(Result result, Validator validator, UserRepository repository, HttpSession session) {
+    public UsersController(Result result, Validator validator, UserRepository repository, SessionUser sessionUser) {
         this.result = result;
         this.validator = validator;
         this.repository = repository;
-        this.session = session;
+		this.sessionUser = sessionUser;
     }
 
     @Path("/users/new/") @Get
@@ -46,8 +44,7 @@ public class UsersController {
             }
         });
         this.repository.add(user);
-        this.session.setAttribute(User.class.getName(), user);
-        this.session.setAttribute("currentUser", user);
+        sessionUser.setUser(user);
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
@@ -60,15 +57,13 @@ public class UsersController {
                 that(found.getPassword()).shouldBe(equalTo(user.getPassword()));
             }
         });
-        this.session.setAttribute(User.class.getName(), user);
-        this.session.setAttribute("currentUser", user);
+        sessionUser.setUser(user);
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
     @Path("/users/logout/") @Get
     public void logout() {
-        this.session.removeAttribute(User.class.getName());
-        this.session.removeAttribute("currentUser");
+        sessionUser.setUser(null);
         result.use(logic()).redirectTo(HomeController.class).login();
     }
 }

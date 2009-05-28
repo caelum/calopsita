@@ -5,6 +5,7 @@ import static br.com.caelum.vraptor.view.Results.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Story;
@@ -29,10 +30,10 @@ public class CardsController {
     private final Validator validator;
     private final Result result;
 
-	public CardsController(Result result, Validator validator, User user, CardRepository repository, ProjectRepository projectRepository) {
+	public CardsController(Result result, Validator validator, SessionUser user, CardRepository repository, ProjectRepository projectRepository) {
 		this.result = result;
         this.validator = validator;
-        this.currentUser = user;
+        this.currentUser = user.getUser();
 		this.repository = repository;
 		this.projectRepository = projectRepository;
 	}

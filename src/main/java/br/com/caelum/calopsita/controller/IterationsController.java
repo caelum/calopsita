@@ -11,6 +11,7 @@ import org.vraptor.annotations.InterceptedBy;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
+import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
@@ -39,10 +40,10 @@ public class IterationsController {
 	private final Result result;
     private final Validator validator;
 
-    public IterationsController(Result result, Validator validator, User user, IterationRepository repository, CardRepository cardRepository, ProjectRepository projectRepository) {
+    public IterationsController(Result result, Validator validator, SessionUser user, IterationRepository repository, CardRepository cardRepository, ProjectRepository projectRepository) {
         this.result = result;
 		this.validator = validator;
-		this.currentUser = user;
+		this.currentUser = user.getUser();
         this.repository = repository;
 		this.cardRepository = cardRepository;
         this.projectRepository = projectRepository;

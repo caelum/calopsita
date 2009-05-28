@@ -6,6 +6,7 @@ import org.vraptor.annotations.InterceptedBy;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
+import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
@@ -31,12 +32,12 @@ public class ProjectsController {
     private final Validator validator;
     private final Result result;
 
-    public ProjectsController(Validator validator, Result result, ProjectRepository repository, UserRepository userRepository, User user) {
+    public ProjectsController(Validator validator, Result result, ProjectRepository repository, UserRepository userRepository, SessionUser user) {
         this.result = result;
         this.validator = validator;
         this.repository = repository;
 		this.userRepository = userRepository;
-        this.currentUser = user;
+        this.currentUser = user.getUser();
     }
 
     @Path("/projects/new/") @Get
