@@ -36,7 +36,7 @@ public class ProjectsController {
         this.validator = validator;
         this.repository = repository;
 		this.userRepository = userRepository;
-        this.currentUser = user.getUser();
+        this.currentUser = (user == null? null:user.getUser());
     }
 
     @Path("/projects/new/") @Get
