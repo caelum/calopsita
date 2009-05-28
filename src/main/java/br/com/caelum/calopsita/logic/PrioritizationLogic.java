@@ -31,6 +31,7 @@ public class PrioritizationLogic {
 		this.project = this.projectRepository.get(project.getId());
 		this.cards = repository.listCards(project);
 	}
+
 	public void prioritize(Project project, List<PrioritizableCard> cards) {
 		for (PrioritizableCard card : cards) {
 			PrioritizableCard loaded = repository.load(card);
