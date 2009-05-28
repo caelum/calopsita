@@ -22,7 +22,7 @@
 		<input type="hidden" name="project.id" value="${project.id }" />
 
 		<div id="board">
-			<c:forEach items="${groupedCards}" varStatus="s" var="currentPriority" >
+			<c:forEach items="${cards}" varStatus="s" var="currentPriority" >
 				<h2 id="title_${s.index }" class="title"><fmt:message key="priority"/> ${s.index }</h2>
 				<ul id="level_${s.index }" class="board" title="Priority ${s.index }" priority="${s.index }">
 					<c:forEach items="${currentPriority}" var="card">
@@ -31,7 +31,7 @@
 							<p>${card.name }</p>
 							<pre id="description_${card.id }" class="hidden">${fn:escapeXml(card.description)}</pre>
 							<input type="hidden" name="cards[#].id" value="${card.id}" />
-							<input class="priority" type="hidden" name="cards[#].priority" value="${card.priority}" />
+							<input class="priority" type="hidden" name="cards[#].priority" value="${currentPriority}" />
 						</li>
 					</c:forEach>
 				</ul>
