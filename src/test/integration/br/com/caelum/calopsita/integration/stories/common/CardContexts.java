@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
+import junit.framework.Assert;
+
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
@@ -37,7 +39,8 @@ public class CardContexts<T extends ProjectContexts<T>> {
 	}
 
 	public CardContexts<T> withPriority(int priority) {
-		card.setPriority(priority);
+		Assert.fail();
+//		card.setPriority(priority);
 		session.saveOrUpdate(card);
 		session.flush();
 		return this;
