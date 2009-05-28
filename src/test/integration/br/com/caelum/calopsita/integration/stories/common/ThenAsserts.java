@@ -177,4 +177,9 @@ public class ThenAsserts {
 		assertThat(this.browser.currentPage().div("iteration_text"), divContainsString("End Date: " + date));
 
 	}
+
+	public void isPrioritizable() {
+		// TODO Auto-generated method stub
+
+	}
 }
