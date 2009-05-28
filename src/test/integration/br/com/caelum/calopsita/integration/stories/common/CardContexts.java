@@ -1,11 +1,10 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
-import junit.framework.Assert;
-
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
+import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.seleniumdsl.Browser;
 
 public class CardContexts<T extends ProjectContexts<T>> {
@@ -39,9 +38,10 @@ public class CardContexts<T extends ProjectContexts<T>> {
 	}
 
 	public CardContexts<T> withPriority(int priority) {
-		Assert.fail();
-//		card.setPriority(priority);
-		session.saveOrUpdate(card);
+		PrioritizableCard pcard = new PrioritizableCard();
+		pcard.setCard(card);
+		pcard.setPriority(priority);
+		session.save(pcard);
 		session.flush();
 		return this;
 	}
