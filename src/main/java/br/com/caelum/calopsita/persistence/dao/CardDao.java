@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.CardRepository;
 
@@ -46,5 +47,11 @@ public class CardDao implements CardRepository {
 		return session.createQuery("from Card s where s.parent = :card order by priority")
 			.setParameter("card", card).list();
 	}
+
+	@Override
+	public <T extends Gadget> T load(T gadget) {
+		return (T) session.load(gadget.getClass(), gadget.getCard().getId());
+	}
+
 
 }
