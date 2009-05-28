@@ -12,12 +12,7 @@
 <body>
 
 <div id="tab3">
-  <ul id="tabnav">
-    <li class="tab1"><a href="<c:url value="/iterations/${project.id }/current/"/>">Current iteration</a></li>
-    <li class="tab2"><a href="<c:url value="/iterations/${project.id }/list/"/>">Iterations</a></li>
-    <li class="tab3"><a href="<c:url value="/project/${project.id }/cards/"/>">Cards</a></li>
-    <li class="tab4"><a href="<c:url value="/project/${project.id }/admin/"/>">Admin</a></li>
-  </ul>
+  <%@include file="tabs.jsp" %>
   
   <div id="projects">
       <p><fmt:message key="project.name"/>: ${project.name}</p>
@@ -30,7 +25,7 @@
   </div>
   <a href="javascript:toggle('cardForm'); document.addCard.reset();"><fmt:message key="project.addCard"/></a><br/>
   
-  <form id="cardForm" class="hidden" name="addCard" action="<c:url value="/card/save/"/>" method="post">
+  <form id="cardForm" class="hidden" name="addCard" action="<c:url value="/cards/"/>" method="post">
   	<input type="hidden" name="project.id" value="${project.id }" />
   	<p>
   		<label><fmt:message key="card.name"/></label>
