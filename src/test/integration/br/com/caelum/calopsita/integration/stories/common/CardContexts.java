@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
+import junit.framework.Assert;
+
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;

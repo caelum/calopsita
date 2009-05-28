@@ -11,6 +11,7 @@ import java.util.List;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -233,8 +234,34 @@ public class CardTest {
 		});
 	}
 
-	private void whenIRemove(Card card) {
-		logic.delete(card, false);
+	private String whenIRemove(Card card) {
+		return logic.delete(card, false);
+	}
+
+	private void shouldReturnTheCards(final Card... cards) {
+		mockery.checking(new Expectations() {
+			{
+				one(projectRepository).listCardsFrom(with(any(Project.class)));
+				will(returnValue(Arrays.asList(cards)));
+
+				allowing(projectRepository);
+			}
+		});
+	}
+
+	private void whenIStartPrioritization() {
+		logic.prioritization(givenAProject());
+	}
+
+	private Card givenACard(int priority) {
+		Card card = givenACard();
+		Assert.fail();
+//		card.setPriority(priority);
+		return card;
+	}
+
+	private int withPriority(int i) {
+		return i;
 	}
 
 	private CardTest givenTheCard(Card card) {
