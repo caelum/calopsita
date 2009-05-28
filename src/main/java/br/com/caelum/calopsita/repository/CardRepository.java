@@ -2,8 +2,9 @@ package br.com.caelum.calopsita.repository;
 
 import java.util.List;
 
-import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Gadget;
+import br.com.caelum.calopsita.model.Project;
 
 public interface CardRepository extends BaseRepository<Card>{
 
@@ -14,5 +15,7 @@ public interface CardRepository extends BaseRepository<Card>{
 	List<Card> cardsWithoutIteration(Project project);
 
 	List<Card> listSubcards(Card card);
+
+	<T extends Gadget> T load(T card);
 
 }
