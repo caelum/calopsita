@@ -18,4 +18,6 @@ public interface CardRepository extends BaseRepository<Card>{
 
 	<T extends Gadget> T load(T card);
 
+	List<Card> listFrom(Project project);
+
 }
