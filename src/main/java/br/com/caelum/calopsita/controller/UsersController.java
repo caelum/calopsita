@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.controller;
 import static br.com.caelum.vraptor.view.Results.logic;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
 import javax.servlet.http.HttpSession;
 
@@ -40,7 +41,7 @@ public class UsersController {
     public void save(final User user) {
         validator.checking(new Validations() {
             {
-                that(repository.find(user.getLogin())).shouldBe(notNullValue());
+                that(repository.find(user.getLogin())).shouldBe(nullValue());
                 and(Hibernate.validate(user));
             }
         });
