@@ -15,7 +15,9 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.CardRepository;
+import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class CardDao implements CardRepository {
 
 	private final Session session;

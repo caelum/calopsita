@@ -10,7 +10,9 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.PrioritizationRepository;
+import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class PrioritizationDao implements PrioritizationRepository {
 
 	private static final ResultTransformer TRANSFORMER = new ListResultTransformer();
