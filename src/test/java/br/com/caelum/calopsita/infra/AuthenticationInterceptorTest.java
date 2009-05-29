@@ -34,6 +34,8 @@ public class AuthenticationInterceptorTest {
 
 	@Before
 	public void setUp() throws Exception {
+		mockery = new Mockery();
+
 		request = mockery.mock(HttpServletRequest.class);
 		response = mockery.mock(HttpServletResponse.class);
 		stack = mockery.mock(InterceptorStack.class);
