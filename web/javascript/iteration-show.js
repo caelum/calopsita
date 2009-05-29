@@ -1,8 +1,6 @@
 var updateCardsUrl;
 var removeCardsUrl;
-var iterationId;
-function initialize(iteration, update, remove) {
-    iterationId = iteration;
+function initialize(update, remove) {
     updateCardsUrl = update;
     removeCardsUrl = remove;
 }
@@ -59,7 +57,6 @@ function get_params(div, status) {
         params['cards[' + c + '].id'] = $('span', e).text();
         params['cards[' + c + '].status'] = status;
     });
-    params['iteration.id'] = iterationId;
     return params;
 }
 function modifyCards(div, status, logic) {

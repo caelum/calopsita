@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
     <c:if test="${not empty iteration}">
     	<script type="text/javascript">
-    		initialize(${iteration.id}, '<c:url value="/iteration/updateCards/"/>', '<c:url value="/iteration/removeCards/"/>');
+    		initialize('<c:url value="/iterations/${iteration.id}/updateCards/"/>', '<c:url value="/iterations/${iteration.id}/removeCards/"/>');
     	</script>
     </c:if>
 </head>

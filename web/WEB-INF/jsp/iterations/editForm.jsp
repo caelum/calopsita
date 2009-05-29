@@ -4,14 +4,13 @@
 	initialize('<fmt:message key="validation.dateRange"/>');
 </script>
 <c:set var="operation">
-	<c:if test="${empty iteration.id}">save</c:if>
-	<c:if test="${not empty iteration.id}">${iteration.id }/update</c:if>
+	<c:if test="${not empty iteration.id}">${iteration.id }</c:if>
 </c:set>
 <c:set var="label">
 	<c:if test="${empty iteration.id}"><fmt:message key="add"/></c:if>
 	<c:if test="${not empty iteration.id}"><fmt:message key="edit"/></c:if>
 </c:set>
-<form id="iteration" class="hidden" name="addIteration" action="<c:url value="/iteration/${operation }/"/>" method="post">
+<form id="iteration" class="hidden" name="addIteration" action="<c:url value="/iterations/${operation }/"/>" method="post">
   	<input type="hidden" name="iteration.project.id" value="${project.id }" />
    	<p>
 		<label><fmt:message key="iteration.goal"/></label>

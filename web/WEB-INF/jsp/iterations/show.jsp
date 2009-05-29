@@ -7,7 +7,7 @@
   <script type="text/javascript" src="<c:url value="/javascript/iteration-show.js"/>"></script>
   <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
   <script type="text/javascript">
-    initialize(${iteration.id}, '<c:url value="/iteration/updateCards/"/>', '<c:url value="/iteration/removeCards/"/>');
+    initialize('<c:url value="/iterations/${iteration.id}/updateCards/"/>', '<c:url value="/iterations/${iteration.id}/removeCards/"/>');
   </script>
 </head>
 
