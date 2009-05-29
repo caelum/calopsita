@@ -31,7 +31,7 @@
 
 <div id="cards">
 	<c:if test="${not empty cards}">
-		<%@include file="update.ok.jsp" %>
+		<%@include file="update.jsp" %>
 	</c:if>
 </div>
 
