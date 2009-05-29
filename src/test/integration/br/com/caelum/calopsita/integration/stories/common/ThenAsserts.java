@@ -185,9 +185,4 @@ public class ThenAsserts {
 		// TODO Auto-generated method stub
 
 	}
-
-	public void isPrioritizable() {
-		// TODO Auto-generated method stub
-
-	}
 }
