@@ -2,8 +2,9 @@ package br.com.caelum.calopsita.integration.stories.common;
 
 import org.hibernate.Session;
 
-import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Iteration;
+import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.seleniumdsl.Browser;
 
 public class CardContexts<T extends ProjectContexts<T>> {
@@ -37,8 +38,10 @@ public class CardContexts<T extends ProjectContexts<T>> {
 	}
 
 	public CardContexts<T> withPriority(int priority) {
-		card.setPriority(priority);
-		session.saveOrUpdate(card);
+		PrioritizableCard pcard = new PrioritizableCard();
+		pcard.setCard(card);
+		pcard.setPriority(priority);
+		session.save(pcard);
 		session.flush();
 		return this;
 	}
@@ -61,6 +64,13 @@ public class CardContexts<T extends ProjectContexts<T>> {
 	 */
 	public ProjectContexts<?> also() {
 		return new ProjectContexts<T>(card.getProject(), session, browser);
+	}
+
+	public CardContexts<T> prioritizable() {
+		PrioritizableCard pcard = new PrioritizableCard();
+		pcard.setCard(card);
+		session.save(pcard);
+		return this;
 	}
 
 }

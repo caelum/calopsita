@@ -1,12 +1,8 @@
 package br.com.caelum.calopsita.logic;
 
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
-
-import java.util.Arrays;
-import java.util.List;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -15,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
@@ -72,28 +69,6 @@ public class CardTest {
 
 		assertThat(loadedCard.getName(), is("Huckleberry Finn"));
 		assertThat(loadedCard.getDescription(), is("He has a drunk father."));
-	}
-
-    @Test
-	public void groupingCardsByPriority() throws Exception {
-		Card card1 = givenACard(withPriority(1));
-		Card card2 = givenACard(withPriority(1));
-		Card card3 = givenACard(withPriority(2));
-		Card card4 = givenACard(withPriority(3));
-		Card card5 = givenACard(withPriority(3));
-
-		shouldReturnTheCards(card1, card2, card3, card4, card5);
-		whenIStartPrioritization();
-
-		List<List<Card>> list = logic.getGroupedCards();
-
-		assertThat(list.size(), is(4));
-		assertThat(list.get(1), hasItem(card1));
-		assertThat(list.get(1), hasItem(card2));
-		assertThat(list.get(2), hasItem(card3));
-		assertThat(list.get(3), hasItem(card4));
-		assertThat(list.get(3), hasItem(card4));
-
 	}
 
     @Test
@@ -212,31 +187,6 @@ public class CardTest {
 		return logic.delete(card, false);
 	}
 
-	private void shouldReturnTheCards(final Card... cards) {
-		mockery.checking(new Expectations() {
-			{
-				one(projectRepository).listCardsFrom(with(any(Project.class)));
-				will(returnValue(Arrays.asList(cards)));
-
-				allowing(projectRepository);
-			}
-		});
-	}
-
-	private void whenIStartPrioritization() {
-		logic.prioritization(givenAProject());
-	}
-
-	private Card givenACard(int priority) {
-		Card card = givenACard();
-		card.setPriority(priority);
-		return card;
-	}
-
-	private int withPriority(int i) {
-		return i;
-	}
-
 	private CardTest givenTheCard(Card card) {
 		currentCard = card;
 		return this;
@@ -295,6 +245,7 @@ public class CardTest {
 				allowing(projectRepository);
 
 				one(repository).add(card);
+				one(repository).add(with(any(Gadget.class)));
 			}
 		});
 

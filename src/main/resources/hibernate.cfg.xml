@@ -27,6 +27,7 @@
 
 		<mapping class="br.com.caelum.calopsita.model.Project" />
 		<mapping class="br.com.caelum.calopsita.model.Card" />
+		<mapping class="br.com.caelum.calopsita.model.PrioritizableCard" />
 		<mapping class="br.com.caelum.calopsita.model.User" />
 		<mapping class="br.com.caelum.calopsita.model.Iteration" />
 	</session-factory>

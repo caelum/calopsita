@@ -53,6 +53,7 @@ public class IterationLogic {
     public void show(Iteration iteration) {
     	this.iteration = repository.load(iteration);
     	this.project = this.iteration.getProject();
+    	cardRepository.orderCardsByPriority(this.iteration);
     	otherCards = cardRepository.cardsWithoutIteration(project);
     }
 

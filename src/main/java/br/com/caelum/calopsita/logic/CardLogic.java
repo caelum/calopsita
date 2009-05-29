@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.logic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.vraptor.annotations.Component;
@@ -10,6 +9,7 @@ import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
@@ -36,6 +36,7 @@ public class CardLogic {
 		this.project = project;
 		card.setProject(project);
 		repository.add(card);
+		repository.add(new PrioritizableCard(card));
 		this.cards = this.projectRepository.listCardsFrom(project);
 	}
 
@@ -64,42 +65,8 @@ public class CardLogic {
 		this.cards = this.projectRepository.listCardsFrom(project);
 	}
 
-	public void prioritization(Project project) {
-		this.project = this.projectRepository.get(project.getId());
-		this.cards = this.projectRepository.listCardsFrom(project);
-	}
-	public void prioritize(Project project, List<Card> cards) {
-		for (Card card : cards) {
-			Card loaded = repository.load(card);
-			loaded.setPriority(card.getPriority());
-		}
-		prioritization(project);
-	}
 	public List<Card> getCards() {
 		return cards;
-	}
-
-	public List<List<Card>> getGroupedCards() {
-		List<List<Card>> result = new ArrayList<List<Card>>();
-		if (cards != null) {
-			for (int i = maxPriority(cards); i >= 0; i--) {
-				result.add(new ArrayList<Card>());
-			}
-			for (Card card : cards) {
-				result.get(card.getPriority()).add(card);
-			}
-		}
-		return result;
-	}
-
-	private int maxPriority(List<Card> cards) {
-		int max = 0;
-		for (Card card : cards) {
-			if (card.getPriority() > max) {
-				max = card.getPriority();
-			}
-		}
-		return max;
 	}
 
 	public Project getProject() {

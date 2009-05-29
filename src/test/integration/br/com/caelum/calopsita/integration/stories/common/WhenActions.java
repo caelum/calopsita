@@ -263,4 +263,9 @@ public class WhenActions {
         iClickOn("Cards");
         return this;
     }
+
+	public WhenActions prioritizable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
