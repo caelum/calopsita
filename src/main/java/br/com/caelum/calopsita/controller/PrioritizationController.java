@@ -37,7 +37,7 @@ public class PrioritizationController {
         result.include("stories", this.projectRepository.listCardsFrom(project));
     }
 
-	@Path("/projects/{project.id}/stories/prioritize/") @Post
+	@Path("/projects/{project.id}/prioritize/") @Post
 	public void prioritize(Project project, List<PrioritizableCard> cards) {
 		for (PrioritizableCard card : cards) {
 			PrioritizableCard loaded = repository.load(card);

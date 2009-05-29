@@ -13,8 +13,7 @@
     <p><fmt:message key="project.description"/>: ${card.description}</p>
 </div>
 
-<form name="editCard" action="<c:url value='/card/update/' />" method="post">
-	<input type="hidden" name="card.id" value="${card.id }"/>
+<form name="editCard" action="<c:url value='/cards/${card.id }/' />" method="post">
 	<input type="hidden" name="project.id" value="${card.project.id }"/>
 	<p>
 		<label><fmt:message key="card.name"/></label>
@@ -32,13 +31,13 @@
 
 <div id="cards">
 	<c:if test="${not empty cards}">
-		<%@include file="../card/update.ok.jsp" %>
+		<%@include file="update.ok.jsp" %>
 	</c:if>
 </div>
 
 <a href="javascript:toggle('cardForm'); document.addCard.reset();">Add Subcard</a><br/>
 
-<form id="cardForm" class="hidden" name="addCard" action="<c:url value="/subcard/save/"/>" method="post">
+<form id="cardForm" class="hidden" name="addCard" action="<c:url value="/projects/{project.id}/cards/saveSub/"/>" method="post">
 	<input type="hidden" name="card.project.id" value="${card.project.id }" />
 	<input type="hidden" name="card.parent.id" value="${card.id }" />
 	<p>
@@ -55,7 +54,7 @@
   	</p>
 </form>
 
-<a id="back" href="<c:url value="/project/${card.project.id }/cards/"/>"><fmt:message key="back"/></a>
+<a id="back" href="<c:url value="/projects/${card.project.id }/cards/"/>"><fmt:message key="back"/></a>
 
 </body>
 </html>

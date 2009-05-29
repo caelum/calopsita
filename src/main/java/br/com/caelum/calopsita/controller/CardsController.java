@@ -8,6 +8,7 @@ import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.Delete;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -44,21 +45,21 @@ public class CardsController {
 		result.include("cards", this.projectRepository.listCardsFrom(project));
 	}
 
-	@Path("/projects/{project.id}/stories/saveSub/") @Post
+	@Path("/projects/{project.id}/cards/saveSub/") @Post
 	public void saveSub(Card card) {
 		repository.add(card);
 		result.include("stories", this.repository.listSubcards(card.getParent()));
 		result.include("story", card.getParent());
 		result.include("project", card.getProject());
 	}
-	
-	@Path("/projects/{project.id}/stories/{story.id}/edit/") @Post
+
+	@Path("/cards/{card.id}/edit/") @Get
 	public void edit(Card card) {
-	    result.include("story", this.repository.load(card));
-	    result.include("stories", this.repository.listSubcards(card));
+	    result.include("card", this.repository.load(card));
+	    result.include("cards", this.repository.listSubcards(card));
 	}
 
-	@Path("/projects/{project.id}/stories/{story.id}/") @Post
+	@Path("/stories/{story.id}/") @Post
 	public void update(Card card) {
 		Card loaded = repository.load(card);
 		Project project = loaded.getProject();

@@ -7,4 +7,4 @@
 		<%@include file="storyLine.jsp" %>
 	</c:forEach>
 </dl>
-<a href="<c:url value="/project/${project.id }/prioritization/"/>"><fmt:message key="prioritize"/></a>
+<a href="<c:url value="/projects/${project.id }/prioritization/"/>"><fmt:message key="prioritize"/></a>

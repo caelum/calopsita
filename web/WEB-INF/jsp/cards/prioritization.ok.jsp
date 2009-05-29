@@ -17,9 +17,8 @@
     	<p><fmt:message key="project.description"/>: ${project.description}</p>
 	</div>
 	
-	<form id="prioritizationForm" action="<c:url value="/card/prioritize/"/>" method="post">
+	<form id="prioritizationForm" action="<c:url value="/projects/{project.id}/prioritize/"/>" method="post">
 		<input type="submit" value="Save Priorization" />
-		<input type="hidden" name="project.id" value="${project.id }" />
 
 		<div id="board">
 			<c:forEach items="${groupedCards}" varStatus="s" var="currentPriority" >
@@ -42,7 +41,7 @@
 		<ul id="lowerPriority" class="board" title="New Priority Level"></ul>
 	</form>
 
-	<a href="<c:url value="/project/${project.id }/show/"/>"><fmt:message key="back"/></a>
+	<a href="<c:url value="/iterations/${project.id}/current/"/>"><fmt:message key="back"/></a>
 
 </body>
 </html>
