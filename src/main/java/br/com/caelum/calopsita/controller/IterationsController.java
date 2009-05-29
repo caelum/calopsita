@@ -51,7 +51,7 @@ public class IterationsController {
     public void save(final Iteration iteration) {
         validateDate(iteration);
         repository.add(iteration);
-        result.use(logic()).redirectTo(IterationsController.class).current(iteration.getProject());
+        result.use(logic()).redirectTo(IterationsController.class).list(iteration.getProject());
     }
 
 	private void validateDate(final Iteration iteration) {
@@ -131,7 +131,7 @@ public class IterationsController {
                 cardRepository.update(cardLoaded);
             }
             repository.remove(loaded);
-            result.use(logic()).redirectTo(IterationsController.class).current(project);
+            result.use(logic()).redirectTo(IterationsController.class).list(project);
         }
     }
 
@@ -143,7 +143,7 @@ public class IterationsController {
 		}
 		loaded.setStartDate(new LocalDate());
 		Project project = loaded.getProject();
-		result.use(logic()).redirectTo(IterationsController.class).current(project);
+		result.use(logic()).redirectTo(IterationsController.class).list(project);
 	}
 
     @Path("/iterations/{iteration.id}/end/") @Post
@@ -154,7 +154,7 @@ public class IterationsController {
         }
         loaded.setEndDate(new LocalDate());
         Project project = loaded.getProject();
-        result.use(logic()).redirectTo(IterationsController.class).current(project);
+        result.use(logic()).redirectTo(IterationsController.class).list(project);
     }
 
     @Path("/iterations/{iteration.id}/") @Post
@@ -164,6 +164,7 @@ public class IterationsController {
 		loaded.setGoal(iteration.getGoal());
 		loaded.setStartDate(iteration.getStartDate());
 		loaded.setEndDate(iteration.getEndDate());
+		result.use(logic()).redirectTo(IterationsController.class).show(iteration);
 		return loaded;
 	}
 

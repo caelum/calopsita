@@ -1,6 +1,8 @@
 package br.com.caelum.calopsita.controller;
 
 import static br.com.caelum.vraptor.view.Results.logic;
+import static br.com.caelum.vraptor.view.Results.page;
+import static org.hamcrest.Matchers.equalTo;
 
 import org.vraptor.annotations.InterceptedBy;
 
@@ -70,11 +72,15 @@ public class ProjectsController {
 
     @Path("/projects/{project.id}/") @Post
     public void update(Project project) {
-    	Project loaded = this.repository.load(project);
-    	if (currentUser.equals(loaded.getOwner())) {
-    		loaded.setDescription(project.getDescription());
-    		result.use(logic()).redirectTo(IterationsController.class).current(loaded);
-    	}
+    	validator.onError().goTo(page()).forward("/WEB-INF/jsp/projects/delete.invalid.jsp");
+    	final Project loaded = this.repository.load(project);
+    	validator.checking(new Validations() {
+    		{
+    			that(loaded.getOwner(), equalTo(currentUser));
+    		}
+    	});
+		loaded.setDescription(project.getDescription());
+		result.use(logic()).redirectTo(ProjectsController.class).admin(loaded);
     }
     @Path("/projects/{project.id}/") @Post
     public void update(Project project) {
@@ -110,6 +116,6 @@ public class ProjectsController {
         loaded.getColaborators().add(colaborator);
         repository.update(loaded);
         result.include("project", loaded);
-        result.use(logic()).redirectTo(IterationsController.class).current(project);
+        result.use(logic()).redirectTo(ProjectsController.class).admin(project);
     }
 }

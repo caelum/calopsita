@@ -43,7 +43,8 @@ public class PrioritizationController {
 			PrioritizableCard loaded = repository.load(card);
 			loaded.setPriority(card.getPriority());
 		}
-		result.use(logic()).redirectTo(PrioritizationController.class).prioritization(project);
+		prioritization(project);
+		result.use(logic()).redirectTo(ProjectsController.class).cards(project);
 	}
 
 }
