@@ -35,7 +35,6 @@ public class IterationsController {
     private final IterationRepository repository;
 	private final CardRepository cardRepository;
     private final User currentUser;
-    private final ProjectRepository projectRepository;
 	private final Result result;
     private final Validator validator;
 

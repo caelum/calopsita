@@ -1,19 +1,13 @@
 package br.com.caelum.calopsita.controller;
 
 import static br.com.caelum.vraptor.view.Results.logic;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Story;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.Delete;
-import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -26,7 +20,6 @@ public class CardsController {
 	private final CardRepository repository;
 	private final User currentUser;
 	private final ProjectRepository projectRepository;
-	private List<Story> stories;
     private final Validator validator;
     private final Result result;
 

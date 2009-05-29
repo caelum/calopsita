@@ -1,13 +1,11 @@
 package br.com.caelum.calopsita.logic;
 
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -265,7 +263,7 @@ public class CardTest {
 		mockery.checking(new Expectations() {
 			{
 				one(projectRepository).listCardsFrom(with(any(Project.class)));
-				will(returnValue(Arrays.asList(stories)));
+				will(returnValue(Arrays.asList(card)));
 
 				allowing(projectRepository);
 
