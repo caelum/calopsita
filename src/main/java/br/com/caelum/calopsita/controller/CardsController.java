@@ -2,7 +2,7 @@ package br.com.caelum.calopsita.controller;
 
 import static br.com.caelum.vraptor.view.Results.logic;
 import static br.com.caelum.vraptor.view.Results.page;
-import static org.hamcrest.Matchers.either;
+import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isIn;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
@@ -120,8 +120,8 @@ public class CardsController {
 
 		validator.checking(new Validations() {
 			{
-				that(currentUser, either(
-							isIn(project.getColaborators())).or(
+				that(currentUser, anyOf(
+							isIn(project.getColaborators()),
 							is(equalTo(project.getOwner()))));
 			}
 		});
