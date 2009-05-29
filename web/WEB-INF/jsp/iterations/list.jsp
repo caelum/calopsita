@@ -45,7 +45,7 @@
   </c:if>
   
   <a href="javascript:toggle('iteration'); document.addIteration.reset();"><fmt:message key="project.addIteration"/></a><br/>
-  <%@include file="../iteration/editForm.jsp" %>
+  <%@include file="editForm.jsp" %>
   <a href="<c:url value="/"/>"><fmt:message key="back"/></a>
 </div>
 </body>
