@@ -48,11 +48,11 @@ public class WhenActions {
     }
 
     public void iOpenProjectPageDirectly() {
-        browser.open("/calopsita/project/form");
+        browser.open("/calopsita/projects/new/");
     }
 
     public void iListProjects() {
-    	browser.open("/calopsita/project/list");
+    	browser.open("/calopsita/projects/");
     }
 
     public void iAddTheProject(String name) {
@@ -85,7 +85,7 @@ public class WhenActions {
 	public WhenActions iDirectlyOpenProjectPageOf(String projectName) {
 		Long id = (Long) session.createQuery("select id from Project p where p.name = :name")
 			.setParameter("name", projectName).setMaxResults(1).uniqueResult();
-		browser.open("/calopsita/project/" + id + "/admin/");
+		browser.open("/calopsita/projects/" + id + "/admin/");
 		return this;
 	}
 
