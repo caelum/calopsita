@@ -48,13 +48,16 @@ public class UsersController {
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
-    @Path("/users/login/") @Get
+    @Path("/users/login/") @Post
     public void login(final User user) {
+    	validator.onError().goTo(HomeController.class).login();
         validator.checking(new Validations() {
             {
                 User found = repository.find(user.getLogin());
                 that(found).shouldBe(notNullValue());
-                that(found.getPassword()).shouldBe(equalTo(user.getPassword()));
+                if (found != null) {
+					that(found.getPassword()).shouldBe(equalTo(user.getPassword()));
+				}
             }
         });
         sessionUser.setUser(user);
