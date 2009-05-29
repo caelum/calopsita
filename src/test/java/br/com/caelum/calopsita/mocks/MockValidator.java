@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.mocks;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.Message;
@@ -13,7 +14,11 @@ public class MockValidator implements Validator {
 	private final Mockery mockery;
 
 	public MockValidator() {
-		mockery =  new Mockery();
+		mockery =  new Mockery() {
+			{
+				setImposteriser(ClassImposteriser.INSTANCE);
+			}
+		};
 
 		mockery.checking(new Expectations() {
 			{

@@ -9,36 +9,42 @@ import javax.servlet.http.HttpSession;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.UsersController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
+import br.com.caelum.calopsita.mocks.MockResult;
+import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.ValidationError;
 
 public class UserTest {
-    private SessionUser session;
+    private SessionUser sessionUser;
     private Mockery mockery;
     private UsersController logic;
     private UserRepository repository;
+	private HttpSession session;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
-        session = new SessionUser(mockery.mock(HttpSession.class));
+        session = mockery.mock(HttpSession.class);
+		sessionUser = new SessionUser(session);
         repository = mockery.mock(UserRepository.class);
-        logic = new UsersController(mockery.mock(Result.class), mockery.mock(Validator.class), repository, session);
+
+
+		mockery.checking(new Expectations() {
+			{
+				allowing(session).getAttribute("currentUser");
+				will(returnValue(new User()));
+			}
+		});
+        logic = new UsersController(new MockResult(), new MockValidator(), repository, sessionUser);
     }
 
-    @After
-    public void tearDown() {
-        mockery.assertIsSatisfied();
-    }
 
     @Test
     public void signUpWithNewUser() throws Exception {
@@ -50,10 +56,11 @@ public class UserTest {
 
         whenISaveTheUser(user);
 
-        assertThat(session.getUser(), is(notNullValue()));
+        assertThat(sessionUser.getUser(), is(notNullValue()));
+        mockery.assertIsSatisfied();
     }
 
-    @Test
+    @Test(expected=ValidationError.class)
     public void signUpWithExistingUser() throws Exception {
         final User user = givenUser("caue");
 
@@ -63,7 +70,8 @@ public class UserTest {
 
         whenISaveTheUser(user);
 
-        assertThat(session.getUser(), is(nullValue()));
+        assertThat(sessionUser.getUser(), is(nullValue()));
+        mockery.assertIsSatisfied();
     }
 
     @Test
@@ -72,12 +80,17 @@ public class UserTest {
 
         givenThatUserExists(user);
 
+        shouldPutUserOnSession(user);
+
         whenILoginWith(user);
 
-        assertThat(session.getUser(), is(notNullValue()));
+        assertThat(sessionUser.getUser(), is(notNullValue()));
+        mockery.assertIsSatisfied();
     }
 
-    @Test
+
+
+	@Test(expected=ValidationError.class)
     public void loginWithInvalidUser() throws Exception {
         final User user = givenUser("caue");
 
@@ -87,26 +100,45 @@ public class UserTest {
 
         whenILoginWith(user);
 
-		assertThat(session.getUser(), is(nullValue()));
+		assertThat(sessionUser.getUser(), is(nullValue()));
 
+		mockery.assertIsSatisfied();
     }
 
     @Test
     public void logout() throws Exception {
-    	session.setUser(new User());
-
+    	shouldRemoveUserFromSession();
         whenILogout();
 
-        assertThat(session.getUser(), is(nullValue()));
+        mockery.assertIsSatisfied();
     }
 
-    @Test
+
+
+	@Test
     public void hashPassword() throws Exception {
         final User user = givenUser("caue");
 
         shouldHavePasswordHashed(user, "caue");
+        mockery.assertIsSatisfied();
     }
+	private void shouldRemoveUserFromSession() {
 
+		mockery.checking(new Expectations() {
+			{
+				one(session).setAttribute("currentUser", null);
+			}
+		});
+	}
+
+    private void shouldPutUserOnSession(final User user) {
+
+		mockery.checking(new Expectations() {
+			{
+				one(session).setAttribute("currentUser", user);
+			}
+		});
+    }
     private void shouldHavePasswordHashed(User user, String login) {
         Assert.assertNotSame(user.getPassword(), login);
     }
@@ -139,21 +171,11 @@ public class UserTest {
     }
 
     private void whenISaveTheUser(final User user) {
-    	Assert.fail();
-//        ValidationErrors errors = new BasicValidationErrors();
-//        logic.validateSave(errors, user);
-//        if (errors.size() == 0) {
-            logic.save(user);
-//        }
+    	logic.save(user);
     }
 
     private void whenILoginWith(final User user) {
-    	Assert.fail();
-//        ValidationErrors errors = new BasicValidationErrors();
-//        logic.validateLogin(errors, user);
-//        if (errors.size() == 0) {
-            logic.login(user);
-//        }
+    	logic.login(user);
     }
 
     private void whenILogout() {
@@ -164,6 +186,7 @@ public class UserTest {
         mockery.checking(new Expectations() {
             {
                 one(repository).add(user);
+                one(session).setAttribute("currentUser", user);
             }
         });
     }

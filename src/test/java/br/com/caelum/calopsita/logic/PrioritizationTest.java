@@ -11,11 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.PrioritizationController;
+import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.PrioritizationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.vraptor.Result;
 
 public class PrioritizationTest {
     private Mockery mockery;
@@ -31,7 +31,7 @@ public class PrioritizationTest {
 
 		projectRepository = mockery.mock(ProjectRepository.class);
 		project = new Project();
-		logic = new PrioritizationController(mockery.mock(Result.class), repository, projectRepository);
+		logic = new PrioritizationController(new MockResult(), repository, projectRepository);
 
 		mockery.checking(new Expectations() {
 			{
