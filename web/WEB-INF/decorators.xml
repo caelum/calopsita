@@ -3,24 +3,24 @@
 	<excludes>
 		<pattern>/card/save/</pattern>
 		<pattern>/subcard/save/</pattern>
-		<pattern>/card/update/</pattern>
-		<pattern>/card/update.ok.jsp</pattern>
-		<pattern>/card/cardLine.jsp</pattern>
-		<pattern>/iteration/cardCard.jsp</pattern>
+		<pattern>/cards/update/</pattern>
+		<pattern>/cards/update.jsp</pattern>
+		<pattern>/cards/cardLine.jsp</pattern>
+		<pattern>/iterations/cardCard.jsp</pattern>
 	</excludes>
 	
 	<decorator name="calopsita" page="calopsita.jsp">
 		<pattern>/home/*</pattern>
-		<pattern>/iteration/*</pattern>
-		<pattern>/card/*</pattern>
-		<pattern>/user/*</pattern>
-        <pattern>/project/list</pattern>
-        <pattern>/project/form</pattern>
+		<pattern>/iterations/*</pattern>
+		<pattern>/cards/*</pattern>
+		<pattern>/users/*</pattern>
+        <pattern>/projects/</pattern>
+        <pattern>/projects/new/</pattern>
 		<pattern>/</pattern>
 	</decorator>
   
     <decorator name="project" page="project.jsp">
-      <pattern>/project/*</pattern>
+      <pattern>/projects/*</pattern>
       <pattern>/iterations/*</pattern>
     </decorator>
 	

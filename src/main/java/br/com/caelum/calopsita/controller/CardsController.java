@@ -2,8 +2,12 @@ package br.com.caelum.calopsita.controller;
 
 import static br.com.caelum.vraptor.view.Results.logic;
 import static br.com.caelum.vraptor.view.Results.page;
+import static org.hamcrest.Matchers.either;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.isIn;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
@@ -42,6 +46,7 @@ public class CardsController {
             }
         });
 		repository.add(card);
+		repository.add(new PrioritizableCard(card));
 		result.include("project", project);
 		result.include("cards", this.projectRepository.listCardsFrom(project));
 		result.use(page()).forward("/WEB-INF/jsp/cards/update.jsp");
@@ -111,22 +116,27 @@ public class CardsController {
 	@Path("/stories/{story.id}/") @Delete
 	public void delete(Card card, boolean deleteSubstories) {
 		Card loaded = repository.load(card);
-		Project project = loaded.getProject();
-		if (project.getColaborators().contains(currentUser) || project.getOwner().equals(currentUser)) {
-		    project = loaded.getProject();
-	        if (deleteSubstories) {
-	            for (Card sub : loaded.getSubcards()) {
-	                repository.remove(sub);
-	            }
-	        } else {
-	            for (Card sub : loaded.getSubcards()) {
-	                sub.setParent(null);
-	                repository.update(sub);
-	            }
-	        }
-	        repository.remove(loaded);
-	        result.use(logic()).redirectTo(ProjectsController.class).cards(project);
-		}
+		final Project project = loaded.getProject();
+
+		validator.checking(new Validations() {
+			{
+				that(currentUser, either(
+							isIn(project.getColaborators())).or(
+							is(equalTo(project.getOwner()))));
+			}
+		});
+        if (deleteSubstories) {
+            for (Card sub : loaded.getSubcards()) {
+                repository.remove(sub);
+            }
+        } else {
+            for (Card sub : loaded.getSubcards()) {
+                sub.setParent(null);
+                repository.update(sub);
+            }
+        }
+        repository.remove(loaded);
+        result.use(logic()).redirectTo(ProjectsController.class).cards(project);
 	}
 	
 	@Path("/projects/{project.id}/priorization/") @Get

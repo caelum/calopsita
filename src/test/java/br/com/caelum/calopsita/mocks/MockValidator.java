@@ -5,12 +5,12 @@ import org.jmock.Mockery;
 
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.Message;
+import br.com.caelum.vraptor.validator.ValidationError;
 import br.com.caelum.vraptor.validator.Validations;
 
 public class MockValidator implements Validator {
 
 	private final Mockery mockery;
-	private boolean hasError;
 
 	public MockValidator() {
 		mockery =  new Mockery();
@@ -25,7 +25,9 @@ public class MockValidator implements Validator {
 	}
 
 	public void checking(Validations rules) {
-		hasError = hasError || !rules.getErrors().isEmpty();
+		if (!rules.getErrors().isEmpty()) {
+			throw new ValidationError(rules.getErrors());
+		}
 	}
 
 	public <T> T goTo(Class<T> type) {
@@ -38,10 +40,6 @@ public class MockValidator implements Validator {
 	}
 
 	public void validate() {
-	}
-
-	public boolean hasError() {
-		return hasError;
 	}
 
 

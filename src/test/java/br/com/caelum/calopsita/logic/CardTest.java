@@ -16,14 +16,15 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.CardsController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
+import br.com.caelum.calopsita.mocks.MockResult;
+import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.ValidationError;
 
 public class CardTest {
     private Mockery mockery;
@@ -34,6 +35,7 @@ public class CardTest {
     private Project project;
 	private HttpSession session;
 	private User currentUser;
+	private MockValidator validator;
 
     @Before
     public void setUp() throws Exception {
@@ -43,12 +45,21 @@ public class CardTest {
 		SessionUser sessionUser = new SessionUser(session);
         currentUser = new User();
         currentUser.setLogin("me");
-		sessionUser.setUser(currentUser);
         project = new Project();
 
 		projectRepository = mockery.mock(ProjectRepository.class);
 
-		logic = new CardsController(mockery.mock(Result.class), mockery.mock(Validator.class), sessionUser, repository, projectRepository);
+		mockery.checking(new Expectations() {
+			{
+				allowing(session).getAttribute("currentUser");
+				will(returnValue(currentUser));
+			}
+		});
+
+
+
+		validator = new MockValidator();
+		logic = new CardsController(new MockResult(), validator, sessionUser, repository, projectRepository);
     }
 
 
@@ -90,13 +101,12 @@ public class CardTest {
 
 		shouldRemoveTheCardFromRepository(returned);
 
-		String status = null;
 		whenIRemove(card);
-		assertThat(status, is("ok"));
-		mockery.assertIsSatisfied();
+
+        mockery.assertIsSatisfied();
 	}
 
-    @Test
+    @Test(expected=ValidationError.class)
     public void removeACardFromOtherProjectThanMine() throws Exception {
         Card card = givenACard();
         givenTheProjectIsOwnedBy(anyUser());
@@ -105,10 +115,9 @@ public class CardTest {
 
     	shouldNotRemoveTheCardFromRepository(returned);
 
-    	String status = null;
     	whenIRemove(card);
-    	assertThat(status, is("invalid"));
-    	mockery.assertIsSatisfied();
+
+        mockery.assertIsSatisfied();
     }
     @Test
     public void removeACardAndSubcards() throws Exception {
@@ -124,10 +133,9 @@ public class CardTest {
     	shouldRemoveTheCardFromRepository(returned);
     	shouldRemoveTheCardFromRepository(subcard);
 
-    	String status = null;
     	logic.delete(card, true);
-    	assertThat(status, is("ok"));
-    	mockery.assertIsSatisfied();
+
+        mockery.assertIsSatisfied();
     }
     @Test
     public void removeACardButNotSubcards() throws Exception {
@@ -143,12 +151,11 @@ public class CardTest {
     	shouldRemoveTheCardFromRepository(returned);
     	shouldUpdateTheCardFromRepository(subCard);
 
-    	String status = null;
     	logic.delete(card, false);
-    	assertThat(status, is("ok"));
 
     	assertThat(subCard.getParent(), is(nullValue()));
-    	mockery.assertIsSatisfied();
+
+        mockery.assertIsSatisfied();
     }
 
     @Test
@@ -304,6 +311,8 @@ public class CardTest {
 				allowing(projectRepository);
 
 				one(repository).add(card);
+				one(repository).add(with(any(Gadget.class)));
+
 			}
 		});
 
