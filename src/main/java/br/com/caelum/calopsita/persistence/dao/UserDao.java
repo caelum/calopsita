@@ -45,16 +45,11 @@ public class UserDao implements UserRepository {
 	@Override
 	public List<User> listUnrelatedUsers(Project project) {
 
-		String hql = "from User u where u != :owner";
-		if (!project.getColaborators().isEmpty()) {
-			hql += " and u not in (:colaborators)";
-		}
+		String hql = "select u from User u, Project p where p = :project " +
+				"and u != p.owner and u not in elements (p.colaborators)";
 		Query query = session.createQuery(hql);
-		
-		if (!project.getColaborators().isEmpty()) {
-			query.setParameterList("colaborators", project.getColaborators());
-		}
-		return query.setParameter("owner", project.getOwner()).list();
+		query.setParameter("project", project);
+		return query.list();
 	}
 
 }
