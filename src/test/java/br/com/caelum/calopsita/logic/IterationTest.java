@@ -16,6 +16,8 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.IterationsController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
+import br.com.caelum.calopsita.mocks.MockResult;
+import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
@@ -35,7 +37,6 @@ public class IterationTest {
     private CardRepository cardRepository;
     private Project project;
     private ProjectRepository projectRepository;
-	private HttpSession session;
 	private User currentUser;
 
     @Before
@@ -49,14 +50,20 @@ public class IterationTest {
 		SessionUser sessionUser = new SessionUser(session);
         currentUser = new User();
         currentUser.setLogin("me");
-        sessionUser.setUser(currentUser);
         project = new Project();
 
-        logic = new IterationsController(mockery.mock(Validator.class), mockery.mock(Result.class), currentUser, iterationRepository, cardRepository, projectRepository);
-        
+
+		mockery.checking(new Expectations() {
+			{
+				allowing(session).getAttribute("currentUser");
+				will(returnValue(currentUser));
+			}
+		});
+        logic = new IterationsController(new MockResult(), new MockValidator(), new SessionUser(session), iterationRepository, cardRepository, projectRepository);
+
     }
 
-    
+
     @Test
     public void savingAnIteration() throws Exception {
         Iteration iteration = givenAnIteration();
@@ -93,7 +100,7 @@ public class IterationTest {
     	mockery.assertIsSatisfied();
     }
 
-    @Test
+    @Test(expected=ValidationError.class)
     public void removeAnIterationFromOtherProject() throws Exception {
         Iteration iteration = givenAnIteration();
         givenTheProjectIsOwnedBy(anyUser());
@@ -101,9 +108,7 @@ public class IterationTest {
 
         shouldNotRemoveTheIterationFromRepository(returned);
 
-        String status = null;
         whenIRemove(iteration);
-        assertThat(status, is("invalid"));
         mockery.assertIsSatisfied();
     }
 
@@ -120,13 +125,11 @@ public class IterationTest {
         shouldUpdateTheCard(card);
         shouldRemoveTheIterationFromRepository(returnedIteration);
 
-        String status = null;
         whenIRemove(iteration);
-        assertThat(status, is("ok"));
         mockery.assertIsSatisfied();
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=ValidationError.class)
     public void validatingDateOnSave() throws Exception {
         Iteration iteration = givenAnIteration();
         iteration.setStartDate(new LocalDate(2005,10,1));

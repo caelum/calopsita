@@ -1,8 +1,12 @@
 package br.com.caelum.calopsita.controller;
 
 import static br.com.caelum.vraptor.view.Results.logic;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.either;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.isIn;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.hamcrest.Matchers.nullValue;
 
 import java.util.List;
 
@@ -57,9 +61,8 @@ public class IterationsController {
 	private void validateDate(final Iteration iteration) {
 		validator.checking(new Validations() {
             {
-                that(iteration.getStartDate()).shouldBe(notNullValue());
-                that(iteration.getEndDate()).shouldBe(notNullValue());
-                that(iteration.getStartDate()).shouldBe(greaterThan(iteration.getEndDate()));
+            	that(iteration.getStartDate(), either(is(lessThanOrEqualTo(iteration.getEndDate()))).or(is(nullValue())));
+            	that(iteration.getEndDate(), either(is(greaterThanOrEqualTo(iteration.getStartDate()))).or(is(nullValue())));
                 and(Hibernate.validate(iteration));
             }
         });
@@ -123,16 +126,22 @@ public class IterationsController {
     @Path("/iterations/{iteration.id}/") @Delete
     public void delete(Iteration iteration) {
         Iteration loaded = repository.load(iteration);
-        Project project = loaded.getProject();
-        if(project.getColaborators().contains(currentUser) || project.getOwner().equals(currentUser)) {
-            for (Card cards : loaded.getCards()) {
-                Card cardLoaded = cardRepository.load(cards);
-                cardLoaded.setIteration(null);
-                cardRepository.update(cardLoaded);
-            }
-            repository.remove(loaded);
-            result.use(logic()).redirectTo(IterationsController.class).list(project);
+        final Project project = loaded.getProject();
+
+        validator.checking(new Validations() {
+			{
+				that(currentUser, either(
+							isIn(project.getColaborators())).or(
+							is(equalTo(project.getOwner()))));
+			}
+		});
+        for (Card cards : loaded.getCards()) {
+            Card cardLoaded = cardRepository.load(cards);
+            cardLoaded.setIteration(null);
+            cardRepository.update(cardLoaded);
         }
+        repository.remove(loaded);
+        result.use(logic()).redirectTo(IterationsController.class).list(project);
     }
 
     @Path("/iterations/{iteration.id}/start/") @Post
