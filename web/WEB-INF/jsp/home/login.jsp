@@ -10,7 +10,7 @@
 <body>
 
 <div id="login">
-  <form id="form" name="login" action="<c:url value="/user/login/"/>" method="post">
+  <form id="form" name="login" action="<c:url value="/users/login/"/>" method="post">
     <p>
       <label><fmt:message key="user.login"/></label>
       <input type="text" name="user.login">

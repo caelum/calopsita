@@ -22,7 +22,7 @@
 	   <div id="user">
         <c:if test="${not empty currentUser}">
           <div class="name">${currentUser.login}</div> 
-          <a href="<c:url value="/user/logout/"/>">Logout</a>
+          <a href="<c:url value="/users/logout/"/>">Logout</a>
         </c:if>
       </div>
 	</div>
