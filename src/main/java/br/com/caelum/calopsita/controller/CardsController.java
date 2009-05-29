@@ -44,7 +44,7 @@ public class CardsController {
 		repository.add(card);
 		result.include("project", project);
 		result.include("cards", this.projectRepository.listCardsFrom(project));
-		result.use(page()).forward("/WEB-INF/jsp/card/update.ok.jsp");
+		result.use(page()).forward("/WEB-INF/jsp/cards/update.jsp");
 	}
 
 	@Path("/projects/{project.id}/cards/saveSub/") @Post
@@ -53,7 +53,7 @@ public class CardsController {
 		result.include("stories", this.repository.listSubcards(card.getParent()));
 		result.include("story", card.getParent());
 		result.include("project", card.getProject());
-		result.use(page()).forward("/WEB-INF/jsp/card/update.ok.jsp");
+		result.use(page()).forward("/WEB-INF/jsp/cards/update.jsp");
 	}
 
 	@Path("/cards/{card.id}/") @Get
