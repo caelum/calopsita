@@ -14,7 +14,7 @@
 <a href="<c:url value="/projects/new/"/>"><fmt:message key="project.new"/></a>
 <div id="projects">
   <ul>
-    <c:forEach var="project" items="${projects}">
+    <c:forEach var="project" items="${projectList}">
       <li>
         <p><fmt:message key="project.name"/>: <a href="<c:url value="/iterations/${project.id}/current/"/>">${project.name}</a>
         <c:if test="${currentUser eq project.owner}">

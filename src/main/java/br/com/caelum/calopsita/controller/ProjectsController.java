@@ -4,6 +4,8 @@ import static br.com.caelum.vraptor.view.Results.logic;
 import static br.com.caelum.vraptor.view.Results.page;
 import static org.hamcrest.Matchers.equalTo;
 
+import java.util.List;
+
 import org.vraptor.annotations.InterceptedBy;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
@@ -93,16 +95,19 @@ public class ProjectsController {
 
     @Path("/projects/{project.id}/") @Delete
     public void delete(Project project) {
-    	Project loaded = this.repository.load(project);
-    	if (currentUser.equals(loaded.getOwner())) {
-    	    this.repository.remove(loaded);
-    	    result.use(logic()).redirectTo(ProjectsController.class).list();
-    	}
+    	final Project loaded = this.repository.load(project);
+    	validator.checking(new Validations() {
+    		{
+    			that(currentUser).shouldBe(equalTo(loaded.getOwner()));
+    		}
+    	});
+	    this.repository.remove(loaded);
+	    result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
     @Path("/projects/") @Get
-    public void list() {
-        result.include("projects", repository.listAllFrom(currentUser));
+    public List<Project> list() {
+        return repository.listAllFrom(currentUser);
     }
 
     @Path("/") @Get

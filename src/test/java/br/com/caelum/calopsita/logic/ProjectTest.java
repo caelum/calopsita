@@ -7,25 +7,24 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import junit.framework.Assert;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.ProjectsController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
+import br.com.caelum.calopsita.mocks.MockResult;
+import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.ValidationError;
 
 public class ProjectTest {
     private Mockery mockery;
@@ -42,19 +41,23 @@ public class ProjectTest {
         session = mockery.mock(HttpSession.class);
         currentUser = currentUser();
         userRepository = mockery.mock(UserRepository.class);
-		logic = new ProjectsController(mockery.mock(Validator.class), mockery.mock(Result.class), repository, userRepository, new SessionUser(session));
+
+		mockery.checking(new Expectations() {
+			{
+				allowing(session).getAttribute("currentUser");
+				will(returnValue(currentUser));
+			}
+		});
+		logic = new ProjectsController(new MockValidator(), new MockResult(), repository, userRepository, new SessionUser(session));
     }
 
-    @After
-    public void tearDown() {
-        mockery.assertIsSatisfied();
-    }
 
     @Test
     public void listingAProject() throws Exception {
         Project project = givenThatOnlyExistsOneProjectForCurrentUser();
-        whenIListProjects();
-        thenTheLogicShouldExposeOnlyTheProject(project);
+        List<Project> projects = whenIListProjects();
+        thenTheLogicShouldExposeOnlyTheProject(projects, project);
+        mockery.assertIsSatisfied();
     }
     @Test
     public void saveAProject() throws Exception {
@@ -65,6 +68,7 @@ public class ProjectTest {
     	whenISaveTheProject(project);
 
     	assertThat(project.getOwner(), is(currentUser));
+    	mockery.assertIsSatisfied();
     }
     @Test
     public void addingColaboratorsToAProject() throws Exception {
@@ -77,6 +81,7 @@ public class ProjectTest {
     	whenIAddTheUserToTheProject(user, project);
 
     	thenTheProjectWillContainTheUserAsColaborator(project, user);
+    	mockery.assertIsSatisfied();
     }
 
     @Test
@@ -86,24 +91,22 @@ public class ProjectTest {
 		Project loaded = givenProjectIsOwnedBy(project, currentUser);
 
 		shouldRemoveFromRepository(loaded);
-		
-		String result = null;
+
 		whenIRemoveTheProject(project);
-		
-		assertThat(result, is("ok"));
+
+		mockery.assertIsSatisfied();
 	}
-    @Test
+    @Test(expected=ValidationError.class)
     public void removingAProjectOwnedByOthers() throws Exception {
     	Project project = givenAProject();
 
     	Project loaded = givenProjectIsOwnedBy(project, givenAUser());
 
     	shouldNotRemoveFromRepository(loaded);
-    	
-    	String result = null;
+
     	whenIRemoveTheProject(project);
-    	
-    	assertThat(result, is("invalid"));
+
+    	mockery.assertIsSatisfied();
     }
 
     @Test
@@ -113,23 +116,22 @@ public class ProjectTest {
 
     	Project loaded = givenProjectIsOwnedBy(project, currentUser);
 
-    	String result = whenIEditTheProject(project);
+    	whenIEditTheProject(project);
 
-    	assertThat(result, is("ok"));
     	assertThat(loaded.getDescription(), is("New description"));
+    	mockery.assertIsSatisfied();
     }
 
-	@Test
+	@Test(expected=ValidationError.class)
     public void editingAProjectOwnedByOthers() throws Exception {
     	Project project = givenAProject();
     	project.setDescription("Anything");
     	Project loaded = givenProjectIsOwnedBy(project, givenAUser());
 
-    	String result = whenIEditTheProject(project);
-
-    	assertThat(result, is("invalid"));
+    	whenIEditTheProject(project);
 
     	assertThat(loaded.getDescription(), is(not("Anything")));
+    	mockery.assertIsSatisfied();
     }
 
 	private String whenIEditTheProject(Project project) {
@@ -211,15 +213,14 @@ public class ProjectTest {
 		return new Project();
 	}
 
-	private void thenTheLogicShouldExposeOnlyTheProject(Project project) {
-		Assert.fail();
-//        assertThat(logic.getProjects(), is(notNullValue()));
-//        assertThat(logic.getProjects().size(), is(1));
-//        assertThat(logic.getProjects(), hasItem(project));
+	private void thenTheLogicShouldExposeOnlyTheProject(List<Project> projects, Project project) {
+        assertThat(projects, is(notNullValue()));
+        assertThat(projects.size(), is(1));
+        assertThat(projects, hasItem(project));
     }
 
-    private void whenIListProjects() {
-        logic.list();
+	private List<Project> whenIListProjects() {
+        return logic.list();
     }
 
     private Project givenThatOnlyExistsOneProjectForCurrentUser() {
