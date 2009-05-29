@@ -25,8 +25,7 @@
   </div>
   <a href="javascript:toggle('cardForm'); document.addCard.reset();"><fmt:message key="project.addCard"/></a><br/>
   
-  <form id="cardForm" class="hidden" name="addCard" action="<c:url value="/cards/"/>" method="post">
-  	<input type="hidden" name="project.id" value="${project.id }" />
+  <form id="cardForm" class="hidden" name="addCard" action="<c:url value="/projects/${project.id }/cards/"/>" method="post">
   	<p>
   		<label><fmt:message key="card.name"/></label>
   		<em>*</em><input type="text" name="card.name"/>

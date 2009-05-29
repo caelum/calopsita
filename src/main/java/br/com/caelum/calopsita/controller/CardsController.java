@@ -32,7 +32,7 @@ public class CardsController {
 		this.projectRepository = projectRepository;
 	}
 
-	@Path("/projects/{project.id}/stories/") @Post
+	@Path("/projects/{project.id}/cards/") @Post
 	public void save(final Card card, Project project) {
 		card.setProject(project);
 		validator.checking(new Validations() {
@@ -53,13 +53,13 @@ public class CardsController {
 		result.include("project", card.getProject());
 	}
 
-	@Path("/cards/{card.id}/edit/") @Get
+	@Path("/cards/{card.id}/") @Get
 	public void edit(Card card) {
 	    result.include("card", this.repository.load(card));
 	    result.include("cards", this.repository.listSubcards(card));
 	}
 
-	@Path("/stories/{story.id}/") @Post
+	@Path("/cards/{card.id}/") @Post
 	public void update(Card card) {
 		Card loaded = repository.load(card);
 		Project project = loaded.getProject();
@@ -105,7 +105,7 @@ public class CardsController {
 		return max;
 	}
 
-	@Path("/projects/{project.id}/stories/{story.id}/") @Delete
+	@Path("/stories/{story.id}/") @Delete
 	public void delete(Card card, boolean deleteSubstories) {
 		Card loaded = repository.load(card);
 		Project project = loaded.getProject();
