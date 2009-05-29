@@ -1,6 +1,7 @@
 package br.com.caelum.calopsita.controller;
 
 import static br.com.caelum.vraptor.view.Results.logic;
+import static br.com.caelum.vraptor.view.Results.page;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Project;
@@ -43,6 +44,7 @@ public class CardsController {
 		repository.add(card);
 		result.include("project", project);
 		result.include("cards", this.projectRepository.listCardsFrom(project));
+		result.use(page()).forward("/WEB-INF/jsp/card/update.ok.jsp");
 	}
 
 	@Path("/projects/{project.id}/cards/saveSub/") @Post
@@ -51,6 +53,7 @@ public class CardsController {
 		result.include("stories", this.repository.listSubcards(card.getParent()));
 		result.include("story", card.getParent());
 		result.include("project", card.getProject());
+		result.use(page()).forward("/WEB-INF/jsp/card/update.ok.jsp");
 	}
 
 	@Path("/cards/{card.id}/") @Get
@@ -122,8 +125,8 @@ public class CardsController {
 	            }
 	        }
 	        repository.remove(loaded);
-	        result.use(logic()).redirectTo(ProjectsController.class).show(project);
-		} 
+	        result.use(logic()).redirectTo(ProjectsController.class).cards(project);
+		}
 	}
 	
 	@Path("/projects/{project.id}/priorization/") @Get
