@@ -10,7 +10,7 @@
   <%@include file="tabs.jsp" %>
   <div id="projects">
       <p><fmt:message key="project.name"/>: ${project.name}</p>
-      <form id="projectForm" action="<c:url value="/projects/${project.id }"/>" method="post">
+      <form id="projectForm" action="<c:url value="/projects/${project.id }/"/>" method="post">
   	    <p>
   	    	<fmt:message key="project.description"/>: <span class="description">${fn:escapeXml(project.description)}</span>
   	    	<textarea class="hidden description" name="project.description">${fn:escapeXml(project.description) }</textarea>

@@ -4,7 +4,6 @@ import static br.com.caelum.vraptor.view.Results.logic;
 
 import java.util.List;
 
-import org.vraptor.annotations.Component;
 import org.vraptor.annotations.InterceptedBy;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
@@ -15,9 +14,10 @@ import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
-@Component
+@Resource
 @InterceptedBy( { AuthorizationInterceptor.class })
 public class PrioritizationController {
 
@@ -31,7 +31,7 @@ public class PrioritizationController {
 		this.projectRepository = projectRepository;
 	}
 
-	@Path("/projects/{project.id}/priorization/") @Get
+	@Path("/projects/{project.id}/prioritization/") @Get
     public void prioritization(Project project) {
         result.include("project", this.projectRepository.get(project.getId()));
         result.include("stories", this.projectRepository.listCardsFrom(project));
