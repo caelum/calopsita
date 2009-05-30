@@ -33,7 +33,7 @@
   
   <a href="javascript:toggle('colaborator')"><fmt:message key="project.addColaborator"/></a><br/>
   <form id="colaborator" class="hidden" name="addColaborator"
-    action="<c:url value="/projects/${project.id}/addColaborator/"/>" method="post">
+    action="<c:url value="/colaborators/${project.id}/"/>" method="post">
     <select name="colaborator.login">
       <c:forEach items="${users}" var="user">
         <option value="${user.login}">${user.name}</option>

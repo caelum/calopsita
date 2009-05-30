@@ -115,7 +115,7 @@ public class ProjectsController {
     	list();
     }
 
-    @Path("/projects/{project.id}/addColaborator/") @Post
+    @Path("/colaborators/{project.id}/") @Post
     public void addColaborator(Project project, User colaborator) {
         Project loaded = repository.get(project.getId());
         loaded.getColaborators().add(colaborator);
