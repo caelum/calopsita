@@ -12,7 +12,9 @@ function confirmCardDeletion(url, hasSubcards) {
                     $.prompt.nextState();
                     return false;
                 } else {
-                    window.location.href = url;
+                	$.delete_(url, {}, function(data) {
+                		window.location.reload();
+                	});
                 }
             }
         }
@@ -24,7 +26,9 @@ function confirmCardDeletion(url, hasSubcards) {
             'No' : false
         },
         submit : function(choice) {
-            window.location.href = url + "?deleteSubcards=" + choice;
+        	$.delete_(url, {deleteSubcards: choice}, function(data) {
+        		window.location.reload();
+        	});
         }
     };
     $.prompt(msg);
@@ -36,7 +40,7 @@ $( function() {
                 $('[id*="card_edit"]:visible').slideToggle("normal");
             },
             success : function(data) {
-                $('#cards').html(data);
+                $('#cards').html($('#cards', data).html());
                 bind();
             }
         });

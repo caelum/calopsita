@@ -19,6 +19,9 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Hibernate;
+import br.com.caelum.vraptor.validator.Validations;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class CardsController {
@@ -113,7 +116,7 @@ public class CardsController {
 		return max;
 	}
 
-	@Path("/stories/{story.id}/") @Delete
+	@Path("/cards/{card.id}/") @Delete
 	public void delete(Card card, boolean deleteSubstories) {
 		Card loaded = repository.load(card);
 		final Project project = loaded.getProject();
@@ -136,7 +139,7 @@ public class CardsController {
             }
         }
         repository.remove(loaded);
-        result.use(logic()).redirectTo(ProjectsController.class).cards(project);
+        result.use(Results.nothing());
 	}
 	
 	@Path("/projects/{project.id}/priorization/") @Get
