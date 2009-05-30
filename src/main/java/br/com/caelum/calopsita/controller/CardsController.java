@@ -55,8 +55,8 @@ public class CardsController {
 	@Path("/projects/{project.id}/cards/saveSub/") @Post
 	public void saveSub(Card card) {
 		repository.add(card);
-		result.include("stories", this.repository.listSubcards(card.getParent()));
-		result.include("story", card.getParent());
+		result.include("cards", this.repository.listSubcards(card.getParent()));
+		result.include("card", card.getParent());
 		result.include("project", card.getProject());
 		result.use(page()).forward("/WEB-INF/jsp/cards/update.jsp");
 	}

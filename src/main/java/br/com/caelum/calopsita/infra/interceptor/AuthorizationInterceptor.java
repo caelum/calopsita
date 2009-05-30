@@ -16,7 +16,7 @@ public class AuthorizationInterceptor implements Interceptor {
 
 	private final User user;
 	private final ProjectRepository repository;
-	
+
 	public AuthorizationInterceptor(User user, ProjectRepository repository) {
 		this.user = user;
 		this.repository = repository;
@@ -34,9 +34,9 @@ public class AuthorizationInterceptor implements Interceptor {
 					throw new LogicException(e);
 				}
 				return;
-			} 
+			}
 		}
 		flow.execute();
 	}
-	
+
 }
