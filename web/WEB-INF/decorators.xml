@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/decorators">
 	<excludes>
-		<pattern>/card/save/</pattern>
 		<pattern>/subcard/save/</pattern>
 		<pattern>/cards/update/</pattern>
 		<pattern>/cards/update.jsp</pattern>

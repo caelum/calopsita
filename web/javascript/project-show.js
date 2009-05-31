@@ -32,12 +32,10 @@ $( function() {
         },
         submitHandler : function(form) {
             $(form).ajaxSubmit( {
+            	target: '#cards',
                 resetForm : true,
                 error : function() {
                     window.location.href = window.location + '../../../';
-                },
-            	success: function() {
-                	window.location.reload();
                 }
             });
             $('[name=card.name]').focus();
