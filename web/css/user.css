@@ -23,7 +23,6 @@ p {
 }
 
 .submit {
-	background: transparent url(../images/ok-button.png) no-repeat scroll top right;
 	margin-left: 9.5em;
 	width: 100px;
 }
