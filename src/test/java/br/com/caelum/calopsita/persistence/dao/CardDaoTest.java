@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
@@ -76,7 +77,12 @@ public class CardDaoTest {
 		assertOrdered(card3, card1, dao.cardsWithoutIteration(project));
 	}
 
+	@Test
+	public void listingGadgets() throws Exception {
+		Card card = givenACard(givenAProject(), withPriority(1));
 
+		List<Gadget> gadgets = dao.listGadgets(card);
+	}
 	private void assertOrdered(Card card3, Card card1, List<Card> list) {
 		assertThat(list.size(), is(2));
 		assertThat(list.get(0), is(card1));

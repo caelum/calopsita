@@ -25,4 +25,6 @@ public interface CardRepository extends BaseRepository<Card>{
 
 	void add(Gadget gadget);
 
+	List<Gadget> listGadgets(Card card);
+
 }

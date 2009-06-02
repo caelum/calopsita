@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.persistence.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
@@ -74,6 +75,10 @@ public class CardDao implements CardRepository {
 	@Override
 	public void add(Gadget gadget) {
 		session.save(gadget);
+	}
+
+	public List<Gadget> listGadgets(Card card) {
+		return session.createCriteria(Gadget.class).add(Restrictions.eq("card", card)).list();
 	}
 
 }
