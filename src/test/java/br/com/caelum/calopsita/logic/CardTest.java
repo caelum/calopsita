@@ -263,6 +263,7 @@ public class CardTest {
 			{
 				allowing(projectRepository);
 				one(repository).update(card);
+				one(repository).updateGadgets(with(any(Card.class)), with(any(List.class)));
 			}
 		});
 	}
