@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
+import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.CardRepository;
@@ -79,6 +80,22 @@ public class CardDao implements CardRepository {
 
 	public List<Gadget> listGadgets(Card card) {
 		return session.createCriteria(Gadget.class).add(Restrictions.eq("id", card.getId())).list();
+	}
+
+	@Override
+	public void updateGadgets(Card card, List<Gadgets> gadgets) {
+		List<Gadgets> cardGadgets = Gadgets.valueOf(listGadgets(card));
+		for (Gadgets gadget : gadgets) {
+			if (!cardGadgets.contains(gadget)) {
+				add(gadget.createGadgetFor(card));
+			}
+		}
+		for (Gadgets gadget : cardGadgets) {
+			if (!gadgets.contains(gadget)) {
+				session.createQuery("delete from " + gadget.gadgetClass().getSimpleName()
+						+ " where id = :id").setParameter("id", card.getId()).executeUpdate();
+			}
+		}
 	}
 
 }
