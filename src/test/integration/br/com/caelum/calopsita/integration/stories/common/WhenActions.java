@@ -279,4 +279,10 @@ public class WhenActions {
 			.check(gadget.name())
 			.submit();
 	}
+
+	public void removingGadget(Gadgets gadget) {
+		browser.currentPage().form("editCard")
+			.uncheck(gadget.name())
+			.submit();
+	}
 }

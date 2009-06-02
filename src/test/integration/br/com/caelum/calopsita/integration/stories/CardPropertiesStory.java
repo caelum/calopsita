@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -30,19 +29,33 @@ public class CardPropertiesStory extends DefaultStory {
 		then.theCard("support IE8").isPrioritizable();
 	}
 	@Test
-	@Ignore
 	public void editACardIncludingPriorizationGadget() {
 		given.thereIsAnUserNamed("sergio").and()
 			.thereIsAProjectNamed("IEs4Linux")
 				.ownedBy("sergio")
 				.withACardNamed("support IE8")
-				.whichDescriptionIs("Micro$oft must be supported").and()
+					.whichDescriptionIs("Micro$oft must be supported").and()
 			.iAmLoggedInAs("sergio");
 		when.iOpenProjectPageOf("IEs4Linux").and()
 			.iOpenCardsPage().and()
 			.iEditTheCard("support IE8")
 				.addingGadget(Gadgets.PRIORITIZATION);
 		then.theCard("support IE8").isPrioritizable();
+	}
+	@Test
+	public void editACardExcludingPriorizationGadget() {
+		given.thereIsAnUserNamed("sergio").and()
+			.thereIsAProjectNamed("IEs4Linux")
+				.ownedBy("sergio")
+				.withACardNamed("support IE8")
+					.prioritizable()
+					.whichDescriptionIs("Micro$oft must be supported").and()
+			.iAmLoggedInAs("sergio");
+		when.iOpenProjectPageOf("IEs4Linux").and()
+			.iOpenCardsPage().and()
+			.iEditTheCard("support IE8")
+			.removingGadget(Gadgets.PRIORITIZATION);
+		then.theCard("support IE8").isNotPrioritizable();
 	}
 
 }

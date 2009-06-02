@@ -10,6 +10,7 @@ import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.joda.time.LocalDate;
+import org.junit.Assert;
 
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.ContentTag;
@@ -185,5 +186,12 @@ public class ThenAsserts {
 		WhenActions actions = new WhenActions(browser, null);
 		actions.iOpenPriorizationPage();
 		assertThat(this.browser.currentPage().div("level_0"), divContainsString(this.name));
+	}
+
+	public void isNotPrioritizable() {
+		WhenActions actions = new WhenActions(browser, null);
+		actions.iOpenPriorizationPage();
+		Assert.assertFalse(this.browser.currentPage().div("level_0").exists());
+
 	}
 }

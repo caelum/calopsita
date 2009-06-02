@@ -118,7 +118,8 @@ public class CardDaoTest {
 	}
 
 	private Matcher<? extends Gadget> instanceOf(Class<? extends Gadget> type) {
-		return (Matcher<? extends Gadget>) Matchers.instanceOf(type);
+		 Matcher matcher = Matchers.instanceOf(type);
+		 return matcher;
 	}
 
 	private void assertOrdered(Card card3, Card card1, List<Card> list) {
