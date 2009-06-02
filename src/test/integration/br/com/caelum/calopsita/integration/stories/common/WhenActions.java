@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.integration.stories.common;
 
 import org.hibernate.Session;
 
+import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.Form;
 
@@ -13,6 +14,7 @@ public class WhenActions {
 	private String cardName;
     private String iterationGoal;
 	private String linkName;
+	private boolean prioritizable;
 
     public WhenActions(Browser browser, Session session) {
         this.browser = browser;
@@ -100,11 +102,14 @@ public class WhenActions {
 
 	public void withDescription(String description) {
 		iClickOn(linkName);
-		browser.currentPage()
-			.form("addCard")
-				.field("card.name").type(cardName)
-				.field("card.description").type(description)
-				.submit();
+		Form form = browser.currentPage() .form("addCard");
+		form.field("card.name").type(cardName)
+			.field("card.description").type(description);
+		if (prioritizable) {
+			form.check(Gadgets.PRIORITIZATION.name());
+		}
+
+		form.submit();
 		iClickOn(linkName);
 		browser.currentPage().waitUntil("!($('#cards').is(':empty'))", 1000);
 	}
@@ -265,7 +270,7 @@ public class WhenActions {
     }
 
 	public WhenActions prioritizable() {
-		// TODO Auto-generated method stub
-		return null;
+		this.prioritizable = true;
+		return this;
 	}
 }

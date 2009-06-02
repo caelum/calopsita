@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -16,7 +15,6 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 public class CardPropertiesStory extends DefaultStory {
 
 	@Test
-	@Ignore
 	public void addAPrioritizableCard() {
 		given.thereIsAnUserNamed("sergio").and()
 			.thereIsAProjectNamed("IEs4Linux")

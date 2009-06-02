@@ -182,7 +182,8 @@ public class ThenAsserts {
     }
 
 	public void isPrioritizable() {
-		// TODO Auto-generated method stub
-
+		WhenActions actions = new WhenActions(browser, null);
+		actions.iOpenPriorizationPage();
+		assertThat(this.browser.currentPage().div("level_0"), divContainsString(this.name));
 	}
 }
