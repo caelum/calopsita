@@ -273,4 +273,10 @@ public class WhenActions {
 		this.prioritizable = true;
 		return this;
 	}
+
+	public void addingGadget(Gadgets gadget) {
+		browser.currentPage().form("editCard")
+			.check(gadget.name())
+			.submit();
+	}
 }
