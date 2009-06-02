@@ -42,7 +42,7 @@
   	</p>
   	<fieldset title="<fmt:message key="gadgets" />">
   		<legend><fmt:message key="gadgets" /></legend>
-  		<input type="checkbox" name="gadgets[0]" value="PRIORITIZATION" /><fmt:message key="PRIORITIZATION" />
+  		<input type="checkbox" name="gadgets[0]" value="PRIORITIZATION" id="PRIORITIZATION" /><fmt:message key="PRIORITIZATION" />
   	</fieldset>
 	<p>
 		<input class="buttons" type="submit" value="<fmt:message key="add"/>" />
