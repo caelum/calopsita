@@ -7,6 +7,8 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
@@ -82,7 +84,16 @@ public class CardDaoTest {
 		Card card = givenACard(givenAProject(), withPriority(1));
 
 		List<Gadget> gadgets = dao.listGadgets(card);
+
+
+		assertThat(gadgets.size(), is(1));
+		assertThat(gadgets, hasItem(instanceOf(PrioritizableCard.class)));
 	}
+
+	private <T> Matcher<T> instanceOf(Class<T> type) {
+		return Matchers.instanceOf(type);
+	}
+
 	private void assertOrdered(Card card3, Card card1, List<Card> list) {
 		assertThat(list.size(), is(2));
 		assertThat(list.get(0), is(card1));

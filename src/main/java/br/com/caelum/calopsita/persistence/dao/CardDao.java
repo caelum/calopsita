@@ -78,7 +78,7 @@ public class CardDao implements CardRepository {
 	}
 
 	public List<Gadget> listGadgets(Card card) {
-		return session.createCriteria(Gadget.class).add(Restrictions.eq("card", card)).list();
+		return session.createCriteria(Gadget.class).add(Restrictions.eq("id", card.getId())).list();
 	}
 
 }
