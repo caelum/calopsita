@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -299,7 +298,6 @@ public class CardTest {
 				allowing(projectRepository);
 
 				one(repository).add(card);
-				one(repository).add(with(any(Gadget.class)));
 			}
 		});
 
