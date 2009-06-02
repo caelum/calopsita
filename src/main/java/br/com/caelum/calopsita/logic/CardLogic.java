@@ -9,7 +9,7 @@ import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.calopsita.model.Card;
-import br.com.caelum.calopsita.model.PrioritizableCard;
+import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
@@ -32,11 +32,13 @@ public class CardLogic {
 		this.projectRepository = projectRepository;
 	}
 
-	public void save(Card card, Project project) {
+	public void save(Card card, Project project, List<Gadgets> gadgets) {
 		this.project = project;
 		card.setProject(project);
 		repository.add(card);
-		repository.add(new PrioritizableCard(card));
+		for (Gadgets gadget : gadgets) {
+			repository.add(gadget.createGadgetFor(card));
+		}
 		this.cards = this.projectRepository.listCardsFrom(project);
 	}
 
