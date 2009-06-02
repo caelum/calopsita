@@ -40,9 +40,10 @@
   		<label><fmt:message key="card.description"/></label>
   		<em>*</em><textarea name="card.description"></textarea>
   	</p>
-  	<p>
+  	<fieldset title="<fmt:message key="gadgets" />">
+  		<legend><fmt:message key="gadgets" /></legend>
   		<input type="checkbox" name="gadgets[0]" value="PRIORITIZATION" /><fmt:message key="PRIORITIZATION" />
-  	</p>
+  	</fieldset>
 	<p>
 		<input class="buttons" type="submit" value="<fmt:message key="add"/>" />
 		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');" />
