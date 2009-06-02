@@ -169,7 +169,7 @@ public class CardTest {
 
 		mockery.checking(new Expectations() {
 			{
-				one(repository).add(with(any(prioritization.createGadgetFor(currentCard).getClass())));
+				one(repository).add(with(any(prioritization.gadgetClass())));
 			}
 		});
 	}
