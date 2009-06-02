@@ -278,7 +278,7 @@ public class CardTest {
 	private void whenIEditTheCard(Card card, String newName, String newDescription) {
 		card.setName(newName);
 		card.setDescription(newDescription);
-		logic.update(card);
+		logic.update(card, new ArrayList<Gadgets>());
 	}
 
 	private void shouldSaveOnTheRepositoryTheCard(final Card card) {
