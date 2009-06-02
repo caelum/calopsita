@@ -1,6 +1,9 @@
 *.aux
 *.log
 *.idx
+*.dvi
+*.out
+*.ps
 *.pdf
 *.classpath
 *.project
