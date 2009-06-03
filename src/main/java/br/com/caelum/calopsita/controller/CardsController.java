@@ -5,9 +5,12 @@ import static br.com.caelum.vraptor.view.Results.page;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isIn;
+
+import java.util.List;
+
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
-import br.com.caelum.calopsita.model.PrioritizableCard;
+import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
@@ -41,7 +44,7 @@ public class CardsController {
 	}
 
 	@Path("/projects/{project.id}/cards/") @Post
-	public void save(final Card card, Project project) {
+	public void save(final Card card, Project project, List<Gadgets> gadgets) {
 		card.setProject(project);
 		validator.checking(new Validations() {
             {
@@ -49,7 +52,9 @@ public class CardsController {
             }
         });
 		repository.add(card);
-		repository.add(new PrioritizableCard(card));
+		for (Gadgets gadget : gadgets) {
+			repository.add(gadget.createGadgetFor(card));
+		}
 		result.include("project", project);
 		result.include("cards", this.projectRepository.listCardsFrom(project));
 		result.use(page()).forward("/WEB-INF/jsp/cards/update.jsp");
@@ -67,23 +72,25 @@ public class CardsController {
 	@Path("/cards/{card.id}/") @Get
 	public void edit(Card card) {
 	    result.include("card", this.repository.load(card));
+	    result.include("gadgets", Gadgets.valueOf(this.repository.listGadgets(card)));
 	    result.include("cards", this.repository.listSubcards(card));
 	}
 
 	@Path("/cards/{card.id}/") @Post
-	public void update(Card card) {
+	public void update(Card card, List<Gadgets> gadgets) {
 		Card loaded = repository.load(card);
 		Project project = loaded.getProject();
 		loaded.setName(card.getName());
 		loaded.setDescription(card.getDescription());
+
+		repository.updateGadgets(card, gadgets);
 		repository.update(loaded);
-		result.include("project", project);
-		result.include("stories", this.projectRepository.listCardsFrom(project));
+		result.include("cards", this.projectRepository.listCardsFrom(project));
 		result.use(logic()).redirectTo(ProjectsController.class).cards(project);
 	}
 
 	@Path("/cards/{card.id}/") @Delete
-	public void delete(Card card, boolean deleteSubstories) {
+	public void delete(Card card, boolean deleteSubcards) {
 		Card loaded = repository.load(card);
 		final Project project = loaded.getProject();
 
@@ -94,7 +101,7 @@ public class CardsController {
 							is(equalTo(project.getOwner()))));
 			}
 		});
-        if (deleteSubstories) {
+        if (deleteSubcards) {
             for (Card sub : loaded.getSubcards()) {
                 repository.remove(sub);
             }
