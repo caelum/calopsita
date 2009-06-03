@@ -71,4 +71,8 @@ public class DefaultStory {
     protected LocalDate nextWeek() {
     	return new LocalDate().plusDays(7);
     }
+	
+    protected LocalDate inNoSpecificDate() {
+		return null;
+	}
 }

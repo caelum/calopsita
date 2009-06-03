@@ -205,12 +205,18 @@ public class ThenAsserts {
 		return this;
 	}
 
-	public ThenAsserts showsWhenItBegan(LocalDate oneWeekAgo) {
-		assertThat(this.browser.currentPage().div("timeline_beginDate"), divContainsString(oneWeekAgo.toString("MM-dd")));
+	public ThenAsserts showsItBegan(LocalDate whenItBegan) {
+		if (whenItBegan != null)
+			assertThat(this.browser.currentPage().div("timeline_beginDate"), divContainsString(whenItBegan.toString("MM-dd")));
+		else
+			assertThat(this.browser.currentPage().div("timeline_endDate"), divContainsString("..."));
 		return this;
 	}
 
-	public void showsWhenItEnds(LocalDate nextWeek) {
-		assertThat(this.browser.currentPage().div("timeline_endDate"), divContainsString(nextWeek.toString("MM-dd")));
+	public void showsItEnds(LocalDate whenItEnds) {
+		if (whenItEnds != null)
+			assertThat(this.browser.currentPage().div("timeline_endDate"), divContainsString(whenItEnds.toString("MM-dd")));
+		else
+			assertThat(this.browser.currentPage().div("timeline_endDate"), divContainsString("..."));
 	}
 }

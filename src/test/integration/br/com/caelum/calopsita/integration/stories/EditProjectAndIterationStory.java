@@ -17,8 +17,8 @@ public class EditProjectAndIterationStory extends DefaultStory {
 		given.thereIsAnUserNamed("ferreira").and()
 			.thereIsAProjectNamed("scala").ownedBy("ferreira")
 				.withAnIterationWhichGoalIs("support DSLs")
-					.startingAt(today())
-					.endingAt(tomorrow()).and()
+					.starting(today())
+					.ending(tomorrow()).and()
 			.iAmLoggedInAs("ferreira");
 
 		when.iOpenProjectPageOf("scala").and()

@@ -26,13 +26,13 @@ public class IterationContexts extends ProjectContexts<IterationContexts> {
         return this;
     }
 
-	public IterationContexts startingAt(LocalDate date) {
+	public IterationContexts starting(LocalDate date) {
 		iteration.setStartDate(date);
 		session.flush();
 		return this;
 	}
 
-	public IterationContexts endingAt(LocalDate date) {
+	public IterationContexts ending(LocalDate date) {
 		iteration.setEndDate(date);
 		session.flush();
 		return this;
