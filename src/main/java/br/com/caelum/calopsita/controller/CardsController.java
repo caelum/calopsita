@@ -78,42 +78,8 @@ public class CardsController {
 		loaded.setDescription(card.getDescription());
 		repository.update(loaded);
 		result.include("project", project);
-		result.include("stories", this.projectRepository.listStoriesFrom(project));
-		result.use(logic()).redirectTo(ProjectsController.class).show(project);
-	}
-	
-	@Path("/projects/{project.id}/stories/prioritize/") @Post
-	public void prioritize(Project project, List<Card> cards) {
-		for (Card card : cards) {
-			Card loaded = repository.load(card);
-			loaded.setPriority(card.getPriority());
-		}
-		result.use(logic()).redirectTo(CardsController.class).prioritization(project);
-	}
-	
-	//TODO: Deveria ser método de algum modelo, n?
-	public List<List<Card>> getGroupedCards() {
-		List<List<Story>> result = new ArrayList<List<Story>>();
-		if (stories != null) {
-			for (int i = maxPriority(stories); i >= 0; i--) {
-				result.add(new ArrayList<Story>());
-			}
-			for (Story story : stories) {
-				result.get(story.getPriority()).add(story);
-			}
-		}
-		return result;
-	}
-
-	//TODO: Deveria ser método de algum modelo, n?
-	private int maxPriority(List<Story> stories2) {
-		int max = 0;
-		for (Story story : stories2) {
-			if (story.getPriority() > max) {
-				max = story.getPriority();
-			}
-		}
-		return max;
+		result.include("stories", this.projectRepository.listCardsFrom(project));
+		result.use(logic()).redirectTo(ProjectsController.class).cards(project);
 	}
 
 	@Path("/cards/{card.id}/") @Delete
@@ -141,10 +107,5 @@ public class CardsController {
         repository.remove(loaded);
         result.use(Results.nothing());
 	}
-	
-	@Path("/projects/{project.id}/priorization/") @Get
-    public void prioritization(Project project) {
-        result.include("project", this.projectRepository.get(project.getId()));
-        result.include("stories", this.projectRepository.listStoriesFrom(project));
-    }
+
 }

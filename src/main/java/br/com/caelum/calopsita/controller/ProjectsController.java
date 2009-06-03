@@ -84,14 +84,6 @@ public class ProjectsController {
 		loaded.setDescription(project.getDescription());
 		result.use(logic()).redirectTo(ProjectsController.class).admin(loaded);
     }
-    @Path("/projects/{project.id}/") @Post
-    public void update(Project project) {
-    	Project loaded = this.repository.load(project);
-    	if (currentUser.equals(loaded.getOwner())) {
-    		loaded.setDescription(project.getDescription());
-    		result.use(logic()).redirectTo(IterationsController.class).current(loaded);
-    	}
-    }
 
     @Path("/projects/{project.id}/") @Delete
     public void delete(Project project) {

@@ -4,8 +4,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +19,7 @@ import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
@@ -176,7 +177,7 @@ public class CardTest {
 
     private void whenISaveTheCard(Card card, Project project,
 			List<Gadgets> gadgets) {
-    	logic.save(card, project, gadgets);
+    	logic.save(card, project);
 	}
 
 
@@ -302,7 +303,7 @@ public class CardTest {
 	private void whenIEditTheCard(Card card, String newName, String newDescription) {
 		card.setName(newName);
 		card.setDescription(newDescription);
-		logic.update(card, new ArrayList<Gadgets>());
+		logic.update(card);
 	}
 
 	private void shouldSaveOnTheRepositoryTheCard(final Card card) {
@@ -323,7 +324,7 @@ public class CardTest {
 	}
 
 	private void whenISaveTheCard(Card card, Project project) {
-		logic.save(card, project, new ArrayList<Gadgets>());
+		logic.save(card, project);
 	}
 
 	private Project givenAProject() {

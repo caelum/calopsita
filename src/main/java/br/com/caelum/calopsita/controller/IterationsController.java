@@ -2,7 +2,6 @@ package br.com.caelum.calopsita.controller;
 
 import static br.com.caelum.vraptor.view.Results.logic;
 import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.either;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.isIn;
@@ -42,6 +41,7 @@ public class IterationsController {
     private final User currentUser;
 	private final Result result;
     private final Validator validator;
+	private final ProjectRepository projectRepository;
 
     public IterationsController(Result result, Validator validator, SessionUser user, IterationRepository repository, CardRepository cardRepository, ProjectRepository projectRepository) {
         this.result = result;
@@ -62,8 +62,8 @@ public class IterationsController {
 	private void validateDate(final Iteration iteration) {
 		validator.checking(new Validations() {
             {
-            	that(iteration.getStartDate(), either(is(lessThanOrEqualTo(iteration.getEndDate()))).or(is(nullValue())));
-            	that(iteration.getEndDate(), either(is(greaterThanOrEqualTo(iteration.getStartDate()))).or(is(nullValue())));
+            	that(iteration.getStartDate(), anyOf(is(lessThanOrEqualTo(iteration.getEndDate())), is(nullValue())));
+            	that(iteration.getEndDate(), anyOf(is(greaterThanOrEqualTo(iteration.getStartDate())), is(nullValue())));
                 and(Hibernate.validate(iteration));
             }
         });
