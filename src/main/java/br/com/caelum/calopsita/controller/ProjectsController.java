@@ -11,7 +11,6 @@ import org.vraptor.annotations.InterceptedBy;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
@@ -59,7 +58,7 @@ public class ProjectsController {
     	this.result.include("project", this.repository.get(project.getId()));
     	this.result.include("cards",  this.repository.listCardsFrom(project));
     }
-    
+
     @Path("/projects/") @Post
     public void save(final Project project) {
         project.setOwner(currentUser);

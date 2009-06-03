@@ -5,11 +5,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -20,16 +17,14 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
-import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 
 public class CardDaoTest {
-
+	private Transaction transaction;
 	private Session session;
 	private CardDao dao;
-	private Transaction transaction;
 
 	@Before
 	public void setUp() throws Exception {
@@ -90,8 +85,9 @@ public class CardDaoTest {
 
 
 		assertThat(gadgets.size(), is(1));
-		assertThat(gadgets, hasItem(instanceOf(PrioritizableCard.class)));
+		assertThat(gadgets.get(0), is(Matchers.instanceOf(PrioritizableCard.class)));
 	}
+
 	private void assertOrdered(Card card3, Card card1, List<Card> list) {
 		assertThat(list.size(), is(2));
 		assertThat(list.get(0), is(card1));

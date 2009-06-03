@@ -7,10 +7,6 @@ import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Card;
-import br.com.caelum.calopsita.model.Gadget;
-import br.com.caelum.calopsita.model.Iteration;
-import br.com.caelum.calopsita.model.Project;
 
 public interface CardRepository extends BaseRepository<Card>{
 

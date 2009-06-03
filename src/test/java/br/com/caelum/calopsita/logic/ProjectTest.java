@@ -134,8 +134,8 @@ public class ProjectTest {
     	mockery.assertIsSatisfied();
     }
 
-	private String whenIEditTheProject(Project project) {
-		return logic.update(project);
+	private void whenIEditTheProject(Project project) {
+		logic.update(project);
 	}
 
 	private void shouldNotRemoveFromRepository(final Project project) {

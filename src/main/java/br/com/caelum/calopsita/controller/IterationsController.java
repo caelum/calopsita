@@ -89,20 +89,7 @@ public class IterationsController {
     	result.include("project", project);
     	result.include("otherStories", cardRepository.cardsWithoutIteration(project));
     }
-    
-	public void current(Project project) {
-        this.project = this.projectRepository.get(project.getId());
-        this.iteration = this.repository.getCurrentIterationFromProject(project);
-    }
 
-    public void list(Project project) {
-        this.project = this.projectRepository.get(project.getId());
-        this.iterations = this.projectRepository.listIterationsFrom(project);
-    }
-
-    public List<Iteration> getIterations() {
-        return iterations;
-    }
 	@Path("/iterations/{iteration.id}/updateCards/") @Post
     public void updateCards(Iteration iteration, List<Card> cards) {
     	for (Card card : cards) {

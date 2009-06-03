@@ -24,10 +24,8 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.IterationRepository;
-import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.calopsita.repository.CardRepository;
+import br.com.caelum.vraptor.validator.ValidationError;
 
 
 public class IterationTest {
@@ -46,8 +44,7 @@ public class IterationTest {
         cardRepository = mockery.mock(CardRepository.class);
         projectRepository = mockery.mock(ProjectRepository.class);
 
-        session = mockery.mock(HttpSession.class);
-		SessionUser sessionUser = new SessionUser(session);
+        final HttpSession session = mockery.mock(HttpSession.class);
         currentUser = new User();
         currentUser.setLogin("me");
         project = new Project();
