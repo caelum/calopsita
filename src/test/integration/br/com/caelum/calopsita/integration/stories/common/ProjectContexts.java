@@ -2,9 +2,9 @@ package br.com.caelum.calopsita.integration.stories.common;
 
 import org.hibernate.Session;
 
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.seleniumdsl.Browser;

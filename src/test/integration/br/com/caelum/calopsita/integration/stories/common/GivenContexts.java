@@ -42,7 +42,7 @@ public class GivenContexts {
     public void iAmLoggedInAs(String login) {
         iAmOnTheRootPage();
         Page currentPage = browser.currentPage();
-        Form form = currentPage.form("login");
+        Form form = currentPage.form("form");
         form.field("user.login").type(login);
         form.field("user.password").type(login);
         form.submit();

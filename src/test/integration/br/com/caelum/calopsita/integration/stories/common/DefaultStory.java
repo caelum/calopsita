@@ -56,10 +56,19 @@ public class DefaultStory {
         factory.close();
     }
     
+    protected LocalDate oneWeekAgo() {
+    	return new LocalDate().minusDays(7);
+    }
+    
     protected LocalDate today() {
     	return new LocalDate();
     }
+
     protected LocalDate tomorrow() {
     	return new LocalDate().plusDays(1);
+    }
+    
+    protected LocalDate nextWeek() {
+    	return new LocalDate().plusDays(7);
     }
 }

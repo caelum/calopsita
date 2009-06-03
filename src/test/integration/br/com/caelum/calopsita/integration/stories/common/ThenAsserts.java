@@ -194,4 +194,23 @@ public class ThenAsserts {
 		Assert.assertFalse(this.browser.currentPage().div("level_0").exists());
 
 	}
+
+	public ThenAsserts theIterationTimeline() {
+		this.divName = "timeline";
+		return this;
+	}
+
+	public ThenAsserts showsToday() {
+		assertThat(this.browser.currentPage().div("timeline_today"), divContainsString(new LocalDate().toString("MM-dd")));
+		return this;
+	}
+
+	public ThenAsserts showsWhenItBegan(LocalDate oneWeekAgo) {
+		assertThat(this.browser.currentPage().div("timeline_beginDate"), divContainsString(oneWeekAgo.toString("MM-dd")));
+		return this;
+	}
+
+	public void showsWhenItEnds(LocalDate nextWeek) {
+		assertThat(this.browser.currentPage().div("timeline_endDate"), divContainsString(nextWeek.toString("MM-dd")));
+	}
 }
