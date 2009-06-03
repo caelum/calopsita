@@ -24,6 +24,11 @@
 		<label><fmt:message key="card.description"/></label>
 		<em>*</em><textarea name="card.description" >${card.description }</textarea>
 	</p>
+	<fieldset>
+		<legend><fmt:message key="gadgets"/></legend>
+		<input type="checkbox" id="PRIORITIZATION" name="gadgets[0]" value="PRIORITIZATION" "${fn:contains(gadgets, 'PRIORITIZATION')? 'checked="checked"':'' }"/>
+		<fmt:message key="PRIORITIZATION"/>
+	</fieldset>
 	<p>
 		<input class="buttons" type="submit" value="<fmt:message key="update"/>"/>
 		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="window.location = $('#back').attr('href')"/>

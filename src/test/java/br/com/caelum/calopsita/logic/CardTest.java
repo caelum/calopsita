@@ -4,14 +4,17 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
-import br.com.caelum.calopsita.model.Gadget;
+import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
@@ -39,10 +42,6 @@ public class CardTest {
 		logic = new CardLogic(currentUser, repository, projectRepository);
     }
 
-    @After
-    public void tearDown() {
-        mockery.assertIsSatisfied();
-    }
 
     @Test
 	public void savingACard() throws Exception {
@@ -54,6 +53,7 @@ public class CardTest {
 		whenISaveTheCard(card, onThe(project));
 
 		assertThat(card.getProject(), is(project));
+		mockery.assertIsSatisfied();
 	}
 
     @Test
@@ -69,6 +69,7 @@ public class CardTest {
 
 		assertThat(loadedCard.getName(), is("Huckleberry Finn"));
 		assertThat(loadedCard.getDescription(), is("He has a drunk father."));
+		mockery.assertIsSatisfied();
 	}
 
     @Test
@@ -82,6 +83,7 @@ public class CardTest {
 
 		String status = whenIRemove(card);
 		assertThat(status, is("ok"));
+		mockery.assertIsSatisfied();
 	}
 
     @Test
@@ -95,6 +97,7 @@ public class CardTest {
 
     	String status = whenIRemove(card);
     	assertThat(status, is("invalid"));
+    	mockery.assertIsSatisfied();
     }
     @Test
     public void removeACardAndSubcards() throws Exception {
@@ -112,6 +115,7 @@ public class CardTest {
 
     	String status = logic.delete(card, true);
     	assertThat(status, is("ok"));
+    	mockery.assertIsSatisfied();
     }
     @Test
     public void removeACardButNotSubcards() throws Exception {
@@ -131,9 +135,47 @@ public class CardTest {
     	assertThat(status, is("ok"));
 
     	assertThat(subCard.getParent(), is(nullValue()));
+    	mockery.assertIsSatisfied();
     }
 
-    private Card givenTheCardIsInThisProject(final Card card) {
+    @Test
+	public void savingACardWithGadgets() throws Exception {
+    	Project project = givenAProject();
+		Card card = givenACard();
+
+		Gadgets prioritization = Gadgets.PRIORITIZATION;
+
+		shouldSaveOnTheRepositoryTheCard(card);
+		shouldSaveAGadgetOfType(prioritization);
+
+		whenISaveTheCard(card, onThe(project), withGadgets(prioritization));
+
+		assertThat(card.getProject(), is(project));
+		mockery.assertIsSatisfied();
+	}
+
+    private void whenISaveTheCard(Card card, Project project,
+			List<Gadgets> gadgets) {
+    	logic.save(card, project, gadgets);
+	}
+
+
+	private List<Gadgets> withGadgets(Gadgets... gadgets) {
+		return Arrays.asList(gadgets);
+	}
+
+
+	private void shouldSaveAGadgetOfType(final Gadgets prioritization) {
+
+		mockery.checking(new Expectations() {
+			{
+				one(repository).add(with(any(prioritization.gadgetClass())));
+			}
+		});
+	}
+
+
+	private Card givenTheCardIsInThisProject(final Card card) {
         final Card returned = new Card();
         returned.setProject(this.project);
 
@@ -221,6 +263,7 @@ public class CardTest {
 			{
 				allowing(projectRepository);
 				one(repository).update(card);
+				one(repository).updateGadgets(with(any(Card.class)), with(any(List.class)));
 			}
 		});
 	}
@@ -236,7 +279,7 @@ public class CardTest {
 	private void whenIEditTheCard(Card card, String newName, String newDescription) {
 		card.setName(newName);
 		card.setDescription(newDescription);
-		logic.update(card);
+		logic.update(card, new ArrayList<Gadgets>());
 	}
 
 	private void shouldSaveOnTheRepositoryTheCard(final Card card) {
@@ -245,7 +288,6 @@ public class CardTest {
 				allowing(projectRepository);
 
 				one(repository).add(card);
-				one(repository).add(with(any(Gadget.class)));
 			}
 		});
 
@@ -256,7 +298,7 @@ public class CardTest {
 	}
 
 	private void whenISaveTheCard(Card card, Project project) {
-		logic.save(card, project);
+		logic.save(card, project, new ArrayList<Gadgets>());
 	}
 
 	private Project givenAProject() {
