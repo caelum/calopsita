@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -177,7 +178,7 @@ public class CardTest {
 
     private void whenISaveTheCard(Card card, Project project,
 			List<Gadgets> gadgets) {
-    	logic.save(card, project);
+    	logic.save(card, project, new ArrayList<Gadgets>());
 	}
 
 
@@ -303,7 +304,7 @@ public class CardTest {
 	private void whenIEditTheCard(Card card, String newName, String newDescription) {
 		card.setName(newName);
 		card.setDescription(newDescription);
-		logic.update(card);
+		logic.update(card, new ArrayList<Gadgets>());
 	}
 
 	private void shouldSaveOnTheRepositoryTheCard(final Card card) {
@@ -324,7 +325,7 @@ public class CardTest {
 	}
 
 	private void whenISaveTheCard(Card card, Project project) {
-		logic.save(card, project);
+		logic.save(card, project, new ArrayList<Gadgets>());
 	}
 
 	private Project givenAProject() {
