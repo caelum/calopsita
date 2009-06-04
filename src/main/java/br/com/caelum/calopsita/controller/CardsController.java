@@ -113,6 +113,7 @@ public class CardsController {
             }
         }
         repository.remove(loaded);
+        result.include("cards", this.projectRepository.listCardsFrom(project));
         result.use(page()).forward("/WEB-INF/jsp/cards/update.jsp");
 	}
 

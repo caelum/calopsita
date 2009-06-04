@@ -8,7 +8,9 @@ function confirmProjectDeletion(url) {
         },
         submit : function(confirm) {
             if (confirm) {
-            	window.location.href = url;
+            	$.post(url, {_method: 'DELETE'}, function(data) {
+            		$('#projects').html(data);
+            	});
             }
         }
     };
