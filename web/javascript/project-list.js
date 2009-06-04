@@ -9,7 +9,7 @@ function confirmProjectDeletion(url) {
         submit : function(confirm) {
             if (confirm) {
             	$.post(url, {_method: 'DELETE'}, function(data) {
-            		$('#projects').html(data);
+            		window.location.reload();
             	});
             }
         }
