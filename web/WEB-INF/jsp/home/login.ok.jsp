@@ -20,7 +20,7 @@
       <input type="password" id="password" name="user.password"/>
     </p>
     <p>
-      <input class="submit" type="submit" value="<fmt:message key="user.login"/>"/>
+      <input class="submit" type="submit" value="<fmt:message key="user.go"/>"/>
       <fmt:message key="login.or"/> <a href="<c:url value="/user/formSignUp/"/>"><fmt:message key="user.signUp"/></a>
     </p>
   </form>

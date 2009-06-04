@@ -1,33 +1,43 @@
 label {
-	width: 8em;
-	float: left;
+  margin-left: 30px;
+  width: 8em;
+  float: left;
+  font-size: 20px;
 }
 
 label.error {
-	float: none;
-	color: red;
-	padding-left: .5em;
-	vertical-align: top;
+  float: none;
+  color: red;
+  padding-left: .5em;
+  vertical-align: top;
 }
 
 input {
-	width: 200px;
+  width: 200px;
+  -moz-border-radius: 8px;
+  -webkit-appearance: searchfield;
+  background: #ffffff;
+  font-size: 20px;
+  padding: 0 5px 0 5px;
 }
 
 input.error {
-	border: 2px solid red;
+  border: 2px solid red;
 }
 
 p {
-	clear: both;
+  clear: both;
 }
 
 .submit {
-	margin-left: 9.5em;
-	width: 100px;
+  margin-left: 13em;
+  width: 70px;
+  background: #990000;
+  color: #ffffff;
+  font-size: 15px;
 }
 
 em {
-	padding-right: 1em;
-	vertical-align: top;
+  padding-right: 1em;
+  vertical-align: top;
 }
