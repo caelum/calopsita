@@ -17,9 +17,8 @@
     	<p><fmt:message key="project.description"/>: ${project.description}</p>
 	</div>
 	
-	<form id="prioritizationForm" action="<c:url value="/prioritization/prioritize/"/>" method="post">
+	<form id="prioritizationForm" action="<c:url value="/projects/${project.id }/prioritize/"/>" method="post">
 		<input type="submit" value="Save Priorization" />
-		<input type="hidden" name="project.id" value="${project.id }" />
 
 		<div id="board">
 			<c:forEach items="${cards}" varStatus="s" var="currentPriority" >

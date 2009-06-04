@@ -34,7 +34,7 @@ public class PrioritizationController {
 	@Path("/projects/{project.id}/prioritization/") @Get
     public void prioritization(Project project) {
         result.include("project", this.projectRepository.get(project.getId()));
-        result.include("stories", this.projectRepository.listCardsFrom(project));
+        result.include("cards", this.repository.listCards(project));
     }
 
 	@Path("/projects/{project.id}/prioritize/") @Post
