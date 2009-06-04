@@ -34,7 +34,10 @@ public class MyDecoratorMapper implements DecoratorMapper {
 	}
 
 	private boolean shouldExclude(HttpServletRequest request) {
-		String method = request.getMethod();
+		String method = request.getParameter("_method");
+		if (method == null) {
+			method = request.getMethod();
+		}
 		String uri = request.getRequestURI().replaceFirst(request.getContextPath(), "");
 		for (Entry<Object, Object> exclude : excludes.entrySet()) {
 			if(uri.matches((String) exclude.getKey()) && method.equals(exclude.getValue())) {

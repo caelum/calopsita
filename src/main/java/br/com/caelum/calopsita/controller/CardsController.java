@@ -24,7 +24,6 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.Hibernate;
 import br.com.caelum.vraptor.validator.Validations;
-import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class CardsController {
@@ -114,7 +113,7 @@ public class CardsController {
             }
         }
         repository.remove(loaded);
-        result.use(Results.nothing());
+        result.use(page()).forward("/WEB-INF/jsp/cards/update.jsp");
 	}
 
 }

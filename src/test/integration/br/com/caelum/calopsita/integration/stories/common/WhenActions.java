@@ -220,9 +220,10 @@ public class WhenActions {
 		return this;
 	}
 
-	public void andDontConfirm(String operation) {
+	public WhenActions andDontConfirm(String operation) {
 		browser.currentPage().click("jqi_" + operation + "_buttonNo");
 		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
+		return this;
 	}
 
 	public WhenActions iDeleteTheProject(String projectName) {
@@ -284,5 +285,9 @@ public class WhenActions {
 		browser.currentPage().form("editCard")
 			.uncheck(gadget.name())
 			.submit();
+	}
+
+	public void andWait() {
+		browser.waitForPageLoad(2000);
 	}
 }

@@ -12,8 +12,8 @@ function confirmCardDeletion(url, hasSubcards) {
                     $.prompt.nextState();
                     return false;
                 } else {
-                	$.delete_(url, {}, function(data) {
-                		window.location.reload();
+                	$.post(url, {_method: 'DELETE'}, function(data) {
+                		$('#cards').html(data);
                 	});
                 }
             }
@@ -26,8 +26,8 @@ function confirmCardDeletion(url, hasSubcards) {
             'No' : false
         },
         submit : function(choice) {
-        	$.delete_(url, {deleteSubcards: choice}, function(data) {
-        		window.location.reload();
+        	$.post(url, {_method: 'DELETE', deleteSubcards: choice}, function(data) {
+        		$('#cards').html(data);
         	});
         }
     };

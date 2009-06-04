@@ -8,7 +8,14 @@ function confirmIterationDeletion(url) {
         },
         submit : function(confirm) {
             if (confirm) {
-                window.location.href = url;
+            	$.ajax({
+            		type: 'POST',
+            		url: url,
+            		data: {_method: 'DELETE'},
+            		success: function() {
+            			window.location.reload();
+            		}
+            	});
             }
         }
     };
