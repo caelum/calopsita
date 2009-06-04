@@ -27,8 +27,8 @@
 	
     <div id="errors">
 		<c:if test="${not empty errors}">
-			<c:forEach var="error" items="${errors.iterator}">
-				<fmt:message key="${error.key}" /><br />
+			<c:forEach var="error" items="${errors}">
+				${error.category}  ${error.message}<br />
 			</c:forEach>
 		</c:if>
      </div>

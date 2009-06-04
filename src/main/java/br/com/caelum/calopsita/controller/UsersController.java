@@ -30,16 +30,17 @@ public class UsersController {
 		this.sessionUser = sessionUser;
     }
 
-    @Path("/users/new/") @Get
+    @Path("/users/new/") @Get @Post
     public User formSignUp() {
         return new User();
     }
 
     @Path("/users/") @Post
     public void save(final User user) {
+    	validator.onError().goTo(UsersController.class).formSignUp();
         validator.checking(new Validations() {
             {
-                that(repository.find(user.getLogin())).shouldBe(nullValue());
+                that("", "user.already.exists", repository.find(user.getLogin()), is(nullValue()));
                 and(Hibernate.validate(user));
             }
         });
@@ -54,9 +55,9 @@ public class UsersController {
         validator.checking(new Validations() {
             {
                 User found = repository.find(user.getLogin());
-                that(found).shouldBe(notNullValue());
+                that("", "login.invalid", found, is(notNullValue()));
                 if (found != null) {
-					that(found.getPassword()).shouldBe(equalTo(user.getPassword()));
+					that("", "login.invalid", found.getPassword(), is(equalTo(user.getPassword())));
 				}
             }
         });

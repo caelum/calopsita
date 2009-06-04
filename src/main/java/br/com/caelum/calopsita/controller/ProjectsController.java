@@ -103,7 +103,7 @@ public class ProjectsController {
 
     @Path("/") @Get
     public void index() {
-    	list();
+    	result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
     @Path("/colaborators/{project.id}/") @Post
