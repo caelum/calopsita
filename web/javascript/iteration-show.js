@@ -1,8 +1,6 @@
-var updateCardsUrl;
-var removeCardsUrl;
-function initialize(update, remove) {
-    updateCardsUrl = update;
-    removeCardsUrl = remove;
+var cardsUrl;
+function initialize(url) {
+    cardsUrl = url;
 }
 
 function prepare() {
@@ -59,11 +57,12 @@ function get_params(div, status) {
     });
     return params;
 }
-function modifyCards(div, status, logic) {
+function modifyCards(div, status, method) {
     var params = get_params(div, status);
-
+    params['_method'] = method;
     $.ajax( {
-        url : logic,
+    	type: 'POST',
+        url : cardsUrl,
         data : params,
         success : function(data) {
             $('#todo_cards ol').html($('#todo_cards ol', data).html());
@@ -74,13 +73,13 @@ function modifyCards(div, status, logic) {
     });
 }
 function todo_cards() {
-    modifyCards('.selectable', 'TODO', updateCardsUrl);
+    modifyCards('.selectable', 'TODO', 'POST');
 }
 function done_cards() {
-    modifyCards('.selectable', 'DONE', updateCardsUrl);
+    modifyCards('.selectable', 'DONE', 'POST');
 }
 function remove_cards() {
-    modifyCards('.cards', 'TODO', removeCardsUrl);
+    modifyCards('.cards', 'TODO', 'DELETE');
 }
 function show_help() {
     $('#help').dialog('open');

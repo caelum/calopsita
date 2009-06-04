@@ -91,7 +91,7 @@ public class IterationsController {
     	result.include("otherCards", cardRepository.cardsWithoutIteration(project));
     }
 
-	@Path("/iterations/{iteration.id}/updateCards/") @Post
+	@Path("/iterations/{iteration.id}/cards/") @Post
     public void updateCards(Iteration iteration, List<Card> cards) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
@@ -102,7 +102,7 @@ public class IterationsController {
     	result.use(logic()).redirectTo(IterationsController.class).show(iteration);
     }
 
-	@Path("/iterations/{iteration.id}/removeCards/") @Post
+	@Path("/iterations/{iteration.id}/cards/") @Delete
     public void removeCards(Iteration iteration, List<Card> cards) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
