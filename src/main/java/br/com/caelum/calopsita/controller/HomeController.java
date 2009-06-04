@@ -13,7 +13,7 @@ public class HomeController {
         return new User();
     }
 
-    @Path("/users/notAllowed/") @Get
+    @Path("/home/notAllowed/") @Get
     public void notAllowed() {
     }
 }

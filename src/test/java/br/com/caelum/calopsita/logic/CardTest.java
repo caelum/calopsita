@@ -242,6 +242,7 @@ public class CardTest {
 		mockery.checking(new Expectations() {
 			{
 				one(repository).remove(returned);
+				allowing(projectRepository).listCardsFrom(project);
 			}
 		});
 	}
