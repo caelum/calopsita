@@ -1,9 +1,33 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
   <%@include file="../projects/tabs.jsp" %>
   
-    <div id="projects">
-        <p><fmt:message key="project.name"/>: ${project.name}</p>
-    </div>
+	<div id="projects">
+	    <p><fmt:message key="project.name"/>: ${project.name}</p>
+	</div>
+	
+	<div id="timeline">
+		<div id="begin_date" class="date" >
+			<div>${iteration.startDate.year }</div>
+			<div>${iteration.startDate.dayOfMonth }</div>
+			<div>${iteration.startDate.month }</div>
+		</div>
+		
+		<div class="line" />
+		
+		<div id="today" class="date" >
+			<div>${today.year }</div>
+			<div>${today.dayOfMonth }</div>
+			<div>${today.month }</div>
+		</div>
+		
+		<div class="line" />
+		
+		<div id="end_date" class="date" >
+			<div>${iteration.endDate.year }</div>
+			<div>${iteration.endDate.dayOfMonth }</div>
+			<div>${iteration.endDate.month }</div>
+		</div>
+	</div>
   
   <c:if test="${not empty iteration}">
     <div id="iteration_text">

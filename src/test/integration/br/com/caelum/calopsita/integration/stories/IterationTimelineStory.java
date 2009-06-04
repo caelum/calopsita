@@ -5,9 +5,11 @@ import org.junit.Test;
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 
 /**
- * <b>In order to</b> easily see how many day are gone and how many days I still have to work on my iteration <br>
+ * <b>In order to</b> easily see how many days are gone and how many days I 
+ * 	still have to work on my iteration <br>
  * <b>As a</b> Fabs <br>
- * <b>I want</b> to see a timeline of my iteration, clearly indicating today and the start and end days, when they exist <br>
+ * <b>I want</b> to see a timeline of my iteration, clearly indicating 
+ * 	today and the start and end days, when they exist <br>
  * 
  * @author ceci
  */

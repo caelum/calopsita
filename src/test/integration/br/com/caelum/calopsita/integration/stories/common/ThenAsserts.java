@@ -201,22 +201,22 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts showsToday() {
-		assertThat(this.browser.currentPage().div("timeline_today"), divContainsString(new LocalDate().toString("MM-dd")));
+		assertThat(this.browser.currentPage().div("today"), divContainsString(new LocalDate().toString("MM-dd")));
 		return this;
 	}
 
 	public ThenAsserts showsItBegan(LocalDate whenItBegan) {
 		if (whenItBegan != null)
-			assertThat(this.browser.currentPage().div("timeline_beginDate"), divContainsString(whenItBegan.toString("MM-dd")));
+			assertThat(this.browser.currentPage().div("begin_date"), divContainsString(whenItBegan.toString("MM-dd")));
 		else
-			assertThat(this.browser.currentPage().div("timeline_endDate"), divContainsString("..."));
+			assertThat(this.browser.currentPage().div("begin_date"), divContainsString("..."));
 		return this;
 	}
 
 	public void showsItEnds(LocalDate whenItEnds) {
 		if (whenItEnds != null)
-			assertThat(this.browser.currentPage().div("timeline_endDate"), divContainsString(whenItEnds.toString("MM-dd")));
+			assertThat(this.browser.currentPage().div("end_date"), divContainsString(whenItEnds.toString("MM-dd")));
 		else
-			assertThat(this.browser.currentPage().div("timeline_endDate"), divContainsString("..."));
+			assertThat(this.browser.currentPage().div("end_date"), divContainsString("..."));
 	}
 }
