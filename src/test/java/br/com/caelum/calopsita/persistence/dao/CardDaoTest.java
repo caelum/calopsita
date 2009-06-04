@@ -5,8 +5,11 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -17,6 +20,7 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
+import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
@@ -87,6 +91,37 @@ public class CardDaoTest {
 		assertThat(gadgets.size(), is(1));
 		assertThat(gadgets.get(0), is(Matchers.instanceOf(PrioritizableCard.class)));
 	}
+
+	@Test
+	public void updatingGadgets() throws Exception {
+		Card card = givenACard(givenAProject());
+
+		whenIAddPriorizationGadget(card);
+
+		List<Gadget> gadgets = dao.listGadgets(card);
+		assertThat(gadgets.size(), is(1));
+		assertThat(gadgets, hasItem(instanceOf(PrioritizableCard.class)));
+
+		whenIRemoveAllGadgets(card);
+
+		assertThat(dao.listGadgets(card).size(), is(0));
+
+	}
+
+
+	private void whenIAddPriorizationGadget(Card card) {
+		dao.updateGadgets(card, Arrays.asList(Gadgets.PRIORITIZATION));
+	}
+
+	private void whenIRemoveAllGadgets(Card card) {
+		dao.updateGadgets(card, new ArrayList<Gadgets>());
+	}
+
+	private Matcher<? extends Gadget> instanceOf(Class<? extends Gadget> type) {
+		 Matcher matcher = Matchers.instanceOf(type);
+		 return matcher;
+	}
+
 
 	private void assertOrdered(Card card3, Card card1, List<Card> list) {
 		assertThat(list.size(), is(2));
