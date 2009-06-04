@@ -85,9 +85,10 @@ public class IterationsController {
     public void show(Iteration iteration) {
     	Iteration loaded = repository.load(iteration);
     	Project project = loaded.getProject();
+    	cardRepository.orderCardsByPriority(loaded);
     	result.include("iteration", loaded);
     	result.include("project", project);
-    	result.include("otherStories", cardRepository.cardsWithoutIteration(project));
+    	result.include("otherCards", cardRepository.cardsWithoutIteration(project));
     }
 
 	@Path("/iterations/{iteration.id}/updateCards/") @Post
