@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.persistence.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -86,6 +87,9 @@ public class CardDao implements CardRepository {
 
 	@Override
 	public void updateGadgets(Card card, List<Gadgets> gadgets) {
+		if (gadgets == null) {
+			gadgets = new ArrayList<Gadgets>();
+		}
 		List<Gadgets> cardGadgets = Gadgets.valueOf(listGadgets(card));
 		for (Gadgets gadget : gadgets) {
 			if (!cardGadgets.contains(gadget)) {

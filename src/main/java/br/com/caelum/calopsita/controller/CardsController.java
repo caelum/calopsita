@@ -52,8 +52,10 @@ public class CardsController {
             }
         });
 		repository.add(card);
-		for (Gadgets gadget : gadgets) {
-			repository.add(gadget.createGadgetFor(card));
+		if (gadgets != null) {
+			for (Gadgets gadget : gadgets) {
+				repository.add(gadget.createGadgetFor(card));
+			}
 		}
 		result.include("project", project);
 		result.include("cards", this.projectRepository.listCardsFrom(project));
