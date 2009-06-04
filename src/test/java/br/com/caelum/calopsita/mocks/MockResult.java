@@ -16,6 +16,9 @@ public class MockResult implements Result {
 		if (view.equals(Results.page())) {
 			return view.cast(new MockedPage());
 		}
+		if (view.equals(Results.nothing())) {
+			return null;
+		}
 		return view.cast(new MockedLogic());
 	}
 

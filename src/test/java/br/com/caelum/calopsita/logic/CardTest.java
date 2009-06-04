@@ -20,7 +20,6 @@ import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.Card;
-import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
@@ -178,7 +177,7 @@ public class CardTest {
 
     private void whenISaveTheCard(Card card, Project project,
 			List<Gadgets> gadgets) {
-    	logic.save(card, project, new ArrayList<Gadgets>());
+    	logic.save(card, project, gadgets);
 	}
 
 
@@ -313,7 +312,6 @@ public class CardTest {
 				allowing(projectRepository);
 
 				one(repository).add(card);
-				one(repository).add(with(any(Gadget.class)));
 
 			}
 		});
