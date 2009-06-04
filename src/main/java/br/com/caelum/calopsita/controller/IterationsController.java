@@ -133,7 +133,7 @@ public class IterationsController {
         result.use(logic()).redirectTo(IterationsController.class).list(project);
     }
 
-    @Path("/iterations/{iteration.id}/start/") @Post
+    @Path("/iterations/{iteration.id}/start/") @Get
 	public void start(Iteration iteration) {
 		Iteration loaded = repository.load(iteration);
 		if (loaded.isCurrent()) {
@@ -144,7 +144,7 @@ public class IterationsController {
 		result.use(logic()).redirectTo(IterationsController.class).list(project);
 	}
 
-    @Path("/iterations/{iteration.id}/end/") @Post
+    @Path("/iterations/{iteration.id}/end/") @Get
     public void end(Iteration iteration) {
         Iteration loaded = repository.load(iteration);
         if (!loaded.isCurrent()) {
