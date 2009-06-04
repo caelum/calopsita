@@ -46,7 +46,7 @@ public class IterationsController {
     public IterationsController(Result result, Validator validator, SessionUser user, IterationRepository repository, CardRepository cardRepository, ProjectRepository projectRepository) {
         this.result = result;
 		this.validator = validator;
-		this.currentUser = user.getUser();
+		this.currentUser = user == null? null : user.getUser();
         this.repository = repository;
 		this.cardRepository = cardRepository;
         this.projectRepository = projectRepository;
