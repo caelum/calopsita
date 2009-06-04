@@ -1,42 +1,68 @@
 package br.com.caelum.calopsita.infra.interceptor;
 
 import java.io.IOException;
+import java.util.Arrays;
 
-import org.vraptor.Interceptor;
-import org.vraptor.LogicException;
-import org.vraptor.LogicFlow;
-import org.vraptor.LogicRequest;
-import org.vraptor.view.ViewException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import br.com.caelum.calopsita.controller.HomeController;
+import br.com.caelum.calopsita.controller.UsersController;
+import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.vraptor.InterceptionException;
+import br.com.caelum.vraptor.Interceptor;
+import br.com.caelum.vraptor.Intercepts;
+import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.resource.ResourceMethod;
 
+@Intercepts
 public class AuthorizationInterceptor implements Interceptor {
 
-	private final User user;
 	private final ProjectRepository repository;
+	private final SessionUser user;
+	private final HttpServletResponse response;
+	private final HttpServletRequest request;
 
-	public AuthorizationInterceptor(User user, ProjectRepository repository) {
+	public AuthorizationInterceptor(SessionUser user, ProjectRepository repository, HttpServletRequest request, HttpServletResponse response) {
 		this.user = user;
 		this.repository = repository;
+		this.request = request;
+		this.response = response;
 	}
 
-	public void intercept(LogicFlow flow) throws LogicException, ViewException {
-		LogicRequest logicRequest = flow.getLogicRequest();
-		String id = logicRequest.getRequest().getURLData().getParameter("project.id");
-		if (id != null) {
-			Project loaded = repository.get(Long.valueOf(id));
+	@Override
+	public boolean accepts(ResourceMethod method) {
+		return !Arrays.asList(UsersController.class, HomeController.class)
+				.contains(method.getMethod().getDeclaringClass());
+	}
+
+	@Override
+	public void intercept(InterceptorStack stack, ResourceMethod method,
+			Object resourceInstance) throws InterceptionException {
+
+		Long project = findProject();
+
+		if (project != null) {
+			Project loaded = repository.get(project);
+			User user = this.user.getUser();
 			if (loaded != null && !user.equals(loaded.getOwner()) && !loaded.getColaborators().contains(user)) {
 				try {
-					logicRequest.getResponse().sendRedirect(logicRequest.getRequest().getContextPath() + "/home/notAllowed/");
+					response.sendRedirect(request.getContextPath() + "/home/notAllowed/");
 				} catch (IOException e) {
-					throw new LogicException(e);
+					throw new InterceptionException(e);
 				}
 				return;
 			}
 		}
-		flow.execute();
+		stack.next(method, resourceInstance);
+	}
+
+	private Long findProject() {
+		String id = request.getParameter("project.id");
+		return id==null? null : Long.valueOf(id);
 	}
 
 }

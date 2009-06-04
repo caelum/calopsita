@@ -4,9 +4,6 @@ import static br.com.caelum.vraptor.view.Results.logic;
 
 import java.util.List;
 
-import org.vraptor.annotations.InterceptedBy;
-
-import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.PrioritizationRepository;
@@ -18,7 +15,6 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
 @Resource
-@InterceptedBy( { AuthorizationInterceptor.class })
 public class PrioritizationController {
 
 	private final PrioritizationRepository repository;

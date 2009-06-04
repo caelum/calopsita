@@ -4,87 +4,77 @@ import static org.hamcrest.Matchers.containsString;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vraptor.LogicException;
-import org.vraptor.LogicFlow;
-import org.vraptor.LogicRequest;
-import org.vraptor.http.VRaptorServletRequest;
-import org.vraptor.http.VRaptorServletResponse;
-import org.vraptor.plugin.niceurls.resolver.URLData;
 import org.vraptor.view.ViewException;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
+import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.resource.ResourceMethod;
 
 public class AuthorizationInterceptorTest {
 
-	
+
 	private Mockery mockery;
 	private ProjectRepository repository;
 	private User user;
 	private AuthorizationInterceptor interceptor;
-	private LogicFlow flow;
-	private VRaptorServletRequest request;
-	private VRaptorServletResponse response;
-	private URLData urlData;
+	private HttpServletRequest request;
+	private HttpServletResponse response;
+	private InterceptorStack stack;
 
 	@Before
 	public void setUp() throws Exception {
-		mockery = new Mockery() {
-			{
-				setImposteriser(ClassImposteriser.INSTANCE);
-			}
-		};
+		mockery = new Mockery();
 		repository = mockery.mock(ProjectRepository.class);
 		user = new User();
-		flow = mockery.mock(LogicFlow.class);
-		
-		interceptor = new AuthorizationInterceptor(user, repository);
-		request = mockery.mock(VRaptorServletRequest.class);
-		response = mockery.mock(VRaptorServletResponse.class);
-		urlData = mockery.mock(URLData.class);
+		final HttpSession session = mockery.mock(HttpSession.class);
+		SessionUser sessionUser = new SessionUser(session);
+
+		request = mockery.mock(HttpServletRequest.class);
+		response = mockery.mock(HttpServletResponse.class);
+		stack = mockery.mock(InterceptorStack.class);
+		interceptor = new AuthorizationInterceptor(sessionUser, repository, request, response);
 		mockery.checking(new Expectations() {
 			{
-				LogicRequest logicRequest = mockery.mock(LogicRequest.class);
-				allowing(flow).getLogicRequest();
-				will(returnValue(logicRequest));
-
-				allowing(logicRequest).getRequest();
-				will(returnValue(request));
-				
-				allowing(logicRequest).getResponse();
-				will(returnValue(response));
+				allowing(session).getAttribute("currentUser");
+				will(returnValue(user));
 			}
 		});
 	}
-	
+
 	@After
 	public void tearDown() throws Exception {
 		mockery.assertIsSatisfied();
 	}
-	
+
 	@Test
 	public void authorizeIfThereIsNoProjectOnTheRequest() throws Exception {
 		givenThereIsNoProjectOnRequest();
-		
+
 		shouldExecuteFlow();
-		
+
 		whenInterceptOccurs();
 	}
 	@Test
 	public void authorizeIfThereIsNoProjectWithGivenId() throws Exception {
 		givenThereIsAProjectOnRequest();
 		givenThatThisProjectDoesntExist();
-		
+
 		shouldExecuteFlow();
-		
+
 		whenInterceptOccurs();
 	}
 	@Test
@@ -92,9 +82,9 @@ public class AuthorizationInterceptorTest {
 		givenThereIsAProjectOnRequest();
 		Project project = givenThatThisProjectExist();
 		givenThatUserOwnsTheProject(project);
-		
+
 		shouldExecuteFlow();
-		
+
 		whenInterceptOccurs();
 	}
 	@Test
@@ -102,20 +92,21 @@ public class AuthorizationInterceptorTest {
 		givenThereIsAProjectOnRequest();
 		Project project = givenThatThisProjectExist();
 		givenThatUserIsAColaboratorOfTheProject(project);
-		
+
 		shouldExecuteFlow();
-		
+
 		whenInterceptOccurs();
+		mockery.assertIsSatisfied();
 	}
 	@Test
 	public void redirectIfUserIsNotTheOwnerOfTheProject() throws Exception {
 		givenThereIsAProjectOnRequest();
 		Project project = givenThatThisProjectExist();
 		givenThatUserIsNotTheOwner(project);
-		
+
 		shouldNotExecuteFlow();
 		shouldRedirectToNotAllowedPage();
-		
+
 		whenInterceptOccurs();
 	}
 
@@ -125,7 +116,7 @@ public class AuthorizationInterceptorTest {
 
 
 	private void shouldRedirectToNotAllowedPage() throws IOException {
-		
+
 		mockery.checking(new Expectations() {
 			{
 				one(response).sendRedirect(with(containsString("/home/notAllowed/")));
@@ -145,7 +136,7 @@ public class AuthorizationInterceptorTest {
 	}
 
 	private Project givenThatThisProjectExist() {
-		
+
 		final Project project = new Project();
 		mockery.checking(new Expectations() {
 			{
@@ -168,10 +159,7 @@ public class AuthorizationInterceptorTest {
 	private void givenThereIsAProjectOnRequest() {
 		mockery.checking(new Expectations() {
 			{
-				one(request).getURLData();
-				will(returnValue(urlData));
-				
-				one(urlData).getParameter("project.id");
+				one(request).getParameter("project.id");
 				will(returnValue("3"));
 			}
 		});
@@ -179,31 +167,29 @@ public class AuthorizationInterceptorTest {
 
 	private void shouldExecuteFlow() throws ViewException, LogicException {
 		mockery.checking(new Expectations() {
+
 			{
-				one(flow).execute();
+				one(stack).next(with(any(ResourceMethod.class)), with(any(Object.class)));
 			}
 		});
 	}
 	private void shouldNotExecuteFlow() throws ViewException, LogicException {
 		mockery.checking(new Expectations() {
 			{
-				never(flow).execute();
+				never(stack).next(with(any(ResourceMethod.class)), with(any(Object.class)));
 			}
 		});
-		
+
 	}
 
 	private void whenInterceptOccurs() throws LogicException, ViewException {
-		interceptor.intercept(flow);
+		interceptor.intercept(stack, null, null);
 	}
 
 	private void givenThereIsNoProjectOnRequest() {
 		mockery.checking(new Expectations() {
 			{
-				one(request).getURLData();
-				will(returnValue(urlData));
-				
-				one(urlData).getParameter("project.id");
+				one(request).getParameter("project.id");
 				will(returnValue(null));
 			}
 		});
