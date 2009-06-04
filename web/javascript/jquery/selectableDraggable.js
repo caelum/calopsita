@@ -45,12 +45,3 @@ function _ajax_request(url, data, callback, type, method) {
         dataType: type
         });
 }
-
-jQuery.extend({
-    put: function(url, data, callback, type) {
-        return _ajax_request(url, data, callback, type, 'PUT');
-    },
-    delete_: function(url, data, callback, type) {
-        return _ajax_request(url, data, callback, type, 'DELETE');
-    }
-});

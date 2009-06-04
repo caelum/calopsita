@@ -217,12 +217,14 @@ public class WhenActions {
 	public WhenActions andConfirm(String operation) {
 		browser.currentPage().click("jqi_" + operation + "_buttonYes");
 		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
+		browser.currentPage().waitUntil("$.active === 0", 2000);
 		return this;
 	}
 
 	public WhenActions andDontConfirm(String operation) {
 		browser.currentPage().click("jqi_" + operation + "_buttonNo");
 		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
+		browser.currentPage().waitUntil("$.active === 0", 2000);
 		return this;
 	}
 
