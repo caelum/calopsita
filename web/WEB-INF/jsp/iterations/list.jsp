@@ -19,20 +19,20 @@
       <ul>
         <c:forEach items="${project.iterations}" var="iteration">
           <li id="${iteration.current ? 'current' : ''}">
-  			<a href="<c:url value="/iterations/${iteration.id}/"/>">${iteration.goal}</a>
+  			<a href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>">${iteration.goal}</a>
   			<c:if test="${not empty iteration.endDate }" >
   				(<fmt:message key="dueDate"/> ${iteration.endDate })
   			</c:if>
   			<c:if test="${iteration.startable }">
-  				<a name="start ${iteration.goal }" href="<c:url value="/iterations/${iteration.id }/start/"/>"><fmt:message key="start" /></a>
+  				<a name="start ${iteration.goal }" href="<c:url value="/projects/${project.id }/iterations/${iteration.id }/start/"/>"><fmt:message key="start" /></a>
   			</c:if>
               <c:if test="${iteration.current}">
-                <a name="end ${iteration.goal}" href="<c:url value="/iterations/${iteration.id}/end/"/>">
+                <a name="end ${iteration.goal}" href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/end/"/>">
                   <fmt:message key="end"/>
                 </a> 
               </c:if>
               <a class="delete" name="delete ${iteration.goal }" href="javascript:void(0)"
-                  onclick="confirmIterationDeletion('<c:url value="/iterations/${iteration.id}/"/>')">X</a>
+                  onclick="confirmIterationDeletion('<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>')">X</a>
   		</li>
         </c:forEach>
       </ul>

@@ -66,19 +66,19 @@ public class IterationsController {
         });
 	}
 
-	@Path("/iterations/{project.id}/current/") @Get
+	@Path("/projects/{project.id}/iterations/current/") @Get
     public void current(Project project) {
 		this.result.include("project", this.projectRepository.get(project.getId()));
         this.result.include("iteration", this.repository.getCurrentIterationFromProject(project));
     }
 
-	@Path("/iterations/{project.id}/list/") @Get
+	@Path("/projects/{project.id}/iterations/") @Get
     public void list(Project project) {
         this.result.include("project", this.projectRepository.get(project.getId()));
         this.result.include("iterations", this.projectRepository.listIterationsFrom(project));
     }
 
-	@Path("/iterations/{iteration.id}/") @Get
+	@Path("/projects/{iteration.project.id}/iterations/{iteration.id}/") @Get
     public void show(Iteration iteration) {
     	Iteration loaded = repository.load(iteration);
     	Project project = loaded.getProject();
@@ -88,7 +88,7 @@ public class IterationsController {
     	result.include("otherCards", cardRepository.cardsWithoutIteration(project));
     }
 
-	@Path("/iterations/{iteration.id}/cards/") @Post
+	@Path("/projects/{iteration.project.id}/iterations/{iteration.id}/cards/") @Post
     public void updateCards(Iteration iteration, List<Card> cards) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
@@ -99,7 +99,7 @@ public class IterationsController {
     	result.use(logic()).redirectTo(IterationsController.class).show(iteration);
     }
 
-	@Path("/iterations/{iteration.id}/cards/") @Delete
+	@Path("/projects/{iteration.project.id}/iterations/{iteration.id}/cards/") @Delete
     public void removeCards(Iteration iteration, List<Card> cards) {
     	for (Card card : cards) {
 			Card loaded = cardRepository.load(card);
@@ -109,7 +109,7 @@ public class IterationsController {
     	result.use(logic()).redirectTo(IterationsController.class).show(iteration);
     }
 
-    @Path("/iterations/{iteration.id}/") @Delete
+    @Path("/projects/{iteration.project.id}/iterations/{iteration.id}/") @Delete
     public void delete(Iteration iteration) {
         Iteration loaded = repository.load(iteration);
         final Project project = loaded.getProject();
@@ -130,7 +130,7 @@ public class IterationsController {
         result.use(logic()).redirectTo(IterationsController.class).list(project);
     }
 
-    @Path("/iterations/{iteration.id}/start/") @Get
+    @Path("/projects/{iteration.project.id}/iterations/{iteration.id}/start/") @Get
 	public void start(Iteration iteration) {
 		Iteration loaded = repository.load(iteration);
 		if (loaded.isCurrent()) {
@@ -141,7 +141,7 @@ public class IterationsController {
 		result.use(logic()).redirectTo(IterationsController.class).list(project);
 	}
 
-    @Path("/iterations/{iteration.id}/end/") @Get
+    @Path("/projects/{iteration.project.id}/iterations/{iteration.id}/end/") @Get
     public void end(Iteration iteration) {
         Iteration loaded = repository.load(iteration);
         if (!loaded.isCurrent()) {
@@ -152,7 +152,7 @@ public class IterationsController {
         result.use(logic()).redirectTo(IterationsController.class).list(project);
     }
 
-    @Path("/iterations/{iteration.id}/") @Post
+    @Path("/projects/{iteration.project.id}/iterations/{iteration.id}/") @Post
     public Iteration update(Iteration iteration) {
 		validateDate(iteration);
 		Iteration loaded = repository.load(iteration);

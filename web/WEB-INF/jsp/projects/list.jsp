@@ -16,7 +16,7 @@
   <ul>
     <c:forEach var="project" items="${projectList}">
       <li>
-        <p><fmt:message key="project.name"/>: <a href="<c:url value="/iterations/${project.id}/current/"/>">${project.name}</a>
+        <p><fmt:message key="project.name"/>: <a href="<c:url value="/projects/${project.id }/iterations/current/"/>">${project.name}</a>
         <c:if test="${currentUser eq project.owner}">
 	        <a class="delete" name="delete ${project.name }" href="javascript:void(0)"
 				onclick="confirmProjectDeletion('<c:url value="/projects/${project.id }/"/>')">X</a>
