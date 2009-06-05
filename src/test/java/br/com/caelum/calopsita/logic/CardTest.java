@@ -177,7 +177,8 @@ public class CardTest {
 
     private void whenISaveTheCard(Card card, Project project,
 			List<Gadgets> gadgets) {
-    	logic.save(card, project, gadgets);
+    	card.setProject(project);
+    	logic.save(card, gadgets);
 	}
 
 
@@ -324,7 +325,8 @@ public class CardTest {
 	}
 
 	private void whenISaveTheCard(Card card, Project project) {
-		logic.save(card, project, new ArrayList<Gadgets>());
+		card.setProject(project);
+		logic.save(card, new ArrayList<Gadgets>());
 	}
 
 	private Project givenAProject() {
