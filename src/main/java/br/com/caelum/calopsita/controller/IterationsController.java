@@ -49,7 +49,7 @@ public class IterationsController {
         this.projectRepository = projectRepository;
     }
 
-    @Path("/iterations/") @Post
+    @Path("/projects/{iteration.project.id}/iterations/") @Post
     public void save(final Iteration iteration) {
         validateDate(iteration);
         repository.add(iteration);

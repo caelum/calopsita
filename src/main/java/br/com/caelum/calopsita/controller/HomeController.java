@@ -2,18 +2,17 @@ package br.com.caelum.calopsita.controller;
 
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 
 @Resource
 public class HomeController {
-    @Get @Post @Path("/home/login/")
+    @Get @Post
     public User login() {
         return new User();
     }
 
-    @Path("/home/notAllowed/") @Get
+    @Get
     public void notAllowed() {
     }
 }
