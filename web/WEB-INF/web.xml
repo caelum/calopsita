@@ -35,6 +35,10 @@
 		<param-name>br.com.caelum.vraptor.core.Converters</param-name>
 		<param-value>br.com.caelum.calopsita.infra.vraptor.CalopsitaConverters</param-value>
 	</context-param>
+	<context-param>
+		<param-name>br.com.caelum.vraptor.core.RequestExecution</param-name>
+		<param-value>br.com.caelum.calopsita.infra.vraptor.CalopsitaRequestExecution</param-value>
+	</context-param>
 
 	<filter>
 		<filter-name>sitemesh</filter-name>
