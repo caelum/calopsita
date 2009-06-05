@@ -102,7 +102,7 @@ public class ProjectsController {
     	result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
-    @Path("/colaborators/{project.id}/") @Post
+    @Path("/projects/{project.id}/colaborators/") @Post
     public void addColaborator(Project project, User colaborator) {
         Project loaded = repository.get(project.getId());
         loaded.getColaborators().add(colaborator);
