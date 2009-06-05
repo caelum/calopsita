@@ -15,7 +15,7 @@ import org.joda.time.LocalDate;
 import br.com.caelum.calopsita.model.Card.Status;
 
 @Entity
-public class Iteration implements Identifiable {
+public class Iteration implements Identifiable, FromProject {
     @Id
     @GeneratedValue
     private Long id;
