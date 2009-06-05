@@ -292,4 +292,17 @@ public class WhenActions {
 	public void andWait() {
 		browser.waitForPageLoad(2000);
 	}
+
+	public void iDirectlyOpenCardPageOf(String name) {
+		Object[] ids = (Object[]) session.createQuery("select id, project.id from Card where name = :name")
+			.setParameter("name", name).uniqueResult();
+		browser.open("/calopsita/projects/" + ids[0] + "/cards/" + ids[1] + "/");
+
+	}
+
+	public void iDirectlyOpenIterationPageOf(String goal) {
+		Object[] ids = (Object[]) session.createQuery("select id, project.id from Iteration where goal = :goal")
+			.setParameter("goal", goal).uniqueResult();
+		browser.open("/calopsita/projects/" + ids[0] + "/iterations/" + ids[1] + "/");
+	}
 }
