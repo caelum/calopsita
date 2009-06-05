@@ -71,6 +71,9 @@ public class ProjectDao implements ProjectRepository {
 
 	@Override
 	public boolean hasInconsistentValues(Object[] parameters, User user) {
+		if (parameters == null) {
+			return false;
+		}
 		for (Object object : parameters) {
 			if (object instanceof Project) {
 				Project project = (Project) object;

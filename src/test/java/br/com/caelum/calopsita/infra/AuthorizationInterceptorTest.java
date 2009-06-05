@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vraptor.LogicException;
@@ -18,7 +17,6 @@ import org.vraptor.view.ViewException;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
-import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.core.InterceptorStack;
@@ -35,6 +33,7 @@ public class AuthorizationInterceptorTest {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private InterceptorStack stack;
+	private MethodInfo info;
 
 	@Before
 	public void setUp() throws Exception {
@@ -47,74 +46,59 @@ public class AuthorizationInterceptorTest {
 		request = mockery.mock(HttpServletRequest.class);
 		response = mockery.mock(HttpServletResponse.class);
 		stack = mockery.mock(InterceptorStack.class);
-		interceptor = new AuthorizationInterceptor(sessionUser, repository, request, response, mockery.mock(MethodInfo.class));
+		info = mockery.mock(MethodInfo.class);
+		interceptor = new AuthorizationInterceptor(sessionUser, repository, request, response, info);
 		mockery.checking(new Expectations() {
 			{
 				allowing(session).getAttribute("currentUser");
 				will(returnValue(user));
+
+				allowing(info).getParameters();
+				will(returnValue(new Object[0]));
 			}
 		});
 	}
 
-	@After
-	public void tearDown() throws Exception {
-		mockery.assertIsSatisfied();
-	}
 
 	@Test
-	public void authorizeIfThereIsNoProjectOnTheRequest() throws Exception {
-		givenThereIsNoProjectOnRequest();
-
-		shouldExecuteFlow();
-
-		whenInterceptOccurs();
-	}
-	@Test
-	public void authorizeIfThereIsNoProjectWithGivenId() throws Exception {
-		givenThereIsAProjectOnRequest();
-		givenThatThisProjectDoesntExist();
-
-		shouldExecuteFlow();
-
-		whenInterceptOccurs();
-	}
-	@Test
-	public void authorizeIfUserIsTheOwnerOfTheProject() throws Exception {
-		givenThereIsAProjectOnRequest();
-		Project project = givenThatThisProjectExist();
-		givenThatUserOwnsTheProject(project);
-
-		shouldExecuteFlow();
-
-		whenInterceptOccurs();
-	}
-	@Test
-	public void authorizeIfUserIsAColaboratorOfTheProject() throws Exception {
-		givenThereIsAProjectOnRequest();
-		Project project = givenThatThisProjectExist();
-		givenThatUserIsAColaboratorOfTheProject(project);
+	public void authorizeIfThereIsNoInconsistentParametersOnTheRequest() throws Exception {
+		givenThereIsNoInconsistencyOnRequest();
 
 		shouldExecuteFlow();
 
 		whenInterceptOccurs();
 		mockery.assertIsSatisfied();
 	}
+
 	@Test
-	public void redirectIfUserIsNotTheOwnerOfTheProject() throws Exception {
-		givenThereIsAProjectOnRequest();
-		Project project = givenThatThisProjectExist();
-		givenThatUserIsNotTheOwner(project);
+	public void redirectIfThereIsSomeInconsistency() throws Exception {
+		givenThereIsSomeInconsistency();
 
 		shouldNotExecuteFlow();
 		shouldRedirectToNotAllowedPage();
 
 		whenInterceptOccurs();
+		mockery.assertIsSatisfied();
 	}
 
-	private void givenThatUserIsAColaboratorOfTheProject(Project project) {
-		project.getColaborators().add(user);
+	private void givenThereIsSomeInconsistency() {
+		mockery.checking(new Expectations() {
+			{
+				one(repository).hasInconsistentValues(with(any(Object[].class)), with(any(User.class)));
+				will(returnValue(true));
+			}
+		});
 	}
 
+
+	private void givenThereIsNoInconsistencyOnRequest() {
+		mockery.checking(new Expectations() {
+			{
+				one(repository).hasInconsistentValues(with(any(Object[].class)), with(any(User.class)));
+				will(returnValue(false));
+			}
+		});
+	}
 
 	private void shouldRedirectToNotAllowedPage() throws IOException {
 
@@ -122,46 +106,6 @@ public class AuthorizationInterceptorTest {
 			{
 				one(response).sendRedirect(with(containsString("/home/notAllowed/")));
 				allowing(request);
-			}
-		});
-	}
-
-	private void givenThatUserIsNotTheOwner(Project project) {
-		User owner = new User();
-		owner.setLogin("TheOwner");
-		project.setOwner(owner);
-	}
-
-	private void givenThatUserOwnsTheProject(Project project) {
-		project.setOwner(user);
-	}
-
-	private Project givenThatThisProjectExist() {
-
-		final Project project = new Project();
-		mockery.checking(new Expectations() {
-			{
-				one(repository).get(3l);
-				will(returnValue(project));
-			}
-		});
-		return project;
-	}
-
-	private void givenThatThisProjectDoesntExist() {
-		mockery.checking(new Expectations() {
-			{
-				one(repository).get(3l);
-				will(returnValue(null));
-			}
-		});
-	}
-
-	private void givenThereIsAProjectOnRequest() {
-		mockery.checking(new Expectations() {
-			{
-				one(request).getParameter("project.id");
-				will(returnValue("3"));
 			}
 		});
 	}
@@ -187,12 +131,4 @@ public class AuthorizationInterceptorTest {
 		interceptor.intercept(stack, null, null);
 	}
 
-	private void givenThereIsNoProjectOnRequest() {
-		mockery.checking(new Expectations() {
-			{
-				one(request).getParameter("project.id");
-				will(returnValue(null));
-			}
-		});
-	}
 }
