@@ -22,6 +22,7 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.core.MethodInfo;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
 public class AuthorizationInterceptorTest {
@@ -46,7 +47,7 @@ public class AuthorizationInterceptorTest {
 		request = mockery.mock(HttpServletRequest.class);
 		response = mockery.mock(HttpServletResponse.class);
 		stack = mockery.mock(InterceptorStack.class);
-		interceptor = new AuthorizationInterceptor(sessionUser, repository, request, response);
+		interceptor = new AuthorizationInterceptor(sessionUser, repository, request, response, mockery.mock(MethodInfo.class));
 		mockery.checking(new Expectations() {
 			{
 				allowing(session).getAttribute("currentUser");

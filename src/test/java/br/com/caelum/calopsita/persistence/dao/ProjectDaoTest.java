@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.persistence.dao;
 import static br.com.caelum.calopsita.CustomMatchers.hasSameId;
 import static br.com.caelum.calopsita.CustomMatchers.isEmpty;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
@@ -109,6 +110,65 @@ public class ProjectDaoTest {
 
 		assertThat(dao.listIterationsFrom(project), isEmpty());
 		assertThat(dao.listCardsFrom(project), isEmpty());
+	}
+
+	@Test
+	public void aProjectNotOwnedByAUserIsAnInconsistentValue() throws Exception {
+		Project project = givenAProject();
+		User user = givenAUser();
+
+		assertThat(dao.hasInconsistentValues(new Object[] {project}, user), is(true));
+	}
+	@Test
+	public void aProjectNotOwnedByAUserIsAConsistentValue() throws Exception {
+		User user = givenAUser();
+		Project project1 = givenAProjectOwnedBy(user);
+		Project project2 = givenAProjectWithColaborator(user);
+
+		assertThat(dao.hasInconsistentValues(new Object[] {project1, project2}, user), is(false));
+	}
+	@Test
+	public void checkingForInconsistentValuesInIterations() throws Exception {
+		User user = givenAUser();
+
+		Iteration unrelatedProject = givenAnIterationOfProject(givenAProject());
+		assertThat(dao.hasInconsistentValues(new Object[] {unrelatedProject}, user), is(true));
+
+		Iteration projectOwned = givenAnIterationOfProject(givenAProjectOwnedBy(user));
+		Iteration projectWithColaborator = givenAnIterationOfProject(givenAProjectWithColaborator(user));
+		assertThat(dao.hasInconsistentValues(new Object[] {projectOwned, projectWithColaborator}, user), is(false));
+	}
+	@Test
+	public void iterationWithWrongProjectId() throws Exception {
+		User user = givenAUser();
+		Iteration iteration = givenAnIterationOfProject(givenAProjectOwnedBy(user));
+		session.evict(iteration);
+		iteration.setProject(givenAProjectOwnedBy(user));
+
+		assertThat(dao.hasInconsistentValues(new Object[] {iteration}, user), is(true));
+	}
+	@Test
+	public void cardWithWrongProjectId() throws Exception {
+		User user = givenAUser();
+		Card card = givenACardOfProject(givenAProjectOwnedBy(user));
+		session.evict(card);
+		card.setProject(givenAProjectOwnedBy(user));
+
+		assertThat(dao.hasInconsistentValues(new Object[] {card}, user), is(true));
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void iterationWithoutProjectIdThrowsException() throws Exception {
+		Iteration projectWithoutId = new Iteration();
+		projectWithoutId.setProject(new Project());
+
+		dao.hasInconsistentValues(new Object[] {projectWithoutId}, givenAUser());
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void iterationWithoutProjectThrowsException() throws Exception {
+		Iteration outOfProject = new Iteration();
+		dao.hasInconsistentValues(new Object[] {outOfProject}, givenAUser());
 	}
 	private Iteration givenAnIterationOfProject(Project project) throws ParseException {
         Iteration iteration = givenAnIteration();

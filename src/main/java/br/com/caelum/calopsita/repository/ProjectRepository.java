@@ -2,9 +2,9 @@ package br.com.caelum.calopsita.repository;
 
 import java.util.List;
 
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.User;
 
 public interface ProjectRepository extends BaseRepository<Project> {
@@ -16,7 +16,9 @@ public interface ProjectRepository extends BaseRepository<Project> {
 	List<Card> listCardsFrom(Project project);
 
 	Project load(Project project);
-	
+
 	List<Iteration> listIterationsFrom(Project project);
+
+	boolean hasInconsistentValues(Object[] parameters, User user);
 
 }

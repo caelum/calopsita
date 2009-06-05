@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.caelum.calopsita.controller.HomeController;
 import br.com.caelum.calopsita.controller.UsersController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
-import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Interceptor;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.core.MethodInfo;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
 @Intercepts
@@ -25,12 +24,14 @@ public class AuthorizationInterceptor implements Interceptor {
 	private final SessionUser user;
 	private final HttpServletResponse response;
 	private final HttpServletRequest request;
+	private final MethodInfo parameters;
 
-	public AuthorizationInterceptor(SessionUser user, ProjectRepository repository, HttpServletRequest request, HttpServletResponse response) {
+	public AuthorizationInterceptor(SessionUser user, ProjectRepository repository, HttpServletRequest request, HttpServletResponse response, MethodInfo parameters) {
 		this.user = user;
 		this.repository = repository;
 		this.request = request;
 		this.response = response;
+		this.parameters = parameters;
 	}
 
 	@Override
@@ -43,26 +44,15 @@ public class AuthorizationInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
 
-		Long project = findProject();
-
-		if (project != null) {
-			Project loaded = repository.get(project);
-			User user = this.user.getUser();
-			if (loaded != null && !user.equals(loaded.getOwner()) && !loaded.getColaborators().contains(user)) {
-				try {
-					response.sendRedirect(request.getContextPath() + "/home/notAllowed/");
-				} catch (IOException e) {
-					throw new InterceptionException(e);
-				}
-				return;
+		if (repository.hasInconsistentValues(parameters.getParameters(), user.getUser())) {
+			try {
+				response.sendRedirect(request.getContextPath() + "/home/notAllowed/");
+			} catch (IOException e) {
+				throw new InterceptionException(e);
 			}
+			return;
 		}
 		stack.next(method, resourceInstance);
-	}
-
-	private Long findProject() {
-		String id = request.getParameter("project.id");
-		return id==null? null : Long.valueOf(id);
 	}
 
 }
