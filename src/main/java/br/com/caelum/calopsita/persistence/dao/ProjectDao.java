@@ -93,7 +93,7 @@ public class ProjectDao implements ProjectRepository {
 	}
 
 	private boolean inconsistentProject(Identifiable identifiable, Project project) {
-		return identifiable.getId() == null || session.createCriteria(identifiable.getClass())
+		return identifiable.getId() != null && session.createCriteria(identifiable.getClass())
 			.add(Restrictions.eq("id", identifiable.getId()))
 			.add(Restrictions.eq("project", project))
 			.uniqueResult() == null;

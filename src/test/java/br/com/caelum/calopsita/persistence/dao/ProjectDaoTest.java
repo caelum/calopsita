@@ -156,6 +156,15 @@ public class ProjectDaoTest {
 
 		assertThat(dao.hasInconsistentValues(new Object[] {card}, user), is(true));
 	}
+	@Test
+	public void cardWithoutIdWithAProjectIdIsConsistent() throws Exception {
+		User user = givenAUser();
+		Card card = givenACardOfProject(givenAProjectOwnedBy(user));
+		session.evict(card);
+		card.setId(null);
+
+		assertThat(dao.hasInconsistentValues(new Object[] {card}, user), is(false));
+	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void iterationWithoutProjectIdThrowsException() throws Exception {

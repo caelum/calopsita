@@ -16,7 +16,6 @@ import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.core.MethodInfo;
 import br.com.caelum.vraptor.resource.ResourceMethod;
-
 @Intercepts
 public class AuthorizationInterceptor implements Interceptor {
 
@@ -44,7 +43,7 @@ public class AuthorizationInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
 
-		if (repository.hasInconsistentValues(parameters.getParameters(), user.getUser())) {
+		if (user.getUser() != null && repository.hasInconsistentValues(parameters.getParameters(), user.getUser())) {
 			try {
 				response.sendRedirect(request.getContextPath() + "/home/notAllowed/");
 			} catch (IOException e) {

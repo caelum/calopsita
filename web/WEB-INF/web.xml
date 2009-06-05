@@ -29,15 +29,11 @@
 	</error-page>
 	<context-param>
 		<param-name>br.com.caelum.vraptor.provider</param-name>
-		<param-value>br.com.caelum.vraptor.ioc.pico.PicoProvider</param-value>
+		<param-value>br.com.caelum.calopsita.infra.vraptor.CalopsitaProvider</param-value>
 	</context-param>
 	<context-param>
 		<param-name>br.com.caelum.vraptor.core.Converters</param-name>
 		<param-value>br.com.caelum.calopsita.infra.vraptor.CalopsitaConverters</param-value>
-	</context-param>
-	<context-param>
-		<param-name>br.com.caelum.vraptor.core.RequestExecution</param-name>
-		<param-value>br.com.caelum.calopsita.infra.vraptor.CalopsitaRequestExecution</param-value>
 	</context-param>
 
 	<filter>
