@@ -41,7 +41,7 @@
 		<ul id="lowerPriority" class="board" title="New Priority Level"></ul>
 	</form>
 
-	<a href="<c:url value="/project/${project.id }/cards/"/>"><fmt:message key="back"/></a>
+	<a href="<c:url value="/projects/${project.id }/cards/"/>"><fmt:message key="back"/></a>
 
 </body>
 </html>

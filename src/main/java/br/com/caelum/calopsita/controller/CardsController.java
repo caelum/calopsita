@@ -70,14 +70,14 @@ public class CardsController {
 		result.use(page()).forward(UPDATE_JSP);
 	}
 
-	@Path("/cards/{card.id}/") @Get
+	@Path("/projects/{card.project.id}/cards/{card.id}/") @Get
 	public void edit(Card card) {
 	    result.include("card", this.repository.load(card));
 	    result.include("gadgets", Gadgets.valueOf(this.repository.listGadgets(card)));
 	    result.include("cards", this.repository.listSubcards(card));
 	}
 
-	@Path("/cards/{card.id}/") @Post
+	@Path("/projects/{card.project.id}/cards/{card.id}/") @Post
 	public void update(Card card, List<Gadgets> gadgets) {
 		Card loaded = repository.load(card);
 		Project project = loaded.getProject();
@@ -90,7 +90,7 @@ public class CardsController {
 		result.use(logic()).redirectTo(ProjectsController.class).cards(project);
 	}
 
-	@Path("/cards/{card.id}/") @Delete
+	@Path("/projects/{card.project.id}/cards/{card.id}/") @Delete
 	public void delete(Card card, boolean deleteSubcards) {
 		Card loaded = repository.load(card);
 		final Project project = loaded.getProject();

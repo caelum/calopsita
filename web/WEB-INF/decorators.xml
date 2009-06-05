@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/decorators">
-	<excludes>
-		<pattern>/subcard/save/</pattern>
-		<pattern>/cards/update/</pattern>
-		<pattern>/cards/update.jsp</pattern>
-		<pattern>/cards/cardLine.jsp</pattern>
-		<pattern>/iterations/cardCard.jsp</pattern>
-	</excludes>
-	
 	<decorator name="calopsita" page="calopsita.jsp">
 		<pattern>/home/*</pattern>
 		<pattern>/iterations/*</pattern>

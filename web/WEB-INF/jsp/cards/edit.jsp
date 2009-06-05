@@ -13,8 +13,7 @@
     <p><fmt:message key="project.description"/>: ${card.description}</p>
 </div>
 
-<form name="editCard" action="<c:url value='/cards/${card.id }/' />" method="post">
-	<input type="hidden" name="project.id" value="${card.project.id }"/>
+<form name="editCard" action="<c:url value="/projects/${card.project.id}/cards/${card.id}/" />" method="post">
 	<p>
 		<label><fmt:message key="card.name"/></label>
 		<em>*</em><input type="text" name="card.name" value="${card.name }"/>
