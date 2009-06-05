@@ -28,6 +28,7 @@ import br.com.caelum.vraptor.validator.Validations;
 @Resource
 public class CardsController {
 
+	private static final String UPDATE_JSP = "/WEB-INF/jsp/cards/update.jsp";
 	private final CardRepository repository;
 	private final User currentUser;
 	private final ProjectRepository projectRepository;
@@ -58,7 +59,7 @@ public class CardsController {
 		}
 		result.include("project", project);
 		result.include("cards", this.projectRepository.listCardsFrom(project));
-		result.use(page()).forward("/WEB-INF/jsp/cards/update.jsp");
+		result.use(page()).forward(UPDATE_JSP);
 	}
 
 	@Path("/projects/{project.id}/cards/saveSub/") @Post
@@ -67,7 +68,7 @@ public class CardsController {
 		result.include("cards", this.repository.listSubcards(card.getParent()));
 		result.include("card", card.getParent());
 		result.include("project", card.getProject());
-		result.use(page()).forward("/WEB-INF/jsp/cards/update.jsp");
+		result.use(page()).forward(UPDATE_JSP);
 	}
 
 	@Path("/cards/{card.id}/") @Get
@@ -114,7 +115,7 @@ public class CardsController {
         }
         repository.remove(loaded);
         result.include("cards", this.projectRepository.listCardsFrom(project));
-        result.use(page()).forward("/WEB-INF/jsp/cards/update.jsp");
+        result.use(page()).forward(UPDATE_JSP);
 	}
 
 }
