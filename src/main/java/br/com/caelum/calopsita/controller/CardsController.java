@@ -43,9 +43,8 @@ public class CardsController {
 		this.projectRepository = projectRepository;
 	}
 
-	@Path("/projects/{project.id}/cards/") @Post
-	public void save(final Card card, Project project, List<Gadgets> gadgets) {
-		card.setProject(project);
+	@Path("/projects/{card.project.id}/cards/") @Post
+	public void save(final Card card, List<Gadgets> gadgets) {
 		validator.checking(new Validations() {
             {
                 that(Hibernate.validate(card));
@@ -57,12 +56,12 @@ public class CardsController {
 				repository.add(gadget.createGadgetFor(card));
 			}
 		}
-		result.include("project", project);
-		result.include("cards", this.projectRepository.listCardsFrom(project));
+		result.include("project", card.getProject());
+		result.include("cards", this.projectRepository.listCardsFrom(card.getProject()));
 		result.use(page()).forward(UPDATE_JSP);
 	}
 
-	@Path("/projects/{project.id}/cards/saveSub/") @Post
+	@Path("/projects/{card.project.id}/cards/{card.parent.id}/subcards/") @Post
 	public void saveSub(Card card) {
 		repository.add(card);
 		result.include("cards", this.repository.listSubcards(card.getParent()));

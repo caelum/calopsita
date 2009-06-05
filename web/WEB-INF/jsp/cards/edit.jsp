@@ -42,9 +42,7 @@
 
 <a href="javascript:toggle('cardForm'); document.addCard.reset();">Add Subcard</a><br/>
 
-<form id="cardForm" class="hidden" name="addCard" action="<c:url value="/projects/${card.project.id }/cards/saveSub/"/>" method="post">
-	<input type="hidden" name="card.project.id" value="${card.project.id }" />
-	<input type="hidden" name="card.parent.id" value="${card.id }" />
+<form id="cardForm" class="hidden" name="addCard" action="<c:url value="/projects/${card.project.id }/cards/${card.id }/subcards/"/>" method="post">
 	<p>
 		<label><fmt:message key="card.name"/></label>
 		<em>*</em><input type="text" name="card.name"/>
