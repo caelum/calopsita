@@ -9,7 +9,7 @@
 		<div id="begin_date" class="date" >
 			<div>${iteration.startDate.year }</div>
 			<div>${iteration.startDate.dayOfMonth }</div>
-			<div>${iteration.startDate.month }</div>
+			<div>${iteration.startDate.monthOfYear }</div>
 		</div>
 		
 		<div class="line" />
