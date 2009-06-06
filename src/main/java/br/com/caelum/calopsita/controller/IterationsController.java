@@ -86,6 +86,7 @@ public class IterationsController {
     	result.include("iteration", loaded);
     	result.include("project", project);
     	result.include("otherCards", cardRepository.cardsWithoutIteration(project));
+    	result.include("today", new LocalDate());
     }
 
 	@Path("/projects/{iteration.project.id}/iterations/{iteration.id}/cards/") @Post
