@@ -7,25 +7,25 @@
 	
 	<div id="timeline">
 		<div id="begin_date" class="date" >
-			<div>${iteration.startDate.year }</div>
-			<div>${iteration.startDate.dayOfMonth }</div>
-			<div>${iteration.startDate.monthOfYear }</div>
+			<div class="year">${iteration.startDate.year }</div>
+			<div class="day">${iteration.startDate.dayOfMonth }</div>
+			<div class="month">${iteration.startDate.monthOfYear }</div>
 		</div>
 		
-		<div class="line" />
+		<div class="line"></div>
 		
 		<div id="today" class="date" >
-			<div>${today.year }</div>
-			<div>${today.dayOfMonth }</div>
-			<div>${today.month }</div>
+			<div class="year">${today.year }</div>
+			<div class="day">${today.dayOfMonth }</div>
+			<div class="month">${today.monthOfYear }</div>
 		</div>
 		
-		<div class="line" />
+		<div class="line"></div>
 		
 		<div id="end_date" class="date" >
-			<div>${iteration.endDate.year }</div>
-			<div>${iteration.endDate.dayOfMonth }</div>
-			<div>${iteration.endDate.month }</div>
+			<div class="year">${iteration.endDate.year }</div>
+			<div class="day">${iteration.endDate.dayOfMonth }</div>
+			<div class="month">${iteration.endDate.monthOfYear }</div>
 		</div>
 	</div>
   

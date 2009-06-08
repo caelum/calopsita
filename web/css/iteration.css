@@ -48,3 +48,31 @@
 	font-size: 10px;
 	color: blue;
 }
+
+.date {
+	border: 1px solid;
+	text-align: center;
+	font-size:15px;
+	width:50px;
+	float:left;
+}
+
+.line {
+	border: 2px 0px 0px;
+	width: 100px;
+}
+
+.year {
+	background: #AA0000;
+	color: #FFFFFF;
+	margin: 0px;
+}
+
+.day {
+	margin: 0px;
+}
+
+.month {
+	margin: 0px;
+	background: #DDDDDD;
+}
