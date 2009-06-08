@@ -9,7 +9,7 @@
 		<div id="begin_date" class="date" >
 			<div class="year">${iteration.startDate.year }</div>
 			<div class="day">${iteration.startDate.dayOfMonth }</div>
-			<div class="month">${iteration.startDate.monthOfYear }</div>
+			<div class="month">${iteration.startDate.monthOfYear.asShortText }</div>
 		</div>
 		
 		<hr class="line" />
@@ -17,7 +17,7 @@
 		<div id="today" class="date" >
 			<div class="year">${today.year }</div>
 			<div class="day">${today.dayOfMonth }</div>
-			<div class="month">${today.monthOfYear }</div>
+			<div class="month">${today.monthOfYear.asShortText }</div>
 		</div>
 		
 		<hr class="line" />
@@ -25,7 +25,7 @@
 		<div id="end_date" class="date" >
 			<div class="year">${iteration.endDate.year }</div>
 			<div class="day">${iteration.endDate.dayOfMonth }</div>
-			<div class="month">${iteration.endDate.monthOfYear }</div>
+			<div class="month">${iteration.endDate.monthOfYear.asShortText }</div>
 		</div>
 	</div>
   
