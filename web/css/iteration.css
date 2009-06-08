@@ -58,8 +58,13 @@
 }
 
 .line {
-	border: 2px 0px 0px;
-	width: 100px;
+    border-color:#000000 -moz-use-text-color -moz-use-text-color;
+    border-style:dashed none none;
+    border-width:1px;
+    float:left;
+    height:1px;
+    margin-top:30px;
+    width:100px;
 }
 
 .year {

@@ -12,7 +12,7 @@
 			<div class="month">${iteration.startDate.monthOfYear }</div>
 		</div>
 		
-		<div class="line"></div>
+		<hr class="line" />
 		
 		<div id="today" class="date" >
 			<div class="year">${today.year }</div>
@@ -20,7 +20,7 @@
 			<div class="month">${today.monthOfYear }</div>
 		</div>
 		
-		<div class="line"></div>
+		<hr class="line" />
 		
 		<div id="end_date" class="date" >
 			<div class="year">${iteration.endDate.year }</div>
