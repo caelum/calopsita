@@ -61,7 +61,7 @@ function modifyCards(div, status, method) {
     var params = get_params(div, status);
     params['_method'] = method;
     $.ajax( {
-    	type: 'POST',
+        type : 'POST',
         url : cardsUrl,
         data : params,
         success : function(data) {

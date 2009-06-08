@@ -1,10 +1,25 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<script type="text/javascript">
+$(document).ready(function() {
+    var daysBetweenTodayAndStartDate = (parseInt('${today.dayOfYear}') + 365 * parseInt('${today.year}')) - (parseInt('${iteration.startDate.dayOfYear}') + 365 * parseInt('${iteration.startDate.year}'));
+    var daysBetweenEndDateAndToday = (parseInt('${iteration.endDate.dayOfYear}') + 365 * parseInt('${iteration.endDate.year}')) - (parseInt('${today.dayOfYear}') + 365 * parseInt('${today.year}'));
+    var daysBetweenEndDateAndStartDate = (parseInt('${iteration.endDate.dayOfYear}') + 365 * parseInt('${iteration.endDate.year}')) - (parseInt('${iteration.startDate.dayOfYear}') + 365 * parseInt('${iteration.startDate.year}'));
+    $('#before_today_line').css( {
+        width : 600 * daysBetweenTodayAndStartDate  / daysBetweenEndDateAndStartDate
+    });
+    $('#after_today_line').css( {
+        width : 600 * daysBetweenEndDateAndToday  / daysBetweenEndDateAndStartDate
+    })
+});
+</script>
+
   <%@include file="../projects/tabs.jsp" %>
   
 	<div id="projects">
 	    <p><fmt:message key="project.name"/>: ${project.name}</p>
 	</div>
 	
+  <c:if test="${not empty iteration}">
 	<div id="timeline">
 		<div id="begin_date" class="date" >
 			<div class="year">${iteration.startDate.year }</div>
@@ -12,7 +27,7 @@
 			<div class="month"><joda:format value="${iteration.startDate}" pattern="MMM" /></div>
 		</div>
 		
-		<hr class="line" />
+		<hr class="line" id="before_today_line" />
 		
 		<div id="today" class="date" >
 			<div class="year">${today.year }</div>
@@ -20,7 +35,7 @@
 			<div class="month"><joda:format value="${today}" pattern="MMM" /></div>
 		</div>
 		
-		<hr class="line" />
+		<hr class="line" id="after_today_line" />
 		
 		<div id="end_date" class="date" >
 			<div class="year">${iteration.endDate.year }</div>
@@ -29,7 +44,6 @@
 		</div>
 	</div>
   
-  <c:if test="${not empty iteration}">
     <div id="iteration_text">
       <p><fmt:message key="iteration.goal"/>: ${iteration.goal}</p>
       <c:if test="${not empty iteration.startDate}">
