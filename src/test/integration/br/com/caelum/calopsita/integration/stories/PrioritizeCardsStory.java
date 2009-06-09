@@ -28,7 +28,8 @@ public class PrioritizeCardsStory extends DefaultStory{
 		    .iOpenCardsPage().and()
 			.iOpenPriorizationPage().and()
 			.iLowerPriorityOf("Remove all annotations").and()
-			.iSaveThePriorization();
+			.iOpenProjectPageOf("Mirror").and()
+		    .iOpenCardsPage();
 		then.theCard("Remove all generics").appearsOnCardsListAtPosition(1).and()
 			.theCard("Remove all annotations").appearsOnCardsListAtPosition(2);
 	}
