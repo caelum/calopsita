@@ -223,7 +223,7 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts appearsOnPriority(int priority) {
-
+		assertThat(this.browser.currentPage().div("level_" + priority), divContainsString(this.name));
 		return this;
 	}
 }

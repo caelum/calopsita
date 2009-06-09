@@ -182,6 +182,7 @@ public class WhenActions {
 
 	public WhenActions iLowerPriorityOf(String cardName) {
 		browser.currentPage().dragAndDrop(cardName, "lowerPriority");
+		waitForAjax();
 		return this;
 	}
 
@@ -217,14 +218,18 @@ public class WhenActions {
 	public WhenActions andConfirm(String operation) {
 		browser.currentPage().click("jqi_" + operation + "_buttonYes");
 		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
-		browser.currentPage().waitUntil("$.active === 0", 2000);
+		waitForAjax();
 		return this;
+	}
+
+	private void waitForAjax() {
+		browser.currentPage().waitUntil("$.active === 0", 2000);
 	}
 
 	public WhenActions andDontConfirm(String operation) {
 		browser.currentPage().click("jqi_" + operation + "_buttonNo");
 		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
-		browser.currentPage().waitUntil("$.active === 0", 2000);
+		waitForAjax();
 		return this;
 	}
 

@@ -28,8 +28,8 @@ function createPriorityLevel() {
 }
 function moveSelectedTo(div) {
 	var data = {};
-	$('.ui-selected:not(.clone)').each( function() {
-		$(this).children('.priority').val(div.attr('priority'));
+	$('.ui-selected:not(.clone) .priority').each( function() {
+		this.value = div.attr('priority');
 	});
 	$('.ui-selected:not(.clone) input').each( function() {
 		data[this.name] = this.value;

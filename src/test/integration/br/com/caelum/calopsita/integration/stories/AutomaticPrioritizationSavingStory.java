@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -16,24 +15,19 @@ public class AutomaticPrioritizationSavingStory extends DefaultStory {
 
 
 	@Test
-	@Ignore
 	public void savingAPrioritizationAutomatically() {
 		given.thereIsAnUserNamed("Pedro").and()
 			.thereIsAProjectNamed("Instant Silvio")
-				.withACardNamed("Record Silvio's voice")
-					.whichDescriptionIs("Laugh as Silvio")
-					.prioritizable().and()
-				.withACardNamed("Deploy website")
-					.whichDescriptionIs("I need a white page with Silvio's face")
-					.prioritizable().and()
+				.ownedBy("Pedro")
+				.withACardNamed("Record Silvios voice")
+					.prioritizable()
+					.whichDescriptionIs("Laugh as Silvio").and()
 			.iAmLoggedInAs("Pedro");
 		when.iOpenProjectPageOf("Instant Silvio").and()
 			.iOpenCardsPage().and()
 			.iOpenPriorizationPage().and()
-			.iLowerPriorityOf("Deploy website").and()
-			.iLowerPriorityOf("Record Silvio's voice").and()
+			.iLowerPriorityOf("Record Silvios voice").and()
 			.iRefreshCurrentPage();
-		then.theCard("Deploy website").appearsOnPriority(1).and()
-			.theCard("Record Silvio's voice").appearsOnPriority(2);
+		then.theCard("Record Silvios voice").appearsOnPriority(1);
 	}
 }
