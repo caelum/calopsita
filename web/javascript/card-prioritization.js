@@ -56,6 +56,11 @@ function fixParameters() {
 			input.name = input.name.replace('#', '' + c);
 		});
 	});
+	$('.undo').each(function(c, li) {
+		$('input', li).each(function(i, input) {
+			input.name = input.name.replace('#', '' + c);
+		});
+	});
 }
 function fixInfinityPriority() {
 	var div = $('<div class="table"></div>');
@@ -82,6 +87,11 @@ $(function() {
 			}
 		});
 	}
+	$('#undoForm').ajaxForm( {
+        success : function() {
+            window.location.reload();
+        }
+    });
 	bind();
 	$('#prioritizationForm').selectable({filter: '.card'});
 	$('.card').selectableAndDraggable();
