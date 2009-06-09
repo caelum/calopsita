@@ -314,4 +314,15 @@ public class WhenActions {
 	public void iRefreshCurrentPage() {
 		browser.currentPage().refresh();
 	}
+
+	public WhenActions iChangePriorityOf(String card, int priority) {
+		browser.currentPage().dragAndDrop(card, "level_" + priority);
+		waitForAjax();
+		return this;
+	}
+
+	public void iUndoPriority() {
+		browser.currentPage().form("undoForm").submit();
+		browser.waitForPageLoad(3000);
+	}
 }

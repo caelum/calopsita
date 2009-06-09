@@ -20,14 +20,30 @@ public class AutomaticPrioritizationSavingStory extends DefaultStory {
 			.thereIsAProjectNamed("Instant Silvio")
 				.ownedBy("Pedro")
 				.withACardNamed("Record Silvios voice")
-					.prioritizable()
+					.withPriority(3)
 					.whichDescriptionIs("Laugh as Silvio").and()
 			.iAmLoggedInAs("Pedro");
 		when.iOpenProjectPageOf("Instant Silvio").and()
 			.iOpenCardsPage().and()
 			.iOpenPriorizationPage().and()
-			.iLowerPriorityOf("Record Silvios voice").and()
+			.iChangePriorityOf("Record Silvios voice", to(1))
 			.iRefreshCurrentPage();
 		then.theCard("Record Silvios voice").appearsOnPriority(1);
+	}
+	@Test
+	public void undoingAPrioritization() {
+		given.thereIsAnUserNamed("Pedro").and()
+			.thereIsAProjectNamed("Instant Silvio")
+				.ownedBy("Pedro")
+				.withACardNamed("Record Silvios voice")
+					.withPriority(3)
+					.whichDescriptionIs("Laugh as Silvio").and()
+			.iAmLoggedInAs("Pedro");
+		when.iOpenProjectPageOf("Instant Silvio").and()
+			.iOpenCardsPage().and()
+			.iOpenPriorizationPage().and()
+			.iChangePriorityOf("Record Silvios voice", to(2)).and()
+			.iUndoPriority();
+		then.theCard("Record Silvios voice").appearsOnPriority(3);
 	}
 }
