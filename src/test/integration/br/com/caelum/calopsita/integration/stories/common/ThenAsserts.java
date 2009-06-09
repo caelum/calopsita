@@ -206,17 +206,24 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts showsItBegan(LocalDate whenItBegan) {
-		if (whenItBegan != null)
+		if (whenItBegan != null) {
 			assertThat(this.browser.currentPage().div("begin_date"), divContainsString(whenItBegan.toString("MM-dd")));
-		else
+		} else {
 			assertThat(this.browser.currentPage().div("begin_date"), divContainsString("..."));
+		}
 		return this;
 	}
 
 	public void showsItEnds(LocalDate whenItEnds) {
-		if (whenItEnds != null)
+		if (whenItEnds != null) {
 			assertThat(this.browser.currentPage().div("end_date"), divContainsString(whenItEnds.toString("MM-dd")));
-		else
+		} else {
 			assertThat(this.browser.currentPage().div("end_date"), divContainsString("..."));
+		}
+	}
+
+	public ThenAsserts appearsOnPriority(int priority) {
+
+		return this;
 	}
 }

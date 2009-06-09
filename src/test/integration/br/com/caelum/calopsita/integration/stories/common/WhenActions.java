@@ -305,4 +305,8 @@ public class WhenActions {
 			.setParameter("goal", goal).uniqueResult();
 		browser.open("/calopsita/projects/" + ids[0] + "/iterations/" + ids[1] + "/");
 	}
+
+	public void iRefreshCurrentPage() {
+		browser.currentPage().refresh();
+	}
 }
