@@ -1,6 +1,6 @@
 package br.com.caelum.calopsita.controller;
 
-import static br.com.caelum.vraptor.view.Results.logic;
+import static br.com.caelum.vraptor.view.Results.nothing;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class PrioritizationController {
 			loaded.setPriority(card.getPriority());
 		}
 		prioritization(project);
-		result.use(logic()).redirectTo(ProjectsController.class).cards(project);
+		result.use(nothing());
 	}
 
 }
