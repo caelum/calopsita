@@ -1,7 +1,9 @@
 var max_priority = 0;
 var infinityText;
-function initialize(infinityPriority) {
+var prioritizeUrl;
+function initialize(infinityPriority, url) {
 	infinityText = infinityPriority;
+	prioritizeUrl = url;
 }
 function changeWidth() {
     var w = $('body').width();
@@ -25,11 +27,28 @@ function createPriorityLevel() {
 	return ul;
 }
 function moveSelectedTo(div) {
-    $('.ui-selected').not('.clone').each( function() {
-        $(this).children('.priority').val(div.attr('priority'));
-        $(this).removeClass('ui-selected');
-        div.append(this);
-    });
+	var data = {};
+	$('.ui-selected:not(.clone)').each( function() {
+		$(this).children('.priority').val(div.attr('priority'));
+	});
+	$('.ui-selected:not(.clone) input').each( function() {
+		data[this.name] = this.value;
+	});
+
+	$.ajax({
+		type: 'POST',
+		url: prioritizeUrl,
+		data: data,
+		success: function() {
+			$('.ui-selected:not(.clone)').each( function() {
+				div.append(this);
+				$(this).removeClass('ui-selected');
+			});
+		},
+		error: function() {
+			showDialog("Error", "An error occurred");
+		}
+	});
 }
 function fixParameters() {
 	$('.card').each(function(c, li) {
