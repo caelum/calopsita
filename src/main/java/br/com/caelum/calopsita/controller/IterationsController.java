@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.isIn;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.hamcrest.Matchers.nullValue;
 
 import java.util.List;
 
@@ -59,9 +58,11 @@ public class IterationsController {
 	private void validateDate(final Iteration iteration) {
 		validator.checking(new Validations() {
             {
-            	that(iteration.getStartDate(), anyOf(is(lessThanOrEqualTo(iteration.getEndDate())), is(nullValue())));
-            	that(iteration.getEndDate(), anyOf(is(greaterThanOrEqualTo(iteration.getStartDate())), is(nullValue())));
-                and(Hibernate.validate(iteration));
+                if (iteration.getStartDate() != null && iteration.getEndDate() != null) {
+                	that(iteration.getStartDate(), is(lessThanOrEqualTo(iteration.getEndDate())));
+                	that(iteration.getEndDate(), is(greaterThanOrEqualTo(iteration.getStartDate())));
+                    and(Hibernate.validate(iteration));
+                }
             }
         });
 	}
