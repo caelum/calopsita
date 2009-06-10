@@ -31,10 +31,10 @@ function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
         }
     }
     if (!(daysBetweenTodayAndStartDate > 0) && !(daysBetweenEndDateAndToday < 0)) {
-        $('#start_date').css( {
+        $('#start').css( {
             'float': 'right'
         });
-        $('#end_date').css( {
+        $('#end').css( {
             'float': 'right'
         });
         $('#start_today_line').css( {

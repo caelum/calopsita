@@ -49,15 +49,22 @@
 	color: blue;
 }
 
+.title_date {
+	height: 15px;
+}
+
 #timeline {
   float: left;
 }
 
 .date {
 	border: 1px solid;
+	width:50px;
+}
+
+.date_and_title {
 	text-align: center;
 	font-size:15px;
-	width:50px;
 }
 
 #start_and_today {
@@ -72,13 +79,13 @@
   float: left;  
 }
 
-#start_date {
+#start {
   float: left;  
   font-size: 40px;
   height: 54px;
 }
 
-#end_date {
+#end {
   float: left;  
   font-size: 40px;
   height: 54px;
