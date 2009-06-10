@@ -5,7 +5,7 @@ function initialize(url) {
 
 function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
         daysBetweenEndDateAndStartDate) {
-    if (isNaN(daysBetweenTodayAndStartDate) || daysBetweenTodayAndStartDate < 0) {
+    if (!(daysBetweenTodayAndStartDate > 0)) {
         $('#start_today_line').css( {
             'width' : 300
         });
@@ -20,7 +20,7 @@ function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
             $('#start_date').html('?');
         }
     }
-    if (daysBetweenTodayAndStartDate > 0 && (isNaN(daysBetweenEndDateAndToday) || daysBetweenEndDateAndToday > 0)) {
+    if (daysBetweenTodayAndStartDate > 0 && !(daysBetweenEndDateAndToday < 0)) {
         if (!isNaN(daysBetweenEndDateAndToday)) {
           $('#start_today_line').css( {
               'width' : 600 * ((daysBetweenTodayAndStartDate - 1) / daysBetweenEndDateAndStartDate)
@@ -30,7 +30,7 @@ function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
           });
         }
     }
-    if ((isNaN(daysBetweenTodayAndStartDate) || daysBetweenTodayAndStartDate < 0) && (isNaN(daysBetweenEndDateAndToday) || daysBetweenEndDateAndToday > 0)) {
+    if (!(daysBetweenTodayAndStartDate > 0) && !(daysBetweenEndDateAndToday < 0)) {
         $('#start_date').css( {
             'float': 'right'
         });
