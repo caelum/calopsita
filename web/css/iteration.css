@@ -121,13 +121,16 @@
 	background: #AA0000;
 	color: #FFFFFF;
 	margin: 0px;
+	font-size:15px;
 }
 
 .day {
 	margin: 0px;
+	font-size:15px;
 }
 
 .month {
 	margin: 0px;
 	background: #DDDDDD;
+	font-size:15px;
 }
