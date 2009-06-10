@@ -49,21 +49,27 @@
 	color: blue;
 }
 
+#timeline {
+  float: left;
+}
+
 .date {
 	border: 1px solid;
 	text-align: center;
 	font-size:15px;
 	width:50px;
-	float:left;
 }
 
 .line {
     border-color:#000000 -moz-use-text-color -moz-use-text-color;
     border-style:dashed none none;
     border-width:1px;
-    float:left;
     height:1px;
     margin-top:30px;
+}
+
+.today {
+  border: 2px solid;
 }
 
 .year {
