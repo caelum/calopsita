@@ -74,14 +74,14 @@
 
 #start_date {
   float: left;  
-  font-size: 40;
-  height: 54;
+  font-size: 40px;
+  height: 54px;
 }
 
 #end_date {
   float: left;  
-  font-size: 40;
-  height: 54;
+  font-size: 40px;
+  height: 54px;
 }
 
 #today_end {

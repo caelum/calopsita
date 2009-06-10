@@ -5,22 +5,23 @@ function initialize(url) {
 
 function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
         daysBetweenEndDateAndStartDate) {
-    if (daysBetweenTodayAndStartDate > 0 && (isNaN(daysBetweenEndDateAndToday) || daysBetweenEndDateAndToday > 0)) {
+    if (isNaN(daysBetweenTodayAndStartDate) || daysBetweenTodayAndStartDate < 0) {
+        $('#start_today_line').css( {
+            'width' : 300
+        });
+        $('#start_end_line').css( {
+            'width' : 300
+        });
+
         if (isNaN(daysBetweenEndDateAndToday)) {
-            $('#start_today_line').css( {
-                'width' : 300
-            });
-            $('#start_end_line').css( {
-                'width' : 300
-            });
-            $('#end_date').html('?');
-            $('#end_date').css( {
-                'font-size' : 40
-            });
-            $('#end_date').css( {
-                'height': 55
-            });
-        } else {
+          $('#end_date').html('?');
+        } 
+        if (isNaN(daysBetweenTodayAndStartDate)){
+            $('#start_date').html('?');
+        }
+    }
+    if (daysBetweenTodayAndStartDate > 0 && (isNaN(daysBetweenEndDateAndToday) || daysBetweenEndDateAndToday > 0)) {
+        if (!isNaN(daysBetweenEndDateAndToday)) {
           $('#start_today_line').css( {
               'width' : 600 * ((daysBetweenTodayAndStartDate - 1) / daysBetweenEndDateAndStartDate)
           });
@@ -39,33 +40,10 @@ function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
         $('#start_today_line').css( {
             'float': 'right'
         });
-        if (isNaN(daysBetweenEndDateAndToday) || isNaN(daysBetweenTodayAndStartDate)) {
-            $('#start_today_line').css( {
-                'width' : 300
-            });
-            $('#start_end_line').css( {
-                'width' : 300
-            });
-
-            if (isNaN(daysBetweenEndDateAndToday)) {
-              $('#end_date').html('?');
-              $('#end_date').css( {
-                  'font-size' : 40
-              });
-              $('#end_date').css( {
-                  'height': 55
-              });
-            } 
-            if (isNaN(daysBetweenTodayAndStartDate)){
-                $('#start_date').html('?');
-                $('#start_date').css( {
-                    'font-size' : 40
-                });
-                $('#start_date').css( {
-                    'height': 55
-                });
-            }
-        } else {
+        $('#start_today_line').css( {
+            'border-width' : 0
+        });
+        if (!(isNaN(daysBetweenEndDateAndToday) && isNaN(daysBetweenTodayAndStartDate))) {
           $('#start_today_line').css( {
               'width' : -600 * ((daysBetweenTodayAndStartDate + 1) / daysBetweenEndDateAndToday)
           });
@@ -73,9 +51,6 @@ function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
               'width' : 600 * ((daysBetweenEndDateAndToday - 1) / daysBetweenEndDateAndToday)
           });
         }
-        $('#start_today_line').css( {
-            'border-width' : 0
-        });
     }
     if (daysBetweenEndDateAndToday < 0) {
         $('#start_today_line').hide();

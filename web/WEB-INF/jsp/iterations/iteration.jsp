@@ -4,6 +4,7 @@
 	</div>
 	
     <c:if test="${not empty iteration}">
+    <%@include file="timeline.jsp" %>
     <div id="iteration_text">
       <p><fmt:message key="iteration.goal"/>: ${iteration.goal}</p>
       <c:if test="${not empty iteration.startDate}">
@@ -14,7 +15,6 @@
       </c:if>
     </div>
     
-    <%@include file="timeline.jsp" %><br/>
   
   <a href="javascript:toggle('iteration');"><fmt:message key="edit"/></a><br/>
   <%@include file="editForm.jsp" %>
