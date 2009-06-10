@@ -74,11 +74,13 @@
 
 #today_end {
   float: right;  
+  display: none;
 }
 
 #today_end_line {
   float: right;  
   border-width: 0px;
+  display: none;
 }
 
 .line {

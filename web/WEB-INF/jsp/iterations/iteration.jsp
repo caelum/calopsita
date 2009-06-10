@@ -15,12 +15,6 @@ $(document).ready(function() {
         $('#end_date').css( {
             'float': 'left'
         });
-        $('#today_end').css( {
-            'display': 'none'
-        });
-        $('#today_end_line').css( {
-            'display': 'none'
-        });
         if (isNaN(daysBetweenEndDateAndToday)) {
             $('#start_today_line').css( {
                 'width' : 300
@@ -54,12 +48,6 @@ $(document).ready(function() {
         $('#end_date').css( {
             'float': 'right'
         });
-        $('#today_end').css( {
-            'display': 'none'
-        });
-        $('#today_end_line').css( {
-            'display': 'none'
-        });
         $('#start_today_line').css( {
             'float': 'right'
         });
@@ -79,7 +67,8 @@ $(document).ready(function() {
               $('#end_date').css( {
                   'height': 55
               });
-            } else {
+            } 
+            if (isNaN(daysBetweenTodayAndStartDate)){
                 $('#start_date').html('?');
                 $('#start_date').css( {
                     'font-size' : 40
@@ -116,6 +105,8 @@ $(document).ready(function() {
         $('#end_date').css( {
             'float': 'left'
         });
+        $('#today_end').show();
+        $('#today_end_line').show();
         $('#start_end_line').css( {
             'width' : 600 * ((daysBetweenEndDateAndStartDate - 1) / daysBetweenTodayAndStartDate)
         });
