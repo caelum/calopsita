@@ -14,7 +14,7 @@
     <hr class="line" id="start_today_line" />
     
     <div id="today_start" class="date_and_title" >
-      <div class="title_date title"></div>
+      <div class="title_date title" id="today_start_title"></div>
       <div id="today_start_date" class="date today" >
         <div class="year">${today.year }</div>
         <div class="day">${today.dayOfMonth }</div>
