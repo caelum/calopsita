@@ -3,6 +3,72 @@ function initialize(url) {
     cardsUrl = url;
 }
 
+function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
+        daysBetweenEndDateAndStartDate) {
+    if (isNaN(daysBetweenEndDateAndToday)
+            || isNaN(daysBetweenTodayAndStartDate)) {
+        if (isNaN(daysBetweenEndDateAndToday)) {
+            $('#end_date').html('?');
+        }
+        if (isNaN(daysBetweenTodayAndStartDate)) {
+            $('#start_date').html('?');
+        }
+    } else if (daysBetweenTodayAndStartDate > 0
+            && daysBetweenEndDateAndToday > 0) {
+        $('#start_today_line')
+                .css(
+                        {
+                            'width' : 600 * ((daysBetweenTodayAndStartDate - 1) / daysBetweenEndDateAndStartDate)
+                        });
+        $('#start_end_line')
+                .css(
+                        {
+                            'width' : 600 * ((daysBetweenEndDateAndToday - 1) / daysBetweenEndDateAndStartDate)
+                        });
+    } else if (daysBetweenTodayAndStartDate < 0
+            && daysBetweenEndDateAndToday > 0) {
+        $('#start_date').css( {
+            'float' : 'right'
+        });
+        $('#end_date').css( {
+            'float' : 'right'
+        });
+        $('#start_today_line').css( {
+            'float' : 'right'
+        });
+        $('#start_today_line')
+                .css(
+                        {
+                            'width' : -600
+                                    * ((daysBetweenTodayAndStartDate + 1) / daysBetweenEndDateAndToday)
+                        });
+        $('#start_end_line')
+                .css(
+                        {
+                            'width' : 600 * ((daysBetweenEndDateAndToday - 1) / daysBetweenEndDateAndToday)
+                        });
+        $('#start_today_line').css( {
+            'border-width' : 0
+        });
+    } else if (daysBetweenEndDateAndToday < 0) {
+        $('#start_today_line').hide();
+        $('#today_start').hide();
+        $('#today_end').show();
+        $('#today_end_line').show();
+        $('#start_end_line')
+                .css(
+                        {
+                            'width' : 600 * ((daysBetweenEndDateAndStartDate - 1) / daysBetweenTodayAndStartDate)
+                        });
+        $('#today_end_line')
+                .css(
+                        {
+                            'width' : -600
+                                    * ((daysBetweenEndDateAndToday + 1) / daysBetweenTodayAndStartDate)
+                        });
+    }
+}
+
 function prepare() {
     $('.selectable').selectable( {
         filter : 'li'

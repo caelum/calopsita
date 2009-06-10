@@ -72,6 +72,18 @@
   float: left;  
 }
 
+#start_date {
+  float: left;  
+  font-size: 40;
+  height: 54;
+}
+
+#end_date {
+  float: left;  
+  font-size: 40;
+  height: 54;
+}
+
 #today_end {
   float: right;  
   display: none;
@@ -81,6 +93,16 @@
   float: right;  
   border-width: 0px;
   display: none;
+}
+
+#start_end_line {
+  float: left; 
+  width: 300px; 
+}
+
+#start_today_line {
+  float: left;  
+  width: 300px;
 }
 
 .line {
