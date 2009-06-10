@@ -57,6 +57,10 @@ li#current {
 
 /* begin css tabs */
 
+#tabs {
+	clear: both;
+}
+
 ul#tabnav { /* general settings */
 text-align: left; /* set to left, right or center */
 margin: 1em 0 1em 0; /* set margins as desired */

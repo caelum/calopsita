@@ -7,7 +7,6 @@
 <body>
 
 <div id="tab2">
-  <%@include file="../projects/tabs.jsp" %>
   
   <div id="projects">
       <p><fmt:message key="project.name"/>: ${project.name}</p>

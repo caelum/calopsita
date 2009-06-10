@@ -12,7 +12,6 @@
 <body>
 
 <div id="tab3">
-  <%@include file="tabs.jsp" %>
   
   <div id="projects">
       <p><fmt:message key="project.name"/>: ${project.name}</p>

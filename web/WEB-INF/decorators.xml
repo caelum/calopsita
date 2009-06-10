@@ -5,14 +5,14 @@
 		<pattern>/iterations/*</pattern>
 		<pattern>/cards/*</pattern>
 		<pattern>/users/*</pattern>
-        <pattern>/projects/</pattern>
-        <pattern>/projects/new/</pattern>
+		<pattern>/projects/</pattern>
+		<pattern>/projects/new/</pattern>
 		<pattern>/</pattern>
 	</decorator>
-  
-    <decorator name="project" page="project.jsp">
-      <pattern>/projects/*</pattern>
-      <pattern>/iterations/*</pattern>
-    </decorator>
-	
+
+	<decorator name="project" page="project.jsp">
+		<pattern>/projects/*</pattern>
+		<pattern>/iterations/*</pattern>
+	</decorator>
+
 </decorators>

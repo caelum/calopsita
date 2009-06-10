@@ -13,8 +13,6 @@ $(document).ready(function() {
 });
 </script>
 
-  <%@include file="../projects/tabs.jsp" %>
-  
 	<div id="projects">
 	    <p><fmt:message key="project.name"/>: ${project.name}</p>
 	</div>

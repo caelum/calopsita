@@ -7,7 +7,6 @@
 <body>
 
 <div id="tab4">
-  <%@include file="tabs.jsp" %>
   <div id="projects">
       <p><fmt:message key="project.name"/>: ${project.name}</p>
       <form id="projectForm" action="<c:url value="/projects/${project.id }/"/>" method="post">
