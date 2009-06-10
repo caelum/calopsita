@@ -5,67 +5,89 @@ function initialize(url) {
 
 function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
         daysBetweenEndDateAndStartDate) {
-    if (isNaN(daysBetweenEndDateAndToday)
-            || isNaN(daysBetweenTodayAndStartDate)) {
+    if (daysBetweenTodayAndStartDate > 0 && (isNaN(daysBetweenEndDateAndToday) || daysBetweenEndDateAndToday > 0)) {
         if (isNaN(daysBetweenEndDateAndToday)) {
+            $('#start_today_line').css( {
+                'width' : 300
+            });
+            $('#start_end_line').css( {
+                'width' : 300
+            });
             $('#end_date').html('?');
+            $('#end_date').css( {
+                'font-size' : 40
+            });
+            $('#end_date').css( {
+                'height': 55
+            });
+        } else {
+          $('#start_today_line').css( {
+              'width' : 600 * ((daysBetweenTodayAndStartDate - 1) / daysBetweenEndDateAndStartDate)
+          });
+          $('#start_end_line').css( {
+              'width' : 600 * ((daysBetweenEndDateAndToday - 1) / daysBetweenEndDateAndStartDate)
+          });
         }
-        if (isNaN(daysBetweenTodayAndStartDate)) {
-            $('#start_date').html('?');
-        }
-    } else if (daysBetweenTodayAndStartDate > 0
-            && daysBetweenEndDateAndToday > 0) {
-        $('#start_today_line')
-                .css(
-                        {
-                            'width' : 600 * ((daysBetweenTodayAndStartDate - 1) / daysBetweenEndDateAndStartDate)
-                        });
-        $('#start_end_line')
-                .css(
-                        {
-                            'width' : 600 * ((daysBetweenEndDateAndToday - 1) / daysBetweenEndDateAndStartDate)
-                        });
-    } else if (daysBetweenTodayAndStartDate < 0
-            && daysBetweenEndDateAndToday > 0) {
+    }
+    if ((isNaN(daysBetweenTodayAndStartDate) || daysBetweenTodayAndStartDate < 0) && (isNaN(daysBetweenEndDateAndToday) || daysBetweenEndDateAndToday > 0)) {
         $('#start_date').css( {
-            'float' : 'right'
+            'float': 'right'
         });
         $('#end_date').css( {
-            'float' : 'right'
+            'float': 'right'
         });
         $('#start_today_line').css( {
-            'float' : 'right'
+            'float': 'right'
         });
-        $('#start_today_line')
-                .css(
-                        {
-                            'width' : -600
-                                    * ((daysBetweenTodayAndStartDate + 1) / daysBetweenEndDateAndToday)
-                        });
-        $('#start_end_line')
-                .css(
-                        {
-                            'width' : 600 * ((daysBetweenEndDateAndToday - 1) / daysBetweenEndDateAndToday)
-                        });
+        if (isNaN(daysBetweenEndDateAndToday) || isNaN(daysBetweenTodayAndStartDate)) {
+            $('#start_today_line').css( {
+                'width' : 300
+            });
+            $('#start_end_line').css( {
+                'width' : 300
+            });
+
+            if (isNaN(daysBetweenEndDateAndToday)) {
+              $('#end_date').html('?');
+              $('#end_date').css( {
+                  'font-size' : 40
+              });
+              $('#end_date').css( {
+                  'height': 55
+              });
+            } 
+            if (isNaN(daysBetweenTodayAndStartDate)){
+                $('#start_date').html('?');
+                $('#start_date').css( {
+                    'font-size' : 40
+                });
+                $('#start_date').css( {
+                    'height': 55
+                });
+            }
+        } else {
+          $('#start_today_line').css( {
+              'width' : -600 * ((daysBetweenTodayAndStartDate + 1) / daysBetweenEndDateAndToday)
+          });
+          $('#start_end_line').css( {
+              'width' : 600 * ((daysBetweenEndDateAndToday - 1) / daysBetweenEndDateAndToday)
+          });
+        }
         $('#start_today_line').css( {
             'border-width' : 0
         });
-    } else if (daysBetweenEndDateAndToday < 0) {
+    }
+    if (daysBetweenEndDateAndToday < 0) {
         $('#start_today_line').hide();
         $('#today_start').hide();
         $('#today_end').show();
         $('#today_end_line').show();
-        $('#start_end_line')
-                .css(
-                        {
-                            'width' : 600 * ((daysBetweenEndDateAndStartDate - 1) / daysBetweenTodayAndStartDate)
-                        });
-        $('#today_end_line')
-                .css(
-                        {
-                            'width' : -600
-                                    * ((daysBetweenEndDateAndToday + 1) / daysBetweenTodayAndStartDate)
-                        });
+        $('#start_end_line').css( {
+            'width' : 600 * ((daysBetweenEndDateAndStartDate - 1) / daysBetweenTodayAndStartDate)
+        });
+        $('#today_end_line').css( {
+            'width' : -600 * ((daysBetweenEndDateAndToday + 1) / daysBetweenTodayAndStartDate)
+        });
     }
 }
 
