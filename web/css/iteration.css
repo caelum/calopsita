@@ -60,6 +60,27 @@
 	width:50px;
 }
 
+#start_and_today {
+  float: left;  
+}
+
+#today_and_end {
+  float: left;  
+}
+
+#today_start {
+  float: left;  
+}
+
+#today_end {
+  float: right;  
+}
+
+#today_end_line {
+  float: right;  
+  border-width: 0px;
+}
+
 .line {
     border-color:#000000 -moz-use-text-color -moz-use-text-color;
     border-style:dashed none none;
