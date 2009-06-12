@@ -5,36 +5,12 @@
 	media="screen" />
 
 <script type="text/javascript" src="../javascript/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="../javascript/jquery/jquery-ui-1.7.1.custom.min.js"></script>
+<script type="text/javascript" src="../javascript/jquery/selectableDraggable.js"></script>
 <script type="text/javascript" src="testrunner.js"></script>
-<script>
-	$(document).ready( function() {
-		module("duh");
-		test("a basic test example", function() {
-			ok(true, "this test is fine");
-			var value = "hello";
-			equals("hello", value, "We expect value to be hello");
-		});
-
-		module("Module A");
-
-		test("first test within module", function() {
-			ok(true, "all pass");
-		});
-
-		test("second test within module", function() {
-			ok(true, "all pass");
-		});
-
-		module("Module B");
-
-		test("some other test", function() {
-			expect(2);
-			equals(true, false, "failing test");
-			equals(true, true, "passing test");
-		});
-
-	});
-</script>
+<script type="text/javascript" src="test-common.js"></script>
+<script type="text/javascript" src="../javascript/iteration-show.js"></script>
+<script type="text/javascript" src="iteration-show-test.js"></script>
 
 </head>
 <body>
