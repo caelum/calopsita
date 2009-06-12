@@ -11,7 +11,20 @@
 	</appender>
 
 	<category name="br.com.caelum.vraptor">
-		<priority value="DEBUG" />
+		<priority value="INFO" />
 		<appender-ref ref="main" />
 	</category>
+	<category name="br.com.caelum.calopsita">
+		<priority value="INFO" />
+		<appender-ref ref="main" />
+	</category>
+	<category name="org.mortbay.log">
+		<priority value="WARN" />
+		<appender-ref ref="main" />
+	</category>
+	<category name="org.apache.jasper">
+		<priority value="WARN" />
+		<appender-ref ref="main" />
+	</category>
+	
 </log4j:configuration>
