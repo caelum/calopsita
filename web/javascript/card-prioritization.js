@@ -69,7 +69,8 @@ function fixInfinityPriority() {
 	div.append($('#level_0').attr('title', infinityText));
 }
 function fixPriorityLevels() {
-	max_priority = $('ul.board').length - 1;
+	if ($('ul.board').length > 0)
+		max_priority = $('ul.board').length - 1;
 }
 
 $(function() {
