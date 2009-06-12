@@ -9,7 +9,6 @@
 <script type="text/javascript" src="../javascript/jquery/selectableDraggable.js"></script>
 <script type="text/javascript" src="../javascript/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="testrunner.js"></script>
-<script type="text/javascript" src="test-common.js"></script>
 <script type="text/javascript" src="../javascript/iteration-show.js"></script>
 <script type="text/javascript" src="iteration-show-test.js"></script>
 <script type="text/javascript" src="../javascript/card-prioritization.js"></script>
