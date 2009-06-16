@@ -40,7 +40,7 @@ public class MyDecoratorMapper implements DecoratorMapper {
 		}
 		String uri = request.getRequestURI().replaceFirst(request.getContextPath(), "");
 		for (Entry<Object, Object> exclude : excludes.entrySet()) {
-			if(uri.matches((String) exclude.getKey()) && method.equals(exclude.getValue())) {
+			if(uri.matches((String) exclude.getKey()) && ((String)exclude.getValue()).contains(method)) {
 				return true;
 			}
 		}
