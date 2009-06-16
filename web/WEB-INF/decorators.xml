@@ -15,4 +15,8 @@
 		<pattern>/projects/*</pattern>
 	</decorator>
 
+	<decorator name="iteration" page="iteration.jsp">
+		<pattern>/projects/*/iterations/*</pattern>
+	</decorator>
+
 </decorators>
