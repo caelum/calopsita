@@ -4,13 +4,6 @@
 	<title><fmt:message key="iteration"/></title>
 	
 	<script type="text/javascript" src="<c:url value="/javascript/jquery/selectableDraggable.js"/>"></script>
-	<script type="text/javascript" src="<c:url value="/javascript/iteration-show.js"/>"></script>
-	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
-    <c:if test="${not empty iteration}">
-    	<script type="text/javascript">
-    		initialize('<c:url value="/projects/${iteration.project.id}/iterations/${iteration.id}/cards/"/>');
-    	</script>
-    </c:if>
 </head>
 
 <body>

@@ -1,21 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-	<div id="projects">
-	    <p><fmt:message key="project.name"/>: ${project.name}</p>
-	</div>
-	
-    <c:if test="${not empty iteration}">
-    <%@include file="timeline.jsp" %>
-    <div id="iteration_text">
-      <p><fmt:message key="iteration.goal"/>: ${iteration.goal}</p>
-      <c:if test="${not empty iteration.startDate}">
-  	    <p><fmt:message key="iteration.startDate"/>: ${iteration.formattedStartDate}</p>
-      </c:if>
-      <c:if test="${not empty iteration.endDate}">
-  	    <p><fmt:message key="iteration.endDate"/>: ${iteration.formattedEndDate}</p>
-      </c:if>
-    </div>
-    
-  
+<c:if test="${not empty iteration}">
   <a href="javascript:toggle('iteration');"><fmt:message key="edit"/></a><br/>
   <%@include file="editForm.jsp" %>
   
