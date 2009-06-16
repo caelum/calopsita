@@ -148,6 +148,7 @@ public class WhenActions {
     }
 
 	public WhenActions iOpenThePageOfIterationWithGoal(String goal) {
+		iOpenIterationsPage();
 		iClickOn(goal);
 		return this;
 	}

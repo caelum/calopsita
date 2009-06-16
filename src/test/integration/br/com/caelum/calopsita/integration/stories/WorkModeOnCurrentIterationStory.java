@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -16,7 +15,6 @@ public class WorkModeOnCurrentIterationStory extends DefaultStory {
 
 
 	@Test
-	@Ignore
 	public void currentIterationPageOnlyShowsIterationCards() {
 		given.thereIsAnUserNamed("doni").and()
 			.thereIsAProjectNamed("Mirror").ownedBy("doni")
@@ -33,7 +31,6 @@ public class WorkModeOnCurrentIterationStory extends DefaultStory {
 			.theCard("Support .Net").notAppearsOnPage();
 	}
 	@Test
-	@Ignore
 	public void iterationPageShowsIterationCardsAndBackLogCards() {
 		given.thereIsAnUserNamed("doni").and()
 			.thereIsAProjectNamed("Mirror").ownedBy("doni")
@@ -43,8 +40,9 @@ public class WorkModeOnCurrentIterationStory extends DefaultStory {
 				.withACardNamed("Remove TODOs")
 					.whichDescriptionIs("clean the project").and()
 			.iAmLoggedInAs("doni");
-		when.iOpenProjectPageOf("Mirror");
-		then.theCard("Remove TODOs").appearsOnList("iteration").and()
+		when.iOpenProjectPageOf("Mirror").and()
+			.iOpenThePageOfIterationWithGoal("Deploy on sf");
+		then.theCard("Remove TODOs").appearsOnList("iteration_cards").and()
 			.theCard("Support .Net").appearsOnBacklog();
 	}
 }
