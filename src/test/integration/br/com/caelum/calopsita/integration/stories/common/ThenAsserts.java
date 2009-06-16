@@ -148,9 +148,10 @@ public class ThenAsserts {
 		return this;
 	}
 
-	public void appearsOnList(String divName) {
+	public ThenAsserts appearsOnList(String divName) {
 		this.divName = divName;
 		appearsOnList();
+		return this;
 	}
 
 	public ThenAsserts shouldNotAppearOnCardList() {

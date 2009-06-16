@@ -32,4 +32,19 @@ public class WorkModeOnCurrentIterationStory extends DefaultStory {
 		then.theCard("Remove TODOs").appearsOnTodoList().and()
 			.theCard("Support .Net").notAppearsOnPage();
 	}
+	@Test
+	@Ignore
+	public void iterationPageShowsIterationCardsAndBackLogCards() {
+		given.thereIsAnUserNamed("doni").and()
+			.thereIsAProjectNamed("Mirror").ownedBy("doni")
+			.withACardNamed("Support .Net")
+				.whichDescriptionIs("We will never do it").and()
+			.withAnIterationWhichGoalIs("Deploy on sf")
+				.withACardNamed("Remove TODOs")
+					.whichDescriptionIs("clean the project").and()
+			.iAmLoggedInAs("doni");
+		when.iOpenProjectPageOf("Mirror");
+		then.theCard("Remove TODOs").appearsOnList("iteration").and()
+			.theCard("Support .Net").appearsOnBacklog();
+	}
 }
