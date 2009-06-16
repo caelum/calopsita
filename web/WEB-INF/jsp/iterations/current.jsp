@@ -9,7 +9,33 @@
 <body>
 
 <div id="tab1">
-  <%@include file="iteration.jsp" %>
+<c:if test="${not empty iteration}">
+  <div id="help" class="dialog" title="Adding and Removing Cards">
+  	<fmt:message key="iteration.help.addingAndRemovingCards"/>
+  </div>
+  <div id="todo_cards" class="selectable cards">
+  	<h2><fmt:message key="toDo"/> <a href="#" onclick="return show_help()">?</a></h2>
+  	<ol id="todo_list" class="board">
+  		<c:forEach items="${iteration.todoCards}" var="card" varStatus="s">
+  			<c:set var="cardId">cards</c:set>
+  			<%@include file="storyCard.jsp" %>
+  		</c:forEach>
+  	</ol>
+  </div>
+  <div id="done_cards" class="selectable cards">
+  	<h2><fmt:message key="done"/> <a href="#" onclick="return show_help()">?</a></h2>
+  	<ol id="done_list" class="board">
+  		<c:forEach items="${iteration.doneCards}" var="card" varStatus="s">
+  			<c:set var="cardId">done</c:set>
+  			<%@include file="storyCard.jsp" %>
+  		</c:forEach>
+  	</ol>
+  </div>
+</c:if>
+<c:if test="${empty iteration}">
+<p>There is no current iteration</p>
+</c:if>
+
 </div>
 </body>
 </html>

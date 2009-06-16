@@ -71,6 +71,7 @@ public class IterationsController {
     public void current(Project project) {
 		this.result.include("project", this.projectRepository.get(project.getId()));
         this.result.include("iteration", this.repository.getCurrentIterationFromProject(project));
+        this.result.include("today", new LocalDate());
     }
 
 	@Path("/projects/{project.id}/iterations/") @Get
