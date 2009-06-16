@@ -101,7 +101,7 @@ function prepare() {
 
     $(".selectable li").selectableAndDraggable();
 
-    $('#todo_cards').droppable( {
+    $('#todo_cards, #iteration_cards').droppable( {
         accept : '.card',
         tolerance : 'pointer',
         drop : todo_cards
@@ -156,6 +156,7 @@ function modifyCards(div, status, method) {
         url : cardsUrl,
         data : params,
         success : function(data) {
+    		$('#iteration_cards ol').html($('#iteration_cards ol', data).html());
             $('#todo_cards ol').html($('#todo_cards ol', data).html());
             $('#done_cards ol').html($('#done_cards ol', data).html());
             $('#backlog ol').html($('#backlog ol', data).html());

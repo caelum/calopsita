@@ -7,11 +7,6 @@
 <body>
 
 <div id="tab2">
-  
-  <div id="projects">
-      <p><fmt:message key="project.name"/>: ${project.name}</p>
-  </div>
-    
   <c:if test="${not empty project.iterations}">
     <div id="iterations">
       <h2><fmt:message key="iterations"/>:</h2>

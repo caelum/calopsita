@@ -1,6 +1,7 @@
 package br.com.caelum.calopsita.controller;
 
 import static br.com.caelum.vraptor.view.Results.logic;
+import static br.com.caelum.vraptor.view.Results.page;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -99,7 +100,8 @@ public class IterationsController {
 			loaded.setStatus(card.getStatus());
 			cardRepository.update(loaded);
 		}
-    	result.use(logic()).redirectTo(IterationsController.class).show(iteration);
+    	show(iteration);
+    	result.use(page()).forward("/WEB-INF/jsp/iterations/cards.jsp");
     }
 
 	@Path("/projects/{iteration.project.id}/iterations/{iteration.id}/cards/") @Delete
@@ -109,7 +111,8 @@ public class IterationsController {
 			loaded.setIteration(null);
 			cardRepository.update(loaded);
 		}
-    	result.use(logic()).redirectTo(IterationsController.class).show(iteration);
+    	show(iteration);
+    	result.use(page()).forward("/WEB-INF/jsp/iterations/cards.jsp");
     }
 
     @Path("/projects/{iteration.project.id}/iterations/{iteration.id}/") @Delete

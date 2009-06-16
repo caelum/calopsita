@@ -6,8 +6,9 @@
 	<head>	
 	    <%@include file="../WEB-INF/jsp/style-and-js.jsp" %>
 	
-	  <title><decorator:title default="Home" /> - Calopsita - Agile teams project management tool</title>
+	  <title><fmt:message key="iteration"/></title>
 	  <script type="text/javascript" src="<c:url value="/javascript/iteration-show.js"/>"></script>
+	  <script type="text/javascript" src="<c:url value="/javascript/jquery/selectableDraggable.js"/>"></script>
 	  <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
 	  <c:if test="${not empty iteration}">
 		  <script type="text/javascript">
