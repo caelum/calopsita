@@ -56,9 +56,10 @@ public class ThenAsserts {
         return this;
     }
 
-    public void appearsOnTodoList() {
+    public ThenAsserts appearsOnTodoList() {
     	this.divName = "todo_cards";
     	appearsOnList();
+    	return this;
     }
 
 	public void thisUserAppearsOnColaboratorsList(String userName) {
@@ -225,5 +226,9 @@ public class ThenAsserts {
 	public ThenAsserts appearsOnPriority(int priority) {
 		assertThat(this.browser.currentPage().div("level_" + priority), divContainsString(this.name));
 		return this;
+	}
+
+	public void notAppearsOnPage() {
+		assertThat(this.browser.currentPage().div("main"), not(divContainsString(this.name)));
 	}
 }
