@@ -19,12 +19,11 @@ public class MarkAsDoneStory extends DefaultStory {
 			.thereIsAProjectNamed("Vraptor 3")
 				.ownedBy("kung")
 				.withAnIterationWhichGoalIs("make it work")
+					.startingYesterday()
 					.withACardNamed("support Vraptor 2")
 						.whichDescriptionIs("some stuff should be backward compatible").and()
 			.iAmLoggedInAs("kung");
 		when.iOpenProjectPageOf("Vraptor 3").and()
-		    .iOpenIterationsPage().and()
-			.iOpenThePageOfIterationWithGoal("make it work").and()
 			.iFlagTheCard("support Vraptor 2").asDone();
 		then.theCard("support Vraptor 2").appearsAsDone();
 	}

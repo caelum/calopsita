@@ -127,11 +127,11 @@ function prepare() {
 
     function fixWidth() {
         var width = $('body').width();
-        $('#todo_cards').css( {
+        $('#todo_cards, #iteration_cards').css( {
             width : 0.48 * width,
             'float' : 'left'
         });
-        $('#done_cards').css( {
+        $('#done_cards, #backlog').css( {
             width : 0.48 * width,
             'float' : 'right'
         });

@@ -162,7 +162,7 @@ public class WhenActions {
 	}
 
 	public void inThisIteration() {
-		browser.currentPage().dragAndDrop(cardName, "todo_cards");
+		browser.currentPage().dragAndDrop(cardName, "iteration_cards");
 		browser.currentPage().waitUntil("$('.ui-selected').length == 0", 2000);
 	}
 

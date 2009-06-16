@@ -342,6 +342,11 @@ public class IterationTest {
 				will(returnValue(loaded));
 
 				one(cardRepository).update(loaded);
+
+				allowing(cardRepository).orderCardsByPriority(with(any(Iteration.class)));
+				allowing(cardRepository).cardsWithoutIteration(with(any(Project.class)));
+				allowing(iterationRepository).load(iteration);
+				will(returnValue(iteration));
 			}
 		});
 		return loaded;
@@ -355,6 +360,11 @@ public class IterationTest {
 
 				one(cardRepository).load(card);
 				will(returnValue(card));
+
+				allowing(cardRepository).orderCardsByPriority(with(any(Iteration.class)));
+				allowing(cardRepository).cardsWithoutIteration(with(any(Project.class)));
+				allowing(iterationRepository).load(with(any(Iteration.class)));
+				will(returnValue(new Iteration()));
 			}
 		});
 	}

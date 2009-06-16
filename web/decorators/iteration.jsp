@@ -4,8 +4,6 @@
 <page:applyDecorator name="project">
 	<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>	
-	    <%@include file="../WEB-INF/jsp/style-and-js.jsp" %>
-	
 	  <title><fmt:message key="iteration"/></title>
 	  <script type="text/javascript" src="<c:url value="/javascript/iteration-show.js"/>"></script>
 	  <script type="text/javascript" src="<c:url value="/javascript/jquery/selectableDraggable.js"/>"></script>
@@ -22,7 +20,7 @@
 		    initialize('<c:url value="/projects/${iteration.project.id }/iterations/${iteration.id}/cards/"/>');
 		  </script>
 	  </c:if>
-		<decorator:head />
+	  <decorator:head />
 	</head>
 	
 	<body>

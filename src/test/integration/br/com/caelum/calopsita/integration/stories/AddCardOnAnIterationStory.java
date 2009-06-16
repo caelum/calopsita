@@ -25,7 +25,7 @@ public class AddCardOnAnIterationStory extends DefaultStory {
 		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("new release").and()
 			.iAddTheCard("support IE8").inThisIteration();
-		then.theCard("support IE8").appearsOnTodoList();
+		then.theCard("support IE8").appearsOnList("iteration_cards");
 	}
 
 
