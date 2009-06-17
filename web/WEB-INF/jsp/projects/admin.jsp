@@ -2,6 +2,11 @@
 <html>
 <head>
 	<title><fmt:message key="project"/></title>
+	<script type="text/javascript">
+	function toggleDescription() {
+		$('.description').slideToggle();
+	}
+	</script>
 </head>
 
 <body>

@@ -2,7 +2,7 @@ function toggleDescription() {
 	$('.description').slideToggle();
 }
 $( function() {
-    $("#cardForm").validate( {
+    $("#cardForm, #editCard").validate( {
         rules : {
             "card.name" : {
                 required : true,

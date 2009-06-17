@@ -72,7 +72,9 @@ public class CardsController {
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/") @Get
 	public void edit(Card card) {
-	    result.include("card", this.repository.load(card));
+	    Card loaded = this.repository.load(card);
+		result.include("card", loaded);
+		result.include("project", loaded.getProject());
 	    result.include("gadgets", Gadgets.valueOf(this.repository.listGadgets(card)));
 	    result.include("cards", this.repository.listSubcards(card));
 	}
@@ -114,6 +116,7 @@ public class CardsController {
         }
         repository.remove(loaded);
         result.include("cards", this.projectRepository.listCardsFrom(project));
+        result.include("project", project);
         result.use(page()).forward(UPDATE_JSP);
 	}
 

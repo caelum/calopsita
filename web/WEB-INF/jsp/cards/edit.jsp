@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title><fmt:message key="project"/></title>
-	<script type="text/javascript" src="<c:url value="/javascript/project-show.js"/>"></script>
-	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
+	<script type="text/javascript" src="<c:url value="/javascript/jquery/jquery.validate.min.js"/>"></script>
+	 <script type="text/javascript" src="<c:url value="/javascript/project-cards.js"/>"></script>
 </head>
 
 <body>
@@ -13,7 +13,7 @@
     <p><fmt:message key="project.description"/>: ${card.description}</p>
 </div>
 
-<form name="editCard" action="<c:url value="/projects/${card.project.id}/cards/${card.id}/" />" method="post">
+<form id="editCard" name="editCard" action="<c:url value="/projects/${card.project.id}/cards/${card.id}/" />" method="post">
 	<p>
 		<label><fmt:message key="card.name"/></label>
 		<em>*</em><input type="text" name="card.name" value="${card.name }"/>
