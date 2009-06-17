@@ -203,24 +203,31 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts showsToday() {
-		assertThat(this.browser.currentPage().div("today"), divContainsString(new LocalDate().toString("MM-dd")));
+	    LocalDate today = new LocalDate();
+	    assertThat(this.browser.currentPage().div("today_year"), divContainsString(today.toString("yyyy")));
+	    assertThat(this.browser.currentPage().div("today_day"), divContainsString(today.toString("dd")));
+	    assertThat(this.browser.currentPage().div("today_month"), divContainsString(today.toString("MMM")));
 		return this;
 	}
 
 	public ThenAsserts showsItBegan(LocalDate whenItBegan) {
 		if (whenItBegan != null) {
-			assertThat(this.browser.currentPage().div("begin_date"), divContainsString(whenItBegan.toString("MM-dd")));
+		    assertThat(this.browser.currentPage().div("start_year"), divContainsString(whenItBegan.toString("yyyy")));
+	        assertThat(this.browser.currentPage().div("start_day"), divContainsString(whenItBegan.toString("dd")));
+	        assertThat(this.browser.currentPage().div("start_month"), divContainsString(whenItBegan.toString("MMM")));
 		} else {
-			assertThat(this.browser.currentPage().div("begin_date"), divContainsString("..."));
+			assertThat(this.browser.currentPage().div("start_date"), divContainsString("?"));
 		}
 		return this;
 	}
 
 	public void showsItEnds(LocalDate whenItEnds) {
 		if (whenItEnds != null) {
-			assertThat(this.browser.currentPage().div("end_date"), divContainsString(whenItEnds.toString("MM-dd")));
+		    assertThat(this.browser.currentPage().div("end_year"), divContainsString(whenItEnds.toString("yyyy")));
+            assertThat(this.browser.currentPage().div("end_day"), divContainsString(whenItEnds.toString("dd")));
+            assertThat(this.browser.currentPage().div("end_month"), divContainsString(whenItEnds.toString("MMM")));
 		} else {
-			assertThat(this.browser.currentPage().div("end_date"), divContainsString("..."));
+			assertThat(this.browser.currentPage().div("end_date"), divContainsString("?"));
 		}
 	}
 

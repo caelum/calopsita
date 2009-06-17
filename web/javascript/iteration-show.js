@@ -18,7 +18,7 @@ function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
     if (daysBetweenTodayAndStartDate == 0 && daysBetweenEndDateAndToday == 0) {
         $('#today_start_title').html('Start / End');
     }
-    if (!(daysBetweenTodayAndStartDate > 0)) {
+    if (!(daysBetweenEndDateAndStartDate > 0)) {
         $('#start_today_line').css( {
             'width' : 300
         });
@@ -156,7 +156,8 @@ function modifyCards(div, status, method) {
         url : cardsUrl,
         data : params,
         success : function(data) {
-    		$('#iteration_cards ol').html($('#iteration_cards ol', data).html());
+            $('#iteration_cards ol')
+                    .html($('#iteration_cards ol', data).html());
             $('#todo_cards ol').html($('#todo_cards ol', data).html());
             $('#done_cards ol').html($('#done_cards ol', data).html());
             $('#backlog ol').html($('#backlog ol', data).html());

@@ -68,7 +68,6 @@ public class IterationTimelineStory extends DefaultStory {
 		given.thereIsAnUserNamed("Ferreira").and()
 			.thereIsAProjectNamed("Hoops").ownedBy("Ferreira")
 				.withAnIterationWhichGoalIs("Allow attributes on fields")
-				.starting(oneWeekAgo()).and()
 			.iAmLoggedInAs("Ferreira");
 		when.iOpenProjectPageOf("Hoops").and()
 			.iOpenIterationsPage().and()
