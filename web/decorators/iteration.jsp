@@ -5,9 +5,6 @@
 	<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>	
 	  <title><fmt:message key="iteration"/></title>
-	  <script type="text/javascript" src="<c:url value="/javascript/iteration-show.js"/>"></script>
-	  <script type="text/javascript" src="<c:url value="/javascript/jquery/selectableDraggable.js"/>"></script>
-	  <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
 	  <c:if test="${not empty iteration}">
 		  <script type="text/javascript">
 		  $(document).ready(function() {

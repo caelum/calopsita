@@ -6,10 +6,6 @@
 	
 	<head>	
 	    <title><decorator:title default="Home" /> - Calopsita - Agile teams project management tool</title>
-	    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
-	    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/impromptu.css"/>" />
-	    <script type="text/javascript" src="<c:url value="/javascript/jquery/jquery-impromptu.2.5.min.js"/>"></script>
-	    <script type="text/javascript" src="<c:url value="/javascript/project-show.js"/>"></script>
 	    <decorator:head />
 	</head>
 	

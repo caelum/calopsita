@@ -6,6 +6,8 @@
 
     <title><decorator:title default="Home" /> - Calopsita - Agile teams project management tool</title>
 	<decorator:head />
+
+    <%@include file="../WEB-INF/jsp/extensions.jsp" %>
 </head>
 
 <body>
