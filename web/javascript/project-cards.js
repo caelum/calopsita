@@ -2,7 +2,7 @@ function toggleDescription() {
 	$('.description').slideToggle();
 }
 $( function() {
-    $("#cardForm, #editCard").validate( {
+    $("#cardForm").validate( {
         rules : {
             "card.name" : {
                 required : true,
@@ -25,6 +25,19 @@ $( function() {
             return false;
         }
     });
+    $("#editCard").validate( {
+        rules : {
+            "card.name" : {
+                required : true,
+                minlength : 4
+            },
+            "card.description" : {
+                required : true,
+                minlength : 8
+            }
+        }
+    });
+        
     $("#colaborator").validate( {
         rules : {
             "colaborator.login" : {
