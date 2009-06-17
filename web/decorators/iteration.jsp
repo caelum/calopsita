@@ -5,6 +5,7 @@
 	<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>	
 	  <title><fmt:message key="iteration"/></title>
+	  <decorator:head />
 	  <c:if test="${not empty iteration}">
 		  <script type="text/javascript">
 		  $(document).ready(function() {
@@ -17,7 +18,6 @@
 		    initialize('<c:url value="/projects/${iteration.project.id }/iterations/${iteration.id}/cards/"/>');
 		  </script>
 	  </c:if>
-	  <decorator:head />
 	</head>
 	
 	<body>

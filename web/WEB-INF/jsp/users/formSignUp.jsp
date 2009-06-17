@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title><fmt:message key="user"/></title>
-	
+		<script type="text/javascript" src="<c:url value="/javascript/jquery/jquery.validate.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/javascript/user.js"/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/user.css"/>" />
 </head>

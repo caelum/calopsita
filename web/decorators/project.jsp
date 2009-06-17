@@ -6,6 +6,7 @@
 	
 	<head>	
 	    <title><decorator:title default="Home" /> - Calopsita - Agile teams project management tool</title>
+	    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
 	    <decorator:head />
 	</head>
 	
