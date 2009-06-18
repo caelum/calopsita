@@ -1,5 +1,8 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Gadgets;
@@ -14,7 +17,7 @@ public class WhenActions {
 	private String cardName;
     private String iterationGoal;
 	private String linkName;
-	private boolean prioritizable;
+	private final List<Gadgets> gadgets = new ArrayList<Gadgets>();
 
     public WhenActions(Browser browser, Session session) {
         this.browser = browser;
@@ -105,8 +108,8 @@ public class WhenActions {
 		Form form = browser.currentPage() .form("addCard");
 		form.field("card.name").type(cardName)
 			.field("card.description").type(description);
-		if (prioritizable) {
-			form.check(Gadgets.PRIORITIZATION.name());
+		for (Gadgets gadget : gadgets) {
+			form.check(gadget.name());
 		}
 
 		form.submit();
@@ -279,11 +282,6 @@ public class WhenActions {
         return this;
     }
 
-	public WhenActions prioritizable() {
-		this.prioritizable = true;
-		return this;
-	}
-
 	public void addingGadget(Gadgets gadget) {
 		browser.currentPage().form("editCard")
 			.check(gadget.name())
@@ -329,6 +327,11 @@ public class WhenActions {
 	}
 
 	public WhenActions planningCard() {
-		return null;
+		this.gadgets.add(Gadgets.PLANNING);
+		return this;
+	}
+	public WhenActions prioritizable() {
+		this.gadgets.add(Gadgets.PRIORITIZATION);
+		return this;
 	}
 }

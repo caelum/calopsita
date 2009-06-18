@@ -34,7 +34,6 @@ public class PlanningCardStory extends DefaultStory {
 			.theCard("get fat").notAppearsOnPage();
 	}
 	@Test
-	@Ignore
 	public void addingAPlanningCard() {
 		given.thereIsAnUserNamed("adriano").and()
 			.thereIsAProjectNamed("Marriage").ownedBy("adriano")
