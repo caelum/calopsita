@@ -21,6 +21,10 @@ public class PlanningCard implements Gadget {
 	@PrimaryKeyJoinColumn
 	private Card card;
 
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private PrioritizableCard prioritizableCard;
+
 	public PlanningCard() {
 	}
 
@@ -28,6 +32,9 @@ public class PlanningCard implements Gadget {
 		this.card = card;
 	}
 
+	public PrioritizableCard getPrioritizableCard() {
+		return prioritizableCard;
+	}
 	public Card getCard() {
 		return card;
 	}

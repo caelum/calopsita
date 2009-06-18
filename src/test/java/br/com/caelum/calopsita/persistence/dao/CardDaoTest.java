@@ -22,6 +22,7 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Iteration;
+import br.com.caelum.calopsita.model.PlanningCard;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 
@@ -49,16 +50,20 @@ public class CardDaoTest {
 	@Test
 	public void cardsWithoutIteration() throws Exception {
 		Iteration iteration = givenAnIteration();
-		Card card = givenACard(iteration.getProject());
-		Card cardOfIteration = givenACardOfTheIteration(iteration);
-		Card cardOfOtherProject = givenACard(givenAProject());
+		Card card = givenAPlanningCard(iteration.getProject());
+		Card cardOfIteration = givenAPrioritizableCardOfTheIteration(iteration);
+		Card cardOfOtherProject = givenAPlanningCard(givenAProject());
+		Card notAPlanningCard = givenACard(givenAProject());
 
-		List<Card> list = dao.cardsWithoutIteration(iteration.getProject());
+		List<Card> list = dao.planningCardsWithoutIteration(iteration.getProject());
 
 		assertThat(list, hasItem(card));
 		assertThat(list, not(hasItem(cardOfIteration)));
 		assertThat(list, not(hasItem(cardOfOtherProject)));
+		assertThat(list, not(hasItem(notAPlanningCard)));
 	}
+
+
 	@Test
 	public void listingSubcard() throws Exception {
 		Card card = givenACard();
@@ -74,22 +79,23 @@ public class CardDaoTest {
 	@Test
 	public void orderedListings() throws Exception {
 		Project project = givenAProject();
-		Card card3 = givenACard(project, withPriority(3));
-		Card card1 = givenACard(project, withPriority(1));
+		Card card3 = givenAPlanningCard(project, withPriority(3));
+		Card card1 = givenAPlanningCard(project, withPriority(1));
 
 		assertOrdered(card3, card1, dao.listFrom(project));
-		assertOrdered(card3, card1, dao.cardsWithoutIteration(project));
+		assertOrdered(card3, card1, dao.planningCardsWithoutIteration(project));
 	}
 
 	@Test
 	public void listingGadgets() throws Exception {
-		Card card = givenACard(givenAProject(), withPriority(1));
+		Card card = givenAPlanningCard(givenAProject(), withPriority(1));
 
 		List<Gadget> gadgets = dao.listGadgets(card);
 
 
-		assertThat(gadgets.size(), is(1));
-		assertThat(gadgets.get(0), is(Matchers.instanceOf(PrioritizableCard.class)));
+		assertThat(gadgets.size(), is(2));
+		assertThat(gadgets, hasItem(instanceOf(PrioritizableCard.class)));
+		assertThat(gadgets, hasItem(instanceOf(PlanningCard.class)));
 	}
 
 	@Test
@@ -129,8 +135,15 @@ public class CardDaoTest {
 		assertThat(list.get(1), is(card3));
 	}
 
-	private Card givenACard(Project project, int priority) {
+	private Card givenAPlanningCard(Project project) {
 		Card card = givenACard(project);
+		session.save(new PlanningCard(card));
+		session.flush();
+		return card;
+	}
+
+	private Card givenAPlanningCard(Project project, int priority) {
+		Card card = givenAPlanningCard(project);
 
 		PrioritizableCard pCard = new PrioritizableCard();
 		pCard.setCard(card);
@@ -154,8 +167,8 @@ public class CardDaoTest {
 	}
 
 
-	private Card givenACardOfTheIteration(Iteration iteration) {
-		Card card = givenACard(iteration.getProject());
+	private Card givenAPrioritizableCardOfTheIteration(Iteration iteration) {
+		Card card = givenAPlanningCard(iteration.getProject());
 		card.setIteration(iteration);
 		session.update(card);
 		session.flush();

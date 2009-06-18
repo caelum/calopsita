@@ -4,6 +4,7 @@ import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
+import br.com.caelum.calopsita.model.PlanningCard;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.seleniumdsl.Browser;
 
@@ -67,13 +68,12 @@ public class CardContexts<T extends ProjectContexts<T>> {
 	}
 
 	public CardContexts<T> prioritizable() {
-		PrioritizableCard pcard = new PrioritizableCard();
-		pcard.setCard(card);
-		session.save(pcard);
+		session.save(new PrioritizableCard(card));
 		return this;
 	}
 
 	public CardContexts<T> planningCard() {
+		session.save(new PlanningCard(card));
 		return this;
 	}
 

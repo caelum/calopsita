@@ -344,7 +344,7 @@ public class IterationTest {
 				one(cardRepository).update(loaded);
 
 				allowing(cardRepository).orderCardsByPriority(with(any(Iteration.class)));
-				allowing(cardRepository).cardsWithoutIteration(with(any(Project.class)));
+				allowing(cardRepository).planningCardsWithoutIteration(with(any(Project.class)));
 				allowing(iterationRepository).load(iteration);
 				will(returnValue(iteration));
 			}
@@ -362,7 +362,7 @@ public class IterationTest {
 				will(returnValue(card));
 
 				allowing(cardRepository).orderCardsByPriority(with(any(Iteration.class)));
-				allowing(cardRepository).cardsWithoutIteration(with(any(Project.class)));
+				allowing(cardRepository).planningCardsWithoutIteration(with(any(Project.class)));
 				allowing(iterationRepository).load(with(any(Iteration.class)));
 				will(returnValue(new Iteration()));
 			}

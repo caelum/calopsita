@@ -88,7 +88,7 @@ public class IterationsController {
     	cardRepository.orderCardsByPriority(loaded);
     	result.include("iteration", loaded);
     	result.include("project", project);
-    	result.include("otherCards", cardRepository.cardsWithoutIteration(project));
+    	result.include("otherCards", cardRepository.planningCardsWithoutIteration(project));
     	result.include("today", new LocalDate());
     }
 
