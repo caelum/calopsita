@@ -35,6 +35,7 @@ public class DefaultStory {
     @AfterClass
     public static void destroy() {
     	new SchemaExport(cfg).create(false, true); //clearing database
+    	sessionFactory.close();
     }
 
     @Before
@@ -54,6 +55,7 @@ public class DefaultStory {
 			transaction.rollback();
 		}
         factory.close();
+        session.close();
     }
 
     protected LocalDate oneWeekAgo() {
