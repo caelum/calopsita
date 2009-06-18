@@ -21,8 +21,6 @@ public class PlanningCard implements Gadget {
 	@PrimaryKeyJoinColumn
 	private Card card;
 
-	private Iteration iteration;
-
 	public PlanningCard() {
 	}
 
@@ -44,14 +42,6 @@ public class PlanningCard implements Gadget {
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setIteration(Iteration iteration) {
-		this.iteration = iteration;
-	}
-
-	public Iteration getIteration() {
-		return iteration;
 	}
 
 }
