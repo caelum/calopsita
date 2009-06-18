@@ -47,6 +47,7 @@ public class CardsController {
     public void list(Project project) {
     	this.result.include("project", this.projectRepository.get(project.getId()));
     	this.result.include("cards",  this.repository.listFrom(project));
+    	this.result.include("gadgets", Gadgets.values());
     }
 
 	@Path("/projects/{card.project.id}/cards/") @Post

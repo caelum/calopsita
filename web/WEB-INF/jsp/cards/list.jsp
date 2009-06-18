@@ -35,7 +35,9 @@
   	</p>
   	<fieldset title="<fmt:message key="gadgets" />">
   		<legend><fmt:message key="gadgets" /></legend>
-  		<input type="checkbox" name="gadgets[0]" value="PRIORITIZATION" id="PRIORITIZATION" /><fmt:message key="PRIORITIZATION" />
+  		<c:forEach items="${gadgets}" var="gadget" varStatus="s">
+	  		<input type="checkbox" name="gadgets[${s.index }]" value="${gadget }" id="${gadget }" /><fmt:message key="${gadget}" />
+  		</c:forEach>
   	</fieldset>
 	<p>
 		<input class="buttons" type="submit" value="<fmt:message key="add"/>" />
