@@ -73,4 +73,8 @@ public class CardContexts<T extends ProjectContexts<T>> {
 		return this;
 	}
 
+	public CardContexts<T> planningCard() {
+		return this;
+	}
+
 }

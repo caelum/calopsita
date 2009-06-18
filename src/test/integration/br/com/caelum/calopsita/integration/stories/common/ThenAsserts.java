@@ -79,7 +79,6 @@ public class ThenAsserts {
 		return this;
 	}
 
-
 	@Factory
 	public static Matcher<ContentTag> divContainsString(final String string) {
 		return new TypeSafeMatcher<ContentTag>() {
