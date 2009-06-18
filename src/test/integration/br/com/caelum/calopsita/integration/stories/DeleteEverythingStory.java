@@ -17,6 +17,7 @@ public class DeleteEverythingStory extends DefaultStory {
         .thereIsAProjectNamed("Vraptor 3").ownedBy("kung")
             .withAnIterationWhichGoalIs("make it work")
 	            .withACardNamed("support Vraptor 2")
+	            	.planningCard()
 	                .whichDescriptionIs("some stuff should be backward compatible").and()
             .withAnIterationWhichGoalIs("i18n").and()
         .iAmLoggedInAs("kung");

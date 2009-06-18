@@ -35,9 +35,11 @@ public class WorkModeOnCurrentIterationStory extends DefaultStory {
 		given.thereIsAnUserNamed("doni").and()
 			.thereIsAProjectNamed("Mirror").ownedBy("doni")
 			.withACardNamed("Support .Net")
+				.planningCard()
 				.whichDescriptionIs("We will never do it").and()
 			.withAnIterationWhichGoalIs("Deploy on sf")
 				.withACardNamed("Remove TODOs")
+					.planningCard()
 					.whichDescriptionIs("clean the project").and()
 			.iAmLoggedInAs("doni");
 		when.iOpenProjectPageOf("Mirror").and()

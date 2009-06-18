@@ -74,6 +74,7 @@ public class CardContexts<T extends ProjectContexts<T>> {
 
 	public CardContexts<T> planningCard() {
 		session.save(new PlanningCard(card));
+		session.flush();
 		return this;
 	}
 

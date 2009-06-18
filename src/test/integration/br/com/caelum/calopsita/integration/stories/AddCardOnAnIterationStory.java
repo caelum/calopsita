@@ -18,11 +18,12 @@ public class AddCardOnAnIterationStory extends DefaultStory {
 		given.thereIsAnUserNamed("sergio").and()
 			.thereIsAProjectNamed("IEs4Linux")
 				.ownedBy("sergio")
+				.withACardNamed("support IE8")
+					.planningCard()
+					.whichDescriptionIs("IE8 must be supported").and()
 				.withAnIterationWhichGoalIs("new release").and()
-				.withACardNamed("support IE8").whichDescriptionIs("IE8 must be supported").and()
 			.iAmLoggedInAs("sergio");
 		when.iOpenProjectPageOf("IEs4Linux").and()
-		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("new release").and()
 			.iAddTheCard("support IE8").inThisIteration();
 		then.theCard("support IE8").appearsOnList("iteration_cards");
@@ -35,11 +36,15 @@ public class AddCardOnAnIterationStory extends DefaultStory {
 			.thereIsAProjectNamed("IEs4Linux")
 				.ownedBy("sergio")
 				.withAnIterationWhichGoalIs("new release").and()
-				.withACardNamed("support IE8").whichDescriptionIs("IE8 must be supported").and()
+				.withACardNamed("support IE8")
+					.whichDescriptionIs("IE8 must be supported")
+					.planningCard().and()
 			.thereIsAProjectNamed("Tatanka")
 				.ownedBy("sergio")
 				.withAnIterationWhichGoalIs("get promiscuous").and()
-				.withACardNamed("I am promiscuous").whichDescriptionIs("You know what it means").and()
+				.withACardNamed("I am promiscuous")
+					.whichDescriptionIs("You know what it means")
+					.planningCard().and()
 			.iAmLoggedInAs("sergio");
 		when.iOpenProjectPageOf("IEs4Linux").and()
 		    .iOpenIterationsPage().and()

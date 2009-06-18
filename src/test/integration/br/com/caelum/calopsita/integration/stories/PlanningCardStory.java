@@ -38,6 +38,7 @@ public class PlanningCardStory extends DefaultStory {
 			.withAnIterationWhichGoalIs("Postpone").and()
 			.iAmLoggedInAs("adriano");
 		when.iOpenProjectPageOf("Marriage").and()
+			.iOpenCardsPage().and()
 			.iAddTheCard("schedule date")
 				.planningCard()
 				.withDescription("we need a date for marriage").and()

@@ -20,6 +20,7 @@ public class RemoveCardOfAnIterationStory extends DefaultStory {
 				.ownedBy("harry")
 				.withAnIterationWhichGoalIs("kill all emacsians")
 					.withACardNamed("buy a weapon of mass destruction")
+						.planningCard()
 						.whichDescriptionIs("This way we'll kill'em all").and()
 			.iAmLoggedInAs("harry");
 		when.iOpenProjectPageOf("vim4dummies").and()
