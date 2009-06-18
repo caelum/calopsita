@@ -43,6 +43,12 @@ public class CardsController {
 		this.projectRepository = projectRepository;
 	}
 
+	@Path("/projects/{project.id}/cards/") @Get
+    public void list(Project project) {
+    	this.result.include("project", this.projectRepository.get(project.getId()));
+    	this.result.include("cards",  this.repository.listFrom(project));
+    }
+
 	@Path("/projects/{card.project.id}/cards/") @Post
 	public void save(final Card card, List<Gadgets> gadgets) {
 		validator.checking(new Validations() {
@@ -89,7 +95,7 @@ public class CardsController {
 		repository.updateGadgets(card, gadgets);
 		repository.update(loaded);
 		result.include("cards", this.projectRepository.listCardsFrom(project));
-		result.use(logic()).redirectTo(ProjectsController.class).cards(project);
+		result.use(logic()).redirectTo(CardsController.class).list(project);
 	}
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/") @Delete

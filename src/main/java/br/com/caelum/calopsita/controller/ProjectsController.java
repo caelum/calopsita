@@ -49,12 +49,6 @@ public class ProjectsController {
     	this.result.include("users", this.userRepository.listUnrelatedUsers(project));
     }
 
-    @Path("/projects/{project.id}/cards/") @Get
-    public void cards(Project project) {
-    	this.result.include("project", this.repository.get(project.getId()));
-    	this.result.include("cards",  this.repository.listCardsFrom(project));
-    }
-
     @Path("/projects/") @Post
     public void save(final Project project) {
         project.setOwner(currentUser);
