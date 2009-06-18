@@ -33,4 +33,18 @@ public class PlanningCardStory extends DefaultStory {
 		then.theCard("schedule date").appearsOnBacklog().and()
 			.theCard("get fat").notAppearsOnPage();
 	}
+	@Test
+	@Ignore
+	public void addingAPlanningCard() {
+		given.thereIsAnUserNamed("adriano").and()
+			.thereIsAProjectNamed("Marriage").ownedBy("adriano")
+			.withAnIterationWhichGoalIs("Postpone").and()
+		.iAmLoggedInAs("adriano");
+		when.iOpenProjectPageOf("Marriage").and()
+			.iAddTheCard("schedule date")
+				.planningCard()
+				.withDescription("we need a date for marriage").and()
+			.iOpenThePageOfIterationWithGoal("Postpone");
+		then.theCard("schedule date").appearsOnBacklog();
+	}
 }

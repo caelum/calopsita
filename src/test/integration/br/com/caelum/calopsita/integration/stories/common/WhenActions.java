@@ -100,7 +100,7 @@ public class WhenActions {
 		return this;
 	}
 
-	public void withDescription(String description) {
+	public WhenActions withDescription(String description) {
 		iClickOn(linkName);
 		Form form = browser.currentPage() .form("addCard");
 		form.field("card.name").type(cardName)
@@ -112,6 +112,7 @@ public class WhenActions {
 		form.submit();
 		iClickOn(linkName);
 		browser.currentPage().waitUntil("!($('#cards').is(':empty'))", 1000);
+		return this;
 	}
 
 	public WhenActions iEditTheCard(String cardName) {
@@ -325,5 +326,9 @@ public class WhenActions {
 	public void iUndoPriority() {
 		browser.currentPage().form("undoForm").submit();
 		browser.waitForPageLoad(3000);
+	}
+
+	public WhenActions planningCard() {
+		return null;
 	}
 }
