@@ -4,38 +4,24 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.classic.Session;
 import org.joda.time.LocalDate;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 
-public class IterationDaoTest {
+public class IterationDaoTest extends AbstractDaoTest {
 
-    private Session session;
     private IterationDao dao;
-    private Transaction transaction;
 
-    @Before
+    @Override
+	@Before
     public void setUp() throws Exception {
-        session = new AnnotationConfiguration().configure().buildSessionFactory().openSession();
-
+    	super.setUp();
         dao = new IterationDao(session);
-        transaction = session.beginTransaction();
     }
-    
-    @After
-    public void tearDown() throws Exception {
-        if (transaction != null) {
-            transaction.rollback();
-        }
-    }
-    
+
     @Test
     public void gettingCurrentIterationWithNoDates() throws Exception {
         Iteration iteration = givenAnIteration();
@@ -43,7 +29,7 @@ public class IterationDaoTest {
 
         assertThat(current, not(is(iteration)));
     }
-    
+
     @Test
     public void gettingCurrentIterationAlreadyStartedButNotFinished() throws Exception {
         Iteration iteration = givenAnIteration(withStartDate(yesterday()), withEndDate(tomorrow()));
@@ -51,7 +37,7 @@ public class IterationDaoTest {
 
         assertThat(current, is(iteration));
     }
-    
+
     @Test
     public void gettingCurrentIterationAlreadyStartedAndFinished() throws Exception {
         Iteration iteration = givenAnIteration(withStartDate(yesterday()), withEndDate(yesterday()));
@@ -59,7 +45,7 @@ public class IterationDaoTest {
 
         assertThat(current, not(is(iteration)));
     }
-    
+
     @Test
     public void gettingCurrentIterationAlreadyStartedWithNoEndDate() throws Exception {
         Iteration iteration = givenAnIteration(withStartDate(yesterday()));
@@ -67,7 +53,7 @@ public class IterationDaoTest {
 
         assertThat(current, is(iteration));
     }
-    
+
     @Test
     public void gettingCurrentIterationNotStartedYet() throws Exception {
         Iteration iteration = givenAnIteration(withStartDate(tomorrow()));

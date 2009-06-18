@@ -6,10 +6,6 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.classic.Session;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,30 +14,19 @@ import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.PrioritizationRepository;
 
-public class PrioritizationDaoTest {
+public class PrioritizationDaoTest extends AbstractDaoTest{
 
-	private Session session;
-	private Transaction transaction;
 	private PrioritizationRepository dao;
 	private Project project;
 
+	@Override
 	@Before
 	public void setUp() throws Exception {
-		session = new AnnotationConfiguration().configure().buildSessionFactory().openSession();
-
+		super.setUp();
 		dao = new PrioritizationDao(session);
-		transaction = session.beginTransaction();
 		project = new Project();
 		project.setName("A Project");
 		session.save(project);
-	}
-
-
-	@After
-	public void tearDown() throws Exception {
-		if (transaction != null) {
-			transaction.rollback();
-		}
 	}
 
 	@Test

@@ -10,11 +10,7 @@ import static org.junit.Assert.assertThat;
 import java.text.ParseException;
 import java.util.List;
 
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.classic.Session;
 import org.joda.time.LocalDate;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,27 +19,15 @@ import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 
-public class ProjectDaoTest {
+public class ProjectDaoTest extends AbstractDaoTest {
 
-
-	private Session session;
 	private ProjectDao dao;
-	private Transaction transaction;
 
+	@Override
 	@Before
 	public void setUp() throws Exception {
-		session = new AnnotationConfiguration().configure().buildSessionFactory().openSession();
-
+		super.setUp();
 		dao = new ProjectDao(session);
-		transaction = session.beginTransaction();
-	}
-
-
-	@After
-	public void tearDown() throws Exception {
-		if (transaction != null) {
-			transaction.rollback();
-		}
 	}
 
 	@Test

@@ -11,10 +11,6 @@ import java.util.List;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.classic.Session;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,25 +22,14 @@ import br.com.caelum.calopsita.model.PlanningCard;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 
-public class CardDaoTest {
-	private Transaction transaction;
-	private Session session;
+public class CardDaoTest extends AbstractDaoTest {
 	private CardDao dao;
 
+	@Override
 	@Before
 	public void setUp() throws Exception {
-		session = new AnnotationConfiguration().configure().buildSessionFactory().openSession();
-
+		super.setUp();
 		dao = new CardDao(session);
-		transaction = session.beginTransaction();
-	}
-
-
-	@After
-	public void tearDown() throws Exception {
-		if (transaction != null) {
-			transaction.rollback();
-		}
 	}
 
 	@Test
