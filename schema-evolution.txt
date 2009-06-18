@@ -1,3 +1,6 @@
 renamed Story to Card
 
 Iteration.stories to Iteration.cards
+
+Card.priority => PrioritizableCard.priority
+Card.iteration => PlanningCard.iteration
