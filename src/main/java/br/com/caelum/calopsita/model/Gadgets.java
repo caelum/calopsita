@@ -6,13 +6,23 @@ import java.util.List;
 public enum Gadgets {
 	PRIORITIZATION {
 		@Override
-		public Gadget createGadgetFor(Card card) {
+		public PrioritizableCard createGadgetFor(Card card) {
 			return new PrioritizableCard(card);
 		}
 
 		@Override
 		public Class<? extends Gadget> gadgetClass() {
 			return PrioritizableCard.class;
+		}
+	}, PLANNING {
+		@Override
+		public PlanningCard createGadgetFor(Card card) {
+			return new PlanningCard(card);
+		}
+
+		@Override
+		public Class<? extends Gadget> gadgetClass() {
+			return PlanningCard.class;
 		}
 	};
 
