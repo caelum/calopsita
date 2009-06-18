@@ -38,7 +38,7 @@ public class CardsController {
 	public CardsController(Result result, Validator validator, SessionUser user, CardRepository repository, ProjectRepository projectRepository) {
 		this.result = result;
         this.validator = validator;
-        this.currentUser = user.getUser();
+        this.currentUser = user == null? null: user.getUser();
 		this.repository = repository;
 		this.projectRepository = projectRepository;
 	}
@@ -82,7 +82,8 @@ public class CardsController {
 	    Card loaded = this.repository.load(card);
 		result.include("card", loaded);
 		result.include("project", loaded.getProject());
-	    result.include("gadgets", Gadgets.valueOf(this.repository.listGadgets(card)));
+		result.include("gadgets", Gadgets.values());
+	    result.include("cardGadgets", Gadgets.valueOf(this.repository.listGadgets(card)));
 	    result.include("cards", this.repository.listSubcards(card));
 	}
 
