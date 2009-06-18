@@ -26,14 +26,16 @@ public class DefaultStory {
 
     @BeforeClass
     public static void prepare() {
-        cfg = new AnnotationConfiguration().configure(DefaultStory.class
-                .getResource("/hibernate.cfg.test.xml"));
+        cfg = new AnnotationConfiguration().configure();
+        cfg.setProperty("hibernate.connection.url", "jdbc:hsqldb:hsql://localhost:9005/calopsita");
         sessionFactory = cfg.buildSessionFactory();
     }
 
     @AfterClass
     public static void destroy() {
-    	sessionFactory.openSession().createQuery("delete from java.lang.Object");
+    	Session session = sessionFactory.openSession();
+		session.createQuery("delete from java.lang.Object").executeUpdate();
+		session.close();
     	sessionFactory.close();
     }
 
@@ -53,8 +55,8 @@ public class DefaultStory {
     	if (transaction != null) {
 			transaction.rollback();
 		}
+    	session.close();
         factory.close();
-        session.close();
     }
 
     protected LocalDate oneWeekAgo() {

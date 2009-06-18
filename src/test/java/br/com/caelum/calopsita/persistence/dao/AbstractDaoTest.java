@@ -27,7 +27,7 @@ public abstract class AbstractDaoTest {
 
 	@Before
 	public void setUp() throws Exception {
-		session = new AnnotationConfiguration().configure().buildSessionFactory().openSession();
+		session = sessionFactory.openSession();
 
 		transaction = session.beginTransaction();
 	}
