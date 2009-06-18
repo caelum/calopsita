@@ -38,7 +38,7 @@ public class PlanningCardStory extends DefaultStory {
 		given.thereIsAnUserNamed("adriano").and()
 			.thereIsAProjectNamed("Marriage").ownedBy("adriano")
 			.withAnIterationWhichGoalIs("Postpone").and()
-		.iAmLoggedInAs("adriano");
+			.iAmLoggedInAs("adriano");
 		when.iOpenProjectPageOf("Marriage").and()
 			.iAddTheCard("schedule date")
 				.planningCard()

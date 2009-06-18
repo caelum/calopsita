@@ -93,6 +93,7 @@ public class WhenActions {
 	}
 
 	public WhenActions iAddTheCard(String cardName) {
+		iOpenCardsPage();
 		this.cardName = cardName;
 		this.linkName = "Add Card";
 		return this;
