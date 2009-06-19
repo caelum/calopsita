@@ -1,10 +1,10 @@
 package br.com.caelum.calopsita.infra.interceptor;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import br.com.caelum.calopsita.controller.HomeController;
+import br.com.caelum.calopsita.infra.di.ManagedSession;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Interceptor;
 import br.com.caelum.vraptor.Intercepts;
@@ -15,9 +15,11 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 public class HibernateInterceptor implements Interceptor {
 
     private final SessionFactory factory;
+	private final ManagedSession session;
 
-    public HibernateInterceptor(SessionFactory factory) {
+    public HibernateInterceptor(SessionFactory factory, ManagedSession session) {
         this.factory = factory;
+		this.session = session;
     }
 
 	@Override
@@ -27,17 +29,19 @@ public class HibernateInterceptor implements Interceptor {
 
 	@Override
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
-		Session session = factory.getCurrentSession();
+		session.setSession(factory.openSession());
 
         Transaction transaction = session.beginTransaction();
         try {
             stack.next(method, resourceInstance);
-            transaction.commit();
+            session.getTransaction().commit();
         } catch (Exception e) {
-        	if (transaction != null) {
+        	if (session.getTransaction().isActive()) {
 				transaction.rollback();
 			}
             throw new InterceptionException(e);
+        } finally {
+        	session.close();
         }
 
 	}

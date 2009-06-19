@@ -5,12 +5,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vraptor.LogicException;
 import org.vraptor.view.ViewException;
 
+import br.com.caelum.calopsita.infra.di.ManagedSession;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.core.InterceptorStack;
@@ -28,37 +28,37 @@ public class HibernateInterceptorTest {
 		mockery = new Mockery();
 		stack = mockery.mock(InterceptorStack.class);
 		factory = mockery.mock(SessionFactory.class);
-		interceptor = new HibernateInterceptor(factory);
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		mockery.assertIsSatisfied();
+		interceptor = new HibernateInterceptor(factory, new ManagedSession());
 	}
 
 	@Test
 	public void openAndCloseTransactionWhenFlowIsSuccessful() throws Exception {
 		givenThatFlowWasSuccessful();
 
-		Session session = shouldOpenASession();
+		Session session = shouldOpenAndCloseASession();
 		Transaction t = shouldBeginATransaction(session);
 		shouldCommitTheTransaction(t);
 
 		whenInterceptOccurs();
+		mockery.assertIsSatisfied();
 	}
 	@Test(expected=InterceptionException.class)
 	public void rollbackTransactionWhenFlowFails() throws Exception {
 		givenThatFlowThrowsAException();
 
-		Session session = shouldOpenASession();
+		Session session = shouldOpenAndCloseASession();
 		Transaction t = shouldBeginATransaction(session);
 		shouldRollbackTheTransaction(t);
 
 		whenInterceptOccurs();
+		mockery.assertIsSatisfied();
 	}
 	private void shouldRollbackTheTransaction(final Transaction t) {
 		mockery.checking(new Expectations() {
 			{
+				one(t).isActive();
+				will(returnValue(true));
+
 				one(t).rollback();
 			}
 		});
@@ -90,18 +90,23 @@ public class HibernateInterceptorTest {
 			{
 				one(session).beginTransaction();
 				will(returnValue(transaction));
+
+				allowing(session).getTransaction();
+				will(returnValue(transaction));
 			}
 		});
 		return transaction;
 	}
 
-	private Session shouldOpenASession() {
+	private Session shouldOpenAndCloseASession() {
 
 		final Session session = mockery.mock(org.hibernate.classic.Session.class);
 		mockery.checking(new Expectations() {
 			{
-				one(factory).getCurrentSession();
+				one(factory).openSession();
 				will(returnValue(session));
+
+				one(session).close();
 			}
 		});
 		return session;
