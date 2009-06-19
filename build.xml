@@ -67,6 +67,7 @@
 	<target name="test" depends="compile" description="--> run the tests">
 		<fileset dir="${tmp.test-classes.dir}" id="unittests.fileset">
 			<include name="**/*Test.class" />
+			<exclude name="**/Abstract*Test.class" />
 		</fileset>
 
 		<!--<delete file="cobertura.ser" verbose="false" />
