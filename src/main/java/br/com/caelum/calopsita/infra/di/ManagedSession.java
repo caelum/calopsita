@@ -19,9 +19,9 @@ import org.hibernate.Transaction;
 import org.hibernate.jdbc.Work;
 import org.hibernate.stat.SessionStatistics;
 
-import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor.ioc.Component;
 
-@Resource
+@Component
 public class ManagedSession implements Session {
 
 	/**
@@ -29,10 +29,10 @@ public class ManagedSession implements Session {
 	 */
 	private static final long serialVersionUID = -4411865493965531937L;
 
-	private final Session session;
+	private Session session;
 
-	public ManagedSession(SessionFactory factory) {
-		this.session = factory.getCurrentSession();
+	public void setSession(Session session) {
+		this.session = session;
 	}
 
 	public Transaction beginTransaction() throws HibernateException {
