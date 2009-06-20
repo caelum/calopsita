@@ -9,6 +9,9 @@
 
 <div id="tab1">
 <c:if test="${not empty iteration}">
+  <a href="javascript:toggle('iteration');"><fmt:message key="edit"/></a><br/>
+  <%@include file="editForm.jsp" %>
+  
   <div id="help" class="dialog" title="Adding and Removing Cards">
   	<fmt:message key="iteration.help.addingAndRemovingCards"/>
   </div>
