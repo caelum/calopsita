@@ -4,6 +4,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -33,9 +34,7 @@ public class DefaultStory {
 
     @AfterClass
     public static void destroy() {
-    	Session session = sessionFactory.openSession();
-		session.createQuery("delete from java.lang.Object").executeUpdate();
-		session.close();
+    	new SchemaExport(cfg).drop(false, true);
     	sessionFactory.close();
     }
 
