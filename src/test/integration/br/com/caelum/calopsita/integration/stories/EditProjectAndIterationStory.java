@@ -25,10 +25,12 @@ public class EditProjectAndIterationStory extends DefaultStory {
 		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("support DSLs").and()
 			.iEditTheIteration().withGoal("support Continuations")
-				.withStartDate("10/10/2010").withEndDate("11/11/2010").and()
+				.withStartDate(oneWeekAgo()).withEndDate(nextWeek()).and()
 			.iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("support Continuations");
-		then.theIteration("support Continuations").startsAt("10/10/2010").and().endsAt("11/11/2010");
+		then.theIteration("support Continuations")
+				.startsAt(oneWeekAgo()).and()
+				.endsAt(nextWeek());
 	}
 
 

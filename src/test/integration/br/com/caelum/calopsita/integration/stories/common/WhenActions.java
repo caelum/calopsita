@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.joda.time.LocalDate;
 
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.seleniumdsl.Browser;
@@ -135,18 +136,18 @@ public class WhenActions {
         return this;
     }
 
-    public WhenActions withStartDate(String date) {
+    public WhenActions withStartDate(LocalDate localDate) {
         browser.currentPage()
             .form("addIteration")
                 .field("iteration.goal").type(iterationGoal)
-                .field("iteration.startDate").type(date);
+                .field("iteration.startDate").type(localDate.toString("MM/dd/yyyy"));
         return this;
     }
 
-    public WhenActions withEndDate(String date) {
+    public WhenActions withEndDate(LocalDate date) {
         browser.currentPage()
 	        .form("addIteration")
-	            .field("iteration.endDate").type(date)
+	            .field("iteration.endDate").type(date.toString("MM/dd/yyyy"))
 	            .submit();
         return this;
     }

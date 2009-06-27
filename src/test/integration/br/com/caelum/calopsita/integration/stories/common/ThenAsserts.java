@@ -170,13 +170,17 @@ public class ThenAsserts {
 	public void theCurrentIterationEndsToday() {
         assertThat(this.browser.currentPage().div("current"), divContainsString(new LocalDate().toString("MM/dd/yyyy")));
     }
-	public ThenAsserts startsAt(String date) {
-		assertThat(this.browser.currentPage().div("iteration_text"), divContainsString("Start Date: " + date));
+	public ThenAsserts startsAt(LocalDate localDate) {
+		assertThat(this.browser.currentPage().div("start_day"), divContainsString(localDate.toString("dd")));
+		assertThat(this.browser.currentPage().div("start_month"), divContainsString(localDate.toString("MMM")));
+		assertThat(this.browser.currentPage().div("start_year"), divContainsString(localDate.toString("yyyy")));
 		return this;
 	}
 
-	public void endsAt(String date) {
-		assertThat(this.browser.currentPage().div("iteration_text"), divContainsString("End Date: " + date));
+	public void endsAt(LocalDate date) {
+		assertThat(this.browser.currentPage().div("end_day"), divContainsString(date.toString("dd")));
+		assertThat(this.browser.currentPage().div("end_month"), divContainsString(date.toString("MMM")));
+		assertThat(this.browser.currentPage().div("end_year"), divContainsString(date.toString("yyyy")));
 	}
 
     public void theIterationThatAppearsIs(String goal) {
