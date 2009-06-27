@@ -25,11 +25,10 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 @ApplicationScoped
 public class ManagedSessionFactory implements SessionFactory {
-
-	static {
+	private final SessionFactory factory;
+	public ManagedSessionFactory() {
 		factory = new AnnotationConfiguration().configure().buildSessionFactory();
 	}
-	private final static SessionFactory factory;
 
 	public void close() throws HibernateException {
 		factory.close();

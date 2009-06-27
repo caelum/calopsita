@@ -9,11 +9,9 @@ import br.com.caelum.vraptor.Convert;
 import br.com.caelum.vraptor.Converter;
 import br.com.caelum.vraptor.converter.LocaleBasedCalendarConverter;
 import br.com.caelum.vraptor.core.RequestInfo;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Convert(LocalDate.class)
-@ApplicationScoped
 @Component
 public class LocalDateConverter implements Converter<LocalDate> {
 
