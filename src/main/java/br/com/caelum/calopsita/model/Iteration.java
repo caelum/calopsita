@@ -61,18 +61,6 @@ public class Iteration implements Identifiable, FromProject {
     public LocalDate getStartDate() {
         return startDate;
     }
-    public String getFormattedStartDate() {
-    	if (startDate == null) {
-			return "";
-		}
-    	return startDate.toString("MM/dd/yyyy");
-    }
-    public String getFormattedEndDate() {
-    	if (endDate == null) {
-    		return "";
-    	}
-    	return endDate.toString("MM/dd/yyyy");
-    }
 
     public void setStartDate(LocalDate startDate) {
     	this.startDate = startDate;
