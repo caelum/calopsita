@@ -1,8 +1,10 @@
 var message;
 var imgPath;
-function initialize(msg, imagePath) {
+var dateFormat;
+function initialize(msg, imagePath, dateFmt) {
 	message = msg;
 	imgPath = imagePath;
+	dateFormat = dateFmt;
 }
 
 $( function() {
@@ -31,7 +33,7 @@ $( function() {
     });
 
     $(".datepicker").datepicker( {
-        dateFormat : 'dd-M-yy',
+        dateFormat : dateFormat,
         showOn : 'button',
         buttonImage : imgPath,
         buttonImageOnly : true
