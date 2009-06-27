@@ -27,7 +27,7 @@ public class ThenAsserts {
     }
 
     private ContentTag div(String name) {
-    	return div(name);
+    	return this.browser.currentPage().div(name);
     }
     public void iMustBeLoggedInAs(String login) {
         ContentTag div = div("user");
