@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <script type="text/javascript" src="<c:url value="/javascript/iteration-edit.js"/>"></script>
 <script type="text/javascript">
-	initialize('<fmt:message key="validation.dateRange"/>');
+	initialize('<fmt:message key="validation.dateRange"/>', '<c:url value="/images/calendar.gif"/>');
 </script>
 <c:set var="operation">
 	<c:if test="${not empty iteration.id}">${iteration.id }/</c:if>
@@ -25,6 +25,6 @@
 	</p>
 	<p>
 		<input type="submit" value="${label }"/>
-	 	<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('iteration');"/>
+	 	<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('iteration'); $('.datepicker').change();"/>
 	</p>
 </form>

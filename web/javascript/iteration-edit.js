@@ -1,6 +1,8 @@
 var message;
-function initialize(msg) {
+var imgPath;
+function initialize(msg, imagePath) {
 	message = msg;
+	imgPath = imagePath;
 }
 
 $( function() {
@@ -16,30 +18,31 @@ $( function() {
         rules : {
             "iteration.goal" : {
                 required : true,
-                minlength : 4,
-                validateRange : true
+                minlength : 4
             },
             "iteration.startDate" : {
                 date : true
             },
             "iteration.endDate" : {
-                date : true//,
+                date : true,
+                validateRange : true
             }
         }
     });
 
     $(".datepicker").datepicker( {
-        dateFormat : 'mm/dd/yy',
+        dateFormat : 'dd-M-yy',
         showOn : 'button',
-        buttonImage : document.location + '../../../images/calendar.gif',
+        buttonImage : imgPath,
         buttonImageOnly : true
     });
     
-    $('[name=iteration.startDate]').change(function() {
+    $('[name=iteration.startDate]').change(function limitDate() {
     	$('[name=iteration.endDate]').datepicker('option', 'minDate', $(this).datepicker('getDate'));
-    });
+    }).change();
+    
     $('[name=iteration.endDate]').change(function() {
     	$('[name=iteration.startDate]').datepicker('option', 'maxDate', $(this).datepicker('getDate'));
-    });
+    }).change();
     
 });
