@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <html>
 <head>
 	<title><fmt:message key="project"/></title>
@@ -19,7 +20,7 @@
           <li id="${iteration.current ? 'current' : ''}">
   			<a href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>">${iteration.goal}</a>
   			<c:if test="${not empty iteration.endDate }" >
-  				(<fmt:message key="dueDate"/> ${iteration.endDate })
+  				(<fmt:message key="dueDate"/> <joda:format value="${iteration.endDate}" pattern="${format.jodaFormat}"/>)
   			</c:if>
   			<c:if test="${iteration.startable }">
   				<a name="start ${iteration.goal }" href="<c:url value="/projects/${project.id }/iterations/${iteration.id }/start/"/>"><fmt:message key="start" /></a>
