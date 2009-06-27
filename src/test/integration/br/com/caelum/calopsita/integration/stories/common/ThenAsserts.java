@@ -168,7 +168,7 @@ public class ThenAsserts {
 	}
 
 	public void theCurrentIterationEndsToday() {
-        assertThat(this.browser.currentPage().div("current"), divContainsString(new LocalDate().toString("yyyy-MM-dd")));
+        assertThat(this.browser.currentPage().div("current"), divContainsString(new LocalDate().toString("MM/dd/yyyy")));
     }
 	public ThenAsserts startsAt(String date) {
 		assertThat(this.browser.currentPage().div("iteration_text"), divContainsString("Start Date: " + date));

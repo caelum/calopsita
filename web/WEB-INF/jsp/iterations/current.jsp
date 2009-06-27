@@ -3,6 +3,7 @@
 <head>
 <script type="text/javascript" src="<c:url value="/javascript/iteration-show.js"/>"></script>
 	  <script type="text/javascript" src="<c:url value="/javascript/jquery/selectableDraggable.js"/>"></script>
+	  <script type="text/javascript" src="<c:url value="/javascript/jquery/jquery.validate.min.js"/>"></script>
 	  <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
 </head>
 <body>
