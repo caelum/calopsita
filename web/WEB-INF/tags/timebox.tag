@@ -1,5 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ attribute name="date" description="Date for timebox" required="true" type="org.joda.time.LocalDate" %>
 <%@ attribute name="prefix" description="Prefix for divs" required="true" type="java.lang.String" %>
 <%@ attribute name="sufix" description="Prefix for divs" required="false" type="java.lang.String" %>
