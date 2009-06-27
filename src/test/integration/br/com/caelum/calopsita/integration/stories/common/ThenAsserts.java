@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -25,24 +26,26 @@ public class ThenAsserts {
         this.browser = browser;
     }
 
+    private ContentTag div(String name) {
+    	return div(name);
+    }
     public void iMustBeLoggedInAs(String login) {
-        ContentTag div = this.browser.currentPage().div("user");
-        assertThat(div, divContainsString(login));
-        assertThat(div, divContainsString("Logout"));
+        ContentTag div = div("user");
+        assertThat(div, allOf(containsText(login), containsText("Logout")));
     }
 
     public void iShouldSeeTheError(String error) {
-        assertThat(browser.currentPage().div("errors"), divContainsString(error));
+        assertThat(div("errors"), containsText(error));
     }
 
     public void iMustNotBeLoggedIn() {
-        assertThat(this.browser.currentPage().div("login"), divContainsString("Login"));
+        assertThat(div("login"), containsText("Login"));
     }
 
     public void iAmBackToLoginPage() {
-        ContentTag div = this.browser.currentPage().div("login");
-        assertThat(div, divContainsString("Login"));
-        assertThat(div, divContainsString("Password"));
+        ContentTag div = div("login");
+        assertThat(div, containsText("Login"));
+        assertThat(div, containsText("Password"));
     }
 
     public ThenAsserts project(String projectName) {
@@ -52,7 +55,7 @@ public class ThenAsserts {
     }
 
     public ThenAsserts appearsOnList() {
-        assertThat(this.browser.currentPage().div(divName), divContainsString(name));
+        assertThat(div(divName), containsText(name));
         return this;
     }
 
@@ -63,24 +66,24 @@ public class ThenAsserts {
     }
 
 	public void thisUserAppearsOnColaboratorsList(String userName) {
-		assertThat(this.browser.currentPage().div("colaborators"), divContainsString(userName));
+		assertThat(div("colaborators"), containsText(userName));
 	}
 
     public void notAppearsOnList() {
-        assertThat(this.browser.currentPage().div(divName), not(divContainsString(name)));
+        assertThat(div(divName), not(containsText(name)));
     }
 
 	public void iAmNotAllowedToSeeTheProject() {
-		assertThat(this.browser.currentPage().div("index"), divContainsString("not allowed to see this project"));
+		assertThat(div("index"), containsText("not allowed to see this project"));
 	}
 
 	public ThenAsserts appearsOnScreen() {
-		assertThat(browser.currentPage().div("projects"), divContainsString(name));
+		assertThat(div("projects"), containsText(name));
 		return this;
 	}
 
 	@Factory
-	public static Matcher<ContentTag> divContainsString(final String string) {
+	public static Matcher<ContentTag> containsText(final String string) {
 		return new TypeSafeMatcher<ContentTag>() {
 			private String innerHTML;
 			@Override
@@ -105,7 +108,7 @@ public class ThenAsserts {
 	}
 
 	public void hasDescription(String description) {
-		assertThat(browser.currentPage().div(divName), divContainsString(description));
+		assertThat(div(divName), containsText(description));
 	}
 
 	public ThenAsserts theIteration(String iterationGoal) {
@@ -119,12 +122,12 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts appearsOnCardsListAtPosition(int i) {
-		assertThat(browser.currentPage().div("cards_"+i), divContainsString(name));
+		assertThat(div("cards_"+i), containsText(name));
 		return this;
 	}
 
 	public ThenAsserts appearsOnBacklogListAtPosition(int i) {
-		assertThat(browser.currentPage().div("backlog_"+i), divContainsString(name));
+		assertThat(div("backlog_"+i), containsText(name));
 		return this;
 	}
 
@@ -139,11 +142,11 @@ public class ThenAsserts {
 	}
 
 	public void appearsAsDone() {
-		assertThat(browser.currentPage().div("done_cards"), divContainsString(name));
+		assertThat(div("done_cards"), containsText(name));
 	}
 
 	public ThenAsserts notAppearsOnBacklog() {
-		assertThat(this.browser.currentPage().div("backlog"), not(divContainsString(name)));
+		assertThat(div("backlog"), not(containsText(name)));
 		return this;
 	}
 
@@ -154,7 +157,7 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts shouldNotAppearOnCardList() {
-		assertThat(this.browser.currentPage().div("cards"), not(divContainsString(name)));
+		assertThat(div("cards"), not(containsText(name)));
 		return this;
 	}
 
@@ -164,39 +167,39 @@ public class ThenAsserts {
 	}
 
 	public void theCurrentIterationIs(String iterationGoal) {
-		assertThat(this.browser.currentPage().div("current"), divContainsString(iterationGoal));
+		assertThat(div("current"), containsText(iterationGoal));
 	}
 
 	public void theCurrentIterationEndsToday() {
-        assertThat(this.browser.currentPage().div("current"), divContainsString(new LocalDate().toString("MM/dd/yyyy")));
+        assertThat(div("current"), containsText(new LocalDate().toString("MM/dd/yyyy")));
     }
 	public ThenAsserts startsAt(LocalDate localDate) {
-		assertThat(this.browser.currentPage().div("start_day"), divContainsString(localDate.toString("dd")));
-		assertThat(this.browser.currentPage().div("start_month"), divContainsString(localDate.toString("MMM")));
-		assertThat(this.browser.currentPage().div("start_year"), divContainsString(localDate.toString("yyyy")));
+		assertThat(div("start_day"), containsText(localDate.toString("dd")));
+		assertThat(div("start_month"), containsText(localDate.toString("MMM")));
+		assertThat(div("start_year"), containsText(localDate.toString("yyyy")));
 		return this;
 	}
 
 	public void endsAt(LocalDate date) {
-		assertThat(this.browser.currentPage().div("end_day"), divContainsString(date.toString("dd")));
-		assertThat(this.browser.currentPage().div("end_month"), divContainsString(date.toString("MMM")));
-		assertThat(this.browser.currentPage().div("end_year"), divContainsString(date.toString("yyyy")));
+		assertThat(div("end_day"), containsText(date.toString("dd")));
+		assertThat(div("end_month"), containsText(date.toString("MMM")));
+		assertThat(div("end_year"), containsText(date.toString("yyyy")));
 	}
 
     public void theIterationThatAppearsIs(String goal) {
-        assertThat(this.browser.currentPage().div("iteration_text"), divContainsString("Goal: " + goal));
+        assertThat(div("iteration_text"), containsText("Goal: " + goal));
     }
 
 	public void isPrioritizable() {
 		WhenActions actions = new WhenActions(browser, null);
 		actions.iOpenPriorizationPage();
-		assertThat(this.browser.currentPage().div("level_0"), divContainsString(this.name));
+		assertThat(div("level_0"), containsText(this.name));
 	}
 
 	public void isNotPrioritizable() {
 		WhenActions actions = new WhenActions(browser, null);
 		actions.iOpenPriorizationPage();
-		Assert.assertFalse(this.browser.currentPage().div("level_0").exists());
+		Assert.assertFalse(div("level_0").exists());
 
 	}
 
@@ -207,39 +210,39 @@ public class ThenAsserts {
 
 	public ThenAsserts showsToday() {
 	    LocalDate today = new LocalDate();
-	    assertThat(this.browser.currentPage().div("today_year"), divContainsString(today.toString("yyyy")));
-	    assertThat(this.browser.currentPage().div("today_day"), divContainsString(today.toString("dd")));
-	    assertThat(this.browser.currentPage().div("today_month"), divContainsString(today.toString("MMM")));
+	    assertThat(div("today_year"), containsText(today.toString("yyyy")));
+	    assertThat(div("today_day"), containsText(today.toString("dd")));
+	    assertThat(div("today_month"), containsText(today.toString("MMM")));
 		return this;
 	}
 
 	public ThenAsserts showsItBegan(LocalDate whenItBegan) {
 		if (whenItBegan != null) {
-		    assertThat(this.browser.currentPage().div("start_year"), divContainsString(whenItBegan.toString("yyyy")));
-	        assertThat(this.browser.currentPage().div("start_day"), divContainsString(whenItBegan.toString("dd")));
-	        assertThat(this.browser.currentPage().div("start_month"), divContainsString(whenItBegan.toString("MMM")));
+		    assertThat(div("start_year"), containsText(whenItBegan.toString("yyyy")));
+	        assertThat(div("start_day"), containsText(whenItBegan.toString("dd")));
+	        assertThat(div("start_month"), containsText(whenItBegan.toString("MMM")));
 		} else {
-			assertThat(this.browser.currentPage().div("start_date"), divContainsString("?"));
+			assertThat(div("start_date"), containsText("?"));
 		}
 		return this;
 	}
 
 	public void showsItEnds(LocalDate whenItEnds) {
 		if (whenItEnds != null) {
-		    assertThat(this.browser.currentPage().div("end_year"), divContainsString(whenItEnds.toString("yyyy")));
-            assertThat(this.browser.currentPage().div("end_day"), divContainsString(whenItEnds.toString("dd")));
-            assertThat(this.browser.currentPage().div("end_month"), divContainsString(whenItEnds.toString("MMM")));
+		    assertThat(div("end_year"), containsText(whenItEnds.toString("yyyy")));
+            assertThat(div("end_day"), containsText(whenItEnds.toString("dd")));
+            assertThat(div("end_month"), containsText(whenItEnds.toString("MMM")));
 		} else {
-			assertThat(this.browser.currentPage().div("end_date"), divContainsString("?"));
+			assertThat(div("end_date"), containsText("?"));
 		}
 	}
 
 	public ThenAsserts appearsOnPriority(int priority) {
-		assertThat(this.browser.currentPage().div("level_" + priority), divContainsString(this.name));
+		assertThat(div("level_" + priority), containsText(this.name));
 		return this;
 	}
 
 	public void notAppearsOnPage() {
-		assertThat(this.browser.currentPage().div("main"), not(divContainsString(this.name)));
+		assertThat(div("main"), not(containsText(this.name)));
 	}
 }
