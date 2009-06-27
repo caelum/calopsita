@@ -34,7 +34,7 @@ public class DefaultStory {
 
     @AfterClass
     public static void destroy() {
-    	new SchemaExport(cfg).drop(false, true);
+    	new SchemaExport(cfg).create(false, true);
     	sessionFactory.close();
     }
 
