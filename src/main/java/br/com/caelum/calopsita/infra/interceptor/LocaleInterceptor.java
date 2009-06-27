@@ -22,10 +22,29 @@ public class LocaleInterceptor implements Interceptor {
 		return true;
 	}
 
+	public enum DateFormat {
+		en("MM/dd/yyyy", "mm/dd/yy"),
+		pt("dd/MM/yyyy", "dd/mm/yy");
+		private String jodaFormat;
+		private String jsFormat;
+
+		private DateFormat(String jodaFormat, String jsFormat) {
+			this.jodaFormat = jodaFormat;
+			this.jsFormat = jsFormat;
+		}
+		public String getJodaFormat() {
+			return jodaFormat;
+		}
+		public String getJsFormat() {
+			return jsFormat;
+		}
+	}
 	@Override
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
-		result.include("locale", Locale.getDefault().getLanguage());
+		String language = Locale.getDefault().getLanguage();
+		result.include("locale", language);
+		result.include("format", DateFormat.valueOf(language));
 		stack.next(method, resourceInstance);
 	}
 
