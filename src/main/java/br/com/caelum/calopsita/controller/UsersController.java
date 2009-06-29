@@ -30,7 +30,7 @@ public class UsersController {
 		this.sessionUser = sessionUser;
     }
 
-    @Path("/users/new/") @Get @Post
+    @Path("/users/new/") @Get
     public User formSignUp() {
         return new User();
     }
