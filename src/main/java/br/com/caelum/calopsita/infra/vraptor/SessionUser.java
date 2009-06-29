@@ -3,11 +3,11 @@ package br.com.caelum.calopsita.infra.vraptor;
 import javax.servlet.http.HttpSession;
 
 import br.com.caelum.calopsita.model.User;
-import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.SessionScoped;
 
 @SessionScoped
-@Resource
+@Component
 public class SessionUser {
 
 	private final HttpSession session;

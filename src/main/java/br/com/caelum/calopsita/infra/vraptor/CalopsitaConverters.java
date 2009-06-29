@@ -10,10 +10,9 @@ import br.com.caelum.vraptor.Convert;
 import br.com.caelum.vraptor.Converter;
 import br.com.caelum.vraptor.core.Converters;
 import br.com.caelum.vraptor.core.DefaultConverters;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Container;
 
-@ApplicationScoped
+//@ApplicationScoped
 public class CalopsitaConverters implements Converters {
 
 	private final Converters delegate;
@@ -39,6 +38,10 @@ public class CalopsitaConverters implements Converters {
             }
         }
 		return delegate.to(type, container);
+	}
+	@Override
+	public void register(Class<? extends Converter<?>> converterClass) {
+		delegate.register(converterClass);
 	}
 
 }
