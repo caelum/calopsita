@@ -5,6 +5,9 @@ function initialize(url) {
 
 function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
         daysBetweenEndDateAndStartDate) {
+    $('#start_title').html('Start');
+    $('#end_title').html('End');
+    $('#today_start_today').html('Today');
     if (daysBetweenTodayAndStartDate == 0) {
         $('#start').hide();
         $('#start_today_line').hide();
@@ -142,7 +145,7 @@ function prepare() {
 $(prepare);
 function get_params(div, status) {
     var params = {};
-    $(div + ' .ui-selected').not('.clone').each( function(c, e) {
+    $(div + ' .ui-selected').not('.clone').each(function(c, e) {
         params['cards[' + c + '].id'] = $('span', e).text();
         params['cards[' + c + '].status'] = status;
     });
