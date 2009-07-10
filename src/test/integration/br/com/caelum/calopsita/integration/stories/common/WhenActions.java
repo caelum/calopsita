@@ -343,5 +343,6 @@ public class WhenActions {
 	public void iAddTheCardType(String name) {
 		browser.currentPage().waitUntil("$('#formCard').length > 0", 1000);
 		browser.currentPage().form("formCard").field("cardType.name").type(name).submit();
+		browser.currentPage().waitUntil("$('#formCard').length > 0", 1000);
 	}
 }
