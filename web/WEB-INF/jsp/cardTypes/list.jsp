@@ -1,5 +1,5 @@
 <%@include file="../javascripts.jspf" %>
-<h1><fmt:message key="cardTypes"/></h1>
+<h2><fmt:message key="cardTypes"/></h2>
 <ul>
 <c:forEach items="${cardTypeList}" var="type">
 	<li>${type }</li>

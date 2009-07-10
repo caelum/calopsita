@@ -8,7 +8,7 @@
 		$('.description').slideToggle();
 	}
 	$(function() {
-		ajaxLoad('<c:url value="/projects/${project.id}/cardType/"/>', "#cardTypes");
+		ajaxLoad('<c:url value="/projects/${project.id}/cardTypes/"/>', "#cardTypes");
 	});
 	</script>
 </head>

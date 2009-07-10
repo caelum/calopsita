@@ -12,6 +12,7 @@ function showDialog(title, body) {
 function ajaxLoad(url, target) {
 	$.ajax({
 		url: url,
+		type: 'GET',
 		success: function(data) {
 			$(target).html(data);
 		}
