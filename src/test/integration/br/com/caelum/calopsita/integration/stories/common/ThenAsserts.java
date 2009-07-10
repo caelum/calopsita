@@ -196,10 +196,11 @@ public class ThenAsserts {
 		assertThat(div("level_0"), containsText(this.name));
 	}
 
-	public void isNotPrioritizable() {
+	public ThenAsserts isNotPrioritizable() {
 		WhenActions actions = new WhenActions(browser, null);
 		actions.iOpenPriorizationPage();
 		Assert.assertFalse(div("level_0").exists());
+		return this;
 
 	}
 
@@ -244,5 +245,9 @@ public class ThenAsserts {
 
 	public void notAppearsOnPage() {
 		assertThat(div("main"), not(containsText(this.name)));
+	}
+
+	public void isPlannable() {
+
 	}
 }

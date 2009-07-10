@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.integration.stories.common;
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
@@ -63,6 +64,14 @@ public class ProjectContexts<T extends ProjectContexts<T>> extends GivenContexts
 	public T whichDescriptionIs(String description) {
 		project.setDescription(description);
 		session.flush();
+		return (T) this;
+	}
+
+	public T withACardTypeNamed(String name) {
+		return (T) this;
+	}
+
+	public T withGadgets(Gadgets... gadgets) {
 		return (T) this;
 	}
 }

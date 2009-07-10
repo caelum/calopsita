@@ -335,4 +335,8 @@ public class WhenActions {
 		this.gadgets.add(Gadgets.PRIORITIZATION);
 		return this;
 	}
+
+	public WhenActions withType(String string) {
+		return this;
+	}
 }
