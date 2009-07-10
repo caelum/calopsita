@@ -6,16 +6,20 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
-public class CardType {
+public class CardType implements FromProject {
 
 	@Id
 	private Long id;
 
 	private String name;
+
+	@ManyToOne
+	private Project project;
 
 	@CollectionOfElements
 	@Enumerated(EnumType.STRING)
@@ -45,4 +49,11 @@ public class CardType {
 		this.gadgets = gadgets;
 	}
 
+	public Project getProject() {
+		return this.project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
 }
