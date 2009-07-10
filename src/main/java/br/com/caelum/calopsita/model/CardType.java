@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -14,6 +15,7 @@ import org.hibernate.annotations.CollectionOfElements;
 public class CardType implements FromProject {
 
 	@Id
+	@GeneratedValue
 	private Long id;
 
 	private String name;
