@@ -1,8 +1,7 @@
 package br.com.caelum.calopsita.controller;
 
-import java.util.List;
-
 import br.com.caelum.calopsita.model.CardType;
+import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.CardTypeRepository;
 import br.com.caelum.vraptor.Get;
@@ -23,8 +22,9 @@ public class CardTypesController {
 	}
 
 	@Path("/projects/{project.id}/cardTypes/") @Get
-	public List<CardType> list(Project project) {
-		return this.repository.listFrom(project);
+	public void list(Project project) {
+		result.include("cardTypeList", this.repository.listFrom(project));
+		result.include("gadgets", Gadgets.values());
 	}
 	@Path("/projects/{cardType.project.id}/cardTypes/") @Post
 	public void save(CardType cardType) {
