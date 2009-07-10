@@ -10,9 +10,9 @@ import br.com.caelum.calopsita.controller.HomeController;
 import br.com.caelum.calopsita.controller.UsersController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.vraptor.InterceptionException;
-import br.com.caelum.vraptor.Interceptor;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
 @Intercepts
