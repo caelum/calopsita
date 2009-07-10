@@ -250,4 +250,10 @@ public class ThenAsserts {
 	public void isPlannable() {
 
 	}
+
+	public ThenAsserts theCardType(String name) {
+		this.divName = "cardTypes";
+		this.name = name;
+		return this;
+	}
 }

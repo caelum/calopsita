@@ -5,13 +5,13 @@
 	}
 </script>
 <h2><fmt:message key="cardTypes"/></h2>
-<ul>
+<ul id="cardTypes">
 <c:forEach items="${cardTypeList}" var="type">
-	<li>${type }</li>
+	<li>${type.name }</li>
 </c:forEach>
 </ul>
 <a class="formCard" href="javascript:toggleForm()"><fmt:message key="add.cardType"/></a>
-<form class="formCard hidden" action="<c:url value="/projects/${project.id }/cardTypes/" />" method="post">
+<form class="formCard hidden" id="formCard" action="<c:url value="/projects/${project.id }/cardTypes/" />" method="post">
 	<p>
 		<label><fmt:message key="card.name"/></label>
 		<em>*</em><input type="text" name="cardType.name"/>
