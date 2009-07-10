@@ -33,7 +33,6 @@ public class HibernateInterceptorTest {
 	public void openAndCloseTransactionWhenFlowIsSuccessful() throws Exception {
 		givenThatFlowWasSuccessful();
 
-		Session session = shouldOpenAndCloseASession();
 		Transaction t = shouldBeginATransaction(session);
 		shouldCommitTheTransaction(t);
 
@@ -44,7 +43,6 @@ public class HibernateInterceptorTest {
 	public void rollbackTransactionWhenFlowFails() throws Exception {
 		givenThatFlowThrowsAException();
 
-		Session session = shouldOpenAndCloseASession();
 		Transaction t = shouldBeginATransaction(session);
 		shouldRollbackTheTransaction(t);
 
@@ -94,17 +92,6 @@ public class HibernateInterceptorTest {
 			}
 		});
 		return transaction;
-	}
-
-	private Session shouldOpenAndCloseASession() {
-
-		final Session session = mockery.mock(org.hibernate.classic.Session.class);
-		mockery.checking(new Expectations() {
-			{
-				one(session).close();
-			}
-		});
-		return session;
 	}
 
 	private void givenThatFlowWasSuccessful() throws ViewException, LogicException {
