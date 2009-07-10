@@ -1,7 +1,6 @@
 package br.com.caelum.calopsita.infra;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -10,7 +9,6 @@ import org.junit.Test;
 import org.vraptor.LogicException;
 import org.vraptor.view.ViewException;
 
-import br.com.caelum.calopsita.infra.di.ManagedSession;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.core.InterceptorStack;
@@ -21,14 +19,14 @@ public class HibernateInterceptorTest {
 	private Mockery mockery;
 	private HibernateInterceptor interceptor;
 	private InterceptorStack stack;
-	private SessionFactory factory;
+	private Session session;
 
 	@Before
 	public void setUp() throws Exception {
 		mockery = new Mockery();
 		stack = mockery.mock(InterceptorStack.class);
-		factory = mockery.mock(SessionFactory.class);
-		interceptor = new HibernateInterceptor(factory, new ManagedSession());
+		session = mockery.mock(Session.class);
+		interceptor = new HibernateInterceptor(session);
 	}
 
 	@Test
@@ -103,9 +101,6 @@ public class HibernateInterceptorTest {
 		final Session session = mockery.mock(org.hibernate.classic.Session.class);
 		mockery.checking(new Expectations() {
 			{
-				one(factory).openSession();
-				will(returnValue(session));
-
 				one(session).close();
 			}
 		});
