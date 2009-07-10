@@ -8,3 +8,12 @@ function showDialog(title, body) {
 		hide: 'highlight'
 	});
 }
+
+function ajaxLoad(url, target) {
+	$.ajax({
+		url: url,
+		success: function(data) {
+			$(target).html(data);
+		}
+	});
+}

@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.caelum.calopsita.model.CardType;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.CardTypeRepository;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -21,7 +22,7 @@ public class CardTypeController {
 		this.repository = repository;
 	}
 
-	@Path("/projects/{project.id}/cardType/")
+	@Path("/projects/{project.id}/cardType/") @Get
 	public List<CardType> list(Project project) {
 		return this.repository.listFrom(project);
 	}

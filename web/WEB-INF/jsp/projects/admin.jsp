@@ -2,10 +2,14 @@
 <html>
 <head>
 	<title><fmt:message key="project"/></title>
+	<script type="text/javascript" src="<c:url value="/javascript/common.js"/>"></script>
 	<script type="text/javascript">
 	function toggleDescription() {
 		$('.description').slideToggle();
 	}
+	$(function() {
+		ajaxLoad('<c:url value="/projects/${project.id}/cardType/"/>', "#cardTypes");
+	});
 	</script>
 </head>
 
@@ -46,6 +50,9 @@
     <input type="submit" value="<fmt:message key="add"/>"/>
     <input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('colaborator');"/>
   </form>
+  
+  <div id="cardTypes">
+  </div>
 </div>
 </body>
 </html>

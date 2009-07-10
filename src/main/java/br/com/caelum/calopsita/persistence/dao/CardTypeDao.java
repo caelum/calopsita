@@ -7,7 +7,9 @@ import org.hibernate.Session;
 import br.com.caelum.calopsita.model.CardType;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.CardTypeRepository;
+import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class CardTypeDao implements CardTypeRepository {
 
 	private final Session session;
