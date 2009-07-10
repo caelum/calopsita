@@ -20,6 +20,7 @@
         <mapping class="br.com.caelum.calopsita.model.Iteration"/>
         <mapping class="br.com.caelum.calopsita.model.Project"/>
         <mapping class="br.com.caelum.calopsita.model.Card"/>
+        <mapping class="br.com.caelum.calopsita.model.CardType"/>
         <mapping class="br.com.caelum.calopsita.model.PrioritizableCard"/>
         <mapping class="br.com.caelum.calopsita.model.PlanningCard" />
         <mapping class="br.com.caelum.calopsita.model.User"/>
