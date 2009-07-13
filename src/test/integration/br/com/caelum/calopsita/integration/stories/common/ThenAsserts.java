@@ -10,8 +10,8 @@ import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.hibernate.Session;
 import org.joda.time.LocalDate;
-import org.junit.Assert;
 
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.ContentTag;
@@ -21,9 +21,11 @@ public class ThenAsserts {
     private final Browser browser;
     private String name;
 	private String divName;
+	private final Session session;
 
-    public ThenAsserts(Browser browser) {
+    public ThenAsserts(Browser browser, Session session) {
         this.browser = browser;
+		this.session = session;
     }
 
     private ContentTag div(String name) {
@@ -197,9 +199,10 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts isNotPrioritizable() {
-		WhenActions actions = new WhenActions(browser, null);
-		actions.iOpenPriorizationPage();
-		Assert.assertFalse(div("level_0").exists());
+		Long count = (Long) session.createQuery("select count(*) from PrioritizableCard c where c.card.name = :name")
+			.setParameter("name", name).uniqueResult();
+
+		assertThat(count, is(0l));
 		return this;
 
 	}
@@ -248,7 +251,10 @@ public class ThenAsserts {
 	}
 
 	public void isPlannable() {
+		Long count = (Long) session.createQuery("select count(*) from PlanningCard c where c.card.name = :name")
+			.setParameter("name", name).uniqueResult();
 
+		assertThat(count, is(1l));
 	}
 
 	public ThenAsserts theCardType(String name) {

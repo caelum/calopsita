@@ -37,6 +37,7 @@ public class CardTypeStory extends DefaultStory {
 					.withGadgets(Gadgets.PLANNING).and()
 			.iAmLoggedInAs("kung");
 		when.iOpenProjectPageOf("CuKung'er").and()
+			.iOpenCardsPage()
 			.iAddTheCard("Describe something")
 				.withType("Story")
 				.withDescription("I want to describe stuff");

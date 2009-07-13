@@ -73,6 +73,7 @@ public class ProjectContexts<T extends ProjectContexts<T>> extends GivenContexts
 
 	public T withACardTypeNamed(String name) {
 		cardType = new CardType();
+		cardType.setName(name);
 		cardType.setProject(project);
 		session.save(cardType);
 		session.flush();

@@ -45,7 +45,7 @@ public class DefaultStory {
         session = sessionFactory.openSession();
         given = new GivenContexts(browser, session);
         when = new WhenActions(browser, session);
-        then = new ThenAsserts(browser);
+        then = new ThenAsserts(browser, session);
         transaction = session.beginTransaction();
     }
 

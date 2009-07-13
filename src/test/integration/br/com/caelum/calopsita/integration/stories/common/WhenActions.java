@@ -19,6 +19,7 @@ public class WhenActions {
     private String iterationGoal;
 	private String linkName;
 	private final List<Gadgets> gadgets = new ArrayList<Gadgets>();
+	private String type;
 
     public WhenActions(Browser browser, Session session) {
         this.browser = browser;
@@ -113,6 +114,9 @@ public class WhenActions {
 			form.check(gadget.name());
 		}
 
+		if (type != null) {
+			browser.currentPage().form("addCard").select("cardType").choose(type);
+		}
 		form.submit();
 		iClickOn(linkName);
 		browser.currentPage().waitUntil("!($('#cards').is(':empty'))", 1000);
@@ -337,7 +341,8 @@ public class WhenActions {
 	}
 
 	public WhenActions withType(String cardType) {
-		browser.currentPage().form("cardForm").select("cardType").choose(cardType);
+		iClickOn(linkName);
+		this.type = cardType;
 		return this;
 	}
 
