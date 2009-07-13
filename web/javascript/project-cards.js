@@ -1,6 +1,10 @@
 function toggleDescription() {
 	$('.description').slideToggle();
 }
+
+function selectGadgets(select) {
+	
+}
 $( function() {
     $("#cardForm").validate( {
         rules : {

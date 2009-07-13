@@ -6,6 +6,15 @@
 	<label><fmt:message key="card.description"/></label>
 	<em>*</em><textarea name="card.description" >${card.description }</textarea>
 </p>
+<p>
+	<label><fmt:message key="cardType" /></label>
+	<select onchange="selectGadgets(this)">
+		<option value=""></option>
+		<c:forEach items="${cardTypes}" var="type" >
+			<option value="${type.gadgets }">${type.name }</option>
+		</c:forEach>
+	</select>
+</p>
 <fieldset>
  		<legend><fmt:message key="gadgets" /></legend>
  		<c:forEach items="${gadgets}" var="gadget" varStatus="s">
