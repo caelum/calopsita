@@ -68,7 +68,7 @@ public class IterationsController {
         });
 	}
 
-	@Path("/projects/{project.id}/iterations/current/") @Get
+	@Path(priority = 1, value = "/projects/{project.id}/iterations/current/") @Get
     public void current(Project project) {
 		this.result.include("project", this.projectRepository.get(project.getId()));
         this.result.include("iteration", this.repository.getCurrentIterationFromProject(project));
@@ -81,7 +81,7 @@ public class IterationsController {
         this.result.include("iterations", this.projectRepository.listIterationsFrom(project));
     }
 
-	@Path("/projects/{iteration.project.id}/iterations/{iteration.id}/") @Get
+	@Path(priority = 2, value = "/projects/{iteration.project.id}/iterations/{iteration.id}/") @Get
     public void show(Iteration iteration) {
     	Iteration loaded = repository.load(iteration);
     	Project project = loaded.getProject();
