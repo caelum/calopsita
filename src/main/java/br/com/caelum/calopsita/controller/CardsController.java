@@ -48,6 +48,7 @@ public class CardsController {
     	this.result.include("project", this.projectRepository.get(project.getId()));
     	this.result.include("cards",  this.repository.listFrom(project));
     	this.result.include("gadgets", Gadgets.values());
+    	this.result.include("cardTypes", this.projectRepository.listCardTypesFrom(project));
     }
 
 	@Path("/projects/{card.project.id}/cards/") @Post
@@ -85,6 +86,7 @@ public class CardsController {
 		result.include("gadgets", Gadgets.values());
 	    result.include("cardGadgets", Gadgets.valueOf(this.repository.listGadgets(card)));
 	    result.include("cards", this.repository.listSubcards(card));
+	    result.include("cardTypes", this.projectRepository.listCardTypesFrom(loaded.getProject()));
 	}
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/") @Post

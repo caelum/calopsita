@@ -1,8 +1,11 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
+import java.util.Arrays;
+
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.CardType;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
@@ -15,6 +18,7 @@ public class ProjectContexts<T extends ProjectContexts<T>> extends GivenContexts
 	private final Session session;
 	private final Project project;
 	private final Browser browser;
+	private CardType cardType;
 
 	public ProjectContexts(Project project, Session session, Browser browser) {
 		super(browser, session);
@@ -68,10 +72,16 @@ public class ProjectContexts<T extends ProjectContexts<T>> extends GivenContexts
 	}
 
 	public T withACardTypeNamed(String name) {
+		cardType = new CardType();
+		cardType.setProject(project);
+		session.save(cardType);
+		session.flush();
 		return (T) this;
 	}
 
 	public T withGadgets(Gadgets... gadgets) {
+		cardType.setGadgets(Arrays.asList(gadgets));
+		session.flush();
 		return (T) this;
 	}
 }

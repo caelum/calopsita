@@ -8,7 +8,7 @@
 </p>
 <p>
 	<label><fmt:message key="cardType" /></label>
-	<select onchange="selectGadgets(this)">
+	<select id="cardType" onchange="selectGadgets(this)">
 		<option value=""></option>
 		<c:forEach items="${cardTypes}" var="type" >
 			<option value="${type.gadgets }">${type.name }</option>
@@ -18,6 +18,6 @@
 <fieldset>
  		<legend><fmt:message key="gadgets" /></legend>
  		<c:forEach items="${gadgets}" var="gadget" varStatus="s">
-  		<input type="checkbox" name="gadgets[${s.index }]" value="${gadget }" id="${gadget }" ${fn:contains(cardGadgets, gadget)? 'checked="checked"':'' }/><fmt:message key="${gadget}" />
+  		<input class="gadget" type="checkbox" name="gadgets[${s.index }]" value="${gadget }" id="${gadget }" ${fn:contains(cardGadgets, gadget)? 'checked="checked"':'' }/><fmt:message key="${gadget}" />
  		</c:forEach>
 </fieldset>

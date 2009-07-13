@@ -3,7 +3,13 @@ function toggleDescription() {
 }
 
 function selectGadgets(select) {
-	
+	$('.gadget').attr('checked', false);
+	if ($(select).val()) {
+		var gadgets = $(select).val().match(/\[(.*)\]/)[1].split(', ');
+		$(gadgets).each(function(k, v) {
+			$('#' + v).attr('checked', true);
+		});
+	}
 }
 $( function() {
     $("#cardForm").validate( {

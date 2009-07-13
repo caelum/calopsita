@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.CardType;
 import br.com.caelum.calopsita.model.FromProject;
 import br.com.caelum.calopsita.model.Identifiable;
 import br.com.caelum.calopsita.model.Iteration;
@@ -105,5 +106,10 @@ public class ProjectDao implements ProjectRepository {
 				.setParameter("project", project)
 				.setParameter("user", user)
 				.uniqueResult() == null;
+	}
+
+	@Override
+	public List<CardType> listCardTypesFrom(Project project) {
+		return new CardTypeDao(session).listFrom(project);
 	}
 }

@@ -336,7 +336,8 @@ public class WhenActions {
 		return this;
 	}
 
-	public WhenActions withType(String string) {
+	public WhenActions withType(String cardType) {
+		browser.currentPage().form("cardForm").select("cardType").choose(cardType);
 		return this;
 	}
 

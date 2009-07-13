@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -31,7 +30,6 @@ public class CardTypeStory extends DefaultStory {
 	}
 
 	@Test
-	@Ignore
 	public void createACardOfAGivenType() {
 		given.thereIsAnUserNamed("kung").and()
 			.thereIsAProjectNamed("CuKung'er").ownedBy("kung")
