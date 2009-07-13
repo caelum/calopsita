@@ -34,7 +34,6 @@ public class DefaultStory {
 
     @AfterClass
     public static void destroy() {
-    	new SchemaExport(cfg).create(false, true);
     	sessionFactory.close();
     }
 
@@ -56,6 +55,7 @@ public class DefaultStory {
 		}
     	session.close();
         factory.close();
+        new SchemaExport(cfg).create(false, true);
     }
 
     protected LocalDate oneWeekAgo() {

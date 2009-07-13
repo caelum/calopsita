@@ -199,6 +199,7 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts isNotPrioritizable() {
+		session.flush();
 		Long count = (Long) session.createQuery("select count(*) from PrioritizableCard c where c.card.name = :name")
 			.setParameter("name", name).uniqueResult();
 
