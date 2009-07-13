@@ -25,20 +25,7 @@
   <a href="javascript:toggle('cardForm'); document.addCard.reset();"><fmt:message key="project.addCard"/></a><br/>
   
   <form id="cardForm" class="hidden" name="addCard" action="<c:url value="/projects/${project.id }/cards/"/>" method="post">
-  	<p>
-  		<label><fmt:message key="card.name"/></label>
-  		<em>*</em><input type="text" name="card.name"/>
-  	</p>
-  	<p>
-  		<label><fmt:message key="card.description"/></label>
-  		<em>*</em><textarea name="card.description"></textarea>
-  	</p>
-  	<fieldset title="<fmt:message key="gadgets" />">
-  		<legend><fmt:message key="gadgets" /></legend>
-  		<c:forEach items="${gadgets}" var="gadget" varStatus="s">
-	  		<input type="checkbox" name="gadgets[${s.index }]" value="${gadget }" id="${gadget }" /><fmt:message key="${gadget}" />
-  		</c:forEach>
-  	</fieldset>
+  	<%@include file="form.jsp" %>
 	<p>
 		<input class="buttons" type="submit" value="<fmt:message key="add"/>" />
 		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');" />

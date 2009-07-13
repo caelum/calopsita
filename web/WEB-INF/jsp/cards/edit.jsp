@@ -17,20 +17,7 @@
 </div>
 
 <form id="editCard" name="editCard" action="<c:url value="/projects/${card.project.id}/cards/${card.id}/" />" method="post">
-	<p>
-		<label><fmt:message key="card.name"/></label>
-		<em>*</em><input type="text" name="card.name" value="${card.name }"/>
-	</p>
-	<p>
-		<label><fmt:message key="card.description"/></label>
-		<em>*</em><textarea name="card.description" >${card.description }</textarea>
-	</p>
-	<fieldset>
-  		<legend><fmt:message key="gadgets" /></legend>
-  		<c:forEach items="${gadgets}" var="gadget" varStatus="s">
-	  		<input type="checkbox" name="gadgets[${s.index }]" value="${gadget }" id="${gadget }" ${fn:contains(cardGadgets, gadget)? 'checked="checked"':'' }/><fmt:message key="${gadget}" />
-  		</c:forEach>
-	</fieldset>
+	<%@include file="form.jsp" %>
 	<p>
 		<input class="buttons" type="submit" value="<fmt:message key="update"/>"/>
 		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="window.location = $('#back').attr('href')"/>
@@ -46,20 +33,7 @@
 <a href="javascript:toggle('cardForm'); document.addCard.reset();">Add Subcard</a><br/>
 
 <form id="cardForm" class="hidden" name="addCard" action="<c:url value="/projects/${card.project.id }/cards/${card.id }/subcards/"/>" method="post">
-	<p>
-		<label><fmt:message key="card.name"/></label>
-		<em>*</em><input type="text" name="card.name"/>
-	</p>
-	<p>
-		<label><fmt:message key="card.description"/></label>
-		<em>*</em><textarea name="card.description"></textarea>
-	</p>
-	<fieldset title="<fmt:message key="gadgets" />">
-  		<legend><fmt:message key="gadgets" /></legend>
-  		<c:forEach items="${gadgets}" var="gadget" varStatus="s">
-	  		<input type="checkbox" name="gadgets[${s.index }]" value="${gadget }" id="${gadget }" /><fmt:message key="${gadget}" />
-  		</c:forEach>
-  	</fieldset>
+	<%@include file="form.jsp" %>
     <p>
     	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
   		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');"/>
