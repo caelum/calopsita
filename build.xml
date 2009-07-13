@@ -243,6 +243,6 @@
 		<sshexec host="${staging.ip}" username="${staging.user}" password="${staging.user}" command="jetty/bin/jetty.sh stop" failonerror="false"/>
 		<scp file="${artifacts.dir}/${war.file}" todir="${staging.user}:${staging.user}@${staging.ip}:~/${war.filename}-staging.war" failonerror="false"/>
 		<scp file="${basedir}/deploy.sh" todir="${staging.user}:${staging.user}@${staging.ip}:~/deploy.sh" failonerror="false"/>
-		<sshexec host="${staging.ip}" username="${staging.user}" password="${staging.user}" command="sh ~/deploy.sh &amp;" failonerror="false"/>
+		<sshexec host="${staging.ip}" username="${staging.user}" password="${staging.user}" command="sh ~/deploy.sh &amp;" failonerror="false" timeout="100000"/>
 	</target>
 </project>
