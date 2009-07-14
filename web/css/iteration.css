@@ -141,3 +141,7 @@
 	background: #DDDDDD;
 	font-size:15px;
 }
+
+#prioritizationForm {
+	clear: both;
+}

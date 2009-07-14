@@ -50,6 +50,7 @@ body {
 	display: none;
 	padding: 10px;
 	margin: 10px;
+	clear: both;
 }
 
 .help .close {

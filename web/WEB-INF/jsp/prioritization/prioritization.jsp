@@ -17,6 +17,9 @@
     	<p><fmt:message key="project.name"/>: ${project.name}</p>
     	<p><fmt:message key="project.description"/>: ${project.description}</p>
 	</div>
+	<div class="help">
+		<p><fmt:message key="help.prioritization" /></p>
+	</div>
 	
 	<div id="prioritizationForm">
 		<div id="board">
