@@ -11,7 +11,20 @@
 	    <script type="text/javascript">
 		  //<![CDATA[
 		  	$(function() {
-				$('#page-tabs').tabs();
+		  		$('#page-tabs').tabs({
+		  		    select: function(event, ui) {
+		  		    	console.log(ui);
+		  		    	console.log(ui.tab);
+		  		    	console.log(ui.panel);
+		  		        var url = $.data(ui.tab, 'load.tabs');
+		  		    	console.log(url);
+		  		        if( url ) {
+		  		            location.href = url;
+		  		            return false;
+		  		        }
+		  		        return true;
+		  		    }
+		  		});
 		  	});
 		  //]]>
 		</script>

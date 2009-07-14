@@ -12,21 +12,25 @@
 <body>
 
 <div id="tab3">
-  
-  <div id="cards">
-  	<c:if test="${not empty cards}">
-  		<%@include file="../cards/update.jsp" %>
-  	</c:if>
+  <div id="page-tabs">
+	<ul>
+		<li><a href="#cards"><fmt:message key="cards.all"/></a></li>
+		<li><a href="<c:url value="/projects/${project.id }/prioritization/"/>"><fmt:message key="prioritize"/></a></li>
+		<li><a href="#cardForm"><fmt:message key="project.addCard"/></a></li>
+	</ul>
+	  <div id="cards">
+	  	<c:if test="${not empty cards}">
+	  		<%@include file="../cards/update.jsp" %>
+	  	</c:if>
+	  </div>
+	  <form id="cardForm" name="addCard" action="<c:url value="/projects/${project.id }/cards/"/>" method="post">
+	  	<%@include file="form.jsp" %>
+		<p>
+			<input class="buttons" type="submit" value="<fmt:message key="add"/>" />
+			<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');" />
+		</p>
+	  </form>
   </div>
-  <a href="javascript:toggle('cardForm'); document.addCard.reset();"><fmt:message key="project.addCard"/></a>
-  <br/>
-  <form id="cardForm" class="hidden" name="addCard" action="<c:url value="/projects/${project.id }/cards/"/>" method="post">
-  	<%@include file="form.jsp" %>
-	<p>
-		<input class="buttons" type="submit" value="<fmt:message key="add"/>" />
-		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');" />
-	</p>
-</form>
 </div>
 </body>
 </html>
