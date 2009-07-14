@@ -13,8 +13,6 @@ import org.jmock.Mockery;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vraptor.LogicException;
-import org.vraptor.view.ViewException;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
@@ -94,14 +92,14 @@ public class AuthenticationInterceptorTest {
 
 	}
 
-	private void shouldExecuteFlow() throws ViewException, LogicException {
+	private void shouldExecuteFlow() {
 		mockery.checking(new Expectations() {
 			{
 				one(stack).next(with(any(ResourceMethod.class)), with(any(Object.class)));
 			}
 		});
 	}
-	private void shouldNotExecuteFlow() throws ViewException, LogicException {
+	private void shouldNotExecuteFlow() {
 		mockery.checking(new Expectations() {
 			{
 				never(stack).next(with(any(ResourceMethod.class)), with(any(Object.class)));
@@ -110,7 +108,7 @@ public class AuthenticationInterceptorTest {
 
 	}
 
-	private void whenInterceptOccurs() throws LogicException, ViewException {
+	private void whenInterceptOccurs() {
 		interceptor.intercept(stack, null, null);
 	}
 }

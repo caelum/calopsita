@@ -12,8 +12,6 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
-import org.vraptor.LogicException;
-import org.vraptor.view.ViewException;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
@@ -110,7 +108,7 @@ public class AuthorizationInterceptorTest {
 		});
 	}
 
-	private void shouldExecuteFlow() throws ViewException, LogicException {
+	private void shouldExecuteFlow() {
 		mockery.checking(new Expectations() {
 
 			{
@@ -118,7 +116,7 @@ public class AuthorizationInterceptorTest {
 			}
 		});
 	}
-	private void shouldNotExecuteFlow() throws ViewException, LogicException {
+	private void shouldNotExecuteFlow() {
 		mockery.checking(new Expectations() {
 			{
 				never(stack).next(with(any(ResourceMethod.class)), with(any(Object.class)));
@@ -127,7 +125,7 @@ public class AuthorizationInterceptorTest {
 
 	}
 
-	private void whenInterceptOccurs() throws LogicException, ViewException {
+	private void whenInterceptOccurs()  {
 		interceptor.intercept(stack, null, null);
 	}
 

@@ -6,8 +6,6 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
-import org.vraptor.LogicException;
-import org.vraptor.view.ViewException;
 
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.vraptor.InterceptionException;
@@ -60,11 +58,11 @@ public class HibernateInterceptorTest {
 		});
 	}
 
-	private void givenThatFlowThrowsAException() throws ViewException, LogicException {
+	private void givenThatFlowThrowsAException() {
 		mockery.checking(new Expectations() {
 			{
 				one(stack).next(with(any(ResourceMethod.class)), with(any(Object.class)));
-				will(throwException(new ViewException()));
+				will(throwException(new InterceptionException("")));
 			}
 		});
 
@@ -94,14 +92,14 @@ public class HibernateInterceptorTest {
 		return transaction;
 	}
 
-	private void givenThatFlowWasSuccessful() throws ViewException, LogicException {
+	private void givenThatFlowWasSuccessful() {
 		mockery.checking(new Expectations() {
 			{
 				one(stack).next(with(any(ResourceMethod.class)), with(any(Object.class)));
 			}
 		});
 	}
-	private void whenInterceptOccurs() throws LogicException, ViewException {
+	private void whenInterceptOccurs() {
 		interceptor.intercept(stack, null, null);
 	}
 }
