@@ -119,15 +119,6 @@ function prepare() {
         tolerance : 'pointer',
         drop : remove_cards
     });
-    $('.dialog').dialog( {
-        autoOpen : false,
-        bgiframe : true,
-        modal : true,
-        width : '500px',
-        show : 'highlight',
-        hide : 'highlight'
-    });
-
     function fixWidth() {
         var width = $('body').width();
         $('#todo_cards, #iteration_cards').css( {
@@ -176,11 +167,4 @@ function done_cards() {
 }
 function remove_cards() {
     modifyCards('.cards', 'TODO', 'DELETE');
-}
-function show_help() {
-    $('#help').dialog('open');
-    return false;
-}
-function open_dialog(id) {
-    $('#dialog_' + id).dialog('open');
 }
