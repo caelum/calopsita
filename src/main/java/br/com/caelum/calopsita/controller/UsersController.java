@@ -1,6 +1,7 @@
 package br.com.caelum.calopsita.controller;
 
 import static br.com.caelum.vraptor.view.Results.logic;
+import static br.com.caelum.vraptor.view.Results.nothing;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
@@ -70,5 +71,13 @@ public class UsersController {
     public void logout() {
         sessionUser.setUser(null);
         result.use(logic()).redirectTo(HomeController.class).login();
+    }
+
+    @Path("/users/toggleNewbie/") @Get
+    public void toggleNewbie() {
+    	User user = repository.find(sessionUser.getUser().getLogin());
+    	user.toggleNewbie();
+    	sessionUser.setUser(user);
+    	result.use(nothing());
     }
 }

@@ -55,6 +55,22 @@ public class UserTest {
     }
 
     @Test
+	public void toggleNewbie() throws Exception {
+    	final User user = givenUser("caue");
+
+    	givenThatUserExists(user);
+
+    	shouldPutUserOnSession(user);
+
+    	assertThat(sessionUser.getUser().isNewbie(), is(false));
+
+    	whenIToggleNewbie();
+
+    	assertThat(sessionUser.getUser().isNewbie(), is(true));
+
+	}
+
+	@Test
     public void signUpWithNewUser() throws Exception {
         final User user = givenUser("caue");
 
@@ -130,6 +146,11 @@ public class UserTest {
         shouldHavePasswordHashed(user, "caue");
         mockery.assertIsSatisfied();
     }
+
+    private void whenIToggleNewbie() {
+    	logic.toggleNewbie();
+	}
+
 	private void shouldRemoveUserFromSession() {
 
 		mockery.checking(new Expectations() {

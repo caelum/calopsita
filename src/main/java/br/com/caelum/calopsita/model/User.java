@@ -115,4 +115,8 @@ public class User implements Identifiable {
 	public String getId() {
 		return login;
 	}
+
+	public void toggleNewbie() {
+		this.newbie = !this.newbie;
+	}
 }

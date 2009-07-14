@@ -8,28 +8,13 @@
 	<decorator:head />
 
     <%@include file="../WEB-INF/jsp/extensions.jsp" %>
-    <c:if test="${currentUser.newbie}">
-		<script type="text/javascript">
-		  //<![CDATA[
-		  	$(function() {
-			  	$('<span class="close">[x]</span>')
-			  		.click(function(e) {
-						$(this).parents('.help').hide();
-				  	}).prependTo('.help > *');
-				$('.help').show();
-
-				$('#toggleHelp').click(function() {
-					if ($('#toggleHelp').is('.newbie'))
-						$('.help').hide();
-					else
-						$('.help').show();
-						
-					$('#toggleHelp').toggleClass('newbie');
-				});
-		  	});
-		  //]]>
-		</script>
-    </c:if>
+    <script type="text/javascript" src="<c:url value="/javascript/help.js"/>"></script>
+	<script type="text/javascript">
+	  //<![CDATA[
+	  	setNewbie(${currentUser.newbie});
+	  	setUrl('<c:url value="/users/toggleNewbie"/>');
+	  //]]>
+	</script>
 </head>
 
 <body>
@@ -44,7 +29,7 @@
           <div class="name">${currentUser.login}</div> 
           <a href="<c:url value="/users/logout/"/>">Logout</a>
         </c:if>
-        <div id="toggleHelp" ${currentUser.newbie? 'class="newbie"' : '' } title="Toggle Help">
+        <div id="toggleHelp" ${currentUser.newbie? 'class="newbie"' : '' } title="<fmt:message key="help.toggle" />">
        		<span>?</span>
         </div>
        </div>
