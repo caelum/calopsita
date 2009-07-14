@@ -1,3 +1,14 @@
+.information {
+	float: right;
+	width: 20%;
+	border: 1px solid gray;
+	padding: 10px;
+}
+#page-tabs {
+	float: left;
+	width: 75%;
+}
+
 label { 
   width: 8em;
   float: left; 

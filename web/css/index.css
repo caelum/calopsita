@@ -1,5 +1,5 @@
 body {
-	font-family: verdana;	
+	font-family: verdana, arial, sans-serif;	
 	background: #dee4e6 url(../images/calopsita-background.png) 100% 100% no-repeat fixed;
 }
 
@@ -24,7 +24,7 @@ body {
 }
 
 .clear {
-	clear: both;	
+	clear: both;
 }
 
 #header #user {

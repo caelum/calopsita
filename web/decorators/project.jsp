@@ -8,6 +8,13 @@
 	    <title><decorator:title default="Home" /> - Calopsita - Agile teams project management tool</title>
 	    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
 	    <decorator:head />
+	    <script type="text/javascript">
+		  //<![CDATA[
+		  	$(function() {
+				$('#page-tabs').tabs();
+		  	});
+		  //]]>
+		</script>
 	</head>
 	
 	<body>

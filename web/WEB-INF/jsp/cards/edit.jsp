@@ -11,36 +11,42 @@
 
 <body>
 
-<div id="card">
+<div id="card" class="information clear">
     <p><fmt:message key="project.name"/>: ${card.name}</p>
     <p><fmt:message key="project.description"/>: ${card.description}</p>
 </div>
+<div id="page-tabs">
+	<ul>
+		<li><a href="#editCard"><fmt:message key="card.edit"/></a></li>
+		<li><a href="#cards"><fmt:message key="card.subcards"/></a></li>
+		<li><a href="#cardForm"><fmt:message key="card.subcard.new"/></a></li>
+	</ul>
 
-<form id="editCard" name="editCard" action="<c:url value="/projects/${card.project.id}/cards/${card.id}/" />" method="post">
-	<%@include file="form.jsp" %>
-	<p>
-		<input class="buttons" type="submit" value="<fmt:message key="update"/>"/>
-		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="window.location = $('#back').attr('href')"/>
-	</p>
-</form>
-
-<div id="cards">
-	<c:if test="${not empty cards}">
-		<%@include file="update.jsp" %>
-	</c:if>
+	<form id="editCard" name="editCard" action="<c:url value="/projects/${card.project.id}/cards/${card.id}/" />" method="post">
+		<%@include file="form.jsp" %>
+		<p>
+			<input class="buttons" type="submit" value="<fmt:message key="update"/>"/>
+			<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="window.location = $('#back').attr('href')"/>
+		</p>
+	</form>
+	
+	<div id="cards">
+		<c:if test="${not empty cards}">
+			<%@include file="update.jsp" %>
+		</c:if>
+	</div>
+	
+	<form id="cardForm" name="addCard" action="<c:url value="/projects/${card.project.id }/cards/${card.id }/subcards/"/>" method="post">
+		<%@include file="form.jsp" %>
+	    <p>
+	    	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
+	  		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');"/>
+	  	</p>
+	</form>
 </div>
-
-<a href="javascript:toggle('cardForm'); document.addCard.reset();">Add Subcard</a><br/>
-
-<form id="cardForm" class="hidden" name="addCard" action="<c:url value="/projects/${card.project.id }/cards/${card.id }/subcards/"/>" method="post">
-	<%@include file="form.jsp" %>
-    <p>
-    	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
-  		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');"/>
-  	</p>
-</form>
-
+<div class="clear">
 <a id="back" href="<c:url value="/projects/${card.project.id }/cards/"/>"><fmt:message key="back"/></a>
+</div>
 
 </body>
 </html>
