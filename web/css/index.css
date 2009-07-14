@@ -48,7 +48,24 @@ body {
 
 .help {
 	display: none;
-	background-color: yellow;
-	border: 1px;
-	border-color: gray;	
+	padding: 10px;
+	margin: 10px;
+}
+
+.help .close {
+	visibility: hidden;
+}
+
+.help > span:HOVER .close {
+	visibility: visible;
+	font-family: monospace;
+	cursor: pointer;
+	color: gray;
+}
+.help > span {
+	background-color: #f5ff5c;
+	border: 1px solid gray;
+	margin: 10px;
+	padding: 10px;
+	border-color: gray;
 }

@@ -22,10 +22,11 @@
   		<%@include file="../cards/update.jsp" %>
   	</c:if>
   </div>
-  <a href="javascript:toggle('cardForm'); document.addCard.reset();"><fmt:message key="project.addCard"/></a><br/>
-  <div class="help">
+  <a href="javascript:toggle('cardForm'); document.addCard.reset();"><fmt:message key="project.addCard"/></a>
+  <div class="help"><span>
   	Click here in order to add a new card
-  </div>
+  </span></div>
+  <br/>
   <form id="cardForm" class="hidden" name="addCard" action="<c:url value="/projects/${project.id }/cards/"/>" method="post">
   	<%@include file="form.jsp" %>
 	<p>
