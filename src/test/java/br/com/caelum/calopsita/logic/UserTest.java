@@ -35,16 +35,24 @@ public class UserTest {
 		sessionUser = new SessionUser(session);
         repository = mockery.mock(UserRepository.class);
 
-
-		mockery.checking(new Expectations() {
-			{
-				allowing(session).getAttribute("currentUser");
-				will(returnValue(new User()));
-			}
-		});
         logic = new UsersController(new MockResult(), new MockValidator(), repository, sessionUser);
     }
 
+
+    @Test
+    public void aNewUserIsNewbie() throws Exception {
+    	final User user = givenUser("caue");
+
+    	givenThatUserDoesntExist(user);
+
+    	shouldSaveTheUser(user);
+
+    	whenISaveTheUser(user);
+
+    	assertThat(sessionUser.getUser(), is(notNullValue()));
+    	assertThat(sessionUser.getUser().isNewbie(), is(true));
+    	mockery.assertIsSatisfied();
+    }
 
     @Test
     public void signUpWithNewUser() throws Exception {
@@ -136,6 +144,8 @@ public class UserTest {
 		mockery.checking(new Expectations() {
 			{
 				one(session).setAttribute("currentUser", user);
+				allowing(session).getAttribute("currentUser");
+				will(returnValue(user));
 			}
 		});
     }
@@ -187,6 +197,9 @@ public class UserTest {
             {
                 one(repository).add(user);
                 one(session).setAttribute("currentUser", user);
+
+                allowing(session).getAttribute("currentUser");
+                will(returnValue(user));
             }
         });
     }

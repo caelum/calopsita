@@ -44,6 +44,7 @@ public class UsersController {
                 and(Hibernate.validate(user));
             }
         });
+        user.setNewbie(true);
         this.repository.add(user);
         sessionUser.setUser(user);
         result.use(logic()).redirectTo(ProjectsController.class).list();
