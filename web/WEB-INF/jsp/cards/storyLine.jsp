@@ -3,7 +3,8 @@
 
 <dt id="cards_${s.count}">
 	<a href="<c:url value="/projects/${card.project.id}/cards/${card.id}/"/>">${card.name }</a>
-	<a class="delete" name="delete ${card.name }" href="javascript:void(0)"
+	<a class="delete" name="delete ${card.name }" href="javascript:void(0)" 
+		title="<fmt:message key="delete"/>"
 		onclick="confirmCardDeletion('<c:url value="/projects/${card.project.id}/cards/${card.id}/"/>', ${not empty card.subcards })">X</a>
 </dt>
 <dd><pre>${fn:escapeXml(card.description) }</pre></dd>

@@ -7,6 +7,11 @@
 	<script type="text/javascript" src="<c:url value="/javascript/jquery/jquery-impromptu.2.5.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/javascript/jquery/jquery.form.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/javascript/project-cards.js"/>"></script>
+	<script type="text/javascript">
+	  //<![CDATA[
+	  
+	  //]]>
+	</script>
 </head>
 
 <body>
@@ -19,7 +24,7 @@
 	<ul>
 		<li><a href="#editCard"><fmt:message key="card.edit"/></a></li>
 		<li><a href="#cards"><fmt:message key="card.subcards"/></a></li>
-		<li><a href="#cardForm"><fmt:message key="card.subcard.new"/></a></li>
+		<li><a href="#cardForm" onclick="$('#cardForm').clearForm();"><fmt:message key="card.subcard.new"/></a></li>
 	</ul>
 
 	<form id="editCard" name="editCard" action="<c:url value="/projects/${card.project.id}/cards/${card.id}/" />" method="post">

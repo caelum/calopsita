@@ -26,12 +26,12 @@ $( function() {
         submitHandler : function(form) {
             $(form).ajaxSubmit( {
             	target: '#cards',
-                resetForm : true,
                 error : function() {
                     window.location.href = window.location + '../../../';
                 }
             });
             $('[name=card.name]').focus();
+            $(form).clearForm();
             return false;
         }
     });
