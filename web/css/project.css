@@ -43,6 +43,11 @@ em {
 
 .delete {
 	color: red;
+	text-decoration: none;
+	visibility: hidden;
+}
+*:HOVER > .delete {
+	visibility: visible;	
 }
 
 .owner {
