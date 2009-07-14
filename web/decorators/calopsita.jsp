@@ -15,7 +15,7 @@
 		  	$('<span class="close">[x]</span>')
 		  		.click(function(e) {
 					$(this).parents('.help').hide();
-			  	}).appendTo('.help span');
+			  	}).prependTo('.help > *');
 			$('.help').show();
 	  	});
 	  //]]>
