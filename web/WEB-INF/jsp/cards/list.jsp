@@ -13,10 +13,6 @@
 
 <div id="tab3">
   
-  <div id="projects">
-      <p><fmt:message key="project.name"/>: ${project.name}</p>
-  </div>
-  
   <div id="cards">
   	<c:if test="${not empty cards}">
   		<%@include file="../cards/update.jsp" %>

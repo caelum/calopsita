@@ -11,7 +11,9 @@
 	</head>
 	
 	<body>
-	
+		<div id="project">
+			<fmt:message key="project" />: ${project.name }
+		</div>
 		<div id="tabs">	
 			<ul id="tabnav">
 				<li><a href="<c:url value="/projects/${project.id }/iterations/current/"/>">Current iteration</a></li>
