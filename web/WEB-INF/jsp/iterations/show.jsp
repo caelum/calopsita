@@ -13,11 +13,11 @@
   <a href="javascript:toggle('iteration');"><fmt:message key="edit"/></a><br/>
   <%@include file="editForm.jsp" %>
   
-  <div id="help" class="dialog" title="Adding and Removing Cards">
-  	<fmt:message key="iteration.help.addingAndRemovingCards"/>
+  <div class="help">
+  	<p><fmt:message key="help.addingAndRemovingCards"/></p>
   </div>
   <div id="iteration_cards" class="selectable cards">
-  	<h2><fmt:message key="cards"/> <a href="#" onclick="return show_help()">?</a></h2>
+  	<h2><fmt:message key="cards"/></h2>
   	<ol id="cards_list" class="board">
   		<c:forEach items="${iteration.cards}" var="card" varStatus="s">
   			<c:set var="cardId">cards</c:set>
