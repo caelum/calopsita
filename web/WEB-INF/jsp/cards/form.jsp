@@ -6,6 +6,9 @@
 	<label><fmt:message key="card.description"/></label>
 	<em>*</em><textarea name="card.description" >${card.description }</textarea>
 </p>
+<div class="help">
+  	<span><fmt:message key="help.cardType.add" /></span>
+  </div>
 <p>
 	<label><fmt:message key="cardType" /></label>
 	<select id="cardType" onchange="selectGadgets(this)">
