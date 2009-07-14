@@ -8,11 +8,21 @@
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/iteration.css"/>" />
 	<script type="text/javascript">
 		initialize('<fmt:message key="infinityPriority"/>', '<c:url value="/projects/${project.id }/prioritize/"/>');
+		selected = 1;
 	</script>
 </head>
 
 <body>
-
+<div id="tab3">
+  <div id="page-tabs">
+	<ul>
+		<li><a href="<c:url value="/projects/${project.id }/cards/"/>"><fmt:message key="cards.all"/></a></li>
+		<li><a href="#here"><fmt:message key="prioritize"/></a></li>
+		<li><a href="<c:url value="/projects/${project.id }/cards/?selected=2"/>"><fmt:message key="project.addCard"/></a></li>
+	</ul>
+  </div>
+  <div id="here"></div>
+</div>
 	<div class="help">
 		<p><fmt:message key="help.prioritization" /></p>
 	</div>
@@ -51,6 +61,5 @@
 		<input type="submit" value="<fmt:message key='undo'/>"/>		
 	</form>
 	<a href="<c:url value="/projects/${project.id }/cards/"/>"><fmt:message key="back"/></a>
-
 </body>
 </html>

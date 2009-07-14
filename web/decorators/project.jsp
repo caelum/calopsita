@@ -7,23 +7,25 @@
 	<head>	
 	    <title><decorator:title default="Home" /> - Calopsita - Agile teams project management tool</title>
 	    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
+	    <script type="text/javascript">
+		  //<![CDATA[
+			var selected;		  
+		  //]]>
+		</script>
 	    <decorator:head />
 	    <script type="text/javascript">
 		  //<![CDATA[
 		  	$(function() {
 		  		$('#page-tabs').tabs({
 		  		    select: function(event, ui) {
-		  		    	console.log(ui);
-		  		    	console.log(ui.tab);
-		  		    	console.log(ui.panel);
 		  		        var url = $.data(ui.tab, 'load.tabs');
-		  		    	console.log(url);
 		  		        if( url ) {
 		  		            location.href = url;
 		  		            return false;
 		  		        }
 		  		        return true;
-		  		    }
+		  		    },
+		  		    selected: '${param.selected}' || selected || 0
 		  		});
 		  	});
 		  //]]>
