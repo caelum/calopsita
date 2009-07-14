@@ -26,6 +26,16 @@ public class User implements Identifiable {
     @NotNull
     private String email;
 
+    private boolean newbie;
+
+    public boolean isNewbie() {
+		return newbie;
+	}
+
+    public void setNewbie(boolean newbie) {
+		this.newbie = newbie;
+	}
+
     public String getName() {
         return name;
     }
