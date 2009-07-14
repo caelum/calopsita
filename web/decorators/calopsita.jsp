@@ -8,6 +8,15 @@
 	<decorator:head />
 
     <%@include file="../WEB-INF/jsp/extensions.jsp" %>
+    <c:if test="${currentUser.newbie}">
+	<script type="text/javascript">
+	  //<![CDATA[
+	  	$(function() {
+			$('.help').show();
+	  	});
+	  //]]>
+	</script>
+    </c:if>
 </head>
 
 <body>

@@ -45,3 +45,10 @@ body {
 .separador {
 	clear: both;
 }
+
+.help {
+	display: none;
+	background-color: yellow;
+	border: 1px;
+	border-color: gray;	
+}
