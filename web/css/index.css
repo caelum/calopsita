@@ -65,10 +65,21 @@ body {
 	color: gray;
 }
 .help > * {
-	background-color: #f5ff5c;
+	background-color: #f5f5be;
 	border: 1px solid gray;
 	float: left;
 	margin: 10px;
 	padding: 10px;
 	border-color: gray;
+}
+
+#toggleHelp > * {
+	border: 1px solid gray;
+	float: right;
+	padding: 5px;
+	cursor: pointer;
+	border-color: gray;
+}
+#toggleHelp.newbie > * {
+	background-color: #f5f5be;
 }

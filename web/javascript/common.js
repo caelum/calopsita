@@ -1,11 +1,13 @@
 function showDialog(title, body) {
 	var div = $('<div title="' + title + '"></div>');
-	div.append($('#' + body).clone().show()).dialog({
+	var content = body;
+	if ($('#' + body).length > 0)
+		content = $('#' + body).clone().show();
+	
+	div.append(content).dialog({
 		bgiframe: true,
 		modal: true,
-		width: '500px',
-		show: 'highlight',
-		hide: 'highlight'
+		width: '500px'
 	});
 }
 

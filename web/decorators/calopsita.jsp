@@ -9,17 +9,26 @@
 
     <%@include file="../WEB-INF/jsp/extensions.jsp" %>
     <c:if test="${currentUser.newbie}">
-	<script type="text/javascript">
-	  //<![CDATA[
-	  	$(function() {
-		  	$('<span class="close">[x]</span>')
-		  		.click(function(e) {
-					$(this).parents('.help').hide();
-			  	}).prependTo('.help > *');
-			$('.help').show();
-	  	});
-	  //]]>
-	</script>
+		<script type="text/javascript">
+		  //<![CDATA[
+		  	$(function() {
+			  	$('<span class="close">[x]</span>')
+			  		.click(function(e) {
+						$(this).parents('.help').hide();
+				  	}).prependTo('.help > *');
+				$('.help').show();
+
+				$('#toggleHelp').click(function() {
+					if ($('#toggleHelp').is('.newbie'))
+						$('.help').hide();
+					else
+						$('.help').show();
+						
+					$('#toggleHelp').toggleClass('newbie');
+				});
+		  	});
+		  //]]>
+		</script>
     </c:if>
 </head>
 
@@ -35,7 +44,10 @@
           <div class="name">${currentUser.login}</div> 
           <a href="<c:url value="/users/logout/"/>">Logout</a>
         </c:if>
-      </div>
+        <div id="toggleHelp" ${currentUser.newbie? 'class="newbie"' : '' } title="Toggle Help">
+       		<span>?</span>
+        </div>
+       </div>
 	</div>
 	
 	<hr class="separador"/>
