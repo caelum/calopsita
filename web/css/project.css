@@ -1,5 +1,16 @@
-.description {
-	display: none;	
+.story .description {
+	margin: 10px 0 0 10px;
+	clear: both;
+	display: none;
+}
+
+.story .description pre {
+	margin: 0;	
+}
+.story .name {
+	float: left;
+	cursor: pointer;
+	width: 90%;	
 }
 .stories {
 	padding: 0;	
@@ -7,7 +18,7 @@
 .story {
 	float: left;
 	clear: both;
-	width: 200px;
+	width: 500px;
 	list-style-type: none;
 	border: 1px solid gray;
 	margin: 4px;
@@ -19,13 +30,10 @@
 }
 
 .story a {
-	text-decoration: none;
 	color: #004276;	
+	text-decoration: none;
 }
 
-.story .name {
-	float: left;	
-}
 .information {
 	float: right;
 	width: 20%;
