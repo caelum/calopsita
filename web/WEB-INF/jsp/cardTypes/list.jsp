@@ -4,14 +4,14 @@
 		$('.formCard').slideToggle();
 	}
 </script>
-<h2><fmt:message key="cardTypes"/></h2>
-<ul id="cardTypes">
+<ul id="cardTypes" class="pretty">
 <c:forEach items="${cardTypeList}" var="type">
 	<li>${type.name }</li>
 </c:forEach>
 </ul>
+<div class="clear">
 <a class="formCard" href="javascript:toggleForm()"><fmt:message key="add.cardType"/></a>
-<form class="formCard hidden" id="formCard" action="<c:url value="/projects/${project.id }/cardTypes/" />" method="post">
+<form class="formCard hidden" id="formCard" action="<c:url value="/projects/${project.id }/cardTypes/?selected=2" />" method="post">
 	<p>
 		<label><fmt:message key="card.name"/></label>
 		<em>*</em><input type="text" name="cardType.name"/>
@@ -27,3 +27,4 @@
   		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggleForm();"/>
   	</p>
 </form>
+</div>

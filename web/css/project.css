@@ -27,7 +27,8 @@
 .stories, .iterations {
 	padding: 0;	
 }
-.story, .iteration {
+
+.story, .iteration, .pretty li {
 	float: left;
 	clear: both;
 	width: 500px;
@@ -37,10 +38,19 @@
 	padding: 5px;
 }
 
-.story:HOVER, .iteration:HOVER {
+.story:HOVER, .iteration:HOVER, .pretty li:HOVER {
 	background-color: #eaeeef;	
 }
 
+.pretty li {
+	width: 200px;	
+}
+
+.pretty {
+	clear: both;
+	margin: 0;
+	padding: 0;
+}
 .story a, .iteration a {
 	color: #004276;	
 	text-decoration: none;
