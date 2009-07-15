@@ -19,7 +19,7 @@
 	<ul>
 		<li><a href="#editCard"><fmt:message key="card.edit"/></a></li>
 		<li><a href="#cards"><fmt:message key="card.subcards"/></a></li>
-		<li><a href="#cardForm" onclick="$('#cardForm').clearForm();"><fmt:message key="card.subcard.new"/></a></li>
+		<li><a href="#form" onclick="$('#cardForm').clearForm();"><fmt:message key="card.subcard.new"/></a></li>
 	</ul>
 
 	<form id="editCard" name="editCard" action="<c:url value="/projects/${card.project.id}/cards/${card.id}/" />" method="post">
@@ -35,14 +35,25 @@
 			<%@include file="update.jsp" %>
 		</c:if>
 	</div>
-	
-	<form id="cardForm" name="addCard" action="<c:url value="/projects/${card.project.id }/cards/${card.id }/subcards/"/>" method="post">
-		<%@include file="form.jsp" %>
-	    <p>
-	    	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
-	  		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');"/>
-	  	</p>
-	</form>
+	<div id="form">
+	  	  <div class="information">
+	  	  	<h4><fmt:message key="recently.added.cards"/></h4>
+	  	  	<ul id="recent-cards" class="stories">
+	  	  		<c:forEach items="${cards}" var="card" varStatus="s">
+	  	  			<c:if test="${s.count > fn:length(cards) - 5}">
+						<%@include file="storyLine.jsp" %>
+	  	  			</c:if>
+				</c:forEach>
+	  	  	</ul>
+	  	  </div>
+		<form id="cardForm" name="addCard" action="<c:url value="/projects/${card.project.id }/cards/${card.id }/subcards/"/>" method="post">
+			<%@include file="form.jsp" %>
+		    <p>
+		    	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
+		  		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');"/>
+		  	</p>
+		</form>
+	</div>
 </div>
 <div class="clear">
 <a id="back" href="<c:url value="/projects/${card.project.id }/cards/"/>"><fmt:message key="back"/></a>
