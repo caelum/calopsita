@@ -1,24 +1,29 @@
-dd {
-	clear: both;	
+.description {
+	display: none;	
 }
-
-dt.story {
+.stories {
+	padding: 0;	
+}
+.story {
 	float: left;
+	clear: both;
 	width: 200px;
+	list-style-type: none;
 	border: 1px solid gray;
-	margin: 1px 0 1px 0;
+	margin: 4px;
 	padding: 5px;
 }
 
-dt.story:HOVER {
+.story:HOVER {
 	background-color: #eaeeef;	
 }
 
-dt.story a {
+.story a {
 	text-decoration: none;
 	color: #004276;	
 }
-dt a {
+
+.story .name {
 	float: left;	
 }
 .information {
