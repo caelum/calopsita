@@ -14,7 +14,7 @@
 
 <body>
 <div id="tab3">
-  <div id="page-tabs">
+  <div id="page-tabs" class="no-information">
 	<ul>
 		<li><a href="<c:url value="/projects/${project.id }/cards/"/>"><fmt:message key="cards.all"/></a></li>
 		<li><a href="#here"><fmt:message key="prioritize"/></a></li>

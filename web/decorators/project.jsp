@@ -19,6 +19,8 @@
 		  		$('#page-tabs').tabs({
 		  		    select: function(event, ui) {
 		  		        var url = $.data(ui.tab, 'load.tabs');
+		  		        console.log(url);
+		  		        console.log(ui.tab);
 		  		        if( url ) {
 		  		            location.href = url;
 		  		            return false;
