@@ -19,24 +19,33 @@
 	</ul>
     <div id="iterations">
 	  <c:if test="${not empty project.iterations}">
-	      <h2><fmt:message key="iterations"/>:</h2>
-	      <ul>
+	      <ul class="iterations">
 	        <c:forEach items="${project.iterations}" var="iteration">
-	          <li id="${iteration.current ? 'current' : ''}">
-	  			<a href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>">${iteration.goal}</a>
+	          <li id="${iteration.current ? 'current' : ''}" class="iteration">
+	  			<a class="goal" title="<fmt:message key="open" />" 
+	  				href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>">${iteration.goal}
 	  			<c:if test="${not empty iteration.endDate }" >
 	  				(<fmt:message key="dueDate"/> <joda:format value="${iteration.endDate}" pattern="${format.jodaFormat}"/>)
 	  			</c:if>
-	  			<c:if test="${iteration.startable }">
-	  				<a name="start ${iteration.goal }" href="<c:url value="/projects/${project.id }/iterations/${iteration.id }/start/"/>"><fmt:message key="start" /></a>
-	  			</c:if>
-	              <c:if test="${iteration.current}">
-	                <a name="end ${iteration.goal}" href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/end/"/>">
-	                  <fmt:message key="end"/>
-	                </a> 
-	              </c:if>
-	              <a class="delete" name="delete ${iteration.goal }" href="javascript:void(0)"
-	                  onclick="confirmIterationDeletion('<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>')">X</a>
+	  				</a>
+	  				<div class="action">
+			  			 <c:if test="${iteration.startable }">
+			  				<a name="start ${iteration.goal }"
+			  					class="ui-icon  ui-icon-play"
+			  					title="<fmt:message key="start" />"
+			  					href="<c:url value="/projects/${project.id }/iterations/${iteration.id }/start/"/>"></a>
+			  			 </c:if>
+			             <c:if test="${iteration.current}">
+			                <a name="end ${iteration.goal}" 
+			  					class="ui-icon  ui-icon-stop"
+			  					title="<fmt:message key="end" />"
+			                	href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/end/"/>">
+			                </a> 
+			             </c:if>
+			             <a class="ui-icon ui-icon-closethick" name="delete ${iteration.goal }" href="javascript:void(0)" 
+							  title="<fmt:message key="delete"/>"
+			                  onclick="confirmIterationDeletion('<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>')"></a>
+			  		</div>
 	  		</li>
 	        </c:forEach>
 	      </ul>
@@ -46,7 +55,6 @@
 	  <%@include file="editForm.jsp" %>
     </div>
   </div>
-  <a href="<c:url value="/"/>"><fmt:message key="back"/></a>
 </div>
 </body>
 </html>

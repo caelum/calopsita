@@ -7,7 +7,7 @@
 .story .description pre {
 	margin: 0;	
 }
-.story .name {
+.story .name, .iteration .goal {
 	float: left;
 	cursor: pointer;
 	width: 90%;	
@@ -24,10 +24,10 @@
 	margin: 0;
 	padding: 0;	
 }
-.stories {
+.stories, .iterations {
 	padding: 0;	
 }
-.story {
+.story, .iteration {
 	float: left;
 	clear: both;
 	width: 500px;
@@ -37,11 +37,11 @@
 	padding: 5px;
 }
 
-.story:HOVER {
+.story:HOVER, .iteration:HOVER {
 	background-color: #eaeeef;	
 }
 
-.story a {
+.story a, .iteration a {
 	color: #004276;	
 	text-decoration: none;
 }
