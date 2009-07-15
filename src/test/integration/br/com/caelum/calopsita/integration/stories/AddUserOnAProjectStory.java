@@ -20,8 +20,7 @@ public class AddUserOnAProjectStory extends DefaultStory {
 		     .iAmLoggedInAs("lucas");
 		when.iOpenProjectPageOf("C4lopsita").and()
 		    .iOpenAdminPage();
-		then.project("C4lopsita").appearsOnScreen().and()
-		    .thisUserAppearsOnColaboratorsList("lucas");
+		then.thisUserAppearsOnColaboratorsList("lucas");
 	}
 	@Test
 	public void showColaborators() throws Exception {

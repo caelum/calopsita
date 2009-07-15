@@ -25,7 +25,8 @@ public class CardTypeStory extends DefaultStory {
 			.iAmLoggedInAs("kung");
 		when.iOpenProjectPageOf("CuKung'er").and()
 			.iOpenAdminPage().and()
-			.iAddTheCardType("Story");
+			.iAddTheCardType("Story").and()
+			.iOpenCardTypesPage();
 		then.theCardType("Story").appearsOnList();
 	}
 

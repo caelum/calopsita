@@ -352,10 +352,16 @@ public class WhenActions {
 		return this;
 	}
 
-	public void iAddTheCardType(String name) {
-		browser.currentPage().waitUntil("$('#formCard').length > 0", 1000);
+	public WhenActions iAddTheCardType(String name) {
+		iOpenCardTypesPage();
+		iClickOn("Add Card Type");
 		browser.currentPage().form("formCard").field("cardType.name")
 				.type(name).submit();
-		browser.currentPage().waitUntil("$('#formCard').length > 0", 1000);
+		return this;
+	}
+
+	public void iOpenCardTypesPage() {
+		iClickOn("Card Types");
+		waitForAjax();
 	}
 }

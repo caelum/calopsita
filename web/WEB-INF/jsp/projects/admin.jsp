@@ -15,12 +15,12 @@
 <div id="tab4">
 	<div id="page-tabs" class="no-information">
 		<ul>
-			<li><a href="#form"><fmt:message key="edit"/></a></li>
+			<li><a href="#projects"><fmt:message key="edit"/></a></li>
 			<li><a href="#colaborators"><fmt:message key="colaborators"/></a></li>
 			<li><a class="no-ajax" href="<c:url value="/projects/${project.id}/cardTypes/"/>"><fmt:message key="cardTypes"/></a></li>
 		</ul>
 
-		  <div id="form">
+		  <div id="projects">
 		      <p><fmt:message key="project.name"/>: ${project.name}</p>
 		      <form id="projectForm" action="<c:url value="/projects/${project.id }/"/>" method="post">
 		  	    <p>
