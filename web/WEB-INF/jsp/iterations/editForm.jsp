@@ -11,7 +11,7 @@
 	<c:if test="${empty iteration.id}"><fmt:message key="add"/></c:if>
 	<c:if test="${not empty iteration.id}"><fmt:message key="edit"/></c:if>
 </c:set>
-<form id="iteration" class="hidden" name="addIteration" action="<c:url value="/projects/${project.id }/iterations/${operation }"/>" method="post">
+<form id="iteration" name="addIteration" action="<c:url value="/projects/${project.id }/iterations/${operation }"/>" method="post">
    	<p>
 		<label><fmt:message key="iteration.goal"/></label>
 		<em>*</em><input type="text" name="iteration.goal" value="${iteration.goal }"/>

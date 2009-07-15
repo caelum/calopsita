@@ -21,9 +21,6 @@
 	</head>
 	
 	<body>
-		<div id="projects">
-	    <p><fmt:message key="project.name"/>: ${project.name}</p>
-	</div>
 	
     <c:if test="${not empty iteration}">
 	    <%@include file="timeline.jsp" %>

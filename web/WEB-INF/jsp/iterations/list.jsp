@@ -12,34 +12,40 @@
 <body>
 
 <div id="tab2">
-  <c:if test="${not empty project.iterations}">
+  <div id="page-tabs">
+	<ul>
+		<li><a href="#iterations"><fmt:message key="iterations.all"/></a></li>
+		<li><a href="#form"><fmt:message key="project.addIteration"/></a></li>
+	</ul>
     <div id="iterations">
-      <h2><fmt:message key="iterations"/>:</h2>
-      <ul>
-        <c:forEach items="${project.iterations}" var="iteration">
-          <li id="${iteration.current ? 'current' : ''}">
-  			<a href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>">${iteration.goal}</a>
-  			<c:if test="${not empty iteration.endDate }" >
-  				(<fmt:message key="dueDate"/> <joda:format value="${iteration.endDate}" pattern="${format.jodaFormat}"/>)
-  			</c:if>
-  			<c:if test="${iteration.startable }">
-  				<a name="start ${iteration.goal }" href="<c:url value="/projects/${project.id }/iterations/${iteration.id }/start/"/>"><fmt:message key="start" /></a>
-  			</c:if>
-              <c:if test="${iteration.current}">
-                <a name="end ${iteration.goal}" href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/end/"/>">
-                  <fmt:message key="end"/>
-                </a> 
-              </c:if>
-              <a class="delete" name="delete ${iteration.goal }" href="javascript:void(0)"
-                  onclick="confirmIterationDeletion('<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>')">X</a>
-  		</li>
-        </c:forEach>
-      </ul>
+	  <c:if test="${not empty project.iterations}">
+	      <h2><fmt:message key="iterations"/>:</h2>
+	      <ul>
+	        <c:forEach items="${project.iterations}" var="iteration">
+	          <li id="${iteration.current ? 'current' : ''}">
+	  			<a href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>">${iteration.goal}</a>
+	  			<c:if test="${not empty iteration.endDate }" >
+	  				(<fmt:message key="dueDate"/> <joda:format value="${iteration.endDate}" pattern="${format.jodaFormat}"/>)
+	  			</c:if>
+	  			<c:if test="${iteration.startable }">
+	  				<a name="start ${iteration.goal }" href="<c:url value="/projects/${project.id }/iterations/${iteration.id }/start/"/>"><fmt:message key="start" /></a>
+	  			</c:if>
+	              <c:if test="${iteration.current}">
+	                <a name="end ${iteration.goal}" href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/end/"/>">
+	                  <fmt:message key="end"/>
+	                </a> 
+	              </c:if>
+	              <a class="delete" name="delete ${iteration.goal }" href="javascript:void(0)"
+	                  onclick="confirmIterationDeletion('<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>')">X</a>
+	  		</li>
+	        </c:forEach>
+	      </ul>
+	  </c:if>
     </div>
-  </c:if>
-  
-  <a href="javascript:toggle('iteration'); document.addIteration.reset();"><fmt:message key="project.addIteration"/></a><br/>
-  <%@include file="editForm.jsp" %>
+    <div id="form">
+	  <%@include file="editForm.jsp" %>
+    </div>
+  </div>
   <a href="<c:url value="/"/>"><fmt:message key="back"/></a>
 </div>
 </body>
