@@ -10,7 +10,7 @@ label.error {
 	vertical-align: top;
 }
 
-input {
+input[type="text"] {
   width: 200px;
 }
 
