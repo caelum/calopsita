@@ -23,7 +23,6 @@ public class IterationTimelineStory extends DefaultStory {
 				.starting(oneWeekAgo()).ending(nextWeek()).and()
 			.iAmLoggedInAs("Ferreira");
 		when.iOpenProjectPageOf("Hoops").and()
-			.iOpenIterationsPage().and()
 		    .iOpenThePageOfIterationWithGoal("Allow attributes on fields");
 		then.theIterationTimeline()
 				.showsToday()

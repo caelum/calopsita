@@ -22,12 +22,8 @@
 	      <ul class="iterations">
 	        <c:forEach items="${project.iterations}" var="iteration">
 	          <li id="${iteration.current ? 'current' : ''}" class="iteration">
-	  			<a class="goal" title="<fmt:message key="open" />" 
-	  				href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>">${iteration.goal}
-	  			<c:if test="${not empty iteration.endDate }" >
-	  				(<fmt:message key="dueDate"/> <joda:format value="${iteration.endDate}" pattern="${format.jodaFormat}"/>)
-	  			</c:if>
-	  				</a>
+	  				<a class="goal" title="<fmt:message key="open" />" 
+	  					href="<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>">${iteration.goal}</a>
 	  				<div class="action">
 			  			 <c:if test="${iteration.startable }">
 			  				<a name="start ${iteration.goal }"
@@ -46,6 +42,11 @@
 							  title="<fmt:message key="delete"/>"
 			                  onclick="confirmIterationDeletion('<c:url value="/projects/${project.id }/iterations/${iteration.id}/"/>')"></a>
 			  		</div>
+			  	<div class="description">
+	  			<c:if test="${not empty iteration.endDate }" >
+	  				(<fmt:message key="dueDate"/> <joda:format value="${iteration.endDate}" pattern="${format.jodaFormat}"/>)
+	  			</c:if>
+			  	</div>
 	  		</li>
 	        </c:forEach>
 	      </ul>
