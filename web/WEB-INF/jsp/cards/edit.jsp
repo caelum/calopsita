@@ -12,6 +12,7 @@
 <body>
 
 <div id="card" class="information clear">
+	<h4>Card</h4>
     <p><fmt:message key="project.name"/>: ${card.name}</p>
     <p><fmt:message key="project.description"/>: ${card.description}</p>
 </div>
