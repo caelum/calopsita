@@ -193,9 +193,12 @@ public class ThenAsserts {
     }
 
 	public void isPrioritizable() {
-		WhenActions actions = new WhenActions(browser, null);
-		actions.iOpenPriorizationPage();
-		assertThat(div("level_0"), containsText(this.name));
+		session.flush();
+		Long count = (Long) session.createQuery("select count(*) from PrioritizableCard c where c.card.name = :name")
+			.setParameter("name", name).uniqueResult();
+
+		assertThat(count, is(1l));
+
 	}
 
 	public ThenAsserts isNotPrioritizable() {

@@ -12,61 +12,61 @@ import br.com.caelum.seleniumdsl.Form;
 
 public class WhenActions {
 
-    private final Browser browser;
+	private final Browser browser;
 	private String user;
 	private final Session session;
 	private String cardName;
-    private String iterationGoal;
+	private String iterationGoal;
 	private String linkName;
 	private final List<Gadgets> gadgets = new ArrayList<Gadgets>();
 	private String type;
 
-    public WhenActions(Browser browser, Session session) {
-        this.browser = browser;
+	public WhenActions(Browser browser, Session session) {
+		this.browser = browser;
 		this.session = session;
-    }
+	}
 
-    public void iSignUpAs(String login) {
-        iClickOn("Sign Up");
-        Form form = browser.currentPage().form("signUp");
-        form.field("user.name").type(login);
-        form.field("user.login").type(login);
-        form.field("user.email").type(login + "@caelum.com.br");
-        form.field("user.password").type(login);
-        form.field("user.confirmation").type(login);
-        form.submit();
-    }
+	public void iSignUpAs(String login) {
+		iClickOn("Sign Up");
+		Form form = browser.currentPage().form("signUp");
+		form.field("user.name").type(login);
+		form.field("user.login").type(login);
+		form.field("user.email").type(login + "@caelum.com.br");
+		form.field("user.password").type(login);
+		form.field("user.confirmation").type(login);
+		form.submit();
+	}
 
-    public void iLoginAs(String login) {
-        Form form = browser.currentPage().form("login");
-        form.field("user.login").type(login);
-        form.field("user.password").type(login);
-        form.submit();
-    }
+	public void iLoginAs(String login) {
+		Form form = browser.currentPage().form("login");
+		form.field("user.login").type(login);
+		form.field("user.password").type(login);
+		form.submit();
+	}
 
-    public void iLogout() {
-        iClickOn("Logout");
-    }
+	public void iLogout() {
+		iClickOn("Logout");
+	}
 
-    public void iClickOn(String link) {
-        browser.currentPage().clickLink(link);
-    }
+	public void iClickOn(String link) {
+		browser.currentPage().clickLink(link);
+	}
 
-    public void iOpenProjectPageDirectly() {
-        browser.open("/calopsita/projects/new/");
-    }
+	public void iOpenProjectPageDirectly() {
+		browser.open("/calopsita/projects/new/");
+	}
 
-    public void iListProjects() {
-    	browser.open("/calopsita/projects/");
-    }
+	public void iListProjects() {
+		browser.open("/calopsita/projects/");
+	}
 
-    public void iAddTheProject(String name) {
-        iClickOn("New Project");
-        Form form = browser.currentPage().form("addProject");
-        form.field("project.name").type(name);
-        form.field("project.description").type(name);
-        form.submit();
-    }
+	public void iAddTheProject(String name) {
+		iClickOn("New Project");
+		Form form = browser.currentPage().form("addProject");
+		form.field("project.name").type(name);
+		form.field("project.description").type(name);
+		form.submit();
+	}
 
 	public WhenActions iOpenProjectPageOf(String projectName) {
 		iListProjects();
@@ -81,15 +81,14 @@ public class WhenActions {
 
 	public void asColaborator() {
 		iClickOn("Add Colaborator");
-		browser.currentPage()
-			.form("addColaborator")
-				.select("colaborator.login").choose(user)
-				.submit();
+		browser.currentPage().form("addColaborator")
+				.select("colaborator.login").choose(user).submit();
 	}
 
 	public WhenActions iDirectlyOpenProjectPageOf(String projectName) {
-		Long id = (Long) session.createQuery("select id from Project p where p.name = :name")
-			.setParameter("name", projectName).setMaxResults(1).uniqueResult();
+		Long id = (Long) session.createQuery(
+				"select id from Project p where p.name = :name").setParameter(
+				"name", projectName).setMaxResults(1).uniqueResult();
 		browser.open("/calopsita/projects/" + id + "/admin/");
 		return this;
 	}
@@ -99,6 +98,7 @@ public class WhenActions {
 		this.linkName = "Add Card";
 		return this;
 	}
+
 	public WhenActions iAddTheSubcard(String cardName) {
 		this.cardName = cardName;
 		this.linkName = "Add Subcard";
@@ -107,15 +107,15 @@ public class WhenActions {
 
 	public WhenActions withDescription(String description) {
 		iClickOn(linkName);
-		Form form = browser.currentPage() .form("addCard");
-		form.field("card.name").type(cardName)
-			.field("card.description").type(description);
+		Form form = browser.currentPage().form("addCard");
+		form.field("card.name").type(cardName).field("card.description").type(
+				description);
 		for (Gadgets gadget : gadgets) {
 			form.check(gadget.name());
 		}
 
 		if (type != null) {
-			browser.currentPage().form("addCard").select("cardType").choose(type);
+			form.select("cardType").choose(type);
 		}
 		form.submit();
 		iClickOn(linkName);
@@ -124,37 +124,34 @@ public class WhenActions {
 	}
 
 	public WhenActions iEditTheCard(String cardName) {
-		iClickOn(cardName);
+		iOpenThePageOfCardNamed(cardName);
 		return this;
 	}
 
 	public void changingDescriptionTo(String cardDescription) {
-		browser.currentPage().form("editCard")
-							.field("card.description").type(cardDescription)
-							.submit();
+		browser.currentPage().form("editCard").field("card.description").type(
+				cardDescription).submit();
+		waitForAjax();
 	}
 
 	public WhenActions iAddTheIteration(String iterationGoal) {
 		iClickOn("Add Iteration");
-        this.iterationGoal = iterationGoal;
-        return this;
-    }
+		this.iterationGoal = iterationGoal;
+		return this;
+	}
 
-    public WhenActions withStartDate(LocalDate localDate) {
-        browser.currentPage()
-            .form("addIteration")
-                .field("iteration.goal").type(iterationGoal)
-                .field("iteration.startDate").type(localDate.toString("MM/dd/yyyy"));
-        return this;
-    }
+	public WhenActions withStartDate(LocalDate localDate) {
+		browser.currentPage().form("addIteration").field("iteration.goal")
+				.type(iterationGoal).field("iteration.startDate").type(
+						localDate.toString("MM/dd/yyyy"));
+		return this;
+	}
 
-    public WhenActions withEndDate(LocalDate date) {
-        browser.currentPage()
-	        .form("addIteration")
-	            .field("iteration.endDate").type(date.toString("MM/dd/yyyy"))
-	            .submit();
-        return this;
-    }
+	public WhenActions withEndDate(LocalDate date) {
+		browser.currentPage().form("addIteration").field("iteration.endDate")
+				.type(date.toString("MM/dd/yyyy")).submit();
+		return this;
+	}
 
 	public WhenActions iOpenThePageOfIterationWithGoal(String goal) {
 		iOpenIterationsPage();
@@ -187,6 +184,7 @@ public class WhenActions {
 
 	public WhenActions iOpenPriorizationPage() {
 		iClickOn("Prioritize");
+		browser.currentPage().waitUntil("$('#lowerPriority').length > 0", 1000);
 		return this;
 	}
 
@@ -208,18 +206,20 @@ public class WhenActions {
 
 	public void asDone() {
 		browser.currentPage().dragAndDrop(cardName, "done_cards");
-		browser.currentPage().waitUntil("$('#done_cards .card').length > 0", 5000);
+		browser.currentPage().waitUntil("$('#done_cards .card').length > 0",
+				5000);
 	}
 
 	public WhenActions iOpenThePageOfCardNamed(String cardName) {
-		iClickOn(cardName);
+		browser.currentPage().click("edit " + cardName);
 		return this;
 	}
 
-    public WhenActions iDeleteTheIterationWithGoal(String goal) {
-        browser.currentPage().click("delete " + goal);
-        return this;
-    }
+	public WhenActions iDeleteTheIterationWithGoal(String goal) {
+		browser.currentPage().click("delete " + goal);
+		return this;
+	}
+
 	public WhenActions iDeleteTheCard(String cardName) {
 		browser.currentPage().click("delete " + cardName);
 		return this;
@@ -227,7 +227,8 @@ public class WhenActions {
 
 	public WhenActions andConfirm(String operation) {
 		browser.currentPage().click("jqi_" + operation + "_buttonYes");
-		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
+		browser.currentPage().waitUntil(
+				"!$('#jqi_state_" + operation + "').is(':visible')", 2000);
 		waitForAjax();
 		return this;
 	}
@@ -238,7 +239,8 @@ public class WhenActions {
 
 	public WhenActions andDontConfirm(String operation) {
 		browser.currentPage().click("jqi_" + operation + "_buttonNo");
-		browser.currentPage().waitUntil("!$('#jqi_state_" + operation + "').is(':visible')", 2000);
+		browser.currentPage().waitUntil(
+				"!$('#jqi_state_" + operation + "').is(':visible')", 2000);
 		waitForAjax();
 		return this;
 	}
@@ -251,9 +253,10 @@ public class WhenActions {
 	public void iStartTheIteration(String iterationGoal) {
 		browser.currentPage().click("start " + iterationGoal);
 	}
-    public void iEndTheIteration(String iterationGoal) {
-        browser.currentPage().click("end " + iterationGoal);
-    }
+
+	public void iEndTheIteration(String iterationGoal) {
+		browser.currentPage().click("end " + iterationGoal);
+	}
 
 	public WhenActions iEditTheIteration() {
 		iClickOn("Edit");
@@ -267,36 +270,33 @@ public class WhenActions {
 
 	public void iChangeDescriptionTo(String description) {
 		iClickOn("Edit");
-		browser.currentPage().form("projectForm")
-			.field("project.description").type(description)
-			.submit();
+		browser.currentPage().form("projectForm").field("project.description")
+				.type(description).submit();
 	}
 
-    public WhenActions iOpenAdminPage() {
-        iClickOn("Admin");
-        return this;
-    }
+	public WhenActions iOpenAdminPage() {
+		iClickOn("Admin");
+		return this;
+	}
 
-    public WhenActions iOpenIterationsPage() {
-        iClickOn("Iterations");
-        return this;
-    }
+	public WhenActions iOpenIterationsPage() {
+		iClickOn("Iterations");
+		return this;
+	}
 
-    public WhenActions iOpenCardsPage() {
-        iClickOn("Cards");
-        return this;
-    }
+	public WhenActions iOpenCardsPage() {
+		iClickOn("Cards");
+		return this;
+	}
 
 	public void addingGadget(Gadgets gadget) {
-		browser.currentPage().form("editCard")
-			.check(gadget.name())
-			.submit();
+		browser.currentPage().form("editCard").check(gadget.name()).submit();
+		waitForAjax();
 	}
 
 	public void removingGadget(Gadgets gadget) {
-		browser.currentPage().form("editCard")
-			.uncheck(gadget.name())
-			.submit();
+		browser.currentPage().form("editCard").uncheck(gadget.name()).submit();
+		waitForAjax();
 	}
 
 	public void andWait() {
@@ -304,16 +304,21 @@ public class WhenActions {
 	}
 
 	public void iDirectlyOpenCardPageOf(String name) {
-		Object[] ids = (Object[]) session.createQuery("select id, project.id from Card where name = :name")
-			.setParameter("name", name).uniqueResult();
-		browser.open("/calopsita/projects/" + ids[0] + "/cards/" + ids[1] + "/");
+		Object[] ids = (Object[]) session.createQuery(
+				"select id, project.id from Card where name = :name")
+				.setParameter("name", name).uniqueResult();
+		browser
+				.open("/calopsita/projects/" + ids[0] + "/cards/" + ids[1]
+						+ "/");
 
 	}
 
 	public void iDirectlyOpenIterationPageOf(String goal) {
-		Object[] ids = (Object[]) session.createQuery("select id, project.id from Iteration where goal = :goal")
-			.setParameter("goal", goal).uniqueResult();
-		browser.open("/calopsita/projects/" + ids[0] + "/iterations/" + ids[1] + "/");
+		Object[] ids = (Object[]) session.createQuery(
+				"select id, project.id from Iteration where goal = :goal")
+				.setParameter("goal", goal).uniqueResult();
+		browser.open("/calopsita/projects/" + ids[0] + "/iterations/" + ids[1]
+				+ "/");
 	}
 
 	public void iRefreshCurrentPage() {
@@ -335,6 +340,7 @@ public class WhenActions {
 		this.gadgets.add(Gadgets.PLANNING);
 		return this;
 	}
+
 	public WhenActions prioritizable() {
 		this.gadgets.add(Gadgets.PRIORITIZATION);
 		return this;
@@ -348,7 +354,8 @@ public class WhenActions {
 
 	public void iAddTheCardType(String name) {
 		browser.currentPage().waitUntil("$('#formCard').length > 0", 1000);
-		browser.currentPage().form("formCard").field("cardType.name").type(name).submit();
+		browser.currentPage().form("formCard").field("cardType.name")
+				.type(name).submit();
 		browser.currentPage().waitUntil("$('#formCard').length > 0", 1000);
 	}
 }
