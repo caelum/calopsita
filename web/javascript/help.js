@@ -1,10 +1,10 @@
 var newbie = true;
-var url;
+var toggleUrl;
 function setNewbie(val) {
 	newbie = val;
 }
 function setUrl(val) {
-	url = val;
+	toggleUrl = val;
 }
 $(function() {
   	$('<span class="close ui-icon ui-icon-close"></span>')
@@ -23,6 +23,6 @@ $(function() {
 			
 		$('#toggleHelp').toggleClass('newbie');
 		
-		$.get(url);
+		$.get(toggleUrl);
 	});
 });
