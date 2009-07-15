@@ -15,6 +15,13 @@ function selectGadgets(select) {
 		});
 	}
 }
+function updateRecentCards() {
+	var selector = '#cards .story';
+	if ($('#cards .story').length > 5)
+		selector += ':gt(' + ($('#cards .story').length - 6) + ')';
+	$('#recent-cards').html('');
+	$(selector).clone().appendTo('#recent-cards');
+}
 $( function() {
     $("#cardForm").validate( {
         rules : {
@@ -29,9 +36,12 @@ $( function() {
         },
         submitHandler : function(form) {
             $(form).ajaxSubmit( {
-            	target: '#cards',
                 error : function() {
                     window.location.href = window.location + '../../../';
+                },
+                success: function(data) {
+                	$('#cards').html(data);
+                	updateRecentCards();
                 }
             });
             $('[name=card.name]').focus();

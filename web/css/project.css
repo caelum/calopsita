@@ -12,6 +12,18 @@
 	cursor: pointer;
 	width: 90%;	
 }
+
+#cardForm {
+	float: left;
+}
+.information .story {
+	width: 90%;
+}
+
+.information h4 {
+	margin: 0;
+	padding: 0;	
+}
 .stories {
 	padding: 0;	
 }
@@ -64,7 +76,9 @@ input[type="text"] {
 input.error {
 	border: 2px solid red;
 }
-
+#project {
+	float: right;	
+}
 textarea {
   width: 200px;
   height: 80px;
@@ -109,10 +123,6 @@ li#current {
 
 
 /* begin css tabs */
-
-#tabs {
-	clear: both;
-}
 
 ul#tabnav { /* general settings */
 text-align: left; /* set to left, right or center */

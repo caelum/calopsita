@@ -16,20 +16,32 @@
 	<ul>
 		<li><a href="#cards"><fmt:message key="cards.all"/></a></li>
 		<li><a href="<c:url value="/projects/${project.id }/prioritization/"/>"><fmt:message key="prioritize"/></a></li>
-		<li><a href="#cardForm"><fmt:message key="project.addCard"/></a></li>
+		<li><a href="#form"><fmt:message key="project.addCard"/></a></li>
 	</ul>
 	  <div id="cards">
 	  	<c:if test="${not empty cards}">
 	  		<%@include file="../cards/update.jsp" %>
 	  	</c:if>
 	  </div>
-	  <form id="cardForm" name="addCard" action="<c:url value="/projects/${project.id }/cards/"/>" method="post">
-	  	<%@include file="form.jsp" %>
-		<p>
-			<input class="buttons" type="submit" value="<fmt:message key="add"/>" />
-			<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');" />
-		</p>
-	  </form>
+	  <div id="form">
+	  	  <div class="information">
+	  	  	<h4><fmt:message key="recently.added.cards"/></h4>
+	  	  	<ul id="recent-cards" class="stories">
+	  	  		<c:forEach items="${cards}" var="card" varStatus="s">
+	  	  			<c:if test="${s.count > fn:length(cards) - 5}">
+						<%@include file="storyLine.jsp" %>
+	  	  			</c:if>
+				</c:forEach>
+	  	  	</ul>
+	  	  </div>
+		  <form id="cardForm" name="addCard" action="<c:url value="/projects/${project.id }/cards/"/>" method="post">
+		  	<%@include file="form.jsp" %>
+			<p>
+				<input class="buttons" type="submit" value="<fmt:message key="add"/>" />
+				<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');" />
+			</p>
+		  </form>
+	  </div>
   </div>
 </div>
 </body>
