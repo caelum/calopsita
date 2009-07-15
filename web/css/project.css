@@ -56,6 +56,9 @@
 	float: left;
 	width: 75%;
 }
+#page-tabs.no-information {
+	width: 100%;	
+}
 
 label { 
   width: 8em;

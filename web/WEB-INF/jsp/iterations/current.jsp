@@ -10,30 +10,39 @@
 
 <div id="tab1">
 <c:if test="${not empty iteration}">
-  <a href="javascript:toggle('iteration');"><fmt:message key="edit"/></a><br/>
-  <%@include file="editForm.jsp" %>
+  <div id="page-tabs" class="no-information">
+		<ul>
+			<li><a href="#planning"><fmt:message key="planning"/></a></li>
+			<li><a href="#form"><fmt:message key="edit"/></a></li>
+		</ul>
+		<div id="form">
+		  <%@include file="editForm.jsp" %>
+		</div>
+		<div id="planning">
   
-  <div class="help">
-  	<p><fmt:message key="help.changeCardsStatus"/></p>
-  </div>
-  <div id="todo_cards" class="selectable cards">
-  	<h2><fmt:message key="toDo"/></h2>
-  	<ol id="todo_list" class="board">
-  		<c:forEach items="${iteration.todoCards}" var="card" varStatus="s">
-  			<c:set var="cardId">cards</c:set>
-  			<%@include file="storyCard.jsp" %>
-  		</c:forEach>
-  	</ol>
-  </div>
-  <div id="done_cards" class="selectable cards">
-  	<h2><fmt:message key="done"/></h2>
-  	<ol id="done_list" class="board">
-  		<c:forEach items="${iteration.doneCards}" var="card" varStatus="s">
-  			<c:set var="cardId">done</c:set>
-  			<%@include file="storyCard.jsp" %>
-  		</c:forEach>
-  	</ol>
-  </div>
+		  <div class="help">
+		  	<p><fmt:message key="help.changeCardsStatus"/></p>
+		  </div>
+		  <div id="todo_cards" class="selectable cards">
+		  	<h2><fmt:message key="toDo"/></h2>
+		  	<ol id="todo_list" class="board">
+		  		<c:forEach items="${iteration.todoCards}" var="card" varStatus="s">
+		  			<c:set var="cardId">cards</c:set>
+		  			<%@include file="storyCard.jsp" %>
+		  		</c:forEach>
+		  	</ol>
+		  </div>
+		  <div id="done_cards" class="selectable cards">
+		  	<h2><fmt:message key="done"/></h2>
+		  	<ol id="done_list" class="board">
+		  		<c:forEach items="${iteration.doneCards}" var="card" varStatus="s">
+		  			<c:set var="cardId">done</c:set>
+		  			<%@include file="storyCard.jsp" %>
+		  		</c:forEach>
+		  	</ol>
+		  </div>
+	</div>
+</div>
 </c:if>
 <c:if test="${empty iteration}">
 <p>There is no current iteration</p>

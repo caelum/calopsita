@@ -14,6 +14,7 @@
 		      var daysBetweenEndDateAndStartDate = (parseInt('${iteration.endDate.dayOfYear}') + 365 * parseInt('${iteration.endDate.year}')) - (parseInt('${iteration.startDate.dayOfYear}') + 365 * parseInt('${iteration.startDate.year}'));
 		
 		      timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday, daysBetweenEndDateAndStartDate);
+		      $('#timeline').insertAfter('#page-tabs ul:first');
 		  });
 		    initialize('<c:url value="/projects/${iteration.project.id }/iterations/${iteration.id}/cards/"/>');
 		  </script>
@@ -23,10 +24,12 @@
 	<body>
 	
     <c:if test="${not empty iteration}">
-	    <%@include file="timeline.jsp" %>
-	    <div id="iteration_text">
-	      <p><fmt:message key="iteration.goal"/>: ${iteration.goal}</p>
-	    </div>
+    	<div id="timeline">
+		    <%@include file="timeline.jsp" %>
+		    <div id="iteration_text">
+		      <p><fmt:message key="iteration.goal"/>: ${iteration.goal}</p>
+		    </div>
+    	</div>
 	</c:if>
 		<decorator:body />
 	</body>
