@@ -150,7 +150,7 @@ ul#tabnav li { /* do not change */
 display: inline;
 }
 
-body#tab1 li.tab1, body#tab2 li.tab2, body#tab3 li.tab3, body#tab4 li.tab4 { /* settings for selected tab */
+ul#tabnav li.selected a { /* settings for selected tab */
 border-bottom: 1px solid #fff; /* set border color to page background color */
 background-color: #fff; /* set background color to match above border color */
 }

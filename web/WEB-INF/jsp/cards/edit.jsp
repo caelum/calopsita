@@ -10,7 +10,7 @@
 </head>
 
 <body>
-
+<div id="tab3">
 <div id="card" class="information clear">
 	<h4>Card</h4>
     <p><fmt:message key="project.name"/>: ${card.name}</p>
@@ -58,6 +58,7 @@
 </div>
 <div class="clear">
 <a id="back" href="<c:url value="/projects/${card.project.id }/cards/"/>"><fmt:message key="back"/></a>
+</div>
 </div>
 
 </body>

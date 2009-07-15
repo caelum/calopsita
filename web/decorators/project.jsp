@@ -27,6 +27,11 @@
 		  		    },
 		  		    selected: '${param.selected}' || selected || 0
 		  		});
+		  		$('#tabs li').each(function(c, e) {
+					if ($('#tab' + (c+1)).length > 0) {
+						$(e).addClass('selected');
+					}
+		  		});
 		  	});
 		  //]]>
 		</script>
