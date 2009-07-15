@@ -1,3 +1,26 @@
+dd {
+	clear: both;	
+}
+
+dt.story {
+	float: left;
+	width: 200px;
+	border: 1px solid gray;
+	margin: 1px 0 1px 0;
+	padding: 5px;
+}
+
+dt.story:HOVER {
+	background-color: #eaeeef;	
+}
+
+dt.story a {
+	text-decoration: none;
+	color: #004276;	
+}
+dt a {
+	float: left;	
+}
 .information {
 	float: right;
 	width: 20%;
@@ -52,12 +75,13 @@ em {
   vertical-align: top; 
 }
 
-a.delete {
-	color: red;
-	text-decoration: none;
+.action {
 	visibility: hidden;
+	color: red;
+	float: right;
+	text-decoration: none;
 }
-*:HOVER > .delete {
+*:HOVER > .action {
 	visibility: visible;	
 }
 

@@ -7,7 +7,7 @@ function setUrl(val) {
 	url = val;
 }
 $(function() {
-  	$('<span class="close">[x]</span>')
+  	$('<span class="close ui-icon ui-icon-close"></span>')
   		.click(function(e) {
 			$(this).parents('.help').hide();
 	  	}).prependTo('.help > *');
