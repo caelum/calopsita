@@ -1,7 +1,5 @@
 <%@include file="../javascripts.jspf" %>
 <script type="text/javascript" src="<c:url value="/javascript/card-update.js"/>"></script>
-<h2><fmt:message key="cards"/>:</h2>
-
 <dl>
 	<c:forEach items="${cards}" var="card" varStatus="s">
 		<%@include file="storyLine.jsp" %>
