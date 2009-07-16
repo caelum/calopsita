@@ -19,26 +19,24 @@ public class CustomMatchers {
 			public boolean matchesSafely(T item) {
 				return entity.getId().equals(item.getId());
 			}
-			@Override
 			public void describeTo(Description description) {
 				description.appendText("an entity with id ").appendValue(entity.getId());
 			}
-			
+
 		};
 	}
 	@Factory
 	public static <T extends Collection<?>> Matcher<T> isEmpty() {
 		return new TypeSafeMatcher<T>() {
-			
+
 			@Override
 			public boolean matchesSafely(T item) {
 				return item.isEmpty();
 			}
-			@Override
 			public void describeTo(Description description) {
 				description.appendText("an empty collection");
 			}
-			
+
 		};
 	}
 }

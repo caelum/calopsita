@@ -47,7 +47,6 @@ public class MyDecoratorMapper implements DecoratorMapper {
 		return false;
 	}
 
-	@Override
 	public Decorator getNamedDecorator(HttpServletRequest request, String decorator) {
 		if (shouldExclude(request)) {
 			return null;

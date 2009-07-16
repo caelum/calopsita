@@ -19,7 +19,7 @@ public class LocalDateConverter implements Converter<LocalDate> {
 	public LocalDateConverter(RequestInfo request) {
 		delegate = new LocaleBasedCalendarConverter(request);
 	}
-	@Override
+
 	public LocalDate convert(String value, Class<? extends LocalDate> type,
 			ResourceBundle bundle) {
 		Calendar calendar = delegate.convert(value, Calendar.class, bundle);

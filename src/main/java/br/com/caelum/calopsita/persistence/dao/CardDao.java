@@ -23,32 +23,28 @@ public class CardDao implements CardRepository {
 		this.session = session;
 	}
 
-	@Override
 	public void add(Card card) {
 		session.save(card);
 	}
-	@Override
+
 	public Card load(Card card) {
 		return (Card) session.load(Card.class, card.getId());
 	}
-	@Override
+
 	public void update(Card card) {
 		session.update(card);
 	}
 
-	@Override
 	public void remove(Card card) {
 		session.delete(card);
 	}
 
-	@Override
 	public List<Card> listFrom(Project project) {
 		return this.session.createQuery("select c from PrioritizableCard p right join p.card c " +
 				"where c.project = :project order by p.priority, c.id")
 			.setParameter("project", project).list();
 	}
 
-	@Override
 	public List<Card> planningCardsWithoutIteration(Project project) {
 		return session.createQuery("select c.card from PlanningCard c left join c.prioritizableCard p " +
 				"where c.card.project = :project and c.card.iteration is null " +
@@ -56,18 +52,15 @@ public class CardDao implements CardRepository {
 				.setParameter("project", project).list();
 	}
 
-	@Override
 	public List<Card> listSubcards(Card card) {
 		return session.createQuery("from Card s where s.parent = :card")
 			.setParameter("card", card).list();
 	}
 
-	@Override
 	public <T extends Gadget> T load(T gadget) {
 		return (T) session.load(gadget.getClass(), gadget.getCard().getId());
 	}
 
-	@Override
 	public void orderCardsByPriority(Iteration iteration) {
 		session.evict(iteration);
 		List<Card> cards = session.createQuery("select c from PrioritizableCard p right join p.card c " +
@@ -76,7 +69,6 @@ public class CardDao implements CardRepository {
 		iteration.setCards(cards);
 	}
 
-	@Override
 	public void add(Gadget gadget) {
 		session.save(gadget);
 	}
@@ -85,7 +77,6 @@ public class CardDao implements CardRepository {
 		return session.createCriteria(Gadget.class).add(Restrictions.eq("id", card.getId())).list();
 	}
 
-	@Override
 	public void updateGadgets(Card card, List<Gadgets> gadgets) {
 		if (gadgets == null) {
 			gadgets = new ArrayList<Gadgets>();

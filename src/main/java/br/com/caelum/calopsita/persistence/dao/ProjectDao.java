@@ -24,26 +24,22 @@ public class ProjectDao implements ProjectRepository {
         this.session = session;
     }
 
-    @Override
     public Project get(Long id) {
     	return (Project) session.get(Project.class, id);
     }
 
-    @Override
     public Project load(Project project) {
     	return (Project) session.load(Project.class, project.getId());
     }
-    @Override
+
     public void add(Project project) {
         this.session.save(project);
     }
 
-    @Override
     public void update(Project project) {
         this.session.merge(project);
     }
 
-    @Override
     public void remove(Project project) {
     	this.session.createQuery("delete from Card s where s.project = :project")
 			.setParameter("project", project).executeUpdate();
@@ -52,25 +48,21 @@ public class ProjectDao implements ProjectRepository {
     	this.session.delete(project);
     }
 
-    @Override
     public List<Project> listAllFrom(User user) {
         return this.session.createQuery("from Project p where p.owner = :user or " +
         		":user in elements(p.colaborators)")
                 .setParameter("user", user).list();
     }
 
-	@Override
 	public List<Card> listCardsFrom(Project project) {
 		return new CardDao(session).listFrom(project);
 	}
 
-	@Override
     public List<Iteration> listIterationsFrom(Project project) {
         return this.session.createQuery("from Iteration i where i.project = :project")
         .setParameter("project", project).list();
     }
 
-	@Override
 	public boolean hasInconsistentValues(Object[] parameters, User user) {
 		if (parameters == null) {
 			return false;
@@ -108,7 +100,6 @@ public class ProjectDao implements ProjectRepository {
 				.uniqueResult() == null;
 	}
 
-	@Override
 	public List<CardType> listCardTypesFrom(Project project) {
 		return new CardTypeDao(session).listFrom(project);
 	}

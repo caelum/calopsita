@@ -6,12 +6,10 @@ import br.com.caelum.vraptor.view.Results;
 
 public class MockResult implements Result {
 
-	@Override
 	public void include(String key, Object value) {
 
 	}
 
-	@Override
 	public <T extends View> T use(Class<T> view) {
 		if (view.equals(Results.page())) {
 			return view.cast(new MockedPage());
@@ -22,7 +20,6 @@ public class MockResult implements Result {
 		return view.cast(new MockedLogic());
 	}
 
-	@Override
 	public boolean used() {
 		return false;
 	}

@@ -19,30 +19,25 @@ public class UserDao implements UserRepository {
         this.session = session;
     }
 
-    @Override
     public void add(User user) {
         this.session.save(user);
     }
 
-    @Override
     public void update(User user) {
         this.session.merge(user);
     }
 
-    @Override
     public void remove(User user) {
     }
 
-    @Override
     public User find(String login) {
         return (User) this.session.createQuery("from User where login = :login").setParameter("login", login).uniqueResult();
     }
-    @Override
+
     public List<User> listAll() {
     	return session.createQuery("from User").list();
     }
 
-	@Override
 	public List<User> listUnrelatedUsers(Project project) {
 
 		String hql = "select u from User u, Project p where p = :project " +

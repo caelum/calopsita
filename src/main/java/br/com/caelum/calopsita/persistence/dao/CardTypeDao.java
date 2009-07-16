@@ -21,7 +21,6 @@ public class CardTypeDao implements CardTypeRepository {
 		this.session.save(cardType);
 	}
 
-	@Override
 	public List<CardType> listFrom(Project project) {
 		return session.createQuery("from CardType type where type.project = :project")
 			.setParameter("project", project)

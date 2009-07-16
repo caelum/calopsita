@@ -39,7 +39,6 @@ public class MockValidator implements Validator {
 		return mockery.mock(type);
 	}
 
-	@Override
 	public Validator onError() {
 		return this;
 	}

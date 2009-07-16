@@ -16,7 +16,6 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 		factory = new AnnotationConfiguration().configure().buildSessionFactory();
 	}
 
-	@Override
 	public SessionFactory getInstance() {
 		return factory;
 	}

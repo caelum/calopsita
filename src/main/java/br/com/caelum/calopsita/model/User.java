@@ -111,7 +111,6 @@ public class User implements Identifiable {
 		return true;
 	}
 
-	@Override
 	public String getId() {
 		return login;
 	}

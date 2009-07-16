@@ -33,13 +33,11 @@ public class AuthorizationInterceptor implements Interceptor {
 		this.parameters = parameters;
 	}
 
-	@Override
 	public boolean accepts(ResourceMethod method) {
 		return !Arrays.asList(UsersController.class, HomeController.class)
 				.contains(method.getMethod().getDeclaringClass());
 	}
 
-	@Override
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
 

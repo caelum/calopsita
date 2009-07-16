@@ -19,12 +19,10 @@ public class HibernateInterceptor implements Interceptor {
 		this.session = session;
     }
 
-	@Override
 	public boolean accepts(ResourceMethod method) {
 		return !method.getMethod().getDeclaringClass().equals(HomeController.class);
 	}
 
-	@Override
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
 
         Transaction transaction = session.beginTransaction();

@@ -27,7 +27,6 @@ public class SessionCreator implements ComponentFactory<Session> {
 	public void create() {
 		this.session = factory.openSession();
 	}
-	@Override
 	public Session getInstance() {
 		return session;
 	}

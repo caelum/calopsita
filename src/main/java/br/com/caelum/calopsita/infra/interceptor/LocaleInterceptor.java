@@ -17,7 +17,7 @@ public class LocaleInterceptor implements Interceptor {
 	public LocaleInterceptor(Result result) {
 		this.result = result;
 	}
-	@Override
+
 	public boolean accepts(ResourceMethod method) {
 		return true;
 	}
@@ -39,7 +39,6 @@ public class LocaleInterceptor implements Interceptor {
 			return jsFormat;
 		}
 	}
-	@Override
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
 		String language = Locale.getDefault().getLanguage();

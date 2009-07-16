@@ -16,28 +16,23 @@ public class IterationDao implements IterationRepository{
     public IterationDao(Session session) {
         this.session = session;
     }
-    
-    @Override
+
     public void add(Iteration iteration) {
         session.save(iteration);
     }
 
-    @Override
     public void remove(Iteration iteration) {
     	session.delete(iteration);
     }
 
-    @Override
     public void update(Iteration iteration) {
         session.merge(iteration);
     }
 
-    @Override
     public Iteration load(Iteration iteration) {
     	return (Iteration) session.load(Iteration.class, iteration.getId());
     }
 
-    @Override
     public Iteration getCurrentIterationFromProject(Project project) {
         return (Iteration) this.session.createQuery("from Iteration i where i.project = :project and " +
         ":today >= i.startDate and (i.endDate IS NULL OR :today <= i.endDate)")

@@ -88,12 +88,10 @@ public class ThenAsserts {
 	public static Matcher<ContentTag> containsText(final String string) {
 		return new TypeSafeMatcher<ContentTag>() {
 			private String innerHTML;
-			@Override
 			public boolean matchesSafely(ContentTag item) {
 				innerHTML = item.innerHTML();
 				return innerHTML.contains(string);
 			}
-			@Override
 			public void describeTo(Description description) {
 				description
 					.appendText("a div containing '")
