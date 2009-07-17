@@ -364,4 +364,9 @@ public class WhenActions {
 		iClickOn("Card Types");
 		waitForAjax();
 	}
+
+	public WhenActions withTemplate(String... cardFields) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

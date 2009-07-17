@@ -9,12 +9,15 @@ import static org.junit.Assert.assertThat;
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
+import org.hamcrest.collection.IsIn;
 import org.hibernate.Session;
 import org.joda.time.LocalDate;
 
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.ContentTag;
+import br.com.caelum.seleniumdsl.Form;
 
 public class ThenAsserts {
 
@@ -31,6 +34,11 @@ public class ThenAsserts {
     private ContentTag div(String name) {
     	return this.browser.currentPage().div(name);
     }
+    
+    private Form form(String formName) {
+		return this.browser.currentPage().form(formName);
+    }
+    
     public void iMustBeLoggedInAs(String login) {
         ContentTag div = div("user");
         assertThat(div, allOf(containsText(login), containsText("Logout")));
@@ -263,5 +271,12 @@ public class ThenAsserts {
 		this.divName = "cardTypes";
 		this.name = name;
 		return this;
+	}
+
+	public void theFormShouldContainFields(String... expectedFields) {
+		// TODO Auto-generated method stub
+		for (String field : expectedFields) {
+//			assertThat(form("cardForm").field(field)., Matchers.);
+		}
 	}
 }
