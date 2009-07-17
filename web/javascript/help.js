@@ -16,11 +16,14 @@ $(function() {
   		$('.help').show();
 
 	$('#toggleHelp').click(function() {
-		if ($('#toggleHelp').is('.newbie'))
+		if ($('#toggleHelp').is('.newbie')) {
+			$('#toggleHelp strong').html('OFF');
 			$('.help').hide();
-		else
+		} else {
+			$('#toggleHelp strong').html('ON');
 			$('.help').show();
-			
+		}
+		
 		$('#toggleHelp').toggleClass('newbie');
 		
 		$.get(toggleUrl);

@@ -30,7 +30,7 @@
           <a href="<c:url value="/users/logout/"/>">Logout</a>
         </c:if>
         <div id="toggleHelp" ${currentUser.newbie? 'class="newbie"' : '' } title="<fmt:message key="help.toggle" />">
-       		<span>?</span>
+       		<span>HELP: <strong>${currentUser.newbie? 'ON' : 'OFF' }</strong></span>
         </div>
        </div>
 	</div>
