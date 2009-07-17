@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.infra.interceptor;
 
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import br.com.caelum.vraptor.InterceptionException;
@@ -37,6 +38,13 @@ public class LocaleInterceptor implements Interceptor {
 		}
 		public String getJsFormat() {
 			return jsFormat;
+		}
+
+		public SimpleDateFormat getFormat() {
+			return new SimpleDateFormat(getJodaFormat());
+		}
+		public static DateFormat valueFor(Locale locale) {
+			return valueOf(locale.getLanguage());
 		}
 	}
 	public void intercept(InterceptorStack stack, ResourceMethod method,
