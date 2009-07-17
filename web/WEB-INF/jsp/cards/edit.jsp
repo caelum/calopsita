@@ -51,7 +51,7 @@
 			<%@include file="form.jsp" %>
 		    <p>
 		    	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
-		  		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');"/>
+		  		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>"/>
 		  	</p>
 		</form>
 	</div>
