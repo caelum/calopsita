@@ -1,11 +1,11 @@
 body {
 	font-family: verdana, arial, sans-serif;	
-	background: #dee4e6 url(../images/calopsita-background.png) 100% 100% no-repeat fixed;
+	background: #ffffff url(../images/logged-in-background.png) 100% 100% no-repeat fixed;
 }
 
 .separador {
 	border: 0px;
-	background-color: #eaeeef;
+	background-color: #bf2126;
 	color: #eaeeef;
 	height: 3px;
 	width: 100%;
