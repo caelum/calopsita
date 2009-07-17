@@ -76,10 +76,10 @@ body {
 #toggleHelp > * {
 	border: 1px solid gray;
 	float: right;
-	padding: 5px;
+	padding: 2px 8px;
 	cursor: pointer;
 	border-color: gray;
 }
 #toggleHelp.newbie > * {
-	background-color: #f5f5be;
+	background-color: #eeeeee;
 }
