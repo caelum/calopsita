@@ -122,12 +122,13 @@ function prepare() {
     function fixWidth() {
         var width = $('body').width();
         $('#todo_cards, #iteration_cards').css( {
-            width : 0.48 * width,
+            width : 540,
             'float' : 'left'
         });
         $('#done_cards, #backlog').css( {
-            width : 0.48 * width,
-            'float' : 'right'
+            width : 540,
+            'float' : 'left',
+            'margin-left' : 15
         });
     }
     fixWidth();

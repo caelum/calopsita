@@ -28,7 +28,7 @@
 	padding: 0;	
 }
 
-.story, .iteration, .pretty li {
+.story, .card, .iteration, .pretty li {
 	float: left;
 	clear: both;
 	width: 500px;
@@ -133,7 +133,19 @@ li#current {
   font-weight: bold;
 }
 
+#left {
+  float: left;
+  width: 540px;
+}
 
+#right {
+  float: left;
+  width: 540px;
+}
+
+#undoForm {
+  clear: both;
+}
 
 /* begin css tabs */
 
