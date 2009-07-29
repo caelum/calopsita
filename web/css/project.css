@@ -83,7 +83,7 @@ label.error {
 }
 
 input[type="text"] {
-  width: 200px;
+  width: 465px;
 }
 
 input.error {
@@ -93,7 +93,7 @@ input.error {
 	float: right;	
 }
 textarea {
-  width: 200px;
+  width: 465px;
   height: 80px;
 }
 
