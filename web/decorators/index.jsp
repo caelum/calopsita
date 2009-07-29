@@ -11,14 +11,13 @@
 <body>
 
 <div id="main">
+
 	<div id="header">
 	   <div id="logo">
          <a href="<c:url value="/"/>"><img src="<c:url value="/images/logo-login.png"/>" alt="calopsita" /></a>
        </div>
 	</div>
-	
-	<hr class="separador"/>
-	
+		
     <div id="errors">
 		<c:if test="${not empty errors}">
 			<c:forEach var="error" items="${errors.iterator}">

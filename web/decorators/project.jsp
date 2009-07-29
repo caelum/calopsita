@@ -5,7 +5,7 @@
 	<html xmlns="http://www.w3.org/1999/xhtml">
 	
 	<head>	
-	    <title><decorator:title default="Home" /> - Calopsita - Agile teams project management tool</title>
+	    <title><decorator:title default="Projects" /> - Calopsita - Agile teams project management tool</title>
 	    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/project.css"/>" />
 	    <script type="text/javascript">
 		  //<![CDATA[

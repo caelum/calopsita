@@ -35,8 +35,6 @@
        </div>
 	</div>
 	
-	<hr class="separador"/>
-	
     <div id="errors">
 		<c:if test="${not empty errors}">
 			<c:forEach var="error" items="${errors}">

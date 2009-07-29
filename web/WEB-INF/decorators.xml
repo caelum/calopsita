@@ -3,9 +3,15 @@
 	<excludes>
 		<pattern>/tests/*</pattern>
 	</excludes>
-	<decorator name="calopsita" page="calopsita.jsp">
+	
+	<decorator name="calopsita" page="calopsita.jsp" />
+	
+	<decorator name="inicial" page="index.jsp">
 		<pattern>/home/*</pattern>
 		<pattern>/users/*</pattern>
+	</decorator>
+	
+	<decorator name="user" page="user.jsp">
 		<pattern>/projects/</pattern>
 		<pattern>/projects/new/</pattern>
 		<pattern>/</pattern>
