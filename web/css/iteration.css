@@ -92,6 +92,10 @@
   display: none;
 }
 
+#planning {
+  min-width: 1100px;
+}
+
 #start_end_line {
   float: left; 
   width: 300px; 
@@ -134,4 +138,5 @@
 
 #prioritizationForm {
 	clear: both;
+	min-width: 1000px;
 }
