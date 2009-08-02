@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.seleniumdsl.Browser;
+import br.com.caelum.seleniumdsl.ContentTag;
 import br.com.caelum.seleniumdsl.Form;
 import br.com.caelum.seleniumdsl.Page;
 
@@ -52,7 +53,8 @@ public class GivenContexts {
 
     public void iAmNotLogged() {
         iAmOnTheRootPage();
-        if (browser.currentPage().div("user").contains("Logout")) {
+        ContentTag div = browser.currentPage().div("user");
+		if (div.exists() && div.contains("Logout")) {
             browser.currentPage().click("link=Logout");
         }
     }
