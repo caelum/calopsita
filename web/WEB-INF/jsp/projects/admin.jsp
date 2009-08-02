@@ -45,7 +45,7 @@
 			  <form id="colaborator" class="hidden" name="addColaborator"
 			    action="<c:url value="/projects/${project.id}/colaborators/?selected=1"/>" method="post">
 			    <select name="colaborator.login">
-			      <c:forEach items="${users}" var="user">
+			      <c:forEach items="${project.unrelatedUsers}" var="user">
 			        <option value="${user.login}">${user.name}</option>
 			      </c:forEach>    
 			    </select>

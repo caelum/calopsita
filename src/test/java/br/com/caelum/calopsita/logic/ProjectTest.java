@@ -48,7 +48,7 @@ public class ProjectTest {
 				will(returnValue(currentUser));
 			}
 		});
-		logic = new ProjectsController(new MockValidator(), new MockResult(), repository, userRepository, new SessionUser(session));
+		logic = new ProjectsController(new MockValidator(), new MockResult(), repository, new SessionUser(session));
     }
 
 

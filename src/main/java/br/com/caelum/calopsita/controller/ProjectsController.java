@@ -10,7 +10,6 @@ import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -26,15 +25,13 @@ public class ProjectsController {
 
     private final ProjectRepository repository;
     private final User currentUser;
-	private final UserRepository userRepository;
     private final Validator validator;
     private final Result result;
 
-    public ProjectsController(Validator validator, Result result, ProjectRepository repository, UserRepository userRepository, SessionUser user) {
+    public ProjectsController(Validator validator, Result result, ProjectRepository repository, SessionUser user) {
         this.result = result;
         this.validator = validator;
         this.repository = repository;
-		this.userRepository = userRepository;
         this.currentUser = (user == null? null:user.getUser());
     }
 
@@ -44,9 +41,8 @@ public class ProjectsController {
     }
 
     @Path("/projects/{project.id}/admin/") @Get
-    public void admin(Project project) {
-    	this.result.include("project", project.refresh());
-    	this.result.include("users", project.getUnrelatedUsers());
+    public Project admin(Project project) {
+    	return project.refresh();
     }
 
     @Path("/projects/") @Post
