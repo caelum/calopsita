@@ -36,6 +36,11 @@ public class Project implements Identifiable {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Iteration> iteractions;
 
+    public Project(Long id) {
+		this.id = id;
+	}
+    public Project() {
+	}
     @Transient
     private ProjectRepository repository;
 
@@ -51,6 +56,9 @@ public class Project implements Identifiable {
 		return repository;
 	}
 
+    public Project load() {
+    	return repository.get(id);
+    }
     public Project refresh() {
     	return getRepository().refresh(this);
     }
@@ -59,6 +67,9 @@ public class Project implements Identifiable {
     	return getRepository().listUnrelatedUsers(this);
     }
 
+    public void save() {
+    	getRepository().add(this);
+    }
     public Long getId() {
         return id;
     }

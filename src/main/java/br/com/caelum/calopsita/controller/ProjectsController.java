@@ -51,32 +51,30 @@ public class ProjectsController {
         validator.checking(new Validations() {{
         	that(Hibernate.validate(project));
         }});
-        this.repository.add(project);
+        project.save();
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
     @Path("/projects/{project.id}/") @Post
     public void update(Project project) {
     	validator.onError().goTo(page()).forward("/WEB-INF/jsp/projects/delete.invalid.jsp");
-    	final Project loaded = this.repository.load(project);
-    	validator.checking(new Validations() {
-    		{
-    			that(loaded.getOwner(), equalTo(currentUser));
-    		}
-    	});
+    	final Project loaded = project.load();
+    	validator.checking(new Validations() {{
+    		that(loaded.getOwner(), equalTo(currentUser));
+    	}});
 		loaded.setDescription(project.getDescription());
 		result.use(logic()).redirectTo(ProjectsController.class).admin(loaded);
     }
 
     @Path("/projects/{project.id}/") @Delete
-    public void delete(Project project) {
-    	final Project loaded = this.repository.load(project);
+    public void delete(final Project project) {
+    	project.refresh();
     	validator.checking(new Validations() {
     		{
-    			that(currentUser).shouldBe(equalTo(loaded.getOwner()));
+    			that(currentUser).shouldBe(equalTo(project.getOwner()));
     		}
     	});
-	    this.repository.remove(loaded);
+	    this.repository.remove(project);
 	    result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
@@ -92,10 +90,8 @@ public class ProjectsController {
 
     @Path("/projects/{project.id}/colaborators/") @Post
     public void addColaborator(Project project, User colaborator) {
-        Project loaded = repository.get(project.getId());
-        loaded.getColaborators().add(colaborator);
-        repository.update(loaded);
-        result.include("project", loaded);
+        project.refresh();
+        project.getColaborators().add(colaborator);
         result.use(logic()).redirectTo(ProjectsController.class).admin(project);
     }
 }
