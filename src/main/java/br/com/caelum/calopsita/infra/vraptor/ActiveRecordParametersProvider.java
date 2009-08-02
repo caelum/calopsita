@@ -32,11 +32,13 @@ public class ActiveRecordParametersProvider implements ParametersProvider {
 		Object[] parameters = delegate.getParametersFor(method, errors, bundle);
 		Mirror mirror = new Mirror();
 		for (Object object : parameters) {
-			List<Method> methods = mirror.on(object.getClass()).reflectAll().methodsMatching(new InjectMatcher());
-			for (Method toInject : methods) {
-				Class<?> typeToInject = toInject.getParameterTypes()[0];
-				Object instanceToInject = container.instanceFor(typeToInject);
-				mirror.on(object).invoke().method(toInject).withArgs(instanceToInject);
+			if (object != null) {
+				List<Method> methods = mirror.on(object.getClass()).reflectAll().methodsMatching(new InjectMatcher());
+				for (Method toInject : methods) {
+					Class<?> typeToInject = toInject.getParameterTypes()[0];
+					Object instanceToInject = container.instanceFor(typeToInject);
+					mirror.on(object).invoke().method(toInject).withArgs(instanceToInject);
+				}
 			}
 		}
 		return parameters;
