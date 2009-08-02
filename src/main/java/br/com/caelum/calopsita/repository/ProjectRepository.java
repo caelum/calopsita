@@ -24,4 +24,6 @@ public interface ProjectRepository extends BaseRepository<Project> {
 
 	List<CardType> listCardTypesFrom(Project project);
 
+	Project refresh(Project project);
+
 }

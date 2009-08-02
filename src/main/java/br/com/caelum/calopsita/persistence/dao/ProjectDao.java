@@ -24,6 +24,10 @@ public class ProjectDao implements ProjectRepository {
         this.session = session;
     }
 
+    public Project refresh(Project project) {
+    	session.refresh(project);
+    	return project;
+    }
     public Project get(Long id) {
     	return (Project) session.get(Project.class, id);
     }

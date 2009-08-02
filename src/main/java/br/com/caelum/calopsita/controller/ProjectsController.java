@@ -45,18 +45,16 @@ public class ProjectsController {
 
     @Path("/projects/{project.id}/admin/") @Get
     public void admin(Project project) {
-    	this.result.include("project", this.repository.get(project.getId()));
+    	this.result.include("project", project.refresh());
     	this.result.include("users", this.userRepository.listUnrelatedUsers(project));
     }
 
     @Path("/projects/") @Post
     public void save(final Project project) {
         project.setOwner(currentUser);
-        validator.checking(new Validations() {
-            {
-                that(Hibernate.validate(project));
-            }
-        });
+        validator.checking(new Validations() {{
+        	that(Hibernate.validate(project));
+        }});
         this.repository.add(project);
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }

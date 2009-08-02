@@ -10,8 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.NotNull;
+import org.picocontainer.annotations.Inject;
+
+import br.com.caelum.calopsita.repository.ProjectRepository;
 
 @Entity
 public class Project implements Identifiable {
@@ -31,6 +35,25 @@ public class Project implements Identifiable {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Iteration> iteractions;
+
+    @Transient
+    private ProjectRepository repository;
+
+    @Inject
+    public void setRepository(ProjectRepository repository) {
+		this.repository = repository;
+	}
+
+    private ProjectRepository getRepository() {
+    	if (repository == null) {
+			throw new IllegalStateException("Repository was not set. You should inject it first");
+		}
+		return repository;
+	}
+
+    public Project refresh() {
+    	return getRepository().refresh(this);
+    }
 
     public Long getId() {
         return id;
