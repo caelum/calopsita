@@ -46,7 +46,7 @@ public class ProjectsController {
     @Path("/projects/{project.id}/admin/") @Get
     public void admin(Project project) {
     	this.result.include("project", project.refresh());
-    	this.result.include("users", this.userRepository.listUnrelatedUsers(project));
+    	this.result.include("users", project.getUnrelatedUsers());
     }
 
     @Path("/projects/") @Post

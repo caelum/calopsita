@@ -2,10 +2,8 @@ package br.com.caelum.calopsita.persistence.dao;
 
 import java.util.List;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 
-import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.ioc.Component;
@@ -37,14 +35,5 @@ public class UserDao implements UserRepository {
     public List<User> listAll() {
     	return session.createQuery("from User").list();
     }
-
-	public List<User> listUnrelatedUsers(Project project) {
-
-		String hql = "select u from User u, Project p where p = :project " +
-				"and u != p.owner and u not in elements (p.colaborators)";
-		Query query = session.createQuery(hql);
-		query.setParameter("project", project);
-		return query.list();
-	}
 
 }

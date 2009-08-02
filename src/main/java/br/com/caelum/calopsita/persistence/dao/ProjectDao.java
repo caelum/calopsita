@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.persistence.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -28,6 +29,15 @@ public class ProjectDao implements ProjectRepository {
     	session.refresh(project);
     	return project;
     }
+
+    public List<User> listUnrelatedUsers(Project project) {
+		String hql = "select u from User u, Project p where p = :project " +
+				"and u != p.owner and u not in elements (p.colaborators)";
+		Query query = session.createQuery(hql);
+		query.setParameter("project", project);
+		return query.list();
+	}
+
     public Project get(Long id) {
     	return (Project) session.get(Project.class, id);
     }

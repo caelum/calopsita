@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.joda.time.LocalDate;
@@ -163,6 +164,59 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		Iteration outOfProject = new Iteration();
 		dao.hasInconsistentValues(new Object[] {outOfProject}, givenAUser());
 	}
+
+	@Test
+	public void findUnrelatedUsers() throws Exception {
+		Project project = givenAProject();
+		User owner = givenAnUserOwnerOf(project);
+		User colaborator = givenAnUserColaboratorOf(project);
+		User user = givenAnUnrelatedUser("pedro");
+
+		List<User> users = dao.listUnrelatedUsers(project);
+
+		assertThat(users, hasItem(user));
+		assertThat(users, not(hasItem(owner)));
+		assertThat(users, not(hasItem(colaborator)));
+
+	}
+
+	@Test
+	public void findUnreleatedUsersWhenThereIsNoColaborator() throws Exception {
+		Project project = givenAProject();
+		User owner = givenAnUserOwnerOf(project);
+		User user = givenAnUnrelatedUser("pedro");
+
+		List<User> users = dao.listUnrelatedUsers(project);
+
+		assertThat(users, hasItem(user));
+		assertThat(users, not(hasItem(owner)));
+	}
+
+	private User givenAnUserColaboratorOf(Project project) {
+		User user = givenAnUnrelatedUser("caue");
+		project.setColaborators(Arrays.asList(user));
+		this.session.flush();
+		return user;
+	}
+
+	private User givenAnUserOwnerOf(Project project) {
+		User user = givenAnUnrelatedUser("lucas");
+		project.setOwner(user);
+		this.session.flush();
+		return user;
+	}
+
+	private User givenAnUnrelatedUser(String name) {
+		User user = new User();
+		user.setName(name);
+		user.setEmail(name + "@caelum.com.br");
+		user.setLogin(name);
+		user.setPassword(name);
+		this.session.save(user);
+		this.session.flush();
+		return user;
+	}
+
 	private Iteration givenAnIterationOfProject(Project project) throws ParseException {
         Iteration iteration = givenAnIteration();
         iteration.setProject(project);

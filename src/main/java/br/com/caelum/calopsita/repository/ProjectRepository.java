@@ -26,4 +26,5 @@ public interface ProjectRepository extends BaseRepository<Project> {
 
 	Project refresh(Project project);
 
+	List<User> listUnrelatedUsers(Project project);
 }

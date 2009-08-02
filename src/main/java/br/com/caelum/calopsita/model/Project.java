@@ -55,6 +55,10 @@ public class Project implements Identifiable {
     	return getRepository().refresh(this);
     }
 
+    public List<User> getUnrelatedUsers() {
+    	return getRepository().listUnrelatedUsers(this);
+    }
+
     public Long getId() {
         return id;
     }
