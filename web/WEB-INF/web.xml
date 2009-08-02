@@ -15,6 +15,10 @@
 		</jsp-property-group>
 	</jsp-config>
 
+	<context-param>
+		<param-name>br.com.caelum.vraptor.provider</param-name>
+		<param-value>br.com.caelum.calopsita.infra.vraptor.CalopsitaProvider</param-value>
+	</context-param>
 	<session-config>
 		<session-timeout>-1</session-timeout>
 	</session-config>
