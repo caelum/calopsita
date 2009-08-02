@@ -74,7 +74,7 @@ public class ProjectsController {
     			that(currentUser).shouldBe(equalTo(project.getOwner()));
     		}
     	});
-	    this.repository.remove(project);
+	    project.delete();
 	    result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 

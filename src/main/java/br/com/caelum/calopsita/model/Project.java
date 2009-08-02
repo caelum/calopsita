@@ -57,10 +57,14 @@ public class Project implements Identifiable {
 	}
 
     public Project load() {
-    	return repository.get(id);
+    	return repository.load(this);
     }
     public Project refresh() {
     	return getRepository().refresh(this);
+    }
+
+    public void delete() {
+    	getRepository().remove(this);
     }
 
     public List<User> getUnrelatedUsers() {
