@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Card implements Identifiable, FromProject {
@@ -38,6 +39,9 @@ public class Card implements Identifiable, FromProject {
 
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.TODO;
+
+	@Transient
+	private String qqercoisa;
 
 	public static enum Status {
 		TODO, DONE

@@ -41,8 +41,8 @@ public class ProjectsController {
     }
 
     @Path("/projects/{project.id}/admin/") @Get
-    public Project admin(Project project) {
-    	return project.refresh();
+    public void admin(Project project) {
+    	result.include("project", project.load());
     }
 
     @Path("/projects/") @Post
@@ -68,12 +68,9 @@ public class ProjectsController {
 
     @Path("/projects/{project.id}/") @Delete
     public void delete(final Project project) {
-    	project.refresh();
-    	validator.checking(new Validations() {
-    		{
-    			that(currentUser).shouldBe(equalTo(project.getOwner()));
-    		}
-    	});
+    	validator.checking(new Validations() {{
+    		that(currentUser).shouldBe(equalTo(project.load().getOwner()));
+    	}});
 	    project.delete();
 	    result.use(logic()).redirectTo(ProjectsController.class).list();
     }
@@ -90,8 +87,8 @@ public class ProjectsController {
 
     @Path("/projects/{project.id}/colaborators/") @Post
     public void addColaborator(Project project, User colaborator) {
-        project.refresh();
-        project.getColaborators().add(colaborator);
+        Project loaded = project.load();
+        loaded.getColaborators().add(colaborator);
         result.use(logic()).redirectTo(ProjectsController.class).admin(project);
     }
 }

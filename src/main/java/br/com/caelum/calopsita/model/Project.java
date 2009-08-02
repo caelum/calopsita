@@ -57,10 +57,9 @@ public class Project implements Identifiable {
 	}
 
     public Project load() {
-    	return repository.load(this);
-    }
-    public Project refresh() {
-    	return getRepository().refresh(this);
+    	Project load = repository.load(this);
+    	load.setRepository(repository);
+		return load;
     }
 
     public void delete() {
