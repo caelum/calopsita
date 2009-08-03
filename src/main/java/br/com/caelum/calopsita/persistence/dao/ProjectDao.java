@@ -63,12 +63,6 @@ public class ProjectDao implements ProjectRepository {
     	this.session.delete(project);
     }
 
-    public List<Project> listAllFrom(User user) {
-        return this.session.createQuery("from Project p where p.owner = :user or " +
-        		":user in elements(p.colaborators)")
-                .setParameter("user", user).list();
-    }
-
 	public List<Card> listCardsFrom(Project project) {
 		return new CardDao(session).listFrom(project);
 	}

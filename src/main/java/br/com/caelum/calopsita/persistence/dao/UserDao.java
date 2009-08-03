@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.ioc.Component;
@@ -34,6 +35,12 @@ public class UserDao implements UserRepository {
 
     public List<User> listAll() {
     	return session.createQuery("from User").list();
+    }
+
+    public List<Project> listAllFrom(User user) {
+        return this.session.createQuery("from Project p where p.owner = :user or " +
+        		":user in elements(p.colaborators)")
+                .setParameter("user", user).list();
     }
 
 }

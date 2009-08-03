@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.model;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -46,6 +47,10 @@ public class User implements Identifiable {
     	}
 		return repository;
 	}
+
+    public List<Project> getProjects() {
+    	return getRepository().listAllFrom(this);
+    }
 
     public User load() {
     	return getRepository().find(this.login);

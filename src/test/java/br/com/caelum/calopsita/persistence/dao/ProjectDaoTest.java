@@ -100,15 +100,6 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	}
 
 	@Test
-	public void listProjectIfUserIsTheOwner() throws Exception {
-		User user = givenAUser();
-		Project project = givenAProjectOwnedBy(user);
-
-		List<Project> list = dao.listAllFrom(user);
-
-		assertThat(list, hasItem(hasSameId(project)));
-	}
-	@Test
 	public void refreshingAProject() throws Exception {
 		Project project = givenAProject();
 
@@ -119,26 +110,6 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		project2.refresh();
 
 		assertThat(project2.getName(), is(project.getName()));
-	}
-	@Test
-	public void listProjectIfUserIsAColaborator() throws Exception {
-		User user = givenAUser();
-		Project project = givenAProjectWithColaborator(user);
-
-		List<Project> list = dao.listAllFrom(user);
-
-		assertThat(list, hasItem(hasSameId(project)));
-	}
-
-
-	@Test
-	public void dontListProjectIfUserIsUnrelated() throws Exception {
-		User user = givenAUser();
-		Project project = givenAProject();
-
-		List<Project> list = dao.listAllFrom(user);
-
-		assertThat(list, not(hasItem(hasSameId(project))));
 	}
 
 	@Test

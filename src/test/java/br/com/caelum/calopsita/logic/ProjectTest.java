@@ -23,6 +23,7 @@ import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.validator.ValidationError;
 
 public class ProjectTest {
@@ -31,6 +32,7 @@ public class ProjectTest {
     private ProjectRepository repository;
 	private User currentUser;
 	private HttpSession session;
+	private UserRepository userRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -38,6 +40,8 @@ public class ProjectTest {
         repository = mockery.mock(ProjectRepository.class);
         session = mockery.mock(HttpSession.class);
         currentUser = currentUser();
+        userRepository = mockery.mock(UserRepository.class);
+        currentUser.setRepository(userRepository);
 
 		mockery.checking(new Expectations() {
 			{
@@ -45,7 +49,7 @@ public class ProjectTest {
 				will(returnValue(currentUser));
 			}
 		});
-		logic = new ProjectsController(new MockValidator(), new MockResult(), repository, new SessionUser(session));
+		logic = new ProjectsController(new MockValidator(), new MockResult(), new SessionUser(session));
     }
 
 
@@ -225,7 +229,7 @@ public class ProjectTest {
         final Project project = new Project();
         mockery.checking(new Expectations() {
             {
-                one(repository).listAllFrom(currentUser);
+                one(userRepository).listAllFrom(currentUser);
                 will(returnValue(Collections.singletonList(project)));
             }
         });

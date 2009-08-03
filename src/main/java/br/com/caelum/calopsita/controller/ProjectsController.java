@@ -9,7 +9,6 @@ import java.util.List;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
-import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -23,15 +22,13 @@ import br.com.caelum.vraptor.validator.Validations;
 @Resource
 public class ProjectsController {
 
-    private final ProjectRepository repository;
     private final User currentUser;
     private final Validator validator;
     private final Result result;
 
-    public ProjectsController(Validator validator, Result result, ProjectRepository repository, SessionUser user) {
+    public ProjectsController(Validator validator, Result result, SessionUser user) {
         this.result = result;
         this.validator = validator;
-        this.repository = repository;
         this.currentUser = (user == null? null:user.getUser());
     }
 
@@ -78,7 +75,7 @@ public class ProjectsController {
 
     @Path("/projects/") @Get
     public List<Project> list() {
-        return repository.listAllFrom(currentUser);
+        return currentUser.getProjects();
     }
 
     @Path("/") @Get
