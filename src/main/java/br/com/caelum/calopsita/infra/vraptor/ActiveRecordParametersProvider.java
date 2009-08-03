@@ -33,23 +33,23 @@ public class ActiveRecordParametersProvider implements ParametersProvider {
 		Object[] parameters = delegate.getParametersFor(method, errors, bundle);
 		Mirror mirror = new Mirror();
 		for (Object object : parameters) {
-			if (object != null) {
-				injectDependencies(mirror, object);
-			}
+			injectDependencies(mirror, object);
 		}
 		return parameters;
 	}
 
 	private void injectDependencies(Mirror mirror, Object object) {
-		List<Method> methods = mirror.on(object.getClass()).reflectAll().methodsMatching(new InjectMatcher());
-		for (Method toInject : methods) {
-			Class<?> typeToInject = toInject.getParameterTypes()[0];
-			Object instanceToInject = container.instanceFor(typeToInject);
-			mirror.on(object).invoke().method(toInject).withArgs(instanceToInject);
-		}
-		List<Method> recursive = mirror.on(object.getClass()).reflectAll().methodsMatching(new InjectRecursiveMatcher());
-		for (Method method : recursive) {
-			injectDependencies(mirror, mirror.on(object).invoke().method(method).withoutArgs());
+		if (object != null) {
+			List<Method> methods = mirror.on(object.getClass()).reflectAll().methodsMatching(new InjectMatcher());
+			for (Method toInject : methods) {
+				Class<?> typeToInject = toInject.getParameterTypes()[0];
+				Object instanceToInject = container.instanceFor(typeToInject);
+				mirror.on(object).invoke().method(toInject).withArgs(instanceToInject);
+			}
+			List<Method> recursive = mirror.on(object.getClass()).reflectAll().methodsMatching(new InjectRecursiveMatcher());
+			for (Method method : recursive) {
+				injectDependencies(mirror, mirror.on(object).invoke().method(method).withoutArgs());
+			}
 		}
 	}
 

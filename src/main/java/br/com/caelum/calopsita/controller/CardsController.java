@@ -70,9 +70,9 @@ public class CardsController {
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/") @Get
 	public void edit(Card card) {
-	    card.refresh();
-		result.include("card", card);
-		result.include("project", card.getProject());
+	    Card loaded = card.load();
+		result.include("card", loaded);
+		result.include("project", loaded.getProject());
 		result.include("gadgets", Gadgets.values());
 	    result.include("cardGadgets", Gadgets.valueOf(card.getGadgets()));
 	    result.include("cards", card.getSubcards());
@@ -88,13 +88,14 @@ public class CardsController {
 
 		Project project = loaded.getProject();
 		loaded.updateGadgets(gadgets);
+		loaded.update();
 		result.use(logic()).redirectTo(CardsController.class).list(project);
 	}
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/") @Delete
 	public void delete(Card card, boolean deleteSubcards) {
-		card.refresh();
-		final Project project = card.getProject();
+		Card loaded = card.load();
+		final Project project = card.getProject().load();
 
 		validator.checking(new Validations() {{
 			that(currentUser, anyOf(
@@ -102,11 +103,11 @@ public class CardsController {
 						is(equalTo(project.getOwner()))));
 		}});
         if (deleteSubcards) {
-            card.deleteSubCards();
+            loaded.deleteSubCards();
         } else {
-        	card.detachSubCards();
+        	loaded.detachSubCards();
         }
-        card.delete();
+        loaded.delete();
         result.include("cards", project.getCards());
         result.include("project", project);
         result.use(page()).forward(UPDATE_JSP);

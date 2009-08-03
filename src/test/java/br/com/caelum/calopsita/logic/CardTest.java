@@ -49,6 +49,7 @@ public class CardTest {
         project = new Project();
 
 		projectRepository = mockery.mock(ProjectRepository.class);
+		project.setRepository(projectRepository);
 
 		mockery.checking(new Expectations() {
 			{
@@ -129,7 +130,7 @@ public class CardTest {
     	subcard.setParent(card);
 
     	Card returned = givenTheCardIsInThisProject(card);
-    	returned.getSubcards().add(subcard);
+    	givenTheCardHasSubCard(returned, subcard);
 
     	shouldRemoveTheCardFromRepository(returned);
     	shouldRemoveTheCardFromRepository(subcard);
@@ -138,7 +139,18 @@ public class CardTest {
 
         mockery.assertIsSatisfied();
     }
-    @Test
+    private void givenTheCardHasSubCard(final Card returned, final Card subcard) {
+
+		mockery.checking(new Expectations() {
+			{
+				one(repository).listSubcards(returned);
+				will(returnValue(Arrays.asList(subcard)));
+			}
+		});
+	}
+
+
+	@Test
     public void removeACardButNotSubcards() throws Exception {
     	Card card = givenACard();
     	givenTheProjectIsOwnedBy(currentUser);
@@ -147,7 +159,7 @@ public class CardTest {
     	subCard.setParent(card);
 
     	Card returned = givenTheCardIsInThisProject(card);
-    	returned.getSubcards().add(subCard);
+    	givenTheCardHasSubCard(returned, subCard);
 
     	shouldRemoveTheCardFromRepository(returned);
     	shouldUpdateTheCardFromRepository(subCard);
@@ -198,17 +210,13 @@ public class CardTest {
 
 
 	private Card givenTheCardIsInThisProject(final Card card) {
-        final Card returned = new Card();
-        returned.setProject(this.project);
-
         mockery.checking(new Expectations() {
             {
-
-                one(repository).load(card);
-                will(returnValue(returned));
+                one(projectRepository).load(project);
+                will(returnValue(project));
             }
         });
-        return returned;
+        return card;
     }
 
     private void givenTheProjectIsOwnedBy(User user) {
@@ -243,7 +251,10 @@ public class CardTest {
 		mockery.checking(new Expectations() {
 			{
 				one(repository).remove(returned);
+
 				allowing(projectRepository).listCardsFrom(project);
+
+				allowing(repository).listSubcards(returned);
 			}
 		});
 	}
@@ -272,9 +283,6 @@ public class CardTest {
 
 		mockery.checking(new Expectations() {
 			{
-				one(projectRepository).listCardsFrom(with(any(Project.class)));
-				will(returnValue(Arrays.asList(card)));
-
 				allowing(projectRepository);
 
 				one(repository).load(card);
@@ -330,10 +338,15 @@ public class CardTest {
 	}
 
 	private Project givenAProject() {
-		return new Project();
+		Project project2 = new Project();
+		project2.setRepository(projectRepository);
+		return project2;
 	}
 
 	private Card givenACard() {
-		return new Card();
+		Card card = new Card();
+		card.setProject(project);
+		card.setRepository(repository);
+		return card;
 	}
 }

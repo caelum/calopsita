@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.picocontainer.annotations.Inject;
@@ -35,6 +36,9 @@ public class Card implements Identifiable, FromProject {
 
 	@ManyToOne
 	private Card parent;
+
+	@OneToMany(mappedBy = "parent")
+	private List<Card> subcards;
 
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.TODO;
@@ -66,8 +70,13 @@ public class Card implements Identifiable, FromProject {
 		return getRepository().listGadgets(this);
 	}
 
+	public void update() {
+		getRepository().update(this);
+	}
 	public Card load() {
-		return getRepository().load(this);
+		Card loaded = getRepository().load(this);
+		loaded.setRepository(getRepository());
+		return loaded;
 	}
 
 	public void updateGadgets(List<Gadgets> gadgets) {
@@ -97,7 +106,10 @@ public class Card implements Identifiable, FromProject {
 		}
 	}
 	public List<Card> getSubcards() {
-		return getRepository().listSubcards(this);
+		if (subcards == null) {
+			return getRepository().listSubcards(this);
+		}
+		return subcards;
 	}
 
 	public void save() {
@@ -157,6 +169,7 @@ public class Card implements Identifiable, FromProject {
 		this.parent = parent;
 	}
 
+	@Inject
 	public Card getParent() {
 		return parent;
 	}
