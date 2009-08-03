@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -17,6 +16,7 @@ import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.core.MethodInfo;
 import br.com.caelum.vraptor.resource.ResourceMethod;
@@ -26,7 +26,6 @@ public class AuthorizationInterceptorTest {
 
 	private Mockery mockery;
 	private ProjectRepository repository;
-	private User user;
 	private AuthorizationInterceptor interceptor;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
@@ -37,20 +36,15 @@ public class AuthorizationInterceptorTest {
 	public void setUp() throws Exception {
 		mockery = new Mockery();
 		repository = mockery.mock(ProjectRepository.class);
-		user = new User();
-		final HttpSession session = mockery.mock(HttpSession.class);
-		SessionUser sessionUser = new SessionUser(session);
+		SessionUser sessionUser = new SessionUser();
 
 		request = mockery.mock(HttpServletRequest.class);
 		response = mockery.mock(HttpServletResponse.class);
 		stack = mockery.mock(InterceptorStack.class);
 		info = mockery.mock(MethodInfo.class);
-		interceptor = new AuthorizationInterceptor(sessionUser, repository, request, response, info);
+		interceptor = new AuthorizationInterceptor(sessionUser, mockery.mock(UserRepository.class), repository, request, response, info);
 		mockery.checking(new Expectations() {
 			{
-				allowing(session).getAttribute("currentUser");
-				will(returnValue(user));
-
 				allowing(info).getParameters();
 				will(returnValue(new Object[0]));
 			}

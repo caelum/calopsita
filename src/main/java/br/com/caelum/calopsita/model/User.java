@@ -6,9 +6,13 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.Email;
 import org.hibernate.validator.NotNull;
+import org.picocontainer.annotations.Inject;
+
+import br.com.caelum.calopsita.repository.UserRepository;
 
 @Entity
 public class User implements Identifiable {
@@ -28,6 +32,27 @@ public class User implements Identifiable {
 
     private boolean newbie;
 
+    @Transient
+    private UserRepository repository;
+
+    @Inject
+    public void setRepository(UserRepository repository) {
+		this.repository = repository;
+	}
+
+    private UserRepository getRepository() {
+    	if (repository == null) {
+    		throw new IllegalStateException("Repository was not set. You should inject it first");
+    	}
+		return repository;
+	}
+
+    public User load() {
+    	return getRepository().find(this.login);
+    }
+    public void save() {
+    	getRepository().add(this);
+    }
     public boolean isNewbie() {
 		return newbie;
 	}

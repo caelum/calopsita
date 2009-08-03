@@ -7,7 +7,6 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.User;
-import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -19,15 +18,13 @@ import br.com.caelum.vraptor.validator.Validations;
 
 @Resource
 public class UsersController {
-    private final UserRepository repository;
     private final Validator validator;
     private final Result result;
 	private final SessionUser sessionUser;
 
-    public UsersController(Result result, Validator validator, UserRepository repository, SessionUser sessionUser) {
+    public UsersController(Result result, Validator validator, SessionUser sessionUser) {
         this.result = result;
         this.validator = validator;
-        this.repository = repository;
 		this.sessionUser = sessionUser;
     }
 
@@ -41,12 +38,12 @@ public class UsersController {
     	validator.onError().goTo(UsersController.class).formSignUp();
         validator.checking(new Validations() {
             {
-                that("", "user.already.exists", repository.find(user.getLogin()), is(nullValue()));
+                that("", "user.already.exists", user.load(), is(nullValue()));
                 and(Hibernate.validate(user));
             }
         });
         user.setNewbie(true);
-        this.repository.add(user);
+        user.save();
         sessionUser.setUser(user);
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
@@ -56,7 +53,7 @@ public class UsersController {
     	validator.onError().goTo(HomeController.class).login();
         validator.checking(new Validations() {
             {
-                User found = repository.find(user.getLogin());
+                User found = user.load();
                 that("", "login.invalid", found, is(notNullValue()));
                 if (found != null) {
 					that("", "login.invalid", found.getPassword(), is(equalTo(user.getPassword())));
@@ -75,7 +72,7 @@ public class UsersController {
 
     @Path("/users/toggleNewbie/") @Get
     public void toggleNewbie() {
-    	User user = repository.find(sessionUser.getUser().getLogin());
+    	User user = sessionUser.getUser().load();
     	user.toggleNewbie();
     	sessionUser.setUser(user);
     	result.use(nothing());

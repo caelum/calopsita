@@ -10,6 +10,7 @@ import br.com.caelum.calopsita.controller.HomeController;
 import br.com.caelum.calopsita.controller.UsersController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.core.InterceptorStack;
@@ -24,9 +25,11 @@ public class AuthorizationInterceptor implements Interceptor {
 	private final HttpServletResponse response;
 	private final HttpServletRequest request;
 	private final MethodInfo parameters;
+	private final UserRepository userRepository;
 
-	public AuthorizationInterceptor(SessionUser user, ProjectRepository repository, HttpServletRequest request, HttpServletResponse response, MethodInfo parameters) {
+	public AuthorizationInterceptor(SessionUser user, UserRepository userRepository, ProjectRepository repository, HttpServletRequest request, HttpServletResponse response, MethodInfo parameters) {
 		this.user = user;
+		this.userRepository = userRepository;
 		this.repository = repository;
 		this.request = request;
 		this.response = response;
@@ -49,6 +52,7 @@ public class AuthorizationInterceptor implements Interceptor {
 			}
 			return;
 		}
+		user.setRepository(userRepository);
 		stack.next(method, resourceInstance);
 	}
 

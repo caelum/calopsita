@@ -6,8 +6,6 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
 
-import javax.servlet.http.HttpSession;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.joda.time.LocalDate;
@@ -44,19 +42,14 @@ public class IterationTest {
         cardRepository = mockery.mock(CardRepository.class);
         projectRepository = mockery.mock(ProjectRepository.class);
 
-        final HttpSession session = mockery.mock(HttpSession.class);
         currentUser = new User();
         currentUser.setLogin("me");
         project = new Project();
         project.setRepository(projectRepository);
 
-		mockery.checking(new Expectations() {
-			{
-				allowing(session).getAttribute("currentUser");
-				will(returnValue(currentUser));
-			}
-		});
-        logic = new IterationsController(new MockResult(), new MockValidator(), new SessionUser(session));
+        SessionUser user = new SessionUser();
+        user.setUser(currentUser);
+		logic = new IterationsController(new MockResult(), new MockValidator(), user);
 
     }
 
