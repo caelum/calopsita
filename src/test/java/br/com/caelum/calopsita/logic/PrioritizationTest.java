@@ -31,11 +31,14 @@ public class PrioritizationTest {
 
 		projectRepository = mockery.mock(ProjectRepository.class);
 		project = new Project();
-		logic = new PrioritizationController(new MockResult(), repository, projectRepository);
+		project.setRepository(projectRepository);
+		logic = new PrioritizationController(new MockResult(), repository);
 
 		mockery.checking(new Expectations() {
 			{
-				ignoring(projectRepository);
+				allowing(projectRepository).load(project);
+				will(returnValue(project));
+
 				ignoring(repository).listCards(project);
 			}
 		});

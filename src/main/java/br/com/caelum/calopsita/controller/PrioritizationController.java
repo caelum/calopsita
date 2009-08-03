@@ -7,7 +7,6 @@ import java.util.List;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.PrioritizationRepository;
-import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -18,18 +17,16 @@ import br.com.caelum.vraptor.Result;
 public class PrioritizationController {
 
 	private final PrioritizationRepository repository;
-	private final ProjectRepository projectRepository;
 	private final Result result;
 
-	public PrioritizationController(Result result, PrioritizationRepository repository, ProjectRepository projectRepository) {
+	public PrioritizationController(Result result, PrioritizationRepository repository) {
 		this.result = result;
 		this.repository = repository;
-		this.projectRepository = projectRepository;
 	}
 
 	@Path("/projects/{project.id}/prioritization/") @Get
     public void prioritization(Project project) {
-        result.include("project", this.projectRepository.get(project.getId()));
+        result.include("project", project.load());
         result.include("cards", this.repository.listCards(project));
     }
 
