@@ -41,8 +41,8 @@ public class ProjectsController {
     }
 
     @Path("/projects/{project.id}/admin/") @Get
-    public void admin(Project project) {
-    	result.include("project", project.load());
+    public Project admin(Project project) {
+    	return project.load();
     }
 
     @Path("/projects/") @Post
@@ -67,11 +67,12 @@ public class ProjectsController {
     }
 
     @Path("/projects/{project.id}/") @Delete
-    public void delete(final Project project) {
+    public void delete(Project project) {
+    	final Project loaded = project.load();
     	validator.checking(new Validations() {{
-    		that(currentUser).shouldBe(equalTo(project.load().getOwner()));
+			that(currentUser).shouldBe(equalTo(loaded.getOwner()));
     	}});
-	    project.delete();
+	    loaded.delete();
 	    result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 

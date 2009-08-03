@@ -23,7 +23,6 @@ import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
-import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.validator.ValidationError;
 
 public class ProjectTest {
@@ -31,7 +30,6 @@ public class ProjectTest {
     private ProjectsController logic;
     private ProjectRepository repository;
 	private User currentUser;
-	private UserRepository userRepository;
 	private HttpSession session;
 
     @Before
@@ -40,7 +38,6 @@ public class ProjectTest {
         repository = mockery.mock(ProjectRepository.class);
         session = mockery.mock(HttpSession.class);
         currentUser = currentUser();
-        userRepository = mockery.mock(UserRepository.class);
 
 		mockery.checking(new Expectations() {
 			{
@@ -177,10 +174,9 @@ public class ProjectTest {
 
 		mockery.checking(new Expectations() {
 			{
-				one(repository).get(project.getId());
+				one(repository).load(project);
 				will(returnValue(project));
 
-				one(repository).update(project);
 			}
 		});
 	}
@@ -210,7 +206,9 @@ public class ProjectTest {
 	}
 
 	private Project givenAProject() {
-		return new Project();
+		Project project = new Project();
+		project.setRepository(repository);
+		return project;
 	}
 
 	private void thenTheLogicShouldExposeOnlyTheProject(List<Project> projects, Project project) {

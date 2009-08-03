@@ -41,6 +41,18 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		assertThat(list, hasItem(hasSameId(project)));
 	}
 	@Test
+	public void refreshingAProject() throws Exception {
+		Project project = givenAProject();
+
+		session.evict(project);
+
+		Project project2 = new Project(project.getId());
+		project2.setRepository(dao);
+		project2.refresh();
+
+		assertThat(project2.getName(), is(project.getName()));
+	}
+	@Test
 	public void listProjectIfUserIsAColaborator() throws Exception {
 		User user = givenAUser();
 		Project project = givenAProjectWithColaborator(user);
