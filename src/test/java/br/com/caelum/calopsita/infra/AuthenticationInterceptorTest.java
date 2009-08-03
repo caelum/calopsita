@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -27,7 +28,7 @@ public class AuthenticationInterceptorTest {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private InterceptorStack stack;
-	private SessionUser sessionUser;
+	private HttpSession session;
 
 	@Before
 	public void setUp() throws Exception {
@@ -36,7 +37,8 @@ public class AuthenticationInterceptorTest {
 		request = mockery.mock(HttpServletRequest.class);
 		response = mockery.mock(HttpServletResponse.class);
 		stack = mockery.mock(InterceptorStack.class);
-		sessionUser = new SessionUser();
+		session = mockery.mock(HttpSession.class);
+		SessionUser sessionUser = new SessionUser(session);
 		interceptor = new AuthenticationInterceptor(sessionUser, request, response);
 	}
 
@@ -72,11 +74,22 @@ public class AuthenticationInterceptorTest {
 	}
 
 	private void givenThereIsNotAUserInTheSession() {
-		sessionUser.setUser(null);
+		mockery.checking(new Expectations() {
+			{
+				one(session).getAttribute("currentUser");
+				will(returnValue(null));
+			}
+		});
 	}
 
 	private void givenThereIsAUserInTheSession() {
-		sessionUser.setUser(new User());
+		mockery.checking(new Expectations() {
+			{
+				one(session).getAttribute("currentUser");
+				will(returnValue(new User()));
+			}
+		});
+
 	}
 
 	private void shouldExecuteFlow() {

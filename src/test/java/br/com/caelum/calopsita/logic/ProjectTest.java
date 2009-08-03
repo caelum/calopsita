@@ -9,6 +9,8 @@ import static org.junit.Assert.assertThat;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
@@ -28,16 +30,22 @@ public class ProjectTest {
     private ProjectsController logic;
     private ProjectRepository repository;
 	private User currentUser;
+	private HttpSession session;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(ProjectRepository.class);
+        session = mockery.mock(HttpSession.class);
         currentUser = currentUser();
 
-		SessionUser user = new SessionUser();
-		user.setUser(currentUser);
-		logic = new ProjectsController(new MockValidator(), new MockResult(), repository, user);
+		mockery.checking(new Expectations() {
+			{
+				allowing(session).getAttribute("currentUser");
+				will(returnValue(currentUser));
+			}
+		});
+		logic = new ProjectsController(new MockValidator(), new MockResult(), repository, new SessionUser(session));
     }
 
 

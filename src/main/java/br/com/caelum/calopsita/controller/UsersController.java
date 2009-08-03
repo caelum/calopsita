@@ -60,7 +60,7 @@ public class UsersController {
 				}
             }
         });
-        sessionUser.setUser(user);
+        sessionUser.setUser(user.load());
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
