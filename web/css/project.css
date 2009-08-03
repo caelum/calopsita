@@ -148,11 +148,45 @@ li#current {
   clear: both;
 }
 
+/* begin sub-menu tabs */
+
+#sub-menu ul {
+	list-style-type:none;
+	margin:-12px 0 0;
+	background: #CC0000;
+	padding: 0px 10px 6px;
+}
+
+#sub-menu ul li {
+	display: inline;
+	margin: 0px 2px;
+}
+
+#sub-menu ul li a {
+	color: #FFFFFF;
+	font: bold 11px verdana, sans-serif;
+	text-decoration: none;
+}
+
+#sub-menu ul a:hover {
+	background-color:#FFFFFF;
+	color:#333333;
+	margin:0 -4px;
+	padding:3px 4px 4px;
+}
+
+#sub-menu ul li .selected {
+	background: #EEEEEE;
+	color: #000000;
+}
+
+
+/* end sub-menu tabs */
 /* begin css tabs */
 
 ul#tabnav { /* general settings */
 	margin: 1em 0 1em 0; /* set margins as desired */
-	font: bold 11px verdana, arial, sans-serif; /* set font as desired */
+	font: bold 11px verdana, sans-serif; /* set font as desired */
 	border-bottom: 3px solid #bf2126; /* set border COLOR as desired */
 	list-style-type: none;
 	padding: 3px 10px 3px 10px; /* THIRD number must change with respect to padding-top (X) below */
