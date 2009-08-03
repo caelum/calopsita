@@ -13,8 +13,6 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
-import br.com.caelum.calopsita.repository.CardRepository;
-import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -29,18 +27,14 @@ import br.com.caelum.vraptor.validator.Validations;
 public class CardsController {
 
 	private static final String UPDATE_JSP = "/WEB-INF/jsp/cards/update.jsp";
-	private final CardRepository repository;
 	private final User currentUser;
-	private final ProjectRepository projectRepository;
     private final Validator validator;
     private final Result result;
 
-	public CardsController(Result result, Validator validator, SessionUser user, CardRepository repository, ProjectRepository projectRepository) {
+	public CardsController(Result result, Validator validator, SessionUser user) {
 		this.result = result;
         this.validator = validator;
         this.currentUser = user == null? null: user.getUser();
-		this.repository = repository;
-		this.projectRepository = projectRepository;
 	}
 
 	@Path("/projects/{project.id}/cards/") @Get
@@ -60,9 +54,7 @@ public class CardsController {
         });
 		card.save();
 		if (gadgets != null) {
-			for (Gadgets gadget : gadgets) {
-				repository.add(gadget.createGadgetFor(card));
-			}
+			card.addGadgets(gadgets);
 		}
 		result.include("project", card.getProject());
 		result.include("cards", card.getProject().getCards());
@@ -103,28 +95,21 @@ public class CardsController {
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/") @Delete
 	public void delete(Card card, boolean deleteSubcards) {
-		Card loaded = repository.load(card);
-		final Project project = loaded.getProject();
+		card.refresh();
+		final Project project = card.getProject();
 
-		validator.checking(new Validations() {
-			{
-				that(currentUser, anyOf(
-							isIn(project.getColaborators()),
-							is(equalTo(project.getOwner()))));
-			}
-		});
+		validator.checking(new Validations() {{
+			that(currentUser, anyOf(
+						isIn(project.getColaborators()),
+						is(equalTo(project.getOwner()))));
+		}});
         if (deleteSubcards) {
-            for (Card sub : loaded.getSubcards()) {
-                repository.remove(sub);
-            }
+            card.deleteSubCards();
         } else {
-            for (Card sub : loaded.getSubcards()) {
-                sub.setParent(null);
-                repository.update(sub);
-            }
+        	card.detachSubCards();
         }
-        repository.remove(loaded);
-        result.include("cards", this.projectRepository.listCardsFrom(project));
+        card.delete();
+        result.include("cards", project.getCards());
         result.include("project", project);
         result.use(page()).forward(UPDATE_JSP);
 	}

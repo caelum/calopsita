@@ -71,6 +71,28 @@ public class Card implements Identifiable, FromProject {
 		getRepository().updateGadgets(this, gadgets);
 	}
 
+	public void deleteSubCards() {
+		for (Card sub : getSubcards()) {
+            getRepository().remove(sub);
+        }
+	}
+
+	public void detachSubCards() {
+		for (Card sub : getSubcards()) {
+            sub.setParent(null);
+            repository.update(sub);
+        }
+	}
+
+	public void delete() {
+		repository.remove(this);
+	}
+
+	public void addGadgets(List<Gadgets> gadgets) {
+		for (Gadgets gadget : gadgets) {
+			repository.add(gadget.createGadgetFor(this));
+		}
+	}
 	public List<Card> getSubcards() {
 		return getRepository().listSubcards(this);
 	}

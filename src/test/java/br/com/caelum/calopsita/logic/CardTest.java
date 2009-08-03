@@ -60,7 +60,7 @@ public class CardTest {
 
 
 		validator = new MockValidator();
-		logic = new CardsController(new MockResult(), validator, sessionUser, repository, projectRepository);
+		logic = new CardsController(new MockResult(), validator, sessionUser);
     }
 
 
