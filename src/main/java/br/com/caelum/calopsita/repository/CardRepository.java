@@ -30,4 +30,6 @@ public interface CardRepository extends BaseRepository<Card>{
 
 	void updateGadgets(Card card, List<Gadgets> gadgets);
 
+	Card refresh(Card card);
+
 }

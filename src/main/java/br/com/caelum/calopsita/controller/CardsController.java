@@ -45,10 +45,10 @@ public class CardsController {
 
 	@Path("/projects/{project.id}/cards/") @Get
     public void list(Project project) {
-    	this.result.include("project", this.projectRepository.get(project.getId()));
-    	this.result.include("cards",  this.repository.listFrom(project));
+    	this.result.include("project", project.load());
+    	this.result.include("cards",  project.getCards());
     	this.result.include("gadgets", Gadgets.values());
-    	this.result.include("cardTypes", this.projectRepository.listCardTypesFrom(project));
+    	this.result.include("cardTypes", project.getCardTypes());
     }
 
 	@Path("/projects/{card.project.id}/cards/") @Post
@@ -58,21 +58,21 @@ public class CardsController {
                 that(Hibernate.validate(card));
             }
         });
-		repository.add(card);
+		card.save();
 		if (gadgets != null) {
 			for (Gadgets gadget : gadgets) {
 				repository.add(gadget.createGadgetFor(card));
 			}
 		}
 		result.include("project", card.getProject());
-		result.include("cards", this.projectRepository.listCardsFrom(card.getProject()));
+		result.include("cards", card.getProject().getCards());
 		result.use(page()).forward(UPDATE_JSP);
 	}
 
 	@Path("/projects/{card.project.id}/cards/{card.parent.id}/subcards/") @Post
 	public void saveSub(Card card) {
-		repository.add(card);
-		result.include("cards", this.repository.listSubcards(card.getParent()));
+		card.save();
+		result.include("cards", card.getParent().getSubcards());
 		result.include("card", card.getParent());
 		result.include("project", card.getProject());
 		result.use(page()).forward(UPDATE_JSP);
@@ -80,25 +80,24 @@ public class CardsController {
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/") @Get
 	public void edit(Card card) {
-	    Card loaded = this.repository.load(card);
-		result.include("card", loaded);
-		result.include("project", loaded.getProject());
+	    card.refresh();
+		result.include("card", card);
+		result.include("project", card.getProject());
 		result.include("gadgets", Gadgets.values());
-	    result.include("cardGadgets", Gadgets.valueOf(this.repository.listGadgets(card)));
-	    result.include("cards", this.repository.listSubcards(card));
-	    result.include("cardTypes", this.projectRepository.listCardTypesFrom(loaded.getProject()));
+	    result.include("cardGadgets", Gadgets.valueOf(card.getGadgets()));
+	    result.include("cards", card.getSubcards());
+	    result.include("cardTypes", card.getProject().getCardTypes());
 	}
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/") @Post
 	public void update(Card card, List<Gadgets> gadgets) {
-		Card loaded = repository.load(card);
-		Project project = loaded.getProject();
+		Card loaded = card.load();
+
 		loaded.setName(card.getName());
 		loaded.setDescription(card.getDescription());
 
-		repository.updateGadgets(card, gadgets);
-		repository.update(loaded);
-		result.include("cards", this.projectRepository.listCardsFrom(project));
+		Project project = loaded.getProject();
+		loaded.updateGadgets(gadgets);
 		result.use(logic()).redirectTo(CardsController.class).list(project);
 	}
 

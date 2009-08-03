@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,8 +9,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+
+import org.picocontainer.annotations.Inject;
+
+import br.com.caelum.calopsita.repository.CardRepository;
 
 @Entity
 public class Card implements Identifiable, FromProject {
@@ -34,17 +36,47 @@ public class Card implements Identifiable, FromProject {
 	@ManyToOne
 	private Card parent;
 
-	@OneToMany(mappedBy="parent")
-	private List<Card> subcards;
-
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.TODO;
 
-	@Transient
-	private String qqercoisa;
-
 	public static enum Status {
 		TODO, DONE
+	}
+
+	@Transient
+	private CardRepository repository;
+
+	@Inject
+	public void setRepository(CardRepository repository) {
+		this.repository = repository;
+	}
+
+	private CardRepository getRepository() {
+		return repository;
+	}
+
+	public Card refresh() {
+		return getRepository().refresh(this);
+	}
+
+	public List<Gadget> getGadgets() {
+		return getRepository().listGadgets(this);
+	}
+
+	public Card load() {
+		return getRepository().load(this);
+	}
+
+	public void updateGadgets(List<Gadgets> gadgets) {
+		getRepository().updateGadgets(this, gadgets);
+	}
+
+	public List<Card> getSubcards() {
+		return getRepository().listSubcards(this);
+	}
+
+	public void save() {
+		getRepository().add(this);
 	}
 
 	public Long getId() {
@@ -101,18 +133,6 @@ public class Card implements Identifiable, FromProject {
 
 	public Card getParent() {
 		return parent;
-	}
-
-	public void setSubcards(List<Card> subcards) {
-		this.subcards = subcards;
-	}
-
-	public List<Card> getSubcards() {
-		if (subcards == null) {
-			subcards = new ArrayList<Card>();
-		}
-
-		return subcards;
 	}
 
 }
