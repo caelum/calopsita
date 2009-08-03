@@ -60,7 +60,9 @@ public class Iteration implements Identifiable, FromProject {
     	getRepository().remove(this);
     }
     public Iteration load() {
-    	return getRepository().load(this);
+    	Iteration loaded = getRepository().load(this);
+    	loaded.setRepository(repository);
+		return loaded;
     }
     public void save() {
     	getRepository().add(this);

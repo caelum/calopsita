@@ -212,6 +212,9 @@ public class CardTest {
 	private Card givenTheCardIsInThisProject(final Card card) {
         mockery.checking(new Expectations() {
             {
+            	one(repository).load(card);
+            	will(returnValue(card));
+
                 one(projectRepository).load(project);
                 will(returnValue(project));
             }

@@ -78,7 +78,7 @@ public class IterationsController {
     	Project project = loaded.getProject();
     	result.include("iteration", loaded);
     	result.include("project", project);
-    	result.include("otherCards", project.getCardsWithoutIteration());
+    	result.include("otherCards", iteration.getProject().getCardsWithoutIteration());
     	result.include("today", new LocalDate());
     }
 
@@ -122,7 +122,7 @@ public class IterationsController {
         }
         loaded.delete();
 
-        result.use(logic()).redirectTo(IterationsController.class).list(project);
+        result.use(logic()).redirectTo(IterationsController.class).list(iteration.getProject());
     }
 
     @Path("/projects/{iteration.project.id}/iterations/{iteration.id}/start/") @Get
@@ -132,8 +132,7 @@ public class IterationsController {
 			throw new IllegalArgumentException("Tried to start an already started iteration");
 		}
 		loaded.setStartDate(new LocalDate());
-		Project project = loaded.getProject();
-		result.use(logic()).redirectTo(IterationsController.class).list(project);
+		result.use(logic()).redirectTo(IterationsController.class).list(iteration.getProject());
 	}
 
     @Path("/projects/{iteration.project.id}/iterations/{iteration.id}/end/") @Get
@@ -143,19 +142,17 @@ public class IterationsController {
             throw new IllegalArgumentException("Tried to end an iteration that has not been started");
         }
         loaded.setEndDate(new LocalDate());
-        Project project = loaded.getProject();
-        result.use(logic()).redirectTo(IterationsController.class).list(project);
+        result.use(logic()).redirectTo(IterationsController.class).list(iteration.getProject());
     }
 
     @Path("/projects/{iteration.project.id}/iterations/{iteration.id}/") @Post
-    public Iteration update(Iteration iteration) {
+    public void update(Iteration iteration) {
 		validateDate(iteration);
 		Iteration loaded = iteration.load();
 		loaded.setGoal(iteration.getGoal());
 		loaded.setStartDate(iteration.getStartDate());
 		loaded.setEndDate(iteration.getEndDate());
 		result.use(logic()).redirectTo(IterationsController.class).show(iteration);
-		return loaded;
 	}
 
 }

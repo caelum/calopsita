@@ -119,7 +119,6 @@ public class IterationTest {
 
         givenTheIterationHasThisCard(card, returnedIteration);
 
-        shouldUpdateTheCard(card);
         shouldRemoveTheIterationFromRepository(returnedIteration);
 
         whenIRemove(iteration);
@@ -309,6 +308,7 @@ public class IterationTest {
 	    mockery.checking(new Expectations() {
             {
                 one(iterationRepository).remove(returned);
+                allowing(iterationRepository).listCardsOrderedByPriority(returned);
             }
         });
     }
@@ -395,6 +395,7 @@ public class IterationTest {
 
     private Iteration givenAnIteration() {
         Iteration iteration = new Iteration();
+        iteration.setProject(project);
         iteration.setRepository(iterationRepository);
 		return iteration;
     }
