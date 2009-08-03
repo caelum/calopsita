@@ -49,6 +49,13 @@ public class Project implements Identifiable {
 		this.repository = repository;
 	}
 
+    private ProjectRepository getRepository() {
+    	if (repository == null) {
+    		throw new IllegalStateException("Repository was not set. You should inject it first");
+    	}
+    	return repository;
+    }
+
     public List<Iteration> getIterations() {
     	if (iterations == null) {
     		iterations = getRepository().listIterationsFrom(this);
@@ -59,12 +66,6 @@ public class Project implements Identifiable {
     public List<Card> getCardsWithoutIteration() {
     	return getRepository().planningCardsWithoutIteration(this);
     }
-    private ProjectRepository getRepository() {
-    	if (repository == null) {
-			throw new IllegalStateException("Repository was not set. You should inject it first");
-		}
-		return repository;
-	}
 
     public Iteration getCurrentIteration() {
     	return repository.getCurrentIterationFromProject(this);

@@ -21,7 +21,7 @@ public class CardTypeTest {
 		mockery = new Mockery();
 
 		repository = mockery.mock(CardTypeRepository.class);
-		controller = new CardTypesController(new MockResult(), repository);
+		controller = new CardTypesController(new MockResult());
 	}
 
 	@Test
@@ -47,7 +47,9 @@ public class CardTypeTest {
 	}
 
 	private CardType givenACardType() {
-		return new CardType();
+		CardType cardType = new CardType();
+		cardType.setRepository(repository);
+		return cardType;
 	}
 
 }

@@ -8,8 +8,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CollectionOfElements;
+import org.picocontainer.annotations.Inject;
+
+import br.com.caelum.calopsita.repository.CardTypeRepository;
 
 @Entity
 public class CardType implements FromProject {
@@ -26,6 +30,25 @@ public class CardType implements FromProject {
 	@CollectionOfElements
 	@Enumerated(EnumType.STRING)
 	private List<Gadgets> gadgets;
+
+	@Transient
+	private CardTypeRepository repository;
+
+	@Inject
+    public void setRepository(CardTypeRepository repository) {
+		this.repository = repository;
+	}
+
+    private CardTypeRepository getRepository() {
+    	if (repository == null) {
+    		throw new IllegalStateException("Repository was not set. You should inject it first");
+    	}
+    	return repository;
+    }
+
+    public void save() {
+    	getRepository().save(this);
+    }
 
 	public Long getId() {
 		return id;
