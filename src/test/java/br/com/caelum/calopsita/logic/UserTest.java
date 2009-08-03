@@ -227,6 +227,7 @@ public class UserTest {
 
     private User givenUser(String login) {
         final User user = new User();
+        user.setRepository(repository);
         user.setLogin(login);
         user.setEmail(login + "@caelum.com.br");
         user.setName(login);

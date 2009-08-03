@@ -50,17 +50,17 @@ public class UsersController {
 
     @Path("/users/login/") @Post
     public void login(final User user) {
+    	final User found = user.load();
     	validator.onError().goTo(HomeController.class).login();
         validator.checking(new Validations() {
             {
-                User found = user.load();
                 that("", "login.invalid", found, is(notNullValue()));
                 if (found != null) {
 					that("", "login.invalid", found.getPassword(), is(equalTo(user.getPassword())));
 				}
             }
         });
-        sessionUser.setUser(user.load());
+        sessionUser.setUser(found);
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
