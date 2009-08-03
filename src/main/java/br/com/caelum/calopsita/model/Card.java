@@ -52,6 +52,9 @@ public class Card implements Identifiable, FromProject {
 	}
 
 	private CardRepository getRepository() {
+		if (repository == null) {
+			throw new IllegalStateException("Repository was not set. You should inject it first");
+		}
 		return repository;
 	}
 
@@ -125,6 +128,7 @@ public class Card implements Identifiable, FromProject {
 		this.description = description;
 	}
 
+	@Inject
 	public Project getProject() {
 		return this.project;
 	}

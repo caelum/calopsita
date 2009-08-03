@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import net.vidageek.mirror.dsl.Matcher;
 import net.vidageek.mirror.dsl.Mirror;
+import net.vidageek.mirror.matcher.GetterMatcher;
 import net.vidageek.mirror.matcher.SetterMatcher;
 
 import org.picocontainer.annotations.Inject;
@@ -33,15 +34,23 @@ public class ActiveRecordParametersProvider implements ParametersProvider {
 		Mirror mirror = new Mirror();
 		for (Object object : parameters) {
 			if (object != null) {
-				List<Method> methods = mirror.on(object.getClass()).reflectAll().methodsMatching(new InjectMatcher());
-				for (Method toInject : methods) {
-					Class<?> typeToInject = toInject.getParameterTypes()[0];
-					Object instanceToInject = container.instanceFor(typeToInject);
-					mirror.on(object).invoke().method(toInject).withArgs(instanceToInject);
-				}
+				injectDependencies(mirror, object);
 			}
 		}
 		return parameters;
+	}
+
+	private void injectDependencies(Mirror mirror, Object object) {
+		List<Method> methods = mirror.on(object.getClass()).reflectAll().methodsMatching(new InjectMatcher());
+		for (Method toInject : methods) {
+			Class<?> typeToInject = toInject.getParameterTypes()[0];
+			Object instanceToInject = container.instanceFor(typeToInject);
+			mirror.on(object).invoke().method(toInject).withArgs(instanceToInject);
+		}
+		List<Method> recursive = mirror.on(object.getClass()).reflectAll().methodsMatching(new InjectRecursiveMatcher());
+		for (Method method : recursive) {
+			injectDependencies(mirror, mirror.on(object).invoke().method(method).withoutArgs());
+		}
 	}
 
 	public static class InjectMatcher implements Matcher<Method> {
@@ -51,6 +60,15 @@ public class ActiveRecordParametersProvider implements ParametersProvider {
 		}
 		public boolean accepts(Method method) {
 			return setter.accepts(method) && method.isAnnotationPresent(Inject.class);
+		}
+	}
+	public static class InjectRecursiveMatcher implements Matcher<Method> {
+		private final GetterMatcher getter;
+		public InjectRecursiveMatcher() {
+			getter = new GetterMatcher();
+		}
+		public boolean accepts(Method method) {
+			return getter.accepts(method) && method.isAnnotationPresent(Inject.class);
 		}
 	}
 }

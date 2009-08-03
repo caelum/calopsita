@@ -47,11 +47,9 @@ public class CardsController {
 
 	@Path("/projects/{card.project.id}/cards/") @Post
 	public void save(final Card card, List<Gadgets> gadgets) {
-		validator.checking(new Validations() {
-            {
-                that(Hibernate.validate(card));
-            }
-        });
+		validator.checking(new Validations() {{
+            that(Hibernate.validate(card));
+        }});
 		card.save();
 		if (gadgets != null) {
 			card.addGadgets(gadgets);
