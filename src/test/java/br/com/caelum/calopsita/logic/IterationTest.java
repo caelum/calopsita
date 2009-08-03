@@ -48,7 +48,7 @@ public class IterationTest {
         currentUser = new User();
         currentUser.setLogin("me");
         project = new Project();
-
+        project.setRepository(projectRepository);
 
 		mockery.checking(new Expectations() {
 			{
@@ -56,7 +56,7 @@ public class IterationTest {
 				will(returnValue(currentUser));
 			}
 		});
-        logic = new IterationsController(new MockResult(), new MockValidator(), new SessionUser(session), iterationRepository, cardRepository, projectRepository);
+        logic = new IterationsController(new MockResult(), new MockValidator(), new SessionUser(session));
 
     }
 
@@ -343,8 +343,8 @@ public class IterationTest {
 
 				one(cardRepository).update(loaded);
 
-				allowing(cardRepository).orderCardsByPriority(with(any(Iteration.class)));
-				allowing(cardRepository).planningCardsWithoutIteration(with(any(Project.class)));
+				allowing(iterationRepository).listCardsOrderedByPriority(with(any(Iteration.class)));
+				allowing(projectRepository).planningCardsWithoutIteration(with(any(Project.class)));
 				allowing(iterationRepository).load(iteration);
 				will(returnValue(iteration));
 			}
@@ -361,8 +361,8 @@ public class IterationTest {
 				one(cardRepository).load(card);
 				will(returnValue(card));
 
-				allowing(cardRepository).orderCardsByPriority(with(any(Iteration.class)));
-				allowing(cardRepository).planningCardsWithoutIteration(with(any(Project.class)));
+				allowing(iterationRepository).listCardsOrderedByPriority(with(any(Iteration.class)));
+				allowing(projectRepository).planningCardsWithoutIteration(with(any(Project.class)));
 				allowing(iterationRepository).load(with(any(Iteration.class)));
 				will(returnValue(new Iteration()));
 			}
@@ -374,7 +374,9 @@ public class IterationTest {
 	}
 
 	private Card givenACard() {
-		return new Card();
+		Card card = new Card();
+		card.setRepository(cardRepository);
+		return card;
 	}
 
 	private void shouldSaveOnTheRepositoryTheIteration(final Iteration iteration) {
@@ -392,6 +394,8 @@ public class IterationTest {
     }
 
     private Iteration givenAnIteration() {
-        return new Iteration();
+        Iteration iteration = new Iteration();
+        iteration.setRepository(iterationRepository);
+		return iteration;
     }
 }

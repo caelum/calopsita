@@ -31,15 +31,22 @@ public class ActiveRecordParametersProvider implements ParametersProvider {
 
 	public Object[] getParametersFor(ResourceMethod method, List<Message> errors, ResourceBundle bundle) {
 		Object[] parameters = delegate.getParametersFor(method, errors, bundle);
-		Mirror mirror = new Mirror();
 		for (Object object : parameters) {
-			injectDependencies(mirror, object);
+			if (object instanceof List<?>) {
+				List<?> list = (List<?>) object;
+				for (Object obj : list) {
+					injectDependencies(obj);
+				}
+			} else {
+				injectDependencies(object);
+			}
 		}
 		return parameters;
 	}
 
-	private void injectDependencies(Mirror mirror, Object object) {
+	private void injectDependencies(Object object) {
 		if (object != null) {
+			Mirror mirror = new Mirror();
 			List<Method> methods = mirror.on(object.getClass()).reflectAll().methodsMatching(new InjectMatcher());
 			for (Method toInject : methods) {
 				Class<?> typeToInject = toInject.getParameterTypes()[0];
@@ -48,7 +55,7 @@ public class ActiveRecordParametersProvider implements ParametersProvider {
 			}
 			List<Method> recursive = mirror.on(object.getClass()).reflectAll().methodsMatching(new InjectRecursiveMatcher());
 			for (Method method : recursive) {
-				injectDependencies(mirror, mirror.on(object).invoke().method(method).withoutArgs());
+				injectDependencies(mirror.on(object).invoke().method(method).withoutArgs());
 			}
 		}
 	}

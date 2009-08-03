@@ -1,6 +1,8 @@
 package br.com.caelum.calopsita;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
@@ -39,4 +41,25 @@ public class CustomMatchers {
 
 		};
 	}
+
+	public static <T> Matcher<List<? super T>> hasItemsInThisOrder(final T... items) {
+		return new TypeSafeMatcher<List<? super T>>() {
+			@Override
+			public boolean matchesSafely(List<? super T> item) {
+				int i = 0;
+				for (Object object : item) {
+					if (items[i].equals(object)) {
+						i++;
+					}
+				}
+				return i == items.length;
+			}
+
+			public void describeTo(Description description) {
+				description.appendText("a list containing items in this order: ");
+				description.appendText(Arrays.toString(items));
+			}
+		};
+	}
+
 }

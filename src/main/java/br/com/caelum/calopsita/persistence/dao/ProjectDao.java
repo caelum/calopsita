@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.LocalDate;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.CardType;
@@ -116,5 +117,18 @@ public class ProjectDao implements ProjectRepository {
 
 	public List<CardType> listCardTypesFrom(Project project) {
 		return new CardTypeDao(session).listFrom(project);
+	}
+
+	public Iteration getCurrentIterationFromProject(Project project) {
+        return (Iteration) this.session.createQuery("from Iteration i where i.project = :project and " +
+        ":today >= i.startDate and (i.endDate IS NULL OR :today <= i.endDate)")
+        .setParameter("project", project).setParameter("today", new LocalDate()).uniqueResult();
+    }
+
+	public List<Card> planningCardsWithoutIteration(Project project) {
+		return session.createQuery("select c.card from PlanningCard c left join c.prioritizableCard p " +
+				"where c.card.project = :project and c.card.iteration is null " +
+				"order by p.priority, c.card.id")
+				.setParameter("project", project).list();
 	}
 }

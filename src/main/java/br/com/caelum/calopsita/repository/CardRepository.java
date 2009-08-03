@@ -5,7 +5,6 @@ import java.util.List;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
-import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 
 public interface CardRepository extends BaseRepository<Card>{
@@ -14,15 +13,11 @@ public interface CardRepository extends BaseRepository<Card>{
 
 	void update(Card card);
 
-	List<Card> planningCardsWithoutIteration(Project project);
-
 	List<Card> listSubcards(Card card);
 
 	<T extends Gadget> T load(T card);
 
 	List<Card> listFrom(Project project);
-
-	void orderCardsByPriority(Iteration iteration);
 
 	void add(Gadget gadget);
 

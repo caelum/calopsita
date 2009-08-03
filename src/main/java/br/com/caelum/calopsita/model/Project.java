@@ -34,7 +34,7 @@ public class Project implements Identifiable {
     private List<User> colaborators;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Iteration> iteractions;
+    private List<Iteration> iterations;
 
     public Project(Long id) {
 		this.id = id;
@@ -49,6 +49,16 @@ public class Project implements Identifiable {
 		this.repository = repository;
 	}
 
+    public List<Iteration> getIterations() {
+    	if (iterations == null) {
+    		iterations = getRepository().listIterationsFrom(this);
+    	}
+        return iterations;
+    }
+
+    public List<Card> getCardsWithoutIteration() {
+    	return getRepository().planningCardsWithoutIteration(this);
+    }
     private ProjectRepository getRepository() {
     	if (repository == null) {
 			throw new IllegalStateException("Repository was not set. You should inject it first");
@@ -56,6 +66,9 @@ public class Project implements Identifiable {
 		return repository;
 	}
 
+    public Iteration getCurrentIteration() {
+    	return repository.getCurrentIterationFromProject(this);
+    }
     public Project load() {
     	Project load = getRepository().load(this);
     	load.setRepository(getRepository());
@@ -128,11 +141,4 @@ public class Project implements Identifiable {
         this.colaborators = colaborators;
     }
 
-    public List<Iteration> getIterations() {
-        return iteractions;
-    }
-
-    public void setIteractions(List<Iteration> iteractions) {
-        this.iteractions = iteractions;
-    }
 }

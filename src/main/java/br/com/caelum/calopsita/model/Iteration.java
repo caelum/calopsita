@@ -8,11 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
+import org.picocontainer.annotations.Inject;
 
 import br.com.caelum.calopsita.model.Card.Status;
+import br.com.caelum.calopsita.repository.IterationRepository;
 
 @Entity
 public class Iteration implements Identifiable, FromProject {
@@ -34,6 +37,35 @@ public class Iteration implements Identifiable, FromProject {
     @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
     private LocalDate endDate;
 
+    @Transient
+    private IterationRepository repository;
+
+    @Inject
+    public void setRepository(IterationRepository repository) {
+		this.repository = repository;
+	}
+
+    private IterationRepository getRepository() {
+    	if (repository == null) {
+			throw new IllegalStateException("Repository was not set. You should inject it first");
+		}
+		return repository;
+	}
+
+    public List<Card> getCards() {
+		return getRepository().listCardsOrderedByPriority(this);
+	}
+
+    public void delete() {
+    	getRepository().remove(this);
+    }
+    public Iteration load() {
+    	return getRepository().load(this);
+    }
+    public void save() {
+    	getRepository().add(this);
+    }
+
     public Long getId() {
         return id;
     }
@@ -42,6 +74,7 @@ public class Iteration implements Identifiable, FromProject {
         this.id = id;
     }
 
+    @Inject
     public Project getProject() {
         return project;
     }
@@ -80,18 +113,6 @@ public class Iteration implements Identifiable, FromProject {
     	}
     	this.cards.add(card);
     }
-
-	public void setCards(List<Card> cards) {
-		this.cards = cards;
-	}
-
-	public List<Card> getCards() {
-	    if (cards == null) {
-            cards = new ArrayList<Card>();
-        }
-
-		return cards;
-	}
 
 	public List<Card> getTodoCards() {
 		return cardsByStatus(Status.TODO);

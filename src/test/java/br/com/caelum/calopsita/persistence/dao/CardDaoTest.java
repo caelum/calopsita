@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.persistence.dao;
 
+import static br.com.caelum.calopsita.CustomMatchers.hasItemsInThisOrder;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -17,7 +18,6 @@ import org.junit.Test;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
-import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.PlanningCard;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
@@ -31,23 +31,6 @@ public class CardDaoTest extends AbstractDaoTest {
 		super.setUp();
 		dao = new CardDao(session);
 	}
-
-	@Test
-	public void cardsWithoutIteration() throws Exception {
-		Iteration iteration = givenAnIteration();
-		Card card = givenAPlanningCard(iteration.getProject());
-		Card cardOfIteration = givenAPrioritizableCardOfTheIteration(iteration);
-		Card cardOfOtherProject = givenAPlanningCard(givenAProject());
-		Card notAPlanningCard = givenACard(givenAProject());
-
-		List<Card> list = dao.planningCardsWithoutIteration(iteration.getProject());
-
-		assertThat(list, hasItem(card));
-		assertThat(list, not(hasItem(cardOfIteration)));
-		assertThat(list, not(hasItem(cardOfOtherProject)));
-		assertThat(list, not(hasItem(notAPlanningCard)));
-	}
-
 
 	@Test
 	public void listingSubcard() throws Exception {
@@ -67,8 +50,7 @@ public class CardDaoTest extends AbstractDaoTest {
 		Card card3 = givenAPlanningCard(project, withPriority(3));
 		Card card1 = givenAPlanningCard(project, withPriority(1));
 
-		assertOrdered(card3, card1, dao.listFrom(project));
-		assertOrdered(card3, card1, dao.planningCardsWithoutIteration(project));
+		assertThat(dao.listFrom(project), hasItemsInThisOrder(card1, card3));
 	}
 
 	@Test
@@ -113,13 +95,6 @@ public class CardDaoTest extends AbstractDaoTest {
 		 return matcher;
 	}
 
-
-	private void assertOrdered(Card card3, Card card1, List<Card> list) {
-		assertThat(list.size(), is(2));
-		assertThat(list.get(0), is(card1));
-		assertThat(list.get(1), is(card3));
-	}
-
 	private Card givenAPlanningCard(Project project) {
 		Card card = givenACard(project);
 		session.save(new PlanningCard(card));
@@ -151,17 +126,6 @@ public class CardDaoTest extends AbstractDaoTest {
 		return sub;
 	}
 
-
-	private Card givenAPrioritizableCardOfTheIteration(Iteration iteration) {
-		Card card = givenAPlanningCard(iteration.getProject());
-		card.setIteration(iteration);
-		session.update(card);
-		session.flush();
-		return card;
-	}
-
-
-
 	private Card givenACard() {
 		Card card = new Card();
 		card.setName("Rumpelstitlskin");
@@ -176,15 +140,6 @@ public class CardDaoTest extends AbstractDaoTest {
 		card.setProject(project);
 		session.flush();
 		return card;
-	}
-
-
-	private Iteration givenAnIteration() {
-		Iteration iteration = new Iteration();
-		iteration.setProject(givenAProject());
-		session.save(iteration);
-		session.flush();
-		return iteration;
 	}
 
 	private Project givenAProject() {

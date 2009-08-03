@@ -1,10 +1,11 @@
 package br.com.caelum.calopsita.persistence.dao;
 
-import org.hibernate.Session;
-import org.joda.time.LocalDate;
+import java.util.List;
 
+import org.hibernate.Session;
+
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
-import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -33,9 +34,10 @@ public class IterationDao implements IterationRepository{
     	return (Iteration) session.load(Iteration.class, iteration.getId());
     }
 
-    public Iteration getCurrentIterationFromProject(Project project) {
-        return (Iteration) this.session.createQuery("from Iteration i where i.project = :project and " +
-        ":today >= i.startDate and (i.endDate IS NULL OR :today <= i.endDate)")
-        .setParameter("project", project).setParameter("today", new LocalDate()).uniqueResult();
-    }
+    public List<Card> listCardsOrderedByPriority(Iteration iteration) {
+		return (List<Card>) session.createQuery("select c from PrioritizableCard p right join p.card c " +
+				"where c.iteration = :iteration " +
+				"order by p.priority, c.id").setParameter("iteration", iteration).list();
+	}
+
 }

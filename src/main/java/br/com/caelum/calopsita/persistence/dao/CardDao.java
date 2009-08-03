@@ -9,7 +9,6 @@ import org.hibernate.criterion.Restrictions;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
-import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.vraptor.ioc.Component;
@@ -49,13 +48,6 @@ public class CardDao implements CardRepository {
 			.setParameter("project", project).list();
 	}
 
-	public List<Card> planningCardsWithoutIteration(Project project) {
-		return session.createQuery("select c.card from PlanningCard c left join c.prioritizableCard p " +
-				"where c.card.project = :project and c.card.iteration is null " +
-				"order by p.priority, c.card.id")
-				.setParameter("project", project).list();
-	}
-
 	public List<Card> listSubcards(Card card) {
 		return session.createQuery("from Card s where s.parent = :card")
 			.setParameter("card", card).list();
@@ -63,14 +55,6 @@ public class CardDao implements CardRepository {
 
 	public <T extends Gadget> T load(T gadget) {
 		return (T) session.load(gadget.getClass(), gadget.getCard().getId());
-	}
-
-	public void orderCardsByPriority(Iteration iteration) {
-		session.evict(iteration);
-		List<Card> cards = session.createQuery("select c from PrioritizableCard p right join p.card c " +
-				"where c.iteration = :iteration " +
-				"order by p.priority, c.id").setParameter("iteration", iteration).list();
-		iteration.setCards(cards);
 	}
 
 	public void add(Gadget gadget) {

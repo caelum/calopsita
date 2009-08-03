@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.persistence.dao;
 
+import static br.com.caelum.calopsita.CustomMatchers.hasItemsInThisOrder;
 import static br.com.caelum.calopsita.CustomMatchers.hasSameId;
 import static br.com.caelum.calopsita.CustomMatchers.isEmpty;
 import static org.hamcrest.Matchers.hasItem;
@@ -17,6 +18,8 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
+import br.com.caelum.calopsita.model.PlanningCard;
+import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 
@@ -29,6 +32,71 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		dao = new ProjectDao(session);
+	}
+
+	@Test
+    public void gettingCurrentIterationWithNoDates() throws Exception {
+        Iteration iteration = givenAnIteration();
+        Iteration current = dao.getCurrentIterationFromProject(iteration.getProject());
+
+        assertThat(current, not(is(iteration)));
+    }
+
+    @Test
+    public void gettingCurrentIterationAlreadyStartedButNotFinished() throws Exception {
+        Iteration iteration = givenAnIteration(withStartDate(yesterday()), withEndDate(tomorrow()));
+        Iteration current = dao.getCurrentIterationFromProject(iteration.getProject());
+
+        assertThat(current, is(iteration));
+    }
+
+    @Test
+    public void gettingCurrentIterationAlreadyStartedAndFinished() throws Exception {
+        Iteration iteration = givenAnIteration(withStartDate(yesterday()), withEndDate(yesterday()));
+        Iteration current = dao.getCurrentIterationFromProject(iteration.getProject());
+
+        assertThat(current, not(is(iteration)));
+    }
+
+    @Test
+    public void gettingCurrentIterationAlreadyStartedWithNoEndDate() throws Exception {
+        Iteration iteration = givenAnIteration(withStartDate(yesterday()));
+        Iteration current = dao.getCurrentIterationFromProject(iteration.getProject());
+
+        assertThat(current, is(iteration));
+    }
+
+    @Test
+    public void gettingCurrentIterationNotStartedYet() throws Exception {
+        Iteration iteration = givenAnIteration(withStartDate(tomorrow()));
+        Iteration current = dao.getCurrentIterationFromProject(iteration.getProject());
+
+        assertThat(current, not(is(iteration)));
+    }
+
+	@Test
+	public void orderedListings() throws Exception {
+		Project project = givenAProject();
+		Card card3 = givenAPlanningCard(project, withPriority(3));
+		Card card1 = givenAPlanningCard(project, withPriority(1));
+
+		assertThat(dao.planningCardsWithoutIteration(project), hasItemsInThisOrder(card1, card3));
+	}
+
+	@Test
+	public void cardsWithoutIteration() throws Exception {
+		Iteration iteration = givenAnIteration();
+		Card card = givenAPlanningCard(iteration.getProject());
+		Card cardOfIteration = givenAPrioritizableCardOfTheIteration(iteration);
+		Card cardOfOtherProject = givenAPlanningCard(givenAProject());
+		Card notAPlanningCard = givenACard(givenAProject());
+
+		List<Card> list = dao.planningCardsWithoutIteration(iteration.getProject());
+
+		assertThat(list, hasItem(card));
+		assertThat(list, not(hasItem(cardOfIteration)));
+		assertThat(list, not(hasItem(cardOfOtherProject)));
+		assertThat(list, not(hasItem(notAPlanningCard)));
 	}
 
 	@Test
@@ -218,6 +286,17 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		return user;
 	}
 
+	private Iteration givenAnIteration(LocalDate startDate, LocalDate endDate) {
+        Iteration iteration = new Iteration();
+        iteration.setGoal("An iteration");
+        iteration.setProject(givenAProject());
+        iteration.setStartDate(startDate);
+        iteration.setEndDate(endDate);
+        session.save(iteration);
+        session.flush();
+        return iteration;
+    }
+
 	private User givenAnUnrelatedUser(String name) {
 		User user = new User();
 		user.setName(name);
@@ -228,6 +307,16 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		this.session.flush();
 		return user;
 	}
+
+	private Iteration givenAnIteration(LocalDate startDate) {
+        Iteration iteration = new Iteration();
+        iteration.setGoal("An iteration");
+        iteration.setProject(givenAProject());
+        iteration.setStartDate(startDate);
+        session.save(iteration);
+        session.flush();
+        return iteration;
+    }
 
 	private Iteration givenAnIterationOfProject(Project project) throws ParseException {
         Iteration iteration = givenAnIteration();
@@ -243,13 +332,30 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	    iteration.setGoal("Be ready");
 	    iteration.setStartDate(new LocalDate(2000,1,1));
 	    iteration.setEndDate(new LocalDate(2000,1,10));
+	    iteration.setProject(givenAProject());
 	    session.save(iteration);
 	    session.flush();
 	    return iteration;
     }
 
 
-    private Card givenACardOfProject(Project project) {
+    private Card givenAPlanningCard(Project project, int priority) {
+		Card card = givenAPlanningCard(project);
+
+		PrioritizableCard pCard = new PrioritizableCard();
+		pCard.setCard(card);
+		pCard.setPriority(priority);
+		session.save(pCard);
+		session.flush();
+		return card;
+	}
+
+
+	private int withPriority(int i) {
+		return i;
+	}
+
+	private Card givenACardOfProject(Project project) {
 		Card card = givenACard();
 		card.setProject(project);
 		session.update(card);
@@ -267,6 +373,45 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		return card;
 	}
 
+	private LocalDate withEndDate(LocalDate date) {
+        return date;
+    }
+
+    private LocalDate tomorrow() {
+        return new LocalDate().plusDays(1);
+    }
+
+    private LocalDate withStartDate(LocalDate date) {
+        return date;
+    }
+
+    private LocalDate yesterday() {
+        return new LocalDate().minusDays(1);
+    }
+
+
+	private Card givenAPrioritizableCardOfTheIteration(Iteration iteration) {
+		Card card = givenAPlanningCard(iteration.getProject());
+		card.setIteration(iteration);
+		session.update(card);
+		session.flush();
+		return card;
+	}
+
+	private Card givenAPlanningCard(Project project) {
+		Card card = givenACard(project);
+		session.save(new PlanningCard(card));
+		session.flush();
+		return card;
+	}
+
+
+	private Card givenACard(Project project) {
+		Card card = givenACard();
+		card.setProject(project);
+		session.flush();
+		return card;
+	}
 
 	private Project givenAProjectWithColaborator(User user) {
 		Project project = givenAProject();

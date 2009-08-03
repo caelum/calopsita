@@ -20,6 +20,8 @@ public interface ProjectRepository extends BaseRepository<Project> {
 
 	List<Iteration> listIterationsFrom(Project project);
 
+	Iteration getCurrentIterationFromProject(Project project);
+
 	boolean hasInconsistentValues(Object[] parameters, User user);
 
 	List<CardType> listCardTypesFrom(Project project);
@@ -27,4 +29,7 @@ public interface ProjectRepository extends BaseRepository<Project> {
 	Project refresh(Project project);
 
 	List<User> listUnrelatedUsers(Project project);
+
+	List<Card> planningCardsWithoutIteration(Project project);
+
 }
