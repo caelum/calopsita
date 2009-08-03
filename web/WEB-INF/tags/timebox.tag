@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ attribute name="date" description="Date for timebox" required="true" type="org.joda.time.LocalDate" %>
 <%@ attribute name="prefix" description="Prefix for divs" required="true" type="java.lang.String" %>
-<%@ attribute name="sufix" description="Prefix for divs" required="false" type="java.lang.String" %>
+<%@ attribute name="sufix" description="Sufix for divs" required="false" type="java.lang.String" %>
 
 <div id="${prefix }${sufix }" class="date_and_title" >
 	<div id="${prefix }${sufix }_title" class="title_date title"></div>
