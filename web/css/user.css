@@ -15,7 +15,6 @@ label.error {
 input {
   width: 200px;
   -moz-border-radius: 8px;
-  -webkit-appearance: searchfield;
   background: #ffffff;
   font-size: 20px;
   padding: 0 5px 0 5px;
