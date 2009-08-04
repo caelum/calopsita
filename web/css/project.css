@@ -57,14 +57,15 @@
 }
 
 .information {
-	float: right;
-	width: 20%;
+	float: left;
+	width: 170px;
 	border: 1px solid gray;
 	padding: 10px;
+	margin-left: 20px;
 }
 #page-tabs {
 	float: left;
-	width: 75%;
+	min-width: 880px;
 }
 #page-tabs.no-information {
 	width: 100%;	

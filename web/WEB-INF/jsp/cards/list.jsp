@@ -24,6 +24,13 @@
 	  	</c:if>
 	  </div>
 	  <div id="form">
+          <form id="cardForm" name="addCard" action="<c:url value="/projects/${project.id }/cards/"/>" method="post">
+            <%@include file="form.jsp" %>
+          <p>
+            <input class="buttons" type="submit" value="<fmt:message key="add"/>" />
+            <input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');" />
+          </p>
+          </form>
 	  	  <div class="information">
 	  	  	<h4><fmt:message key="recently.added.cards"/></h4>
 	  	  	<ul id="recent-cards" class="stories">
@@ -34,13 +41,6 @@
 				</c:forEach>
 	  	  	</ul>
 	  	  </div>
-		  <form id="cardForm" name="addCard" action="<c:url value="/projects/${project.id }/cards/"/>" method="post">
-		  	<%@include file="form.jsp" %>
-			<p>
-				<input class="buttons" type="submit" value="<fmt:message key="add"/>" />
-				<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('cardForm');" />
-			</p>
-		  </form>
 	  </div>
   </div>
 </div>
