@@ -1,5 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="calopsita" %>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+
+<page:applyDecorator name="admin">
 <html>
 <head>
 	<title><fmt:message key="project"/></title>
@@ -12,12 +14,6 @@
 </head>
 
 <body>
-
-	<calopsita:sub-menu>
-		<calopsita:sub-menu-item uri="#projects" message="edit"/>
-		<calopsita:sub-menu-item uri="#colaborators" message="colaborators"/>
-		<calopsita:sub-menu-item uri="/projects/${project.id}/cardTypes/" message="cardTypes"/>
-	</calopsita:sub-menu>
 
 	<div id="tab4">
 		<div id="projects">
@@ -57,3 +53,4 @@
 	</div>
 </body>
 </html>
+</page:applyDecorator>

@@ -5,6 +5,7 @@
 	</excludes>
 	
 	<decorator name="calopsita" page="calopsita.jsp" />
+	<decorator name="admin" page="admin.jsp" />
 	
 	<decorator name="inicial" page="index.jsp">
 		<pattern>/home/*</pattern>
