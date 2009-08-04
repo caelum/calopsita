@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="calopsita" %>
 <html>
 <head>
 	<title><fmt:message key="project"/></title>
@@ -12,13 +13,11 @@
 
 <body>
 
-	<div id="sub-menu">
-		<ul>
-			<li><a href="#projects"><fmt:message key="edit"/></a></li>
-			<li><a href="#colaborators"><fmt:message key="colaborators"/></a></li>
-			<li><a class="no-ajax" href="<c:url value="/projects/${project.id}/cardTypes/"/>"><fmt:message key="cardTypes"/></a></li>
-		</ul>
-	</div>
+	<calopsita:sub-menu>
+		<calopsita:sub-menu-item uri="#projects" message="edit"/>
+		<calopsita:sub-menu-item uri="#colaborators" message="colaborators"/>
+		<calopsita:sub-menu-item uri="/projects/${project.id}/cardTypes/" message="cardTypes"/>
+	</calopsita:sub-menu>
 
 	<div id="tab4">
 		<div id="projects">
