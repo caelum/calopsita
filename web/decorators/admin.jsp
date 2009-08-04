@@ -3,8 +3,8 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="calopsita" %>
 
 	<calopsita:sub-menu>
-		<calopsita:sub-menu-item uri="#projects" message="edit"/>
-		<calopsita:sub-menu-item uri="#colaborators" message="colaborators"/>
+		<calopsita:sub-menu-item uri="/projects/${project.id}/edit/" message="edit"/>
+		<calopsita:sub-menu-item uri="/projects/${project.id}/colaborators" message="colaborators"/>
 		<calopsita:sub-menu-item uri="/projects/${project.id}/cardTypes/" message="cardTypes"/>
 	</calopsita:sub-menu>
 

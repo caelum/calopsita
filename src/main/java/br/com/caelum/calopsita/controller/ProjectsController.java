@@ -37,8 +37,8 @@ public class ProjectsController {
         return new Project();
     }
 
-    @Path("/projects/{project.id}/admin/") @Get
-    public Project admin(Project project) {
+    @Path("/projects/{project.id}/edit/") @Get
+    public Project edit(Project project) {
     	return project.load();
     }
 
@@ -60,7 +60,7 @@ public class ProjectsController {
     		that(loaded.getOwner(), equalTo(currentUser));
     	}});
 		loaded.setDescription(project.getDescription());
-		result.use(logic()).redirectTo(ProjectsController.class).admin(loaded);
+		result.use(logic()).redirectTo(ProjectsController.class).edit(loaded);
     }
 
     @Path("/projects/{project.id}/") @Delete
@@ -83,10 +83,15 @@ public class ProjectsController {
     	result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
+    @Path("/projects/{project.id}/colaborators/") @Get
+    public Project listColaborators(Project project) {
+    	return project.load();
+    }
+
     @Path("/projects/{project.id}/colaborators/") @Post
     public void addColaborator(Project project, User colaborator) {
         Project loaded = project.load();
         loaded.getColaborators().add(colaborator);
-        result.use(logic()).redirectTo(ProjectsController.class).admin(project);
+        result.use(logic()).redirectTo(ProjectsController.class).listColaborators(project);
     }
 }

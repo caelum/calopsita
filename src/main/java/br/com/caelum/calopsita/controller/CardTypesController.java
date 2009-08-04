@@ -28,6 +28,6 @@ public class CardTypesController {
 	@Path("/projects/{cardType.project.id}/cardTypes/") @Post
 	public void save(CardType cardType) {
 		cardType.save();
-		result.use(logic()).redirectTo(ProjectsController.class).admin(cardType.getProject());
+		result.use(logic()).redirectTo(CardTypesController.class).list(cardType.getProject());
 	}
 }

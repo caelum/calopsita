@@ -46,7 +46,7 @@
 				<li><a href="<c:url value="/projects/${project.id }/iterations/current/"/>">Current iteration</a></li>
 				<li><a href="<c:url value="/projects/${project.id }/iterations/"/>">Iterations</a></li>
 				<li><a href="<c:url value="/projects/${project.id }/cards/"/>">Cards</a></li>
-				<li><a href="<c:url value="/projects/${project.id }/admin/"/>">Admin</a></li>
+				<li><a href="<c:url value="/projects/${project.id }/edit/"/>">Admin</a></li>
 			</ul>
 		</div>
 		<decorator:body />
