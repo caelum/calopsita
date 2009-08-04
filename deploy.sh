@@ -1,9 +1,9 @@
 #!/bin/sh
 
-killall -15 java
+~/jetty/bin/jetty.sh stop
 
 cd hsqldb
-nohup java -cp hsqldb.jar org.hsqldb.Server -database.0 file:calopsita -dbname.0 calopsita -port 9005 &
+./hsqldb.sh
 
 sleep 3
 rm -rf ~/calopsita-lastBuild/*
