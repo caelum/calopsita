@@ -21,19 +21,18 @@
 	</div>
 
 	<div id="tab4">
-
-		  <div id="projects">
-		      <p><fmt:message key="project.name"/>: ${project.name}</p>
-		      <form id="projectForm" action="<c:url value="/projects/${project.id }/"/>" method="post">
-		  	    <p>
-		  	    	<fmt:message key="project.description"/>: <span class="description">${fn:escapeXml(project.description)}</span>
-		  	    	<textarea class="hidden description" name="project.description">${fn:escapeXml(project.description) }</textarea>
-		  	    </p>
-		      	<input class="hidden description" type="submit" value="<fmt:message key="edit"/>" />
-		      	<input class="hidden description" type="reset" value="<fmt:message key="cancel"/>" onclick="toggleDescription()"/>
-		      </form>
-		      <a class="description" href="javascript:void(0)" onclick="toggleDescription()">Edit</a>
-		  </div>
+		<div id="projects">
+			<p><fmt:message key="project.name"/>: ${project.name}</p>
+			<form id="projectForm" action="<c:url value="/projects/${project.id }/"/>" method="post">
+				<p>
+					<fmt:message key="project.description"/>: <span class="description">${fn:escapeXml(project.description)}</span>
+					<textarea class="hidden description" name="project.description">${fn:escapeXml(project.description) }</textarea>
+				</p>
+				<input class="hidden description" type="submit" value="<fmt:message key="edit"/>" />
+				<input class="hidden description" type="reset" value="<fmt:message key="cancel"/>" onclick="toggleDescription()"/>
+			</form>
+			<a class="description" href="javascript:void(0)" onclick="toggleDescription()">Edit</a>
+		</div>
 		  
 		  <div id="colaborators">
 		  	<ul class="pretty">
