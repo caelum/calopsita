@@ -23,6 +23,7 @@
 	height: 125px;
 	padding: 10px;
 	border: thin solid gray;
+	cursor: crosshair;
 }
 
 .table {

@@ -40,6 +40,13 @@ public class IterationsController {
 		this.currentUser = user == null? null : user.getUser();
     }
 
+    @Path("/projects/{project.id}/iterations/{iteration.id}/edit/") @Get
+    public void edit(Project project, Iteration iteration) {
+		this.result.include("project", project.load());
+        this.result.include("iteration", iteration.load());
+        this.result.include("today", new LocalDate());
+    }
+    
     @Path("/projects/{iteration.project.id}/iterations/") @Post
     public void save(Iteration iteration) {
         validateDate(iteration);

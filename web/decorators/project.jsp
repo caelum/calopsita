@@ -35,6 +35,19 @@
 		  	});
 		  //]]>
 		</script>
+		<script>
+			$(function() {
+				var url = window.location.toString();
+				$('#sub-menu li a').each(function(c, a) {
+					var className = '';
+					if(url.indexOf(a.getAttribute('href')) > 0) {
+						className = 'selected';
+					}
+		
+					a.parentNode.className = className;
+				});
+			});
+		</script>
 	</head>
 	
 	<body>

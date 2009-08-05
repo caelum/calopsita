@@ -6,6 +6,7 @@
 	
 	<decorator name="calopsita" page="calopsita.jsp" />
 	<decorator name="admin" page="admin.jsp" />
+	<decorator name="current-iteration" page="current-iteration.jsp" />
 	
 	<decorator name="inicial" page="index.jsp">
 		<pattern>/home/*</pattern>
@@ -20,10 +21,6 @@
 
 	<decorator name="project" page="project.jsp">
 		<pattern>/projects/*</pattern>
-	</decorator>
-
-	<decorator name="iteration" page="iteration.jsp">
-		<pattern>/projects/*/iterations/*</pattern>
 	</decorator>
 
 </decorators>

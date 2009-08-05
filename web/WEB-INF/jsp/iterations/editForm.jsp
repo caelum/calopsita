@@ -4,6 +4,8 @@
 <script type="text/javascript">
 	initialize('<fmt:message key="validation.dateRange"/>', '<c:url value="/images/calendar.gif"/>', '${format.jsFormat}');
 </script>
+
+
 <c:set var="operation">
 	<c:if test="${not empty iteration.id}">${iteration.id }/</c:if>
 </c:set>
