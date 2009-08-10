@@ -22,5 +22,7 @@
 	<decorator name="project" page="project.jsp">
 		<pattern>/projects/*</pattern>
 	</decorator>
-
+	<decorator name="iteration" page="iteration.jsp">
+		<pattern>/projects/*/iterations/*</pattern>
+	</decorator>
 </decorators>
