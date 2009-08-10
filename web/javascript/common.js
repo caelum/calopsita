@@ -2,7 +2,7 @@ function showDialog(title, body) {
 	var div = $('<div title="' + title + '"></div>');
 	var content = body;
 	if ($('#' + body).length > 0)
-		content = $('#' + body).clone().show();
+		content = $('#' + body).clone().removeClass("hidden").show();
 	
 	div.append(content).dialog({
 		bgiframe: true,
