@@ -1,4 +1,6 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+<page:applyDecorator name="cards">
 <html>
 <head>
 	<title><fmt:message key="project.priorization"/></title>
@@ -14,15 +16,6 @@
 
 <body>
 <div id="tab3">
-  <div id="page-tabs" class="no-information">
-	<ul>
-		<li><a href="<c:url value="/projects/${project.id }/cards/"/>"><fmt:message key="cards.all"/></a></li>
-		<li><a href="#here"><fmt:message key="prioritize"/></a></li>
-		<li><a href="<c:url value="/projects/${project.id }/cards/?selected=2"/>"><fmt:message key="project.addCard"/></a></li>
-	</ul>
-  </div>
-  <div id="here"></div>
-</div>
 	<div class="help">
 		<p><fmt:message key="help.prioritization" /></p>
 	</div>
@@ -65,5 +58,7 @@
 		<input type="submit" value="<fmt:message key='undo'/>"/>		
 	</form>
 	<a href="<c:url value="/projects/${project.id }/cards/"/>"><fmt:message key="back"/></a>
+</div>
 </body>
 </html>
+</page:applyDecorator>

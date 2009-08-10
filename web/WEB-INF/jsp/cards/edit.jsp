@@ -1,4 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+
+<page:applyDecorator name="subcards">
 <html>
 <head>
 	<title><fmt:message key="project"/></title>
@@ -11,20 +14,14 @@
 
 <body>
 <div id="tab3">
-<div id="card" class="information clear">
-	<h4>Card</h4>
-    <p><fmt:message key="project.name"/>: ${card.name}</p>
-    <p><fmt:message key="project.description"/>: ${card.description}</p>
-</div>
-<div id="page-tabs">
-	<ul>
-		<li><a href="#editCard"><fmt:message key="card.edit"/></a></li>
-		<li><a href="#cards"><fmt:message key="card.subcards"/></a></li>
-		<li><a href="#form" onclick="$('#cardForm').clearForm();"><fmt:message key="card.subcard.new"/></a></li>
-	</ul>
-
+	<div id="card" class="information clear">
+		<h4>Card</h4>
+	    <p><fmt:message key="project.name"/>: ${card.name}</p>
+	    <p><fmt:message key="project.description"/>: ${card.description}</p>
+	</div>
+	
 	<form id="editCard" name="editCard" action="<c:url value="/projects/${card.project.id}/cards/${card.id}/" />" method="post">
-		<%@include file="form.jsp" %>
+		<%@include file="formFields.jsp" %>
 		<p>
 			<input class="buttons" type="submit" value="<fmt:message key="update"/>"/>
 			<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="window.location = $('#back').attr('href')"/>
@@ -48,7 +45,7 @@
 	  	  	</ul>
 	  	  </div>
 		<form id="cardForm" name="addCard" action="<c:url value="/projects/${card.project.id }/cards/${card.id }/subcards/"/>" method="post">
-			<%@include file="form.jsp" %>
+			<%@include file="formFields.jsp" %>
 		    <p>
 		    	<input class="buttons" type="submit" value="<fmt:message key="add"/>"/>
 		  		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>"/>
@@ -57,9 +54,9 @@
 	</div>
 </div>
 <div class="clear">
-<a id="back" href="<c:url value="/projects/${card.project.id }/cards/"/>"><fmt:message key="back"/></a>
-</div>
+	<a id="back" href="<c:url value="/projects/${card.project.id }/cards/"/>"><fmt:message key="back"/></a>
 </div>
 
 </body>
 </html>
+</page:applyDecorator>

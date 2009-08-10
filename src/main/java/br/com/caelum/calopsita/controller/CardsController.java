@@ -39,10 +39,8 @@ public class CardsController {
 
 	@Path("/projects/{project.id}/cards/") @Get
     public void list(Project project) {
-    	this.result.include("project", project.load());
-    	this.result.include("cards",  project.getToDoCards());
-    	this.result.include("gadgets", Gadgets.values());
-    	this.result.include("cardTypes", project.getCardTypes());
+		this.result.include("project", project.load());
+    	this.result.include("cards",  project.getCards());
     }
 	@Path(priority = 1, value = "/projects/{project.id}/cards/all") @Get
 	public void all(Project project) {
@@ -63,17 +61,38 @@ public class CardsController {
 			card.addGadgets(gadgets);
 		}
 		result.include("project", card.getProject());
-		result.include("cards", card.getProject().getToDoCards());
-		result.use(page()).forward(UPDATE_JSP);
+		result.include("cards", card.getProject().getCards());
+		result.use(logic()).redirectTo(CardsController.class).form(card.getProject());
+	}
+
+	@Path("/projects/{project.id}/cards/new/") @Get
+    public void form(Project project) {
+    	this.result.include("project", project.load());
+    	this.result.include("cards",  project.getCards());
+    	this.result.include("gadgets", Gadgets.values());
+    	this.result.include("cardTypes", project.getCardTypes());
+    }
+
+	@Path("/projects/{card.project.id}/cards/{card.id}/subcards/") @Get
+	public void showSubcards(Card card) {
+		result.include("card", card);
+		result.include("cards", card.getSubcards());
+		result.include("project", card.getProject());
+	}
+
+	@Path("/projects/{card.project.id}/cards/{card.parent.id}/subcards/new/") @Get
+	public void subcardForm(Card card) {
+		result.include("project", card.getProject());
+		result.include("card", card);
 	}
 
 	@Path("/projects/{card.project.id}/cards/{card.parent.id}/subcards/") @Post
-	public void saveSub(Card card) {
+	public void saveSubcard(Card card) {
 		card.save();
 		result.include("cards", card.getParent().getSubcards());
 		result.include("card", card.getParent());
 		result.include("project", card.getProject());
-		result.use(page()).forward(UPDATE_JSP);
+		result.use(logic()).redirectTo(CardsController.class).showSubcards(card.getParent());
 	}
 
 	@Path(priority = 2, value = "/projects/{card.project.id}/cards/{card.id}/") @Get
@@ -83,7 +102,7 @@ public class CardsController {
 		result.include("project", loaded.getProject());
 		result.include("gadgets", Gadgets.values());
 	    result.include("cardGadgets", Gadgets.valueOf(card.getGadgets()));
-	    result.include("cards", card.getSubcards());
+	    result.include("subcards", card.getSubcards());
 	    result.include("cardTypes", card.getProject().getCardTypes());
 	}
 

@@ -28,6 +28,6 @@
 	</p>
 	<p>
 		<input type="submit" value="${label }"/>
-	 	<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="toggle('iteration'); $('.datepicker').change();"/>
+	 	<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" />
 	</p>
 </form>

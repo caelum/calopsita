@@ -10,7 +10,7 @@
 <body>
 
 
-<div id="tab1">
+<div id="tab2">
 	<div id="form">
 		<%@include file="editForm.jsp" %>
 	</div>
