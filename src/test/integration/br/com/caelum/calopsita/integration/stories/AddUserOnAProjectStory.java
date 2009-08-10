@@ -19,7 +19,7 @@ public class AddUserOnAProjectStory extends DefaultStory {
 		     .thereIsAProjectNamed("C4lopsita").ownedBy("lucas").and()
 		     .iAmLoggedInAs("lucas");
 		when.iOpenProjectPageOf("C4lopsita").and()
-		    .iOpenAdminPage();
+		    .iOpenColaboratorsPage();
 		then.thisUserAppearsOnColaboratorsList("lucas");
 	}
 	@Test
@@ -29,7 +29,7 @@ public class AddUserOnAProjectStory extends DefaultStory {
 		     .thereIsAProjectNamed("C4lopsita").ownedBy("caue").withColaborator("ceci").and()
 		     .iAmLoggedInAs("caue");
 		when.iOpenProjectPageOf("C4lopsita").and()
-            .iOpenAdminPage();
+            .iOpenColaboratorsPage();
 		then.thisUserAppearsOnColaboratorsList("ceci");
 	}
 	@Test
@@ -39,7 +39,7 @@ public class AddUserOnAProjectStory extends DefaultStory {
 		     .thereIsAProjectNamed("C4lopsita").ownedBy("caue").and()
 		     .iAmLoggedInAs("caue");
 		when.iOpenProjectPageOf("C4lopsita").and()
-		    .iOpenAdminPage().and()
+		    .iOpenColaboratorsPage().and()
 		    .iAdd("ceci").asColaborator();
 		then.thisUserAppearsOnColaboratorsList("ceci");
 	}

@@ -364,4 +364,10 @@ public class WhenActions {
 		iClickOn("Card Types");
 		waitForAjax();
 	}
+
+	public WhenActions iOpenColaboratorsPage() {
+		iOpenAdminPage();
+		iClickOn("Colaborators");
+		return this;
+	}
 }
