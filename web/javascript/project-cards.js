@@ -102,16 +102,4 @@ $( function() {
         }
     });
     
-    function bind() {
-        $('form[name="editCard"]').ajaxForm( {
-            beforeSubmit : function() {
-                $('[id*="card_edit"]:visible').slideToggle("normal");
-            },
-            success : function(data) {
-                $('#cards').html($('#cards', data).html());
-                bind();
-            }
-        });
-    }
-    bind();
 });
