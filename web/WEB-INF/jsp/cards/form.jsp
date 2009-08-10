@@ -4,7 +4,7 @@
 </p>
 <p>
 	<label><fmt:message key="card.description"/></label>
-	<em>*</em><textarea name="card.description" >${card.description }</textarea>
+	<em>*</em><textarea name="card.description">${card.description }</textarea>
 </p>
 <div class="help">
 	<p><fmt:message key="help.cardType.add" /></p>

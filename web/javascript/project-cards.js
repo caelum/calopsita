@@ -55,6 +55,11 @@ function confirmCardDeletion(url, hasSubcards) {
     $.prompt(msg);
 }
 $( function() {
+	$("[name=card.description]").keypress(function() {
+		if (this.value.length > 1024) {
+			this.value = this.value.substring(0, 1024);
+		}
+	});
     $("#cardForm").validate( {
         rules : {
             "card.name" : {
