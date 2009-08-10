@@ -1,13 +1,22 @@
 package br.com.caelum.calopsita.mocks;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.View;
 import br.com.caelum.vraptor.view.Results;
 
 public class MockResult implements Result {
 
-	public void include(String key, Object value) {
+	private final Map<String, Object> values = new HashMap<String, Object>();
 
+	public void include(String key, Object value) {
+		values.put(key, value);
+	}
+
+	public Object get(String key) {
+		return values.get(key);
 	}
 
 	public <T extends View> T use(Class<T> view) {

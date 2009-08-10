@@ -3,6 +3,8 @@ package br.com.caelum.calopsita.infra.interceptor;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
@@ -14,9 +16,11 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 public class LocaleInterceptor implements Interceptor {
 
 	private final Result result;
+	private final HttpServletRequest request;
 
-	public LocaleInterceptor(Result result) {
+	public LocaleInterceptor(Result result, HttpServletRequest request) {
 		this.result = result;
+		this.request = request;
 	}
 
 	public boolean accepts(ResourceMethod method) {
@@ -44,14 +48,18 @@ public class LocaleInterceptor implements Interceptor {
 			return new SimpleDateFormat(getJodaFormat());
 		}
 		public static DateFormat valueFor(Locale locale) {
-			return valueOf(locale.getLanguage());
+			try {
+				return valueOf(locale.getLanguage());
+			} catch (IllegalArgumentException e) {
+				return en;
+			}
 		}
 	}
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
-		String language = Locale.getDefault().getLanguage();
+		String language = request.getLocale().getLanguage();
 		result.include("locale", language);
-		result.include("format", DateFormat.valueOf(language));
+		result.include("format", DateFormat.valueFor(request.getLocale()));
 		stack.next(method, resourceInstance);
 	}
 
