@@ -89,7 +89,7 @@ public class WhenActions {
 		Long id = (Long) session.createQuery(
 				"select id from Project p where p.name = :name").setParameter(
 				"name", projectName).setMaxResults(1).uniqueResult();
-		browser.open("/calopsita/projects/" + id + "/admin/");
+		browser.open("/calopsita/projects/" + id + "/edit/");
 		return this;
 	}
 
