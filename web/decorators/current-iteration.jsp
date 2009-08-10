@@ -26,7 +26,9 @@
 
 		<calopsita:sub-menu>
 			<calopsita:sub-menu-item uri="/projects/${project.id}/iterations/current/" message="iteration.current" />
-			<calopsita:sub-menu-item uri="/projects/${project.id}/iterations/${iteration.id}/edit/" message="edit" />
+			<c:if test="${not empty iteration.id}">
+				<calopsita:sub-menu-item uri="/projects/${project.id}/iterations/${iteration.id}/edit/" message="edit" />
+			</c:if>
 		</calopsita:sub-menu>
 		<c:if test="${not empty iteration}">
 			<%@include file="timeline.jsp" %>

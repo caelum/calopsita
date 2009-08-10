@@ -1,5 +1,8 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+
+<page:applyDecorator name="iteration">
 <html>
 <head>
 	<title><fmt:message key="project"/></title>
@@ -13,10 +16,7 @@
 
 <div id="tab2">
   <div id="page-tabs">
-	<ul>
-		<li><a href="#iterations"><fmt:message key="iterations.all"/></a></li>
-		<li><a href="#form"><fmt:message key="project.addIteration"/></a></li>
-	</ul>
+
     <div id="iterations">
 	  <c:if test="${not empty project.iterations}">
 	      <ul class="iterations">
@@ -52,10 +52,8 @@
 	      </ul>
 	  </c:if>
     </div>
-    <div id="form">
-	  <%@include file="editForm.jsp" %>
-    </div>
   </div>
 </div>
 </body>
 </html>
+</page:applyDecorator>
