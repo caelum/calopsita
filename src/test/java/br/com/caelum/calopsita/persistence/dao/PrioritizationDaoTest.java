@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.persistence.dao;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.calopsita.repository.PrioritizationRepository;
 
 public class PrioritizationDaoTest extends AbstractDaoTest{
@@ -41,6 +43,20 @@ public class PrioritizationDaoTest extends AbstractDaoTest{
 
 		assertThat(list.get(1), hasItem(card1));
 		assertThat(list.get(4), hasItem(card4));
+	}
+
+	@Test
+	public void listingCardsDontIncludeDoneCards() throws Exception {
+		Card cardNotDone = givenACard(withPriority(1));
+		Card cardDone = givenACard(withPriority(1));
+		cardDone.setStatus(Status.DONE);
+
+		List<List<Card>> list = dao.listCards(project);
+
+
+		assertThat(list.size(), is(2));
+		assertThat(list.get(1), hasItem(cardNotDone));
+		assertThat(list.get(1), not(hasItem(cardDone)));
 	}
 
 

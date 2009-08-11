@@ -28,7 +28,8 @@ public class PrioritizationDao implements PrioritizationRepository {
 	}
 
 	public List<List<Card>> listCards(Project project) {
-		return session.createQuery("from PrioritizableCard c where c.card.project = :project order by c.priority")
+		return session.createQuery("from PrioritizableCard c where c.card.project = :project and " +
+				"c.card.status != 'DONE' order by c.priority")
 			.setParameter("project", project)
 			.setResultTransformer(TRANSFORMER)
 			.list();
