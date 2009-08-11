@@ -1,6 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -28,7 +27,6 @@ public class DontShowDoneCardsStory extends DefaultStory {
 			.theCard("I've already done").notAppearsOnList();
 	}
 	@Test
-	@Ignore
 	public void showDoneCardsOnListingAllCards() {
 		given.thereIsAnUserNamed("moreira").and()
 			.thereIsAProjectNamed("Brasilia").ownedBy("moreira")

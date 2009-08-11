@@ -14,7 +14,8 @@
 <div id="tab3">
   <div id="page-tabs">
 	<ul>
-		<li><a href="#cards"><fmt:message key="cards.all"/></a></li>
+		<li><a href="#cards"><fmt:message key="cards.pending"/></a></li>
+		<li><a href="<c:url value="/projects/${project.id }/cards/all"/>"><fmt:message key="cards.all"/></a></li>
 		<li><a href="<c:url value="/projects/${project.id }/prioritization/"/>"><fmt:message key="prioritize"/></a></li>
 		<li><a href="#form"><fmt:message key="project.addCard"/></a></li>
 	</ul>

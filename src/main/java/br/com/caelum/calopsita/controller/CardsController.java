@@ -44,6 +44,14 @@ public class CardsController {
     	this.result.include("gadgets", Gadgets.values());
     	this.result.include("cardTypes", project.getCardTypes());
     }
+	@Path(priority = 1, value = "/projects/{project.id}/cards/all") @Get
+	public void all(Project project) {
+		this.result.include("project", project.load());
+		this.result.include("cards",  project.getAllCards());
+		this.result.include("gadgets", Gadgets.values());
+		this.result.include("cardTypes", project.getCardTypes());
+		this.result.use(page()).forward("/WEB-INF/jsp/cards/list.jsp");
+	}
 
 	@Path("/projects/{card.project.id}/cards/") @Post
 	public void save(final Card card, List<Gadgets> gadgets) {
@@ -68,7 +76,7 @@ public class CardsController {
 		result.use(page()).forward(UPDATE_JSP);
 	}
 
-	@Path("/projects/{card.project.id}/cards/{card.id}/") @Get
+	@Path(priority = 2, value = "/projects/{card.project.id}/cards/{card.id}/") @Get
 	public void edit(Card card) {
 	    Card loaded = card.load();
 		result.include("card", loaded);
