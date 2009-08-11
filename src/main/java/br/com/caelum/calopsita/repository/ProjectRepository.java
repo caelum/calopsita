@@ -30,4 +30,6 @@ public interface ProjectRepository extends BaseRepository<Project> {
 
 	List<Card> planningCardsWithoutIteration(Project project);
 
+	List<Card> listTodoCardsFrom(Project project);
+
 }

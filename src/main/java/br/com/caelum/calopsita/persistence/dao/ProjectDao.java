@@ -31,6 +31,12 @@ public class ProjectDao implements ProjectRepository {
     	return project;
     }
 
+    public List<Card> listTodoCardsFrom(Project project) {
+    	return this.session.createQuery("select c from PrioritizableCard p right join p.card c " +
+			"where c.project = :project and c.status != 'DONE' order by p.priority, c.id")
+			.setParameter("project", project).list();
+    }
+
     public List<User> listUnrelatedUsers(Project project) {
 		String hql = "select u from User u, Project p where p = :project " +
 				"and u != p.owner and u not in elements (p.colaborators)";

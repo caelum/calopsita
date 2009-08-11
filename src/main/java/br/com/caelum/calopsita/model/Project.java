@@ -87,7 +87,11 @@ public class Project implements Identifiable {
     	return getRepository().listUnrelatedUsers(this);
     }
 
-    public List<Card> getCards() {
+    public List<Card> getToDoCards() {
+    	return getRepository().listTodoCardsFrom(this);
+    }
+
+    public List<Card> getAllCards() {
     	return getRepository().listCardsFrom(this);
     }
 

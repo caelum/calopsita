@@ -370,4 +370,8 @@ public class WhenActions {
 		iClickOn("Colaborators");
 		return this;
 	}
+
+	public void iOpenAllCardsPage() {
+		iClickOn("All Cards");
+	}
 }

@@ -4,6 +4,7 @@ import static br.com.caelum.calopsita.CustomMatchers.hasItemsInThisOrder;
 import static br.com.caelum.calopsita.CustomMatchers.hasSameId;
 import static br.com.caelum.calopsita.CustomMatchers.isEmpty;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
@@ -22,6 +23,7 @@ import br.com.caelum.calopsita.model.PlanningCard;
 import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.model.Card.Status;
 
 public class ProjectDaoTest extends AbstractDaoTest {
 
@@ -123,6 +125,19 @@ public class ProjectDaoTest extends AbstractDaoTest {
         assertThat(list, not(hasItem(hasSameId(cardFromOtherProject))));
         assertThat(list, hasItem(hasSameId(cardFromThisProject)));
     }
+	@Test
+	public void onlyListToDoCardsFromTheGivenProject() throws Exception {
+		Project project = givenAProject();
+		Card cardFromOtherProject = givenACard();
+		Card cardFromThisProject = givenACardOfProject(project);
+		Card donecardFromThisProject = givenACardOfProject(project);
+		donecardFromThisProject.setStatus(Status.DONE);
+
+		List<Card> list = dao.listTodoCardsFrom(project);
+
+		assertThat(list, not(hasItems(hasSameId(cardFromOtherProject), hasSameId(donecardFromThisProject))));
+		assertThat(list, hasItem(hasSameId(cardFromThisProject)));
+	}
 
 	@Test
     public void onlyListIterationsFromTheGivenProject() throws Exception {

@@ -40,7 +40,7 @@ public class CardsController {
 	@Path("/projects/{project.id}/cards/") @Get
     public void list(Project project) {
     	this.result.include("project", project.load());
-    	this.result.include("cards",  project.getCards());
+    	this.result.include("cards",  project.getToDoCards());
     	this.result.include("gadgets", Gadgets.values());
     	this.result.include("cardTypes", project.getCardTypes());
     }
@@ -55,7 +55,7 @@ public class CardsController {
 			card.addGadgets(gadgets);
 		}
 		result.include("project", card.getProject());
-		result.include("cards", card.getProject().getCards());
+		result.include("cards", card.getProject().getToDoCards());
 		result.use(page()).forward(UPDATE_JSP);
 	}
 
@@ -108,7 +108,7 @@ public class CardsController {
         	loaded.detachSubCards();
         }
         loaded.delete();
-        result.include("cards", project.getCards());
+        result.include("cards", project.getToDoCards());
         result.include("project", project);
         result.use(page()).forward(UPDATE_JSP);
 	}
