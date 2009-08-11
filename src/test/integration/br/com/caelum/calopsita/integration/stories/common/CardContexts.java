@@ -6,6 +6,7 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.PlanningCard;
 import br.com.caelum.calopsita.model.PrioritizableCard;
+import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.seleniumdsl.Browser;
 
 public class CardContexts<T extends ProjectContexts<T>> {
@@ -74,6 +75,12 @@ public class CardContexts<T extends ProjectContexts<T>> {
 
 	public CardContexts<T> planningCard() {
 		session.save(new PlanningCard(card));
+		session.flush();
+		return this;
+	}
+
+	public CardContexts<T> done() {
+		card.setStatus(Status.DONE);
 		session.flush();
 		return this;
 	}
