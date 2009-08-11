@@ -27,4 +27,17 @@ public class DontShowDoneCardsStory extends DefaultStory {
 		then.theCard("I need to do this").appearsOnList().and()
 			.theCard("I've done yet").notAppearsOnList();
 	}
+	@Test
+	@Ignore
+	public void dontShowDoneCardsOnPrioritization() {
+		given.thereIsAnUserNamed("moreira").and()
+				.thereIsAProjectNamed("Brasilia").ownedBy("moreira")
+				.withACardNamed("I need to do this").whichDescriptionIs("I haven't done it yet").and()
+				.withACardNamed("I've done yet").whichDescriptionIs("Nothing more to do")
+				.done().and()
+			.iAmLoggedInAs("moreira");
+		when.iOpenPriorizationPage();
+		then.theCard("I need to do this").appearsOnPriority(0).and()
+			.theCard("I've done yet").notAppearsOnPage();
+	}
 }
