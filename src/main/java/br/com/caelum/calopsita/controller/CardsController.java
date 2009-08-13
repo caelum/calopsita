@@ -74,7 +74,7 @@ public class CardsController {
     }
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/subcards/") @Get
-	public void showSubcards(Card card) {
+	public void listSubcards(Card card) {
 		result.include("card", card);
 		result.include("cards", card.getSubcards());
 		result.include("project", card.getProject());
@@ -92,7 +92,7 @@ public class CardsController {
 		result.include("cards", card.getParent().getSubcards());
 		result.include("card", card.getParent());
 		result.include("project", card.getProject());
-		result.use(logic()).redirectTo(CardsController.class).showSubcards(card.getParent());
+		result.use(logic()).redirectTo(CardsController.class).listSubcards(card.getParent());
 	}
 
 	@Path(priority = 2, value = "/projects/{card.project.id}/cards/{card.id}/") @Get
