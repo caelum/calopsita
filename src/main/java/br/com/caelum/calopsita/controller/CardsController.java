@@ -42,7 +42,7 @@ public class CardsController {
 		this.result.include("project", project.load());
     	this.result.include("cards",  project.getToDoCards());
     }
-	@Path(priority = 1, value = "/projects/{project.id}/cards/all") @Get
+	@Path(priority = 1, value = "/projects/{project.id}/cards/all/") @Get
 	public void all(Project project) {
 		this.result.include("project", project.load());
 		this.result.include("cards",  project.getAllCards());

@@ -20,8 +20,8 @@ public class CreateACardStory extends DefaultStory {
 
 		when.iOpenProjectPageOf("Papyrus").and()
 		    .iOpenCardsPage().and()
-			.iAddTheCard("Incidents").withDescription("create and update an incident");
-
+			.iAddTheCard("Incidents").withDescription("create and update an incident").and()
+			.iOpenCardsPage();
 		then.theCard("Incidents").appearsOnList();
 	}
 

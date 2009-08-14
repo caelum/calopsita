@@ -24,7 +24,8 @@ public class CardsInCardsStory extends DefaultStory {
 		when.iOpenProjectPageOf("tattoos").and()
 		    .iOpenCardsPage()
 			.iOpenThePageOfCardNamed("left arm tatoo").and()
-			.iAddTheSubcard("draw some notes").withDescription("tatoo some musical notes, and cleffs");
+			.iAddTheSubcard("draw some notes").withDescription("tatoo some musical notes, and cleffs").and()
+			.iOpenSubcardsPage();
 		then.theCard("draw some notes").appearsOnList();
 
 	}

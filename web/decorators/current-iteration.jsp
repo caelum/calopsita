@@ -28,6 +28,7 @@
 			<calopsita:sub-menu-item uri="/projects/${project.id}/iterations/current/" message="iteration.current" />
 			<c:if test="${not empty iteration.id}">
 				<calopsita:sub-menu-item uri="/projects/${project.id}/iterations/${iteration.id}/edit/" message="edit" />
+				<calopsita:sub-menu-item uri="/projects/${project.id}/iterations/${iteration.id}/" message="iteration.plan" />
 			</c:if>
 		</calopsita:sub-menu>
 		<c:if test="${not empty iteration}">

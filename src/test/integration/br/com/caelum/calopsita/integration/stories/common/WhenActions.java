@@ -374,4 +374,8 @@ public class WhenActions {
 	public void iOpenAllCardsPage() {
 		iClickOn("All Cards");
 	}
+
+	public void iOpenSubcardsPage() {
+		iClickOn("Subcards");
+	}
 }
