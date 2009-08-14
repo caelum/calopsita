@@ -25,14 +25,7 @@
 		</form>
 	</div>
 		
-	<div class="information">
-		<h4><fmt:message key="recently.added.cards"/></h4>
-		<ul id="recent-cards" class="stories">
-			<c:forEach items="${project.lastAddedCards}" var="card" varStatus="s">
-				<%@include file="storyLine.jsp" %>
-			</c:forEach>
-		</ul>
-	</div>
+	<%@include file="save.jsp" %>
 </div>
 </body>
 </html>

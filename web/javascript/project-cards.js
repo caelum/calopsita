@@ -69,7 +69,7 @@ $( function() {
                     window.location.href = window.location + '../../../';
                 },
                 success: function(data) {
-                	$('#recent-cards').html(data);
+                	$('#recent-cards').replaceWith(data);
                 }
             });
             $('[name=card.name]').focus();
