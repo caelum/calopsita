@@ -40,7 +40,7 @@ public class CardsController {
 	@Path("/projects/{project.id}/cards/") @Get
     public void list(Project project) {
 		this.result.include("project", project.load());
-    	this.result.include("cards",  project.getCards());
+    	this.result.include("cards",  project.getToDoCards());
     }
 	@Path(priority = 1, value = "/projects/{project.id}/cards/all") @Get
 	public void all(Project project) {
@@ -61,14 +61,14 @@ public class CardsController {
 			card.addGadgets(gadgets);
 		}
 		result.include("project", card.getProject());
-		result.include("cards", card.getProject().getCards());
+		result.include("cards", card.getProject().getToDoCards());
 		result.use(logic()).redirectTo(CardsController.class).form(card.getProject());
 	}
 
-	@Path("/projects/{project.id}/cards/new/") @Get
+	@Path(priority = 2, value = "/projects/{project.id}/cards/new/") @Get
     public void form(Project project) {
     	this.result.include("project", project.load());
-    	this.result.include("cards",  project.getCards());
+    	this.result.include("cards",  project.getToDoCards());
     	this.result.include("gadgets", Gadgets.values());
     	this.result.include("cardTypes", project.getCardTypes());
     }
@@ -98,7 +98,7 @@ public class CardsController {
 		result.use(logic()).redirectTo(CardsController.class).listSubcards(parent);
 	}
 
-	@Path(priority = 2, value = "/projects/{card.project.id}/cards/{card.id}/") @Get
+	@Path(priority = 3, value = "/projects/{card.project.id}/cards/{card.id}/") @Get
 	public void edit(Card card) {
 	    Card loaded = card.load();
 		result.include("card", loaded);

@@ -255,7 +255,7 @@ public class CardTest {
 			{
 				one(repository).remove(returned);
 
-				allowing(projectRepository).listCardsFrom(project);
+				allowing(projectRepository).listTodoCardsFrom(project);
 
 				allowing(repository).listSubcards(returned);
 			}
