@@ -75,24 +75,27 @@ public class CardsController {
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/subcards/") @Get
 	public void listSubcards(Card card) {
-		result.include("card", card);
+		result.include("card", card.load());
 		result.include("cards", card.getSubcards());
-		result.include("project", card.getProject());
+		result.include("project", card.getProject().load());
 	}
 
-	@Path("/projects/{card.project.id}/cards/{card.parent.id}/subcards/new/") @Get
+	@Path("/projects/{card.project.id}/cards/{card.id}/subcards/new/") @Get
 	public void subcardForm(Card card) {
-		result.include("project", card.getProject());
+		result.include("project", card.getProject().load());
 		result.include("card", card);
+		result.include("parent", card.load());
+		result.include("gadgets", Gadgets.values());
 	}
 
 	@Path("/projects/{card.project.id}/cards/{card.parent.id}/subcards/") @Post
 	public void saveSubcard(Card card) {
 		card.save();
+		Card parent = card.getParent().load();
 		result.include("cards", card.getParent().getSubcards());
-		result.include("card", card.getParent());
-		result.include("project", card.getProject());
-		result.use(logic()).redirectTo(CardsController.class).listSubcards(card.getParent());
+		result.include("card", parent);
+		result.include("project", card.getProject().load());
+		result.use(logic()).redirectTo(CardsController.class).listSubcards(parent);
 	}
 
 	@Path(priority = 2, value = "/projects/{card.project.id}/cards/{card.id}/") @Get

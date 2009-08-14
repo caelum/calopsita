@@ -40,7 +40,7 @@
 				var url = window.location.toString();
 				$('#sub-menu li a').each(function(c, a) {
 					var className = '';
-					if(url.indexOf(a.getAttribute('href')) > 0) {
+					if(url.match(a.getAttribute('href')+"$")) {
 						className = 'selected';
 					}
 		

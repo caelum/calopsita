@@ -16,6 +16,12 @@
 .cardForm {
 	float: left;
 }
+
+#cards {
+	width: 70%;
+	float: left;	
+}
+
 .information .story {
 	width: 90%;
 }
