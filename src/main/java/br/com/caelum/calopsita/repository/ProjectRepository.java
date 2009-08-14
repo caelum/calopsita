@@ -32,4 +32,6 @@ public interface ProjectRepository extends BaseRepository<Project> {
 
 	List<Card> listTodoCardsFrom(Project project);
 
+	List<Card> listLastAddedCards(Project project);
+
 }

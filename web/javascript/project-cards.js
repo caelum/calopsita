@@ -15,18 +15,10 @@ function selectGadgets(select) {
 		});
 	}
 }
-function updateRecentCards() {
-	var selector = '#cards .story';
-	if ($('#cards .story').length > 5)
-		selector += ':gt(' + ($('#cards .story').length - 6) + ')';
-	$('#recent-cards').html('');
-	$(selector).clone().appendTo('#recent-cards');
-}
 
 function deleteCards(url, deleteSubcards) {
 	$.post(url, {_method: 'DELETE', deleteSubcards: deleteSubcards}, function(data) {
 		$('#cards').html(data);
-		updateRecentCards();
 	});
 }
 function confirmCardDeletion(url, hasSubcards) {
@@ -77,8 +69,7 @@ $( function() {
                     window.location.href = window.location + '../../../';
                 },
                 success: function(data) {
-                	$('#cards').html(data);
-                	updateRecentCards();
+                	$('#recent-cards').html(data);
                 }
             });
             $('[name=card.name]').focus();

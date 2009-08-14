@@ -56,6 +56,9 @@ public class Project implements Identifiable {
     	return repository;
     }
 
+    public List<Card> getLastAddedCards() {
+    	return repository.listLastAddedCards(this);
+    }
     public List<Iteration> getIterations() {
     	if (iterations == null) {
     		iterations = getRepository().listIterationsFrom(this);

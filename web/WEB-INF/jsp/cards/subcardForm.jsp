@@ -24,10 +24,8 @@
 	<div class="information">
   	  	<h4><fmt:message key="recently.added.cards"/></h4>
 		<ul id="recent-cards" class="stories">
-			<c:forEach items="${cards}" var="card" varStatus="s">
-  	  			<c:if test="${s.count > fn:length(cards) - 5}">
-					<%@include file="storyLine.jsp" %>
-  	  			</c:if>
+			<c:forEach items="${project.lastAddedCards}" var="card" varStatus="s">
+				<%@include file="storyLine.jsp" %>
 			</c:forEach>
   	  	</ul>
 	</div>

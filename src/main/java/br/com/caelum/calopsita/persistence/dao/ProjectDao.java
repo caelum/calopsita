@@ -31,6 +31,12 @@ public class ProjectDao implements ProjectRepository {
     	return project;
     }
 
+    public List<Card> listLastAddedCards(Project project) {
+    	return this.session.createQuery("from Card c where c.project = :project order by c.id desc")
+    		.setParameter("project", project)
+    		.setMaxResults(5).list();
+    }
+
     public List<Card> listTodoCardsFrom(Project project) {
     	return this.session.createQuery("select c from PrioritizableCard p right join p.card c " +
 			"where c.project = :project and c.status != 'DONE' order by p.priority, c.id")

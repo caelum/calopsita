@@ -61,8 +61,6 @@ public class CardsController {
 			card.addGadgets(gadgets);
 		}
 		result.include("project", card.getProject());
-		result.include("cards", card.getProject().getToDoCards());
-		result.use(logic()).redirectTo(CardsController.class).form(card.getProject());
 	}
 
 	@Path(priority = 2, value = "/projects/{project.id}/cards/new/") @Get
@@ -91,11 +89,8 @@ public class CardsController {
 	@Path("/projects/{card.project.id}/cards/{card.parent.id}/subcards/") @Post
 	public void saveSubcard(Card card) {
 		card.save();
-		Card parent = card.getParent().load();
-		result.include("cards", card.getParent().getSubcards());
-		result.include("card", parent);
-		result.include("project", card.getProject().load());
-		result.use(logic()).redirectTo(CardsController.class).listSubcards(parent);
+		result.include("project", card.getProject());
+		result.use(page()).forward("/WEB-INF/jsp/cards/save.jsp");
 	}
 
 	@Path(priority = 3, value = "/projects/{card.project.id}/cards/{card.id}/") @Get
