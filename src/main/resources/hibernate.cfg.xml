@@ -24,5 +24,7 @@
 		<mapping class="br.com.caelum.calopsita.model.PlanningCard" />
 		<mapping class="br.com.caelum.calopsita.model.User" />
 		<mapping class="br.com.caelum.calopsita.model.Iteration" />
+		<mapping class="br.com.caelum.calopsita.model.Plugin" />
+		<mapping class="br.com.caelum.calopsita.model.ActivePlugin" />
 	</session-factory>
 </hibernate-configuration>
