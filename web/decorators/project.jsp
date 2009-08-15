@@ -16,17 +16,6 @@
 	    <script type="text/javascript">
 		  //<![CDATA[
 		  	$(function() {
-		  		$('#page-tabs').tabs({
-		  		    select: function(event, ui) {
-		  		        var url = $.data(ui.tab, 'load.tabs');
-		  		        if( url && !$(ui.tab).is('.no-ajax')) {
-		  		            location.href = url;
-		  		            return false;
-		  		        }
-		  		        return true;
-		  		    },
-		  		    selected: '${param.selected}' || selected || 0
-		  		});
 		  		$('#tabs li').each(function(c, e) {
 					if ($('#tab' + (c+1)).length > 0) {
 						$(e).addClass('selected');
