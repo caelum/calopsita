@@ -5,6 +5,8 @@ public interface PluginConfig {
 
 	String getName();
 
-	void includeMenus(Menu menu);
+	String getDescription();
+
+	void includeMenus(Menu menu, Parameters parameters);
 
 }
