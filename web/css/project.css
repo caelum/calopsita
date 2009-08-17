@@ -156,34 +156,33 @@ li#current {
 
 /* begin sub-menu tabs */
 
-#sub-menu ul {
+ul.submenu  {
 	list-style-type:none;
 	margin:-12px 0px 12px;
-	background: #CC0000;
 	padding: 0px 10px 6px;
 }
 
-#sub-menu ul li {
+ul.submenu li {
 	display: inline;
-	margin: 0px 1px;
+	margin: 0px 5px;
 }
 
-#sub-menu ul li.selected{
+ul.submenu li.selected {
 	background-color:#FFFFFF;
 	padding: 0px 4px 4px;
 }
 
-#sub-menu ul li.selected a{
+ul.submenu li.selected a {
 	color:#333333;
 	text-decoration:none;
 }
 
-#sub-menu ul li a {
+ul.submenu li a {
 	color: #FFFFFF;
 	font: bold 11px verdana, sans-serif;
 	text-decoration: none;
 }
-#sub-menu ul a:hover {
+ul.submenu a:hover {
 	background-color:#FFFFFF;
 	color:#333333;
 	margin:0 -4px;
@@ -193,19 +192,20 @@ li#current {
 /* end sub-menu tabs */
 /* begin css tabs */
 
-ul#tabnav { /* general settings */
+#menu { /* general settings */
 	margin: 1em 0 1em 0; /* set margins as desired */
 	font: bold 11px verdana, sans-serif; /* set font as desired */
-	border-bottom: 3px solid #bf2126; /* set border COLOR as desired */
+	border-bottom: 25px solid #bf2126; /* set border COLOR as desired */
 	list-style-type: none;
 	padding: 3px 10px 3px 10px; /* THIRD number must change with respect to padding-top (X) below */
 }
 
-ul#tabnav li { /* do not change */
+#menu > li { /* do not change */
 	display: inline;
+	margin-left: 2px;
 }
 
-ul#tabnav li.selected a { /* settings for selected tab */
+#menu > li.selected a { /* settings for selected tab */
 	background-color: #FFFFFF; /* set background color to match above border color */
 }
 
@@ -217,7 +217,7 @@ div#tab1 li.tab1 a, div#tab2 li.tab2 a, div#tab3 li.tab3 a, div#tab4 li.tab4 a {
 	padding-top: 4px; /* must change with respect to padding (X) above and below */
 }
 
-ul#tabnav li a { /* settings for all tab links */
+#menu > li a { /* settings for all tab links */
 	padding: 3px 4px; /* set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
 	border: 3px solid #bf2126; /* set border COLOR as desired; usually matches border color specified in #tabnav */
 	background-color: #EEEEEE; /* set unselected tab background color as desired */
@@ -227,8 +227,22 @@ ul#tabnav li a { /* settings for all tab links */
 	border-bottom: none;
 }
 
-ul#tabnav a:hover { /* settings for hover effect */
+#menu > a:hover { /* settings for hover effect */
 	background: #DCDCDC; /* set desired hover color */
+}
+
+.submenu {
+	display: none;
+	float: left;
+}
+
+#menu > li:hover + .submenu, .submenu:hover {
+	display: block;
+	float: left;
+	margin-top: 3px;
+	padding-top: 5px;
+	margin-left: 0;
+	width:60%;
 }
 
 /* end css tabs */

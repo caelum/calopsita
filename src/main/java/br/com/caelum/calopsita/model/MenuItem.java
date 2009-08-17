@@ -32,7 +32,7 @@ public class MenuItem {
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("<ul class=\"sub_menu\">");
+		stringBuilder.append("<ul class=\"submenu\">");
 		for (SubmenuItem item : submenu) {
 			stringBuilder.append(String.format("<li><a href=\"%s%s\">%s</a></li>", contextPath, item.getUrl(),
 					bundle.getString(item.getLabel())));

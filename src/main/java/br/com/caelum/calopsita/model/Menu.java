@@ -29,16 +29,16 @@ public class Menu {
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("<div id=\"menu\">	");
-		stringBuilder.append("	<ul id=\"upper_menu\">");
+		stringBuilder.append("<ul id=\"menu\">");
 		for (MenuItem item : items) {
 			stringBuilder.append("<li>");
+			stringBuilder.append("<a href=\"#\">");
 			stringBuilder.append(bundle.getString(item.getLabel()));
+			stringBuilder.append("</a>");
 			stringBuilder.append("</li>");
 			stringBuilder.append(item.toString());
 		}
-		stringBuilder.append("	</ul>");
-		stringBuilder.append("</div>");
+		stringBuilder.append("</ul>");
 		return stringBuilder.toString();
 	}
 
