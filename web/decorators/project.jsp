@@ -43,7 +43,7 @@
 		<div id="project">
 			<fmt:message key="project" />: ${project.name }
 		</div>
-		<div id="tabs">	
+		<!--<div id="tabs">	
 			<ul id="tabnav">
 				<li><a href="<c:url value="/projects/${project.id }/iterations/current/"/>">Current iteration</a></li>
 				<li><a href="<c:url value="/projects/${project.id }/iterations/"/>">Iterations</a></li>
@@ -51,6 +51,8 @@
 				<li><a href="<c:url value="/projects/${project.id }/edit/"/>">Admin</a></li>
 			</ul>
 		</div>
+		-->
+		${menu }
 		<decorator:body />
 	
 	</body>

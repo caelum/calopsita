@@ -2,6 +2,7 @@ package br.com.caelum.calopsita.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class MenuItem {
 
@@ -9,8 +10,14 @@ public class MenuItem {
 
 	private final List<SubmenuItem> submenu = new ArrayList<SubmenuItem>();
 
-	MenuItem(String label) {
+	private final String contextPath;
+
+	private final ResourceBundle bundle;
+
+	MenuItem(String label, String contextPath) {
 		this.label = label;
+		this.contextPath = contextPath;
+		bundle = ResourceBundle.getBundle("messages");
 	}
 
 	public MenuItem add(SubmenuItem item) {
@@ -27,7 +34,8 @@ public class MenuItem {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("<ul class=\"sub_menu\">");
 		for (SubmenuItem item : submenu) {
-			stringBuilder.append(String.format("<li><a href=\"<c:url value=\"%s\"/>\">%s</a></li>", item.getUrl(), item.getLabel()));
+			stringBuilder.append(String.format("<li><a href=\"%s%s\">%s</a></li>", contextPath, item.getUrl(),
+					bundle.getString(item.getLabel())));
 		}
 		stringBuilder.append("</ul>");
 		return stringBuilder.toString();
