@@ -31,7 +31,7 @@ public class Menu {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("<ul id=\"menu\">");
 		for (MenuItem item : items) {
-			stringBuilder.append("<li>");
+			stringBuilder.append("<li onmouseover=\"$('.submenu').removeClass('selected');$(this).next('.submenu').addClass('selected');\">");
 			stringBuilder.append("<a href=\"#\">");
 			stringBuilder.append(bundle.getString(item.getLabel()));
 			stringBuilder.append("</a>");
