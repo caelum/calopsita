@@ -16,11 +16,12 @@
 	    <script type="text/javascript">
 		  //<![CDATA[
 		  	$(function() {
-		  		$('#tabs li').each(function(c, e) {
-					if ($('#tab' + (c+1)).length > 0) {
-						$(e).addClass('selected');
-					}
-		  		});
+			  	if ($('#content').attr('title')) {
+			  		$('#menu li').select(function(c) { return c.text() == $('#content').attr('title'); })
+			  			.next('.submenu').addClass('selected'); 
+			  	} else {
+					$('#menu li:first + .submenu').addClass('selected'); 
+			  	}
 		  	});
 		  //]]>
 		</script>

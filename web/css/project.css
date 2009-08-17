@@ -234,10 +234,6 @@ div#tab1 li.tab1 a, div#tab2 li.tab2 a, div#tab3 li.tab3 a, div#tab4 li.tab4 a {
 .submenu {
 	display: none;
 	float: left;
-	margin-top: 3px;
-	padding-top: 5px;
-	margin-left: 0;
-	width:60%;
 }
 
 #menu > li:hover + .submenu, .submenu:hover, .submenu.selected {
