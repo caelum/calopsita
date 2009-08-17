@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.infra.vraptor;
 
+import br.com.caelum.calopsita.infra.interceptor.MenuInterceptor;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.core.RequestExecution;
@@ -36,6 +37,7 @@ public class CalopsitaRequestExecution implements RequestExecution {
         interceptorStack.add(InterceptorListPriorToExecutionExtractor.class);
         interceptorStack.add(ExecuteMethodInterceptor.class);
         interceptorStack.add(OutjectResult.class);
+        interceptorStack.add(MenuInterceptor.class);
         interceptorStack.add(DownloadInterceptor.class);
         interceptorStack.add(ForwardToDefaultViewInterceptor.class);
         interceptorStack.next(null, null);

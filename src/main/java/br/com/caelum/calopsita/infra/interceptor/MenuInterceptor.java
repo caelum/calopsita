@@ -6,13 +6,13 @@ import br.com.caelum.calopsita.model.Menu;
 import br.com.caelum.calopsita.model.Parameters;
 import br.com.caelum.calopsita.plugins.DefaultPlugin;
 import br.com.caelum.vraptor.InterceptionException;
-import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
+import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
-@Intercepts
+@Component
 public class MenuInterceptor implements Interceptor {
 
 	private final HttpServletRequest request;
