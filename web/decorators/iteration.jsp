@@ -6,19 +6,12 @@
 		<decorator:head />
 	</head>
 	<body>
-		<calopsita:sub-menu>
-			<calopsita:sub-menu-item uri="/projects/${project.id}/iterations/" message="iterations.all" />
-			<c:if test="${not empty iteration.id}">
-				<calopsita:sub-menu-item uri="/projects/${project.id}/iterations/${iteration.id}/" message="iteration.plan" />
-				<calopsita:sub-menu-item uri="/projects/${project.id}/iterations/${iteration.id}/edit/" message="edit" />
+		<div id="content" title="<fmt:message key="iterations"/>">		
+			<c:if test="${not empty iteration}">
+				<%@include file="timeline.jsp" %>
 			</c:if>
-			<calopsita:sub-menu-item uri="/projects/${project.id}/iterations/new/" message="project.addIteration" />
-		</calopsita:sub-menu>
-		
-		<c:if test="${not empty iteration}">
-			<%@include file="timeline.jsp" %>
-		</c:if>
-		
-		<decorator:body />
+			
+			<decorator:body />
+		</div>
 	</body>
 </html>

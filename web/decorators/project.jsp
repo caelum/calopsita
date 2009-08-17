@@ -17,8 +17,11 @@
 		  //<![CDATA[
 		  	$(function() {
 			  	if ($('#content').attr('title')) {
-			  		$('#menu li').select(function(c) { return c.text() == $('#content').attr('title'); })
-			  			.next('.submenu').addClass('selected'); 
+			  		$('#menu > li').each(function(c, e) {
+				  		if ($(e).text() == $('#content').attr('title')) {
+				  			$(e).next('.submenu').addClass('selected'); 
+				  		}
+			  		});
 			  	} else {
 					$('#menu li:first + .submenu').addClass('selected'); 
 			  	}

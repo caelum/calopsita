@@ -7,13 +7,8 @@
 		<decorator:head />
 	</head>
 	<body>
-		<calopsita:sub-menu>
-			<calopsita:sub-menu-item uri="/projects/${project.id}/cards/" message="cards.pending" />
-			<calopsita:sub-menu-item uri="/projects/${project.id}/cards/all/" message="cards.all" />
-			<calopsita:sub-menu-item uri="/projects/${project.id}/prioritization/" message="prioritize" />
-			<calopsita:sub-menu-item uri="/projects/${project.id}/cards/new/" message="project.addCard" />
-		</calopsita:sub-menu>
-		
-		<decorator:body />
+		<div id="content" title="<fmt:message key="cards"/>">
+			<decorator:body />
+		</div>
 	</body>
 </html>
