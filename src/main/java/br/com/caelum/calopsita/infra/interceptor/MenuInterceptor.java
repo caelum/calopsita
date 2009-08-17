@@ -15,10 +15,12 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 @Intercepts
 public class MenuInterceptor implements Interceptor {
 
-	private final Result result;
 	private final HttpServletRequest request;
+	private final Parameters parameters;
+	private final Result result;
 
-	public MenuInterceptor(Result result, HttpServletRequest request) {
+	public MenuInterceptor(Parameters parameters, Result result, HttpServletRequest request) {
+		this.parameters = parameters;
 		this.result = result;
 		this.request = request;
 
@@ -30,11 +32,7 @@ public class MenuInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
 		String path = request.getContextPath();
 		Menu menu = new Menu(path);
-		new DefaultPlugin().includeMenus(menu, new Parameters() {
-			public boolean contains(String parameterName) {
-				return false;
-			}
-		});
+		new DefaultPlugin().includeMenus(menu, parameters);
 		result.include("menu", menu);
 		stack.next(method, resourceInstance);
 	}
