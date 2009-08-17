@@ -16,4 +16,20 @@ public class Menu {
 		return new MenuItem(menu);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("<div id=\"menu\">	");
+		stringBuilder.append("	<ul id=\"upper_menu\">");
+		for (MenuItem item : items) {
+			stringBuilder.append("<li>");
+			stringBuilder.append(item.getLabel());
+			stringBuilder.append("</li>");
+			stringBuilder.append(item.toString());
+		}
+		stringBuilder.append("	</ul>");
+		stringBuilder.append("</div>");
+		return stringBuilder.toString();
+	}
+
 }

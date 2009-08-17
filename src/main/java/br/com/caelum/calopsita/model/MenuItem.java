@@ -21,4 +21,15 @@ public class MenuItem {
 	public String getLabel() {
 		return label;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("<ul class=\"sub_menu\">");
+		for (SubmenuItem item : submenu) {
+			stringBuilder.append(String.format("<li><a href=\"<c:url value=\"%s\"/>\">%s</a></li>", item.getUrl(), item.getLabel()));
+		}
+		stringBuilder.append("</ul>");
+		return stringBuilder.toString();
+	}
 }
