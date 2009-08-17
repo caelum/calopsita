@@ -7,7 +7,9 @@ import br.com.caelum.calopsita.model.Parameters;
 import br.com.caelum.calopsita.model.PluginConfig;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.SubmenuItem;
+import br.com.caelum.vraptor.ioc.Component;
 
+@Component
 public class DefaultPlugin implements PluginConfig {
 
 	public String getName() {
