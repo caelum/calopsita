@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="calopsita" %>
+<script type="text/javascript" src="<c:url value="/javascript/timeline.js"/>"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var daysBetweenTodayAndStartDate = (parseInt('${today.dayOfYear}') + 365 * parseInt('${today.year}')) - (parseInt('${iteration.startDate.dayOfYear}') + 365 * parseInt('${iteration.startDate.year}'));
