@@ -259,7 +259,7 @@ public class WhenActions {
 	}
 
 	public WhenActions iEditTheIteration() {
-		iClickOn("Edit");
+		iClickOn("Edit Iteration");
 		return this;
 	}
 
@@ -269,23 +269,23 @@ public class WhenActions {
 	}
 
 	public void iChangeDescriptionTo(String description) {
-		iClickOn("Edit");
+		iClickOn("Edit Project");
 		browser.currentPage().form("projectForm").field("project.description")
 				.type(description).submit();
 	}
 
 	public WhenActions iOpenAdminPage() {
-		iClickOn("Admin");
+		iClickOn("Edit Project");
 		return this;
 	}
 
 	public WhenActions iOpenIterationsPage() {
-		iClickOn("Iterations");
+		iClickOn("All Iterations");
 		return this;
 	}
 
 	public WhenActions iOpenCardsPage() {
-		iClickOn("Cards");
+		iClickOn("Pending Cards");
 		return this;
 	}
 

@@ -35,25 +35,26 @@ public class DefaultPlugin implements PluginConfig {
 		if (parameters.contains("iteration")) {
 			Iteration iteration = parameters.get("iteration");
 			menu.getOrCreate("iteration.current")
-				.add(new SubmenuItem("edit", "/projects/" + project.getId() + "/iterations/" + iteration.getId() + "/edit/"));
+				.add(new SubmenuItem("iteration.edit", "/projects/" + project.getId() + "/iterations/" + iteration.getId() + "/edit/"));
 			menu.getOrCreate("iterations")
-				.add(new SubmenuItem("edit", "/projects/" + project.getId() + "/iterations/" + iteration.getId() + "/edit/"));
+				.add(new SubmenuItem("iteration.edit", "/projects/" + project.getId() + "/iterations/" + iteration.getId() + "/edit/"));
 		}
 
 		menu.getOrCreate("cards")
-			.add(new SubmenuItem("cards.all", "/projects/" + project.getId() + "/cards/"))
+			.add(new SubmenuItem("cards.pending", "/projects/" + project.getId() + "/cards/"))
+			.add(new SubmenuItem("cards.all", "/projects/" + project.getId() + "/cards/all"))
 			.add(new SubmenuItem("project.addCard", "/projects/" + project.getId() + "/cards/new/"));
 
 		if (parameters.contains("card")) {
 			Card card = parameters.get("card");
 			menu.getOrCreate("cards")
-				.add(new SubmenuItem("edit", "/projects/" + project.getId() + "/cards/" + card.getId() + "/edit/"))
+				.add(new SubmenuItem("card.edit", "/projects/" + project.getId() + "/cards/" + card.getId() + "/edit/"))
 				.add(new SubmenuItem("card.subcard.new", "/projects/" + project.getId() + "/cards/" + card.getId() + "/subcards/new/"))
 				.add(new SubmenuItem("card.subcards", "/projects/" + project.getId() + "/cards/" + card.getId() + "/subcards/"));
 		}
 
 		menu.getOrCreate("admin")
-			.add(new SubmenuItem("edit", "/projects/" + project.getId() + "/edit/"))
+			.add(new SubmenuItem("project.edit", "/projects/" + project.getId() + "/edit/"))
 			.add(new SubmenuItem("colaborators", "/projects/" + project.getId() + "/colaborators/"))
 			.add(new SubmenuItem("cardTypes", "/projects/" + project.getId() + "/cardTypes/"));
 

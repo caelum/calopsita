@@ -1,10 +1,15 @@
 package br.com.caelum.calopsita.infra.interceptor;
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.calopsita.model.Menu;
 import br.com.caelum.calopsita.model.Parameters;
+import br.com.caelum.calopsita.model.PluginConfig;
 import br.com.caelum.calopsita.plugins.DefaultPlugin;
+import br.com.caelum.calopsita.plugins.PlanningPlugin;
+import br.com.caelum.calopsita.plugins.PrioritizationPlugin;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
@@ -32,7 +37,9 @@ public class MenuInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
 		String path = request.getContextPath();
 		Menu menu = new Menu(path);
-		new DefaultPlugin().includeMenus(menu, parameters);
+		for (PluginConfig config : Arrays.asList(new DefaultPlugin(), new PlanningPlugin(), new PrioritizationPlugin())) {
+			config.includeMenus(menu, parameters);
+		}
 		result.include("menu", menu);
 		stack.next(method, resourceInstance);
 	}
