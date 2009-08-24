@@ -5,8 +5,6 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-import javax.servlet.http.HttpSession;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Assert;
@@ -26,13 +24,11 @@ public class UserTest {
     private Mockery mockery;
     private UsersController logic;
     private UserRepository repository;
-	private HttpSession session;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
-        session = mockery.mock(HttpSession.class);
-		sessionUser = new SessionUser(session);
+		sessionUser = new SessionUser();
         repository = mockery.mock(UserRepository.class);
 
         logic = new UsersController(new MockResult(), new MockValidator(), sessionUser);
@@ -59,8 +55,6 @@ public class UserTest {
     	final User user = givenUser("caue");
 
     	givenThatUserExists(user);
-
-    	shouldPutUserOnSession(user);
 
     	assertThat(sessionUser.getUser().isNewbie(), is(false));
 
@@ -104,11 +98,9 @@ public class UserTest {
 
         givenThatUserExists(user);
 
-        shouldPutUserOnSession(user);
-
         whenILoginWith(user);
 
-        assertThat(sessionUser.getUser(), is(notNullValue()));
+        assertThat(sessionUser.getUser(), is(user));
         mockery.assertIsSatisfied();
     }
 
@@ -131,11 +123,19 @@ public class UserTest {
 
     @Test
     public void logout() throws Exception {
-    	shouldRemoveUserFromSession();
-        whenILogout();
+    	givenThereIsAnUserOnSession();
+
+    	whenILogout();
+
+        assertThat(sessionUser.getUser(), is(nullValue()));
 
         mockery.assertIsSatisfied();
     }
+
+
+	private void givenThereIsAnUserOnSession() {
+		sessionUser.setUser(new User());
+	}
 
 
 
@@ -151,25 +151,6 @@ public class UserTest {
     	logic.toggleNewbie();
 	}
 
-	private void shouldRemoveUserFromSession() {
-
-		mockery.checking(new Expectations() {
-			{
-				one(session).setAttribute("currentUser", null);
-			}
-		});
-	}
-
-    private void shouldPutUserOnSession(final User user) {
-
-		mockery.checking(new Expectations() {
-			{
-				one(session).setAttribute("currentUser", user);
-				allowing(session).getAttribute("currentUser");
-				will(returnValue(user));
-			}
-		});
-    }
     private void shouldHavePasswordHashed(User user, String login) {
         Assert.assertNotSame(user.getPassword(), login);
     }
@@ -199,6 +180,7 @@ public class UserTest {
                 will(returnValue(user));
             }
         });
+        sessionUser.setUser(user);
     }
 
     private void whenISaveTheUser(final User user) {
@@ -217,10 +199,6 @@ public class UserTest {
         mockery.checking(new Expectations() {
             {
                 one(repository).add(user);
-                one(session).setAttribute("currentUser", user);
-
-                allowing(session).getAttribute("currentUser");
-                will(returnValue(user));
             }
         });
     }

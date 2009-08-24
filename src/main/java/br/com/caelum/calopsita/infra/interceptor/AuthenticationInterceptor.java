@@ -11,6 +11,7 @@ import br.com.caelum.calopsita.controller.UsersController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
@@ -20,11 +21,13 @@ public class AuthenticationInterceptor implements Interceptor {
 	private final SessionUser sessionUser;
 	private final HttpServletRequest request;
 	private final HttpServletResponse response;
+	private final Result result;
 
-    public AuthenticationInterceptor(SessionUser sessionUser, HttpServletRequest request, HttpServletResponse response) {
+    public AuthenticationInterceptor(SessionUser sessionUser, HttpServletRequest request, HttpServletResponse response, Result result) {
 		this.sessionUser = sessionUser;
 		this.request = request;
 		this.response = response;
+		this.result = result;
     }
 
 	public boolean accepts(ResourceMethod method) {
@@ -41,6 +44,7 @@ public class AuthenticationInterceptor implements Interceptor {
 				throw new InterceptionException(e);
 			}
         } else {
+        	result.include("currentUser", sessionUser.getUser());
             stack.next(method, resourceInstance);
         }
 	}

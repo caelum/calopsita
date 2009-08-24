@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
@@ -34,7 +32,6 @@ public class CardTest {
 	private Card currentCard;
 	private ProjectRepository projectRepository;
     private Project project;
-	private HttpSession session;
 	private User currentUser;
 	private MockValidator validator;
 
@@ -42,23 +39,14 @@ public class CardTest {
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(CardRepository.class);
-        session = mockery.mock(HttpSession.class);
-		SessionUser sessionUser = new SessionUser(session);
+		SessionUser sessionUser = new SessionUser();
         currentUser = new User();
         currentUser.setLogin("me");
+        sessionUser.setUser(currentUser);
         project = new Project();
 
 		projectRepository = mockery.mock(ProjectRepository.class);
 		project.setRepository(projectRepository);
-
-		mockery.checking(new Expectations() {
-			{
-				allowing(session).getAttribute("currentUser");
-				will(returnValue(currentUser));
-			}
-		});
-
-
 
 		validator = new MockValidator();
 		logic = new CardsController(new MockResult(), validator, sessionUser);

@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -16,6 +15,7 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
+import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.resource.ResourceMethod;
@@ -28,7 +28,7 @@ public class AuthenticationInterceptorTest {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private InterceptorStack stack;
-	private HttpSession session;
+	private SessionUser sessionUser;
 
 	@Before
 	public void setUp() throws Exception {
@@ -37,9 +37,8 @@ public class AuthenticationInterceptorTest {
 		request = mockery.mock(HttpServletRequest.class);
 		response = mockery.mock(HttpServletResponse.class);
 		stack = mockery.mock(InterceptorStack.class);
-		session = mockery.mock(HttpSession.class);
-		SessionUser sessionUser = new SessionUser(session);
-		interceptor = new AuthenticationInterceptor(sessionUser, request, response);
+		sessionUser = new SessionUser();
+		interceptor = new AuthenticationInterceptor(sessionUser, request, response, new MockResult());
 	}
 
 	@After
@@ -74,21 +73,11 @@ public class AuthenticationInterceptorTest {
 	}
 
 	private void givenThereIsNotAUserInTheSession() {
-		mockery.checking(new Expectations() {
-			{
-				one(session).getAttribute("currentUser");
-				will(returnValue(null));
-			}
-		});
+		sessionUser.setUser(null);
 	}
 
 	private void givenThereIsAUserInTheSession() {
-		mockery.checking(new Expectations() {
-			{
-				one(session).getAttribute("currentUser");
-				will(returnValue(new User()));
-			}
-		});
+		sessionUser.setUser(new User());
 
 	}
 

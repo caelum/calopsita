@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -33,14 +32,15 @@ public class AuthorizationInterceptorTest {
 	private HttpServletResponse response;
 	private InterceptorStack stack;
 	private MethodInfo info;
+	private SessionUser sessionUser;
 
 	@Before
 	public void setUp() throws Exception {
 		mockery = new Mockery();
 		repository = mockery.mock(ProjectRepository.class);
 		user = new User();
-		final HttpSession session = mockery.mock(HttpSession.class);
-		SessionUser sessionUser = new SessionUser(session);
+		sessionUser = new SessionUser();
+		sessionUser.setUser(user);
 
 		request = mockery.mock(HttpServletRequest.class);
 		response = mockery.mock(HttpServletResponse.class);
@@ -49,9 +49,6 @@ public class AuthorizationInterceptorTest {
 		interceptor = new AuthorizationInterceptor(sessionUser, mockery.mock(UserRepository.class), repository, request, response, info);
 		mockery.checking(new Expectations() {
 			{
-				allowing(session).getAttribute("currentUser");
-				will(returnValue(user));
-
 				allowing(info).getParameters();
 				will(returnValue(new Object[0]));
 			}
