@@ -42,7 +42,7 @@ public class DefaultPlugin implements PluginConfig {
 
 		menu.getOrCreate("cards")
 			.add(new SubmenuItem("cards.pending", "/projects/" + project.getId() + "/cards/"))
-			.add(new SubmenuItem("cards.all", "/projects/" + project.getId() + "/cards/all"))
+			.add(new SubmenuItem("cards.all", "/projects/" + project.getId() + "/cards/all/"))
 			.add(new SubmenuItem("project.addCard", "/projects/" + project.getId() + "/cards/new/"));
 
 		if (parameters.contains("card")) {
