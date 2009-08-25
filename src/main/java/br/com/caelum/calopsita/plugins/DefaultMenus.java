@@ -4,21 +4,10 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Menu;
 import br.com.caelum.calopsita.model.Parameters;
-import br.com.caelum.calopsita.model.PluginConfig;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.SubmenuItem;
-import br.com.caelum.vraptor.ioc.Component;
 
-@Component
-public class DefaultPlugin implements PluginConfig {
-
-	public String getName() {
-		return "Default";
-	}
-
-	public String getDescription() {
-		return "The Default plugin. Should be included in all projects";
-	}
+public class DefaultMenus {
 
 	public void includeMenus(Menu menu, Parameters parameters) {
 		Project project = parameters.get("project");
