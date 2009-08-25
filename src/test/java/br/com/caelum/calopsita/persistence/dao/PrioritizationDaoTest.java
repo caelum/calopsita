@@ -11,9 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
-import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.Card.Status;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.repository.PrioritizationRepository;
 
 public class PrioritizationDaoTest extends AbstractDaoTest{

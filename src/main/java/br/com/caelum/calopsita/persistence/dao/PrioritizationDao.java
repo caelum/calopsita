@@ -7,8 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.transform.ResultTransformer;
 
 import br.com.caelum.calopsita.model.Card;
-import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.repository.PrioritizationRepository;
 import br.com.caelum.vraptor.ioc.Component;
 

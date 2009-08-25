@@ -4,9 +4,9 @@ import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
-import br.com.caelum.calopsita.model.PlanningCard;
-import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Card.Status;
+import br.com.caelum.calopsita.plugins.planning.PlanningCard;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.seleniumdsl.Browser;
 
 public class CardContexts<T extends ProjectContexts<T>> {

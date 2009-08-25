@@ -4,8 +4,8 @@ import static br.com.caelum.vraptor.view.Results.nothing;
 
 import java.util.List;
 
-import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.repository.PrioritizationRepository;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;

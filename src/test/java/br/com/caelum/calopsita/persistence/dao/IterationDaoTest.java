@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
-import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 
 public class IterationDaoTest extends AbstractDaoTest {
 

@@ -18,9 +18,9 @@ import org.junit.Test;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
-import br.com.caelum.calopsita.model.PlanningCard;
-import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.plugins.planning.PlanningCard;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 
 public class CardDaoTest extends AbstractDaoTest {
 	private CardDao dao;

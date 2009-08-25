@@ -19,11 +19,11 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
-import br.com.caelum.calopsita.model.PlanningCard;
-import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.model.Card.Status;
+import br.com.caelum.calopsita.plugins.planning.PlanningCard;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 
 public class ProjectDaoTest extends AbstractDaoTest {
 

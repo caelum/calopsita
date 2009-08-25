@@ -12,8 +12,8 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.PrioritizationController;
 import br.com.caelum.calopsita.mocks.MockResult;
-import br.com.caelum.calopsita.model.PrioritizableCard;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.repository.PrioritizationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 

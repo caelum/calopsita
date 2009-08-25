@@ -1,4 +1,4 @@
-package br.com.caelum.calopsita.model;
+package br.com.caelum.calopsita.plugins.planning;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +8,10 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+
+import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Gadget;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 
 @Entity
 public class PlanningCard implements Gadget {

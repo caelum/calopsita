@@ -3,6 +3,9 @@ package br.com.caelum.calopsita.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.caelum.calopsita.plugins.planning.PlanningCard;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
+
 public enum Gadgets {
 	PRIORITIZATION {
 		@Override

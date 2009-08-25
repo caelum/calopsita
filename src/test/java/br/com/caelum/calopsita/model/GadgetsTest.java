@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
+
 public class GadgetsTest {
 
 	@Test
