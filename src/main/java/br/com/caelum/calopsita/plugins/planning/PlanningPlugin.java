@@ -1,4 +1,4 @@
-package br.com.caelum.calopsita.plugins;
+package br.com.caelum.calopsita.plugins.planning;
 
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Menu;

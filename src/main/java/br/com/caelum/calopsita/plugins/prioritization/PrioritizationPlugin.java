@@ -1,4 +1,4 @@
-package br.com.caelum.calopsita.plugins;
+package br.com.caelum.calopsita.plugins.prioritization;
 
 import br.com.caelum.calopsita.model.Menu;
 import br.com.caelum.calopsita.model.Parameters;
