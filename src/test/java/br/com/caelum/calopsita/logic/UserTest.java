@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.UsersController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
+import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.User;
@@ -28,7 +29,7 @@ public class UserTest {
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
-		sessionUser = new SessionUser();
+		sessionUser = new SessionUser(new MockHttpSession());
         repository = mockery.mock(UserRepository.class);
 
         logic = new UsersController(new MockResult(), new MockValidator(), sessionUser);

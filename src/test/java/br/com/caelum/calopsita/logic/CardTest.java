@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.CardsController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
+import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.Card;
@@ -39,7 +40,7 @@ public class CardTest {
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(CardRepository.class);
-		SessionUser sessionUser = new SessionUser();
+		SessionUser sessionUser = new SessionUser(new MockHttpSession());
         currentUser = new User();
         currentUser.setLogin("me");
         sessionUser.setUser(currentUser);

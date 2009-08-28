@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.infra.vraptor;
 
+import javax.servlet.http.HttpSession;
+
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.ioc.Component;
@@ -9,14 +11,18 @@ import br.com.caelum.vraptor.ioc.SessionScoped;
 @Component
 public class SessionUser {
 
-	private User user;
+	private final HttpSession session;
+
+	public SessionUser(HttpSession session) {
+		this.session = session;
+	}
 
 	public void setUser(User user) {
-		this.user = user;
+		this.session.setAttribute("currentUser", user);
 	}
 
 	public User getUser() {
-		return this.user;
+		return (User) this.session.getAttribute("currentUser");
 	}
 
 	public void setRepository(UserRepository repository) {

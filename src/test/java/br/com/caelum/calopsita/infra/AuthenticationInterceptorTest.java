@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
+import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.vraptor.core.InterceptorStack;
@@ -37,7 +38,7 @@ public class AuthenticationInterceptorTest {
 		request = mockery.mock(HttpServletRequest.class);
 		response = mockery.mock(HttpServletResponse.class);
 		stack = mockery.mock(InterceptorStack.class);
-		sessionUser = new SessionUser();
+		sessionUser = new SessionUser(new MockHttpSession());
 		interceptor = new AuthenticationInterceptor(sessionUser, request, response, new MockResult());
 	}
 

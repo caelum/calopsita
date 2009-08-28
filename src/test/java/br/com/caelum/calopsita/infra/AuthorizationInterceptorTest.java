@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
+import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
@@ -39,7 +40,7 @@ public class AuthorizationInterceptorTest {
 		mockery = new Mockery();
 		repository = mockery.mock(ProjectRepository.class);
 		user = new User();
-		sessionUser = new SessionUser();
+		sessionUser = new SessionUser(new MockHttpSession());
 		sessionUser.setUser(user);
 
 		request = mockery.mock(HttpServletRequest.class);

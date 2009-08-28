@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.IterationsController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
+import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.Card;
@@ -47,7 +48,7 @@ public class IterationTest {
         project = new Project();
         project.setRepository(projectRepository);
 
-        SessionUser sessionUser = new SessionUser();
+        SessionUser sessionUser = new SessionUser(new MockHttpSession());
         sessionUser.setUser(currentUser);
 		logic = new IterationsController(new MockResult(), new MockValidator(), sessionUser);
 

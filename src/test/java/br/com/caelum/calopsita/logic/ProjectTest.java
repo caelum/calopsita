@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.ProjectsController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
+import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.calopsita.mocks.MockValidator;
 import br.com.caelum.calopsita.model.Project;
@@ -39,7 +40,7 @@ public class ProjectTest {
         userRepository = mockery.mock(UserRepository.class);
         currentUser.setRepository(userRepository);
 
-		SessionUser sessionUser = new SessionUser();
+		SessionUser sessionUser = new SessionUser(new MockHttpSession());
 		sessionUser.setUser(currentUser);
 
 		logic = new ProjectsController(new MockValidator(), new MockResult(), sessionUser);
