@@ -31,14 +31,16 @@ public class Menu {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("<ul id=\"menu\">");
 		for (MenuItem item : items) {
-			stringBuilder.append("<li onmouseover=\"$('.submenu').removeClass('selected');$(this).next('.submenu').addClass('selected');\">");
-			stringBuilder.append("<a href=\"#\">");
+			stringBuilder.append("<li onmouseover=\"$('.submenu').removeClass('selected');$($('a', this).attr('href')).addClass('selected');\">");
+			stringBuilder.append("<a onclick=\"return false\" href=\"#menu_").append(item.getLabel().replace('.', '_')).append("\">");
 			stringBuilder.append(bundle.getString(item.getLabel()));
 			stringBuilder.append("</a>");
 			stringBuilder.append("</li>");
-			stringBuilder.append(item.toString());
 		}
 		stringBuilder.append("</ul>");
+		for (MenuItem item : items) {
+			stringBuilder.append(item.toString());
+		}
 		return stringBuilder.toString();
 	}
 

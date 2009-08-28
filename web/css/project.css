@@ -159,7 +159,7 @@ li#current {
 ul.submenu  {
 	list-style-type:none;
 	margin:-12px 0px 12px;
-	padding: 0px 10px 6px;
+	padding: 0px 10px 0px;
 }
 
 ul.submenu li {
@@ -167,22 +167,12 @@ ul.submenu li {
 	margin: 0px 5px;
 }
 
-ul.submenu li.selected {
-	background-color:#FFFFFF;
-	padding: 0px 4px 4px;
-}
-
-ul.submenu li.selected a {
-	color:#333333;
-	text-decoration:none;
-}
-
 ul.submenu li a {
 	color: #FFFFFF;
 	font: bold 11px verdana, sans-serif;
 	text-decoration: none;
 }
-ul.submenu a:hover {
+ul.submenu li.selected a, ul.submenu a:hover {
 	background-color:#FFFFFF;
 	color:#333333;
 	margin:0 -4px;
@@ -233,14 +223,13 @@ div#tab1 li.tab1 a, div#tab2 li.tab2 a, div#tab3 li.tab3 a, div#tab4 li.tab4 a {
 
 .submenu {
 	display: none;
-	float: left;
 }
 
-#menu > li:hover + .submenu, .submenu:hover, .submenu.selected {
+.submenu.selected {
 	display: block;
-	margin-top: 3px;
-	padding-top: 5px;
 	margin-left: 0;
+	margin-top: -35px;
+	height: 23px;
 	width:60%;
 }
 

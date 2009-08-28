@@ -19,27 +19,22 @@
 			  	if ($('#content').attr('title')) {
 			  		$('#menu > li').each(function(c, e) {
 				  		if ($(e).text() == $('#content').attr('title')) {
-				  			$(e).next('.submenu').addClass('selected'); 
+				  			$($('a', e).attr('href')).addClass('selected'); 
 				  		}
 			  		});
 			  	} else {
-					$('#menu li:first + .submenu').addClass('selected'); 
+					$('#menu .submenu:first').addClass('selected'); 
 			  	}
-		  	});
-		  //]]>
-		</script>
-		<script>
-			$(function() {
-				var url = window.location.toString();
-				$('#sub-menu li a').each(function(c, a) {
+				var url = window.location.href;
+				$('.submenu a').each(function(c, a) {
 					var className = '';
-					if(url.match(a.getAttribute('href')+"$")) {
+					if(url.match(a.href +'$')) {
 						className = 'selected';
 					}
-		
 					a.parentNode.className = className;
 				});
-			});
+		  	});
+		  //]]>
 		</script>
 	</head>
 	
@@ -47,15 +42,6 @@
 		<div id="project">
 			<fmt:message key="project" />: ${project.name }
 		</div>
-		<!--<div id="tabs">	
-			<ul id="tabnav">
-				<li><a href="<c:url value="/projects/${project.id }/iterations/current/"/>">Current iteration</a></li>
-				<li><a href="<c:url value="/projects/${project.id }/iterations/"/>">Iterations</a></li>
-				<li><a href="<c:url value="/projects/${project.id }/cards/"/>">Cards</a></li>
-				<li><a href="<c:url value="/projects/${project.id }/edit/"/>">Admin</a></li>
-			</ul>
-		</div>
-		-->
 		${menu }
 		<decorator:body />
 	
