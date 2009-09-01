@@ -11,6 +11,7 @@ import static org.junit.Assert.assertThat;
 
 import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.LocalDate;
@@ -22,6 +23,7 @@ import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.model.Card.Status;
+import br.com.caelum.calopsita.plugins.Transformer;
 import br.com.caelum.calopsita.plugins.planning.PlanningCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 
@@ -33,7 +35,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		dao = new ProjectDao(session);
+		dao = new ProjectDao(session, Collections.<Transformer>emptyList());
 	}
 
 	@Test

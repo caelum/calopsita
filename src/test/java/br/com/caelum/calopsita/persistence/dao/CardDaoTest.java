@@ -8,6 +8,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.hamcrest.Matcher;
@@ -19,6 +20,7 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.plugins.Transformer;
 import br.com.caelum.calopsita.plugins.planning.PlanningCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 
@@ -29,7 +31,7 @@ public class CardDaoTest extends AbstractDaoTest {
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		dao = new CardDao(session);
+		dao = new CardDao(session, Collections.<Transformer>emptyList());
 	}
 
 	@Test

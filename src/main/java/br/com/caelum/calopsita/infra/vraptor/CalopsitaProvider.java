@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.infra.vraptor;
 import org.picocontainer.PicoContainer;
 
 import br.com.caelum.calopsita.model.PluginConfig;
+import br.com.caelum.calopsita.plugins.Transformer;
 import br.com.caelum.vraptor.ComponentRegistry;
 import br.com.caelum.vraptor.http.ognl.OgnlParametersProvider;
 import br.com.caelum.vraptor.ioc.pico.PicoProvider;
@@ -25,6 +26,9 @@ public class CalopsitaProvider extends PicoProvider {
 	protected void registerCustomComponents(PicoContainer picoContainer, Scanner scanner) {
 		for (Class<? extends PluginConfig> plugin : scanner.getSubtypesOf(PluginConfig.class)) {
 			getComponentRegistry().register(plugin, plugin);
+		}
+		for (Class<? extends Transformer> type : scanner.getSubtypesOf(Transformer.class)) {
+			getComponentRegistry().register(type, type);
 		}
 	}
 }

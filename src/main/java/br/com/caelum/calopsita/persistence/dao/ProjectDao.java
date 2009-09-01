@@ -14,6 +14,8 @@ import br.com.caelum.calopsita.model.Identifiable;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.plugins.PluginResultTransformer;
+import br.com.caelum.calopsita.plugins.Transformer;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -21,9 +23,13 @@ import br.com.caelum.vraptor.ioc.Component;
 public class ProjectDao implements ProjectRepository {
 
     private final Session session;
+	private final CardDao cardDao;
+	private final PluginResultTransformer transformer;
 
-    public ProjectDao(Session session) {
+    public ProjectDao(Session session, List<Transformer> transformers) {
         this.session = session;
+		this.cardDao = new CardDao(session, transformers);
+		transformer = new PluginResultTransformer(session, transformers, Card.class);
     }
 
     public Project refresh(Project project) {
@@ -38,8 +44,8 @@ public class ProjectDao implements ProjectRepository {
     }
 
     public List<Card> listTodoCardsFrom(Project project) {
-    	return this.session.createQuery("select c from PrioritizableCard p right join p.card c " +
-			"where c.project = :project and c.status != 'DONE' order by p.priority, c.id")
+    	return this.session.createQuery("from Card c where c.project = :project and c.status != 'DONE'")
+    		.setResultTransformer(transformer)
 			.setParameter("project", project).list();
     }
 
@@ -76,7 +82,7 @@ public class ProjectDao implements ProjectRepository {
     }
 
 	public List<Card> listCardsFrom(Project project) {
-		return new CardDao(session).listFrom(project);
+		return cardDao.listFrom(project);
 	}
 
     public List<Iteration> listIterationsFrom(Project project) {
@@ -132,9 +138,8 @@ public class ProjectDao implements ProjectRepository {
     }
 
 	public List<Card> planningCardsWithoutIteration(Project project) {
-		return session.createQuery("select c.card from PlanningCard c left join c.prioritizableCard p " +
-				"where c.card.project = :project and c.card.iteration is null " +
-				"order by p.priority, c.card.id")
-				.setParameter("project", project).list();
+		return session.createQuery("select c.card from PlanningCard c " +
+				"where c.card.project = :project and c.card.iteration is null")
+				.setParameter("project", project).setResultTransformer(transformer).list();
 	}
 }

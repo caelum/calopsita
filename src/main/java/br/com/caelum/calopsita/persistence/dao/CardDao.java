@@ -10,6 +10,8 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.plugins.PluginResultTransformer;
+import br.com.caelum.calopsita.plugins.Transformer;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -17,9 +19,11 @@ import br.com.caelum.vraptor.ioc.Component;
 public class CardDao implements CardRepository {
 
 	private final Session session;
+	private final PluginResultTransformer transformer;
 
-	public CardDao(Session session) {
+	public CardDao(Session session, List<Transformer> transformers) {
 		this.session = session;
+		transformer = new PluginResultTransformer(session, transformers, Card.class);
 	}
 
 	public Card refresh(Card card) {
@@ -43,13 +47,15 @@ public class CardDao implements CardRepository {
 	}
 
 	public List<Card> listFrom(Project project) {
-		return this.session.createQuery("select c from PrioritizableCard p right join p.card c " +
-				"where c.project = :project order by p.priority, c.id")
-			.setParameter("project", project).list();
+		return this.session.createQuery("from Card c where c.project = :project")
+			.setParameter("project", project)
+			.setResultTransformer(transformer)
+			.list();
 	}
 
 	public List<Card> listSubcards(Card card) {
 		return session.createQuery("from Card s where s.parent = :card")
+			.setResultTransformer(transformer)
 			.setParameter("card", card).list();
 	}
 
