@@ -2,7 +2,9 @@ package br.com.caelum.calopsita.controller;
 
 import static br.com.caelum.vraptor.view.Results.logic;
 import static br.com.caelum.vraptor.view.Results.nothing;
+import static br.com.caelum.vraptor.view.Results.page;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
@@ -35,13 +37,13 @@ public class UsersController {
 
     @Path("/users/") @Post
     public void save(final User user) {
-    	validator.onError().goTo(UsersController.class).formSignUp();
         validator.checking(new Validations() {
             {
-                that("", "user.already.exists", user.load(), is(nullValue()));
+                that(user.load(), is(nullValue()), "", "user.already.exists");
                 and(Hibernate.validate(user));
             }
         });
+        validator.onErrorUse(page()).of(UsersController.class).formSignUp();
         user.setNewbie(true);
         user.save();
         sessionUser.setUser(user);
@@ -51,15 +53,14 @@ public class UsersController {
     @Path("/users/login/") @Post
     public void login(final User user) {
     	final User found = user.load();
-    	validator.onError().goTo(HomeController.class).login();
         validator.checking(new Validations() {
             {
-                that("", "login.invalid", found, is(notNullValue()));
-                if (found != null) {
-					that("", "login.invalid", found.getPassword(), is(equalTo(user.getPassword())));
+                if (that(found, is(notNullValue()), "", "login.invalid")) {
+					that(found.getPassword(), is(equalTo(user.getPassword())), "", "login.invalid");
 				}
             }
         });
+        validator.onErrorUse(page()).of(HomeController.class).login();
         sessionUser.setUser(found);
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }

@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.controller;
 import static br.com.caelum.vraptor.view.Results.logic;
 import static br.com.caelum.vraptor.view.Results.page;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 import java.util.List;
 
@@ -46,19 +47,20 @@ public class ProjectsController {
     public void save(final Project project) {
         project.setOwner(currentUser);
         validator.checking(new Validations() {{
-        	that(Hibernate.validate(project));
+        	and(Hibernate.validate(project));
         }});
+        validator.onErrorUse(page()).of(ProjectsController.class).form();
         project.save();
         result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
     @Path("/projects/{project.id}/") @Post
     public void update(Project project) {
-    	validator.onError().goTo(page()).forward("/WEB-INF/jsp/projects/delete.invalid.jsp");
     	final Project loaded = project.load();
     	validator.checking(new Validations() {{
     		that(loaded.getOwner(), equalTo(currentUser));
     	}});
+    	validator.onErrorUse(page()).forward("/WEB-INF/jsp/projects/delete.invalid.jsp");
 		loaded.setDescription(project.getDescription());
 		result.use(logic()).redirectTo(ProjectsController.class).edit(loaded);
     }
@@ -67,8 +69,9 @@ public class ProjectsController {
     public void delete(Project project) {
     	final Project loaded = project.load();
     	validator.checking(new Validations() {{
-			that(currentUser).shouldBe(equalTo(loaded.getOwner()));
+			that(currentUser, is(loaded.getOwner()));
     	}});
+    	validator.onErrorUse(page()).forward("/WEB-INF/jsp/projects/delete.invalid.jsp");
 	    loaded.delete();
 	    result.use(logic()).redirectTo(ProjectsController.class).list();
     }

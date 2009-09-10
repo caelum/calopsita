@@ -205,6 +205,7 @@ public class ProjectTest {
 
 	private Project givenAProject() {
 		Project project = new Project();
+		project.setName("A project");
 		project.setRepository(repository);
 		return project;
 	}

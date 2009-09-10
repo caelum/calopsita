@@ -4,6 +4,7 @@ import static br.com.caelum.vraptor.view.Results.logic;
 import static br.com.caelum.vraptor.view.Results.page;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
 
 import java.util.List;
@@ -54,8 +55,10 @@ public class CardsController {
 	@Path("/projects/{card.project.id}/cards/") @Post
 	public void save(final Card card, List<Gadgets> gadgets) {
 		validator.checking(new Validations() {{
-            that(Hibernate.validate(card));
+            and(Hibernate.validate(card));
         }});
+		validator.onErrorUse(logic()).forwardTo(CardsController.class).form(card.getProject());
+
 		card.save();
 		if (gadgets != null) {
 			card.addGadgets(gadgets);
@@ -127,6 +130,7 @@ public class CardsController {
 						isIn(project.getColaborators()),
 						is(equalTo(project.getOwner()))));
 		}});
+		validator.onErrorUse(page()).of(CardsController.class).list(project);
         if (deleteSubcards) {
             loaded.deleteSubCards();
         } else {

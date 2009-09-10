@@ -5,6 +5,7 @@ import static br.com.caelum.vraptor.view.Results.page;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 
@@ -46,14 +47,15 @@ public class IterationsController {
         this.result.include("iteration", iteration.load());
         this.result.include("today", new LocalDate());
     }
-    
+
 	@Path("/projects/{iteration.project.id}/iterations/") @Post
 	public void save(Iteration iteration) {
 		validateDate(iteration);
+		validator.onErrorUse(page()).of(IterationsController.class).form(iteration.getProject());
 		iteration.save();
 		result.use(logic()).redirectTo(IterationsController.class).list(iteration.getProject());
 	}
-    
+
     @Path(priority=1, value="/projects/{project.id}/iterations/new/") @Get
 	public void form(Project project) {
     	this.result.include("project", project.load());
@@ -131,6 +133,7 @@ public class IterationsController {
 							is(equalTo(project.getOwner()))));
 			}
 		});
+        validator.onErrorUse(page()).of(IterationsController.class).list(project);
         for (Card card : loaded.getCards()) {
             card.setIteration(null);
         }
@@ -162,6 +165,7 @@ public class IterationsController {
     @Path("/projects/{iteration.project.id}/iterations/{iteration.id}/") @Post
     public void update(Iteration iteration) {
 		validateDate(iteration);
+		validator.onErrorUse(page()).of(IterationsController.class).edit(iteration);
 		Iteration loaded = iteration.load();
 		loaded.setGoal(iteration.getGoal());
 		loaded.setStartDate(iteration.getStartDate());
