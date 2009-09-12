@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.plugins.prioritization;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -32,4 +33,16 @@ public class OrderByPriorityTransformer implements Transformer<Card> {
 		return result;
 	}
 
+	public static class PriorityComparator implements Comparator<Card> {
+		public int compare(Card left, Card right) {
+			PrioritizableCard leftPriority = left.getGadget(PrioritizableCard.class);
+			PrioritizableCard rightPriority = right.getGadget(PrioritizableCard.class);
+			if (leftPriority == null) {
+				return 1;
+			} else if (rightPriority == null) {
+				return -1;
+			}
+			return leftPriority.getPriority() - rightPriority.getPriority();
+		}
+	}
 }
