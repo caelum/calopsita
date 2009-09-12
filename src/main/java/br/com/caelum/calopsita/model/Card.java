@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.model;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,6 +16,8 @@ import javax.persistence.Transient;
 import org.picocontainer.annotations.Inject;
 
 import br.com.caelum.calopsita.repository.CardRepository;
+
+import com.google.common.collect.Iterators;
 
 @Entity
 public class Card implements Identifiable, FromProject {
@@ -66,8 +69,19 @@ public class Card implements Identifiable, FromProject {
 		return getRepository().refresh(this);
 	}
 
+	@Transient
+	private List<Gadget> gadgets;
+
 	public List<Gadget> getGadgets() {
-		return getRepository().listGadgets(this);
+		if (gadgets == null) {
+			gadgets = getRepository().listGadgets(this);
+		}
+		return gadgets;
+	}
+
+	public <T extends Gadget> T getGadget(Class<T> type) {
+		Iterator<T> iterator = Iterators.filter(getGadgets().iterator(),type);
+		return iterator.hasNext() ? iterator.next() : null;
 	}
 
 	public void update() {
