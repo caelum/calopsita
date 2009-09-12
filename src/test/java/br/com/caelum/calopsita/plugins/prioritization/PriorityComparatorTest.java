@@ -45,6 +45,23 @@ public class PriorityComparatorTest {
 		assertThat(cards.get(1), is(oneCard));
 	}
 	@Test
+	public void firstZeroHasLessPriorityThanAnyOne() throws Exception {
+		Card oneCard = givenACard();
+		Card otherCard = givenACard();
+		givenThisCardHasPriority(oneCard, 0);
+		givenThisCardHasPriority(otherCard, 2);
+
+		List<Card> cards = Arrays.asList(oneCard, otherCard);
+		whenISort(cards);
+		assertThat(cards.get(0), is(otherCard));
+		assertThat(cards.get(1), is(oneCard));
+
+		cards = Arrays.asList(otherCard, oneCard);
+		whenISort(cards);
+		assertThat(cards.get(0), is(otherCard));
+		assertThat(cards.get(1), is(oneCard));
+	}
+	@Test
 	public void equalPrioritiesKeepOrder() throws Exception {
 		Card oneCard = givenACard();
 		Card otherCard = givenACard();

@@ -70,6 +70,7 @@ public class CardContexts<T extends ProjectContexts<T>> {
 
 	public CardContexts<T> prioritizable() {
 		session.save(new PrioritizableCard(card));
+		session.flush();
 		return this;
 	}
 

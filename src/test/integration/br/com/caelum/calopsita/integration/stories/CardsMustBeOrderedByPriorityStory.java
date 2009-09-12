@@ -37,7 +37,7 @@ public class CardsMustBeOrderedByPriorityStory extends DefaultStory {
 		given.thereIsAnUserNamed("caue").and()
 			.thereIsAProjectNamed("htmlunit")
 				.ownedBy("caue")
-				.withAnIterationWhichGoalIs("make it works")
+				.withAnIterationWhichGoalIs("make it work")
 					.withACardNamed("step1")
 						.whichDescriptionIs("this is just step 1")
 						.planningCard()
@@ -57,7 +57,7 @@ public class CardsMustBeOrderedByPriorityStory extends DefaultStory {
 			.iAmLoggedInAs("caue");
 		when.iOpenProjectPageOf("htmlunit").and()
 		    .iOpenIterationsPage().and()
-			.iOpenThePageOfIterationWithGoal("make it works");
+			.iOpenThePageOfIterationWithGoal("make it work");
 		then.theCard("step1").appearsOnCardsListAtPosition(2)
 			.theCard("step2").appearsOnCardsListAtPosition(1)
 			.theCard("step3").appearsOnBacklogListAtPosition(2)
