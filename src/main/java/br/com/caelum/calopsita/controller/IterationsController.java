@@ -56,7 +56,7 @@ public class IterationsController {
 		result.use(logic()).redirectTo(IterationsController.class).list(iteration.getProject());
 	}
 
-    @Path(priority=1, value="/projects/{project.id}/iterations/new/") @Get
+    @Path("/projects/{project.id}/iterations/new/") @Get
 	public void form(Project project) {
     	this.result.include("project", project.load());
     	this.result.include("today", new LocalDate());
@@ -74,7 +74,7 @@ public class IterationsController {
         });
 	}
 
-	@Path(priority = 2, value = "/projects/{project.id}/iterations/current/") @Get
+	@Path("/projects/{project.id}/iterations/current/") @Get
     public void current(Project project) {
 		this.result.include("project", project.load());
         this.result.include("iteration", project.getCurrentIteration());
@@ -88,7 +88,7 @@ public class IterationsController {
         result.use(page()).forward("/WEB-INF/jsp/iterations/list.jsp");
     }
 
-	@Path(priority = 3, value = "/projects/{iteration.project.id}/iterations/{iteration.id}/") @Get
+	@Path("/projects/{iteration.project.id}/iterations/{iteration.id}/") @Get
     public void show(Iteration iteration) {
     	Iteration loaded = iteration.load();
     	Project project = loaded.getProject();

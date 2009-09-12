@@ -43,7 +43,7 @@ public class CardsController {
 		this.result.include("project", project.load());
     	this.result.include("cards",  project.getToDoCards());
     }
-	@Path(priority = 1, value = "/projects/{project.id}/cards/all/") @Get
+	@Path("/projects/{project.id}/cards/all/") @Get
 	public void all(Project project) {
 		this.result.include("project", project.load());
 		this.result.include("cards",  project.getAllCards());
@@ -66,7 +66,7 @@ public class CardsController {
 		result.include("project", card.getProject());
 	}
 
-	@Path(priority = 2, value = "/projects/{project.id}/cards/new/") @Get
+	@Path("/projects/{project.id}/cards/new/") @Get
     public void form(Project project) {
     	this.result.include("project", project.load());
     	this.result.include("cards",  project.getToDoCards());
@@ -96,7 +96,7 @@ public class CardsController {
 		result.use(page()).forward("/WEB-INF/jsp/cards/save.jsp");
 	}
 
-	@Path(priority = 3, value = "/projects/{card.project.id}/cards/{card.id}/") @Get
+	@Path("/projects/{card.project.id}/cards/{card.id}/") @Get
 	public void edit(Card card) {
 	    Card loaded = card.load();
 		result.include("card", loaded);
