@@ -29,7 +29,8 @@ public class CardDao implements CardRepository {
 	public Card refresh(Card card) {
 		session.refresh(card);
 		return card;
-	};
+	}
+	
 	public void add(Card card) {
 		session.save(card);
 	}
