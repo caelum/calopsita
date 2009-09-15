@@ -11,7 +11,9 @@
 <body>
 
 <div class="hidden" id="deletion_text"><fmt:message key="delete.project.confirmation"></fmt:message></div>
+
 <a href="<c:url value="/projects/new/"/>"><fmt:message key="project.new"/></a>
+
 <div id="projects">
   <ul>
     <c:forEach var="project" items="${projectList}">
@@ -19,7 +21,7 @@
         <p><fmt:message key="project.name"/>: <a href="<c:url value="/projects/${project.id }/iterations/current/"/>">${project.name}</a>
         <c:if test="${currentUser eq project.owner}">
 	        <a class="delete" name="delete ${project.name }" href="javascript:void(0)"
-				onclick="confirmProjectDeletion('<c:url value="/projects/${project.id }/"/>')">X</a>
+				onclick="confirmProjectDeletion('<c:url value="/projects/${project.id }/"/>')">x</a>
         </c:if>
         </p>
         <p><fmt:message key="project.description"/>: ${project.description}</p>

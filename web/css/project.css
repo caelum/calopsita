@@ -96,15 +96,24 @@ input[type="text"] {
 input.error {
 	border: 2px solid red;
 }
+
 #project {
 	float: right;	
 }
-textarea {
-  width: 465px;
-  height: 80px;
+
+.delete {
+	color: #CC0000;
+	font-weight: bold;
+	text-decoration: none;
+	padding-left:10px;
 }
 
-textarea.error {
+textarea {
+  width: 465px;
+  height: 180px;
+}
+
+textarea .error {
   border: 2px solid red;
 }
 
@@ -128,6 +137,7 @@ em {
 	float: right;
 	text-decoration: none;
 }
+
 *:HOVER > .action {
 	visibility: visible;	
 }
@@ -176,7 +186,7 @@ ul.submenu li.selected a, ul.submenu a:hover {
 	background-color:#FFFFFF;
 	color:#333333;
 	margin:0 -4px;
-	padding:4px 4px 5px;
+	padding:3px 4px 4px;
 }
 
 /* end sub-menu tabs */
