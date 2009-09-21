@@ -5,9 +5,9 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.calopsita.model.CardType;
 import br.com.caelum.calopsita.repository.CardTypeRepository;
+import br.com.caelum.vraptor.util.test.MockResult;
 
 public class CardTypeTest {
 

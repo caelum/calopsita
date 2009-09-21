@@ -13,8 +13,8 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.infra.interceptor.LocaleInterceptor;
 import br.com.caelum.calopsita.infra.interceptor.LocaleInterceptor.DateFormat;
-import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.util.test.MockResult;
 
 public class LocaleInterceptorTest {
 
@@ -45,7 +45,7 @@ public class LocaleInterceptorTest {
 		givenLocaleIsPortuguese();
 		interceptor.intercept(stack, null, null);
 
-		assertEquals(result.get("format"), DateFormat.pt);
+		assertEquals(result.included("format"), DateFormat.pt);
 	}
 	@Test
 	public void returnEnglishFormatIfLocaleIsNotSupported() throws Exception {
@@ -53,7 +53,7 @@ public class LocaleInterceptorTest {
 
 		interceptor.intercept(stack, null, null);
 
-		assertEquals(result.get("format"), DateFormat.en);
+		assertEquals(result.included("format"), DateFormat.en);
 	}
 
 	private void givenLocaleIsFrench() {

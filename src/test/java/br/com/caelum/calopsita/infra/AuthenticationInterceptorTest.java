@@ -16,10 +16,10 @@ import org.junit.Test;
 import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.mocks.MockHttpSession;
-import br.com.caelum.calopsita.mocks.MockResult;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.resource.ResourceMethod;
+import br.com.caelum.vraptor.util.test.MockResult;
 
 public class AuthenticationInterceptorTest {
 
