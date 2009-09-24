@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.integration.stories;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -58,4 +60,14 @@ public class CreateACardStory extends DefaultStory {
 		then.theCard("Incidents").appearsOnList("recent-cards");
 	}
 
+	@Test
+	public void cardCreatorIsShown() throws Exception {
+		given.thereIsAnUserNamed("David").and()
+			.thereIsAProjectNamed("Papyrus").ownedBy("David")
+				.withACardNamed("First Card").whichCreatorIs("David").whichDescriptionIs("This is the first").and()
+			.iAmLoggedInAs("David");
+		when.iOpenProjectPageOf("Papyrus").and()
+	    .iOpenCardsPage().and();
+		then.theCard("First Card").hasCreator("David");
+	}
 }

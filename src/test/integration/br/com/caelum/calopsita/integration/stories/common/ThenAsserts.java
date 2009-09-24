@@ -264,4 +264,8 @@ public class ThenAsserts {
 		this.name = name;
 		return this;
 	}
+
+	public void hasCreator(String creator) {
+		this.div("cards").contains(" by " + creator);
+	}
 }

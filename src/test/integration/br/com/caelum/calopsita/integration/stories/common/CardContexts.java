@@ -4,7 +4,9 @@ import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
+import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.model.Card.Status;
+import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.calopsita.plugins.planning.PlanningCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.seleniumdsl.Browser;
@@ -82,6 +84,13 @@ public class CardContexts<T extends ProjectContexts<T>> {
 
 	public CardContexts<T> done() {
 		card.setStatus(Status.DONE);
+		session.flush();
+		return this;
+	}
+
+	public CardContexts<?> whichCreatorIs(String login) {
+		User user = new UserDao(session).find(login);
+		card.setCreator(user);
 		session.flush();
 		return this;
 	}
