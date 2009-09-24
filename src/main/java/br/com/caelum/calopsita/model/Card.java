@@ -30,6 +30,9 @@ public class Card implements Identifiable, FromProject {
 
 	@Column(length=1024)
 	private String description;
+	
+	@ManyToOne
+	private User creator;
 
 	@ManyToOne
 	private Project project;
@@ -186,6 +189,14 @@ public class Card implements Identifiable, FromProject {
 	@Inject
 	public Card getParent() {
 		return parent;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
+	public User getCreator() {
+		return creator;
 	}
 
 }

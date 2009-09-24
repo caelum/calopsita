@@ -64,6 +64,7 @@ public class CardTest {
 		whenISaveTheCard(card, onThe(project));
 
 		assertThat(card.getProject(), is(project));
+		assertThat(card.getCreator(), is(currentUser));
 		mockery.assertIsSatisfied();
 	}
 
