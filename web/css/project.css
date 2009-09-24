@@ -108,6 +108,10 @@ input.error {
 	padding-left:10px;
 }
 
+.creator {
+	color:#999;	
+}
+
 textarea {
   width: 465px;
   height: 180px;

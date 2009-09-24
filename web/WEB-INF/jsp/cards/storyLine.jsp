@@ -1,5 +1,5 @@
 <li class="story" id="cards_${s.count}">
-	<span class="name" onclick="toggleDescription(this.parentNode);">${card.name }</span>
+	<span class="name" onclick="toggleDescription(this.parentNode);">${card.name } <sub class="creator">by ${card.creator.login }</sub></span>
 	<span class="action">
 		<a class="ui-icon ui-icon-pencil" name="edit ${card.name }" 
 			title="<fmt:message key="edit"/>"
