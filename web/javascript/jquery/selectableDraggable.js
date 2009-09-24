@@ -23,6 +23,7 @@ $.fn.selectableAndDraggable = function(options) {
 				$(div).append(clone);
 				
 			});
+			div.appendTo($('body'));
 			return div;
 		}
 	});

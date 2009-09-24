@@ -21,7 +21,7 @@
 	</div>
 	
 	<div id="prioritizationForm">
-        <div id="left">
+        <div id="left" class="column">
           <div id="board">
             <c:forEach items="${cards}" varStatus="s" var="currentPriority" >
               <h2 id="title_${s.index }" class="title"><fmt:message key="priority"/> ${s.index }</h2>
@@ -38,11 +38,11 @@
               </ul>
             </c:forEach>
           </div>
-      
           <h2 class="title"><fmt:message key="newPriorityLevel"/></h2>
           <ul id="lowerPriority" class="board" title="New Priority Level"></ul>
+      
         </div>
-        <div id="right">
+        <div id="right" class="column">
         </div>
 	</div>
     

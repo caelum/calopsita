@@ -5,12 +5,13 @@
 }
 
 .story .description pre {
-	margin: 0;	
+	margin: 0;
 }
-.story .name, .iteration .goal {
+
+.story .name,.iteration .goal {
 	float: left;
 	cursor: pointer;
-	width: 90%;	
+	width: 90%;
 }
 
 .cardForm {
@@ -19,7 +20,7 @@
 
 #cards {
 	width: 70%;
-	float: left;	
+	float: left;
 }
 
 .information .story {
@@ -28,13 +29,14 @@
 
 .information h4 {
 	margin: 0;
-	padding: 0;	
-}
-.stories, .iterations {
-	padding: 0;	
+	padding: 0;
 }
 
-.story, .card, .iteration, .pretty li {
+.stories,.iterations {
+	padding: 0;
+}
+
+.story,.card,.iteration,.pretty li {
 	float: left;
 	clear: both;
 	width: 500px;
@@ -44,12 +46,12 @@
 	padding: 5px;
 }
 
-.story:HOVER, .iteration:HOVER, .pretty li:HOVER {
-	background-color: #eaeeef;	
+.story:HOVER,.iteration:HOVER,.pretty li:HOVER {
+	background-color: #eaeeef;
 }
 
 .pretty li {
-	width: 200px;	
+	width: 200px;
 }
 
 .pretty {
@@ -57,8 +59,9 @@
 	margin: 0;
 	padding: 0;
 }
-.story a, .iteration a {
-	color: #004276;	
+
+.story a,.iteration a {
+	color: #004276;
 	text-decoration: none;
 }
 
@@ -69,28 +72,30 @@
 	padding: 10px;
 	margin-left: 20px;
 }
+
 #page-tabs {
 	float: left;
 	min-width: 880px;
 }
+
 #page-tabs.no-information {
-	width: 100%;	
+	width: 100%;
 }
 
-label { 
-  width: 8em;
-  float: left; 
+label {
+	width: 8em;
+	float: left;
 }
 
 label.error {
-	float: none; 
-	color: red; 
-	padding-left: .5em; 
+	float: none;
+	color: red;
+	padding-left: .5em;
 	vertical-align: top;
 }
 
 input[type="text"] {
-  width: 465px;
+	width: 465px;
 }
 
 input.error {
@@ -98,41 +103,41 @@ input.error {
 }
 
 #project {
-	float: right;	
+	float: right;
 }
 
 .delete {
 	color: #CC0000;
 	font-weight: bold;
 	text-decoration: none;
-	padding-left:10px;
+	padding-left: 10px;
 }
 
 .creator {
-	color:#999;	
+	color: #999;
 }
 
 textarea {
-  width: 465px;
-  height: 180px;
+	width: 465px;
+	height: 180px;
 }
 
 textarea .error {
-  border: 2px solid red;
+	border: 2px solid red;
 }
 
-p { 
-  clear: both;
+p {
+	clear: both;
 }
 
-.submit { 
-  margin-left: 9.5em; 
-  width: 100px;
+.submit {
+	margin-left: 9.5em;
+	width: 100px;
 }
 
-em { 
-  padding-right: 1em; 
-  vertical-align: top; 
+em {
+	padding-right: 1em;
+	vertical-align: top;
 }
 
 .action {
@@ -142,37 +147,43 @@ em {
 	text-decoration: none;
 }
 
-*:HOVER > .action {
-	visibility: visible;	
+*:HOVER>.action {
+	visibility: visible;
 }
 
 .owner {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 li#current {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 #left {
-  float: left;
-  width: 540px;
+	float: left;
+	width: 48%;
+}
+
+.column {
+	position: relative;
+	height: 500px;
+	overflow-y: auto;
+	width: 95%;
 }
 
 #right {
-  float: left;
-  width: 540px;
+	width: 48%;
+	float: right;
 }
 
 #undoForm {
-  clear: both;
+	clear: both;
 }
 
 /* begin sub-menu tabs */
-
-ul.submenu  {
-	list-style-type:none;
-	margin:-12px 0px 12px;
+ul.submenu {
+	list-style-type: none;
+	margin: -12px 0px 12px;
 	padding: 0px 10px 0px;
 }
 
@@ -186,52 +197,59 @@ ul.submenu li a {
 	font: bold 11px verdana, sans-serif;
 	text-decoration: none;
 }
-ul.submenu li.selected a, ul.submenu a:hover {
-	background-color:#FFFFFF;
-	color:#333333;
-	margin:0 -4px;
-	padding:3px 4px 4px;
+
+ul.submenu li.selected a,ul.submenu a:hover {
+	background-color: #FFFFFF;
+	color: #333333;
+	margin: 0 -4px;
+	padding: 3px 4px 4px;
 }
 
-/* end sub-menu tabs */
-/* begin css tabs */
-
+/* end sub-menu tabs */ /* begin css tabs */
 #menu { /* general settings */
 	margin: 1em 0 1em 0; /* set margins as desired */
 	font: bold 11px verdana, sans-serif; /* set font as desired */
 	border-bottom: 25px solid #bf2126; /* set border COLOR as desired */
 	list-style-type: none;
-	padding: 3px 10px 3px 10px; /* THIRD number must change with respect to padding-top (X) below */
+	padding: 3px 10px 3px 10px;
+	/* THIRD number must change with respect to padding-top (X) below */
 }
 
-#menu > li { /* do not change */
+#menu>li { /* do not change */
 	display: inline;
 	margin-left: 2px;
 }
 
-#menu > li.selected a { /* settings for selected tab */
-	background-color: #FFFFFF; /* set background color to match above border color */
+#menu>li.selected a { /* settings for selected tab */
+	background-color: #FFFFFF;
+	/* set background color to match above border color */
 }
 
-div#tab1 li.tab1 a, div#tab2 li.tab2 a, div#tab3 li.tab3 a, div#tab4 li.tab4 a { /* settings for selected tab link */
-	background-color: #EEEEEE; /* set selected tab background color as desired */
+div#tab1 li.tab1 a,div#tab2 li.tab2 a,div#tab3 li.tab3 a,div#tab4 li.tab4 a
+	{ /* settings for selected tab link */
+	background-color: #EEEEEE;
+	/* set selected tab background color as desired */
 	color: #000000; /* set selected tab link color as desired */
 	position: relative;
 	top: 1px;
-	padding-top: 4px; /* must change with respect to padding (X) above and below */
+	padding-top: 4px;
+	/* must change with respect to padding (X) above and below */
 }
 
-#menu > li a { /* settings for all tab links */
-	padding: 3px 4px; /* set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
-	border: 3px solid #bf2126; /* set border COLOR as desired; usually matches border color specified in #tabnav */
-	background-color: #EEEEEE; /* set unselected tab background color as desired */
+#menu>li a { /* settings for all tab links */
+	padding: 3px 4px;
+	/* set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
+	border: 3px solid #bf2126;
+	/* set border COLOR as desired; usually matches border color specified in #tabnav */
+	background-color: #EEEEEE;
+	/* set unselected tab background color as desired */
 	color: #666666; /* set unselected tab link color as desired */
 	margin-right: 0px; /* set additional spacing between tabs as desired */
 	text-decoration: none;
 	border-bottom: none;
 }
 
-#menu > a:hover { /* settings for hover effect */
+#menu>a:hover { /* settings for hover effect */
 	background: #DCDCDC; /* set desired hover color */
 }
 
@@ -244,7 +262,6 @@ div#tab1 li.tab1 a, div#tab2 li.tab2 a, div#tab3 li.tab3 a, div#tab4 li.tab4 a {
 	margin-left: 0;
 	margin-top: -35px;
 	height: 23px;
-	width:60%;
+	width: 60%;
 }
-
 /* end css tabs */

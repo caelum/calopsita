@@ -6,12 +6,13 @@ function initialize(infinityPriority, url) {
     prioritizeUrl = url;
 }
 function changeWidth() {
+	var x=$('#left').width();
     $('.board').css( {
-        width : 520
+        width : 0.95*x
     });
-    $('.table').css( {
-        width : 520
-    });
+//    $('.table').css( {
+//        width : 0.47*x
+//    });
 }
 
 function createPriorityLevel() {
@@ -63,7 +64,7 @@ function fixParameters() {
     });
 }
 function fixInfinityPriority() {
-    var div = $('<div class="table"></div>');
+    var div = $('<div class="column"></div>');
     div.prependTo('#right');
     div.append($('#title_0').html(infinityText));
     div.append($('#level_0').attr('title', infinityText));
