@@ -15,7 +15,7 @@
 			<p><fmt:message key="help.addingAndRemovingCards"/></p>
 		</div>
 		
-		<div id="iteration_cards" class="selectable cards column">
+		<div id="iteration_cards" class="selectable cards column left">
 			<h2><fmt:message key="cards"/></h2>
 			<ol id="cards_list" class="board">
 				<c:forEach items="${iteration.cards}" var="card" varStatus="s">
@@ -25,7 +25,7 @@
 			</ol>
 		</div>
 		
-		<div id="backlog" class="selectable column">
+		<div id="backlog" class="selectable column right">
 			<h2><fmt:message key="backlog"/></h2>
 	  
 			<ol id="backlog_list" class="board">
