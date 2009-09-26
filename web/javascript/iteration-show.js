@@ -26,15 +26,23 @@ function prepare() {
         drop : remove_cards
     });
     function fixWidth() {
-        var width = $('body').width();
+        var w = $('body').width();
+        var h = $('body').height();
         $('#todo_cards, #iteration_cards').css( {
-            width : 540,
-            'float' : 'left'
+            width : w*0.49,
+            float : 'left'
+        });
+        $('#todo_list, #cards_list').css( {
+        	width : w*0.45,
+        	height: 500
         });
         $('#done_cards, #backlog').css( {
-            width : 540,
-            'float' : 'left',
-            'margin-left' : 15
+            width : w*0.49,
+            float : 'right'
+        });
+        $('#done_list, #backlog_list').css( {
+        	width : w*0.45,
+        	height: 500
         });
     }
     fixWidth();

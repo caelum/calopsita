@@ -18,7 +18,7 @@
 		<div class="help">
 			<p><fmt:message key="help.changeCardsStatus"/></p>
 		</div>
-		<div id="todo_cards" class="selectable cards">
+		<div id="todo_cards" class="selectable cards column">
 			<h2><fmt:message key="toDo"/></h2>
 			<ol id="todo_list" class="board">
 				<c:forEach items="${iteration.todoCards}" var="card" varStatus="s">
@@ -27,7 +27,7 @@
 				</c:forEach>
 			</ol>
 		</div>
-		<div id="done_cards" class="selectable cards">
+		<div id="done_cards" class="selectable cards column">
 			<h2><fmt:message key="done"/></h2>
 			<ol id="done_list" class="board">
 				<c:forEach items="${iteration.doneCards}" var="card" varStatus="s">
