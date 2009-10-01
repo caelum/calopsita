@@ -1,5 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="calopsita" %>
+
 <page:applyDecorator name="cards">
 <html>
 <head>
@@ -14,12 +16,7 @@
 <body>
 
 <div id="tab3">
-
-	<div id="cards">
-		<c:if test="${not empty cards}">
-			<%@include file="../cards/update.jsp" %>
-		</c:if>
-	</div>
+	<calopsita:cards cards="${cards}"/>
 </div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="calopsita" %>
 <page:applyDecorator name="iteration">
 <html>
 <head>
@@ -17,23 +18,12 @@
 		
 		<div id="iteration_cards" class="selectable cards column left">
 			<h2><fmt:message key="cards"/></h2>
-			<ol id="cards_list" class="board">
-				<c:forEach items="${iteration.cards}" var="card" varStatus="s">
-					<c:set var="cardId">cards</c:set>
-					<%@include file="storyCard.jsp" %>
-				</c:forEach>
-			</ol>
+			<calopsita:cards cards="${iteration.cards}" listId="cards_list" classes="board"/>
 		</div>
 		
 		<div id="backlog" class="selectable column right">
 			<h2><fmt:message key="backlog"/></h2>
-	  
-			<ol id="backlog_list" class="board">
-				<c:forEach items="${otherCards}" var="card" varStatus="s">
-					<c:set var="cardId">backlog</c:set>
-					<%@include file="storyCard.jsp" %>
-				</c:forEach>
-			</ol>
+			<calopsita:cards cards="${otherCards}" listId="backlog_list" classes="board"/>
 		</div>
 	</div>	  
 </body>
