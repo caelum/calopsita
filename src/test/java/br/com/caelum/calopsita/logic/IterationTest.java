@@ -24,7 +24,7 @@ import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.util.test.MockValidator;
-import br.com.caelum.vraptor.validator.ValidationError;
+import br.com.caelum.vraptor.validator.ValidationException;
 
 
 public class IterationTest {
@@ -91,7 +91,7 @@ public class IterationTest {
     	mockery.assertIsSatisfied();
     }
 
-    @Test(expected=ValidationError.class)
+    @Test(expected=ValidationException.class)
     public void removeAnIterationFromOtherProject() throws Exception {
         Iteration iteration = givenAnIteration();
         givenTheProjectIsOwnedBy(anyUser());
@@ -119,7 +119,7 @@ public class IterationTest {
         mockery.assertIsSatisfied();
     }
 
-    @Test(expected=ValidationError.class)
+    @Test(expected=ValidationException.class)
     public void validatingDateOnSave() throws Exception {
         Iteration iteration = givenAnIteration();
         iteration.setStartDate(new LocalDate(2005,10,1));

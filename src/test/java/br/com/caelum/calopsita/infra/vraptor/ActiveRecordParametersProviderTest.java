@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.picocontainer.annotations.Inject;
 
-import br.com.caelum.vraptor.http.ognl.OgnlParametersProvider;
+import br.com.caelum.vraptor.http.iogi.IogiParametersProvider;
 import br.com.caelum.vraptor.ioc.Container;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
@@ -20,7 +20,7 @@ public class ActiveRecordParametersProviderTest {
 
 
 	private ActiveRecordParametersProvider provider;
-	private OgnlParametersProvider delegate;
+	private IogiParametersProvider delegate;
 	private Container container;
 	private Mockery mockery;
 
@@ -29,7 +29,7 @@ public class ActiveRecordParametersProviderTest {
 		mockery = new Mockery();
 		mockery.setImposteriser(ClassImposteriser.INSTANCE);
 		container = mockery.mock(Container.class);
-		delegate = mockery.mock(OgnlParametersProvider.class);
+		delegate = mockery.mock(IogiParametersProvider.class);
 		provider = new ActiveRecordParametersProvider(delegate, container);
 	}
 	@Test

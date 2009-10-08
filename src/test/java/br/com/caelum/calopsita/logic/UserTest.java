@@ -18,7 +18,7 @@ import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.util.test.MockValidator;
-import br.com.caelum.vraptor.validator.ValidationError;
+import br.com.caelum.vraptor.validator.ValidationException;
 
 public class UserTest {
     private SessionUser sessionUser;
@@ -79,7 +79,7 @@ public class UserTest {
         mockery.assertIsSatisfied();
     }
 
-    @Test(expected=ValidationError.class)
+    @Test(expected=ValidationException.class)
     public void signUpWithExistingUser() throws Exception {
         final User user = givenUser("caue");
 
@@ -107,7 +107,7 @@ public class UserTest {
 
 
 
-	@Test(expected=ValidationError.class)
+	@Test(expected=ValidationException.class)
     public void loginWithInvalidUser() throws Exception {
         final User user = givenUser("caue");
 

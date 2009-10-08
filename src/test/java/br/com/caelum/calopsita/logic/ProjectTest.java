@@ -23,7 +23,7 @@ import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.util.test.MockValidator;
-import br.com.caelum.vraptor.validator.ValidationError;
+import br.com.caelum.vraptor.validator.ValidationException;
 
 public class ProjectTest {
     private Mockery mockery;
@@ -91,7 +91,7 @@ public class ProjectTest {
 
 		mockery.assertIsSatisfied();
 	}
-    @Test(expected=ValidationError.class)
+    @Test(expected=ValidationException.class)
     public void removingAProjectOwnedByOthers() throws Exception {
     	Project project = givenAProject();
 
@@ -117,7 +117,7 @@ public class ProjectTest {
     	mockery.assertIsSatisfied();
     }
 
-	@Test(expected=ValidationError.class)
+	@Test(expected=ValidationException.class)
     public void editingAProjectOwnedByOthers() throws Exception {
     	Project project = givenAProject();
     	project.setDescription("Anything");

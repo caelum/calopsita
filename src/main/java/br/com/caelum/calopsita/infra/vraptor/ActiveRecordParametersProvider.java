@@ -9,10 +9,11 @@ import net.vidageek.mirror.dsl.Mirror;
 import net.vidageek.mirror.matcher.GetterMatcher;
 import net.vidageek.mirror.matcher.SetterMatcher;
 
+import org.apache.log4j.Logger;
 import org.picocontainer.annotations.Inject;
 
 import br.com.caelum.vraptor.http.ParametersProvider;
-import br.com.caelum.vraptor.http.ognl.OgnlParametersProvider;
+import br.com.caelum.vraptor.http.iogi.IogiParametersProvider;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.Container;
 import br.com.caelum.vraptor.resource.ResourceMethod;
@@ -21,10 +22,14 @@ import br.com.caelum.vraptor.validator.Message;
 @Component
 public class ActiveRecordParametersProvider implements ParametersProvider {
 
-	private final OgnlParametersProvider delegate;
+
+	private static final Logger logger = Logger.getLogger(ActiveRecordParametersProvider.class);
+
+	private final ParametersProvider delegate;
 	private final Container container;
 
-	public ActiveRecordParametersProvider(OgnlParametersProvider delegate, Container container) {
+	public ActiveRecordParametersProvider(IogiParametersProvider delegate, Container container) {
+		logger.debug("using parameters provider: " + delegate.getClass());
 		this.delegate = delegate;
 		this.container = container;
 	}

@@ -24,7 +24,7 @@ import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.util.test.MockValidator;
-import br.com.caelum.vraptor.validator.ValidationError;
+import br.com.caelum.vraptor.validator.ValidationException;
 
 public class CardTest {
     private Mockery mockery;
@@ -98,7 +98,7 @@ public class CardTest {
         mockery.assertIsSatisfied();
 	}
 
-    @Test(expected=ValidationError.class)
+    @Test(expected=ValidationException.class)
     public void removeACardFromOtherProjectThanMine() throws Exception {
         Card card = givenACard();
         givenTheProjectIsOwnedBy(anyUser());
