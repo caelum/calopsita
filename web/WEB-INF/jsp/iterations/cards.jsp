@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="calopsita" %>
 <html>
 <head>
 <%@include file="../javascripts.jspf" %>
@@ -7,40 +8,19 @@
 <body>
 <div id="iteration_cards" class="selectable cards">
   	<h2><fmt:message key="cards"/></h2>
-  	<ol id="cards_list" class="board">
-  		<c:forEach items="${iteration.cards}" var="card" varStatus="s">
-  			<c:set var="cardId">cards</c:set>
-  			<%@include file="storyCard.jsp" %>
-  		</c:forEach>
-  	</ol>
-  </div>
+	<calopsita:cards cards="${iteration.cards}" listId="cards_list" classes="board" />  	
+</div>
 <div id="backlog" class="selectable">
 	<h2><fmt:message key="backlog"/></h2>
-
-	<ol id="backlog_list" class="board">
-		<c:forEach items="${otherCards}" var="card" varStatus="s">
-			<c:set var="cardId">backlog</c:set>
-			<%@include file="storyCard.jsp" %>
-		</c:forEach>
-	</ol>
+	<calopsita:cards cards="${otherCards}" listId="backlog_list" classes="board" />  	
 </div>
 <div id="todo_cards" class="selectable cards">
   	<h2><fmt:message key="toDo"/></h2>
-  	<ol id="todo_list" class="board">
-  		<c:forEach items="${iteration.todoCards}" var="card" varStatus="s">
-  			<c:set var="cardId">cards</c:set>
-  			<%@include file="storyCard.jsp" %>
-  		</c:forEach>
-  	</ol>
-  </div>
-  <div id="done_cards" class="selectable cards">
+	<calopsita:cards cards="${iteration.todoCards}" listId="todo_list" classes="board" />  	
+</div>
+<div id="done_cards" class="selectable cards">
   	<h2><fmt:message key="done"/></h2>
-  	<ol id="done_list" class="board">
-  		<c:forEach items="${iteration.doneCards}" var="card" varStatus="s">
-  			<c:set var="cardId">done</c:set>
-  			<%@include file="storyCard.jsp" %>
-  		</c:forEach>
-  	</ol>
-  </div>
+	<calopsita:cards cards="${iteration.doneCards}" listId="done_list" classes="board" />  	
+</div>
 </body>
 </html>
