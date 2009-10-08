@@ -58,10 +58,10 @@ public class CardsMustBeOrderedByPriorityStory extends DefaultStory {
 		when.iOpenProjectPageOf("htmlunit").and()
 		    .iOpenIterationsPage().and()
 			.iOpenThePageOfIterationWithGoal("make it work");
-		then.theCard("step1").appearsOnCardsListAtPosition(2)
-			.theCard("step2").appearsOnCardsListAtPosition(1)
-			.theCard("step3").appearsOnBacklogListAtPosition(2)
-			.theCard("step4").appearsOnBacklogListAtPosition(1);
+		then.theCard("step1").appearsOnList("iteration_cards").atPosition(2)
+			.theCard("step2").appearsOnList("iteration_cards").atPosition(1)
+			.theCard("step3").appearsOnList("backlog").atPosition(2)
+			.theCard("step4").appearsOnList("backlog").atPosition(1);
 
 	}
 }

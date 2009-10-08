@@ -11,7 +11,7 @@
 <div id="tab3">
 	<div id="cards">
 		<c:if test="${not empty cards}">
-			<calopsita:cards cards="${cards}" />
+			<calopsita:cards cards="${cards}" listId="cards" />
 		</c:if>
 		<c:if test="${empty cards}">
 			<fmt:message key="subcards.empty"/>

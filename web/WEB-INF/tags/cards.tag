@@ -7,14 +7,17 @@
 <%@ attribute name="classes" description="css classes for listing" required="false" type="java.lang.String" %>
 
 
-<ul class="stories ${classes }" ${not empty listId? 'id="listId"': ''}
+<ul class="stories ${classes }" 
+	<c:if test="${not empty listId }">
+		id="${listId }"
+	</c:if>
 	<c:forEach items="${attrs}" var="attr">
 		${attr.key}="${attr.value}"	
 	</c:forEach>
  >
 	<c:forEach items="${cards}" var="card" varStatus="s">
 		<%@ variable name-given="card" %>
-		<li class="story card" id="cards_${card.id}">
+		<li class="story card" name="${card.name }" id="cards_${card.id}">
 			<span class="name" onclick="toggleDescription(this.parentNode);">${card.name } <sub class="creator">by ${card.creator.login }</sub></span>
 			<span class="action">
 				<a class="ui-icon ui-icon-pencil" name="edit ${card.name }" 

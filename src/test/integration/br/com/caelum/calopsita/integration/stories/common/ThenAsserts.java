@@ -88,6 +88,7 @@ public class ThenAsserts {
 	public static Matcher<ContentTag> containsText(final String string) {
 		return new TypeSafeMatcher<ContentTag>() {
 			private String innerHTML;
+			@Override
 			public boolean matchesSafely(ContentTag item) {
 				innerHTML = item.innerHTML();
 				return innerHTML.contains(string);
@@ -122,12 +123,12 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts appearsOnCardsListAtPosition(int i) {
-		assertThat(div("cards_"+i), containsText(name));
+		appearsOnList("cards").atPosition(i);
 		return this;
 	}
 
-	public ThenAsserts appearsOnBacklogListAtPosition(int i) {
-		assertThat(div("backlog_"+i), containsText(name));
+	public ThenAsserts atPosition(int i) {
+		assertThat(browser.currentPage().invoke("$('#" + divName + " li:nth(" + (i - 1) + ")').html()"), containsString(name));
 		return this;
 	}
 

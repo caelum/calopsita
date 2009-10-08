@@ -16,7 +16,7 @@
 <body>
 
 <div id="tab3">
-	<calopsita:cards cards="${cards}"/>
+	<calopsita:cards cards="${cards}" listId="cards"/>
 </div>
 </body>
 </html>
