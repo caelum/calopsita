@@ -52,7 +52,7 @@ $(prepare);
 function get_params(div, status) {
     var params = {};
     $(div + ' .ui-selected').not('.clone').each(function(c, e) {
-        params['cards[' + c + '].id'] = $('span', e).text();
+        params['cards[' + c + '].id'] = e.id.replace("cards_", "");
         params['cards[' + c + '].status'] = status;
     });
     return params;
@@ -65,11 +65,11 @@ function modifyCards(div, status, method) {
         url : cardsUrl,
         data : params,
         success : function(data) {
-            $('#iteration_cards ol')
-                    .html($('#iteration_cards ol', data).html());
-            $('#todo_cards ol').html($('#todo_cards ol', data).html());
-            $('#done_cards ol').html($('#done_cards ol', data).html());
-            $('#backlog ol').html($('#backlog ol', data).html());
+            $('#iteration_cards ul')
+                    .html($('#iteration_cards ul', data).html());
+            $('#todo_cards ul').html($('#todo_cards ul', data).html());
+            $('#done_cards ul').html($('#done_cards ul', data).html());
+            $('#backlog ul').html($('#backlog ul', data).html());
             prepare();
         }
     });
