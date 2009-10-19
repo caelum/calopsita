@@ -235,6 +235,7 @@ public class WhenActions {
 
 	private void waitForAjax() {
 		browser.currentPage().waitUntil("$.active === 0", 2000);
+		browser.currentPage().waitUntil("$('.deleting').length == 0", 2000);
 	}
 
 	public WhenActions andDontConfirm(String operation) {

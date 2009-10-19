@@ -25,7 +25,7 @@
 					href="<c:url value="/projects/${card.project.id}/cards/${card.id}/"/>"></a>
 				<a class="ui-icon ui-icon-closethick" name="delete ${card.name }" href="javascript:void(0)" 
 					title="<fmt:message key="delete"/>"
-					onclick="confirmCardDeletion('<c:url value="/projects/${card.project.id}/cards/${card.id}/"/>', ${not empty card.subcards })"></a>
+					onclick="confirmCardDeletion(this, '<c:url value="/projects/${card.project.id}/cards/${card.id}/"/>', ${not empty card.subcards })"></a>
 			</span>
 			<div class="description"><pre>${fn:escapeXml(card.description) }</pre></div>
 			

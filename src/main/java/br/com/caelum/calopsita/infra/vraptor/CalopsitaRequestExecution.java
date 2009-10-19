@@ -4,9 +4,9 @@ import br.com.caelum.calopsita.infra.interceptor.MenuInterceptor;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.core.RequestExecution;
-import br.com.caelum.vraptor.core.URLParameterExtractorInterceptor;
 import br.com.caelum.vraptor.extra.ForwardToDefaultViewInterceptor;
 import br.com.caelum.vraptor.interceptor.ExecuteMethodInterceptor;
+import br.com.caelum.vraptor.interceptor.FlashInterceptor;
 import br.com.caelum.vraptor.interceptor.InstantiateInterceptor;
 import br.com.caelum.vraptor.interceptor.InterceptorListPriorToExecutionExtractor;
 import br.com.caelum.vraptor.interceptor.OutjectResult;
@@ -30,8 +30,8 @@ public class CalopsitaRequestExecution implements RequestExecution {
 
     public void execute() throws InterceptionException {
         interceptorStack.add(ResourceLookupInterceptor.class);
-        interceptorStack.add(URLParameterExtractorInterceptor.class);
         interceptorStack.add(MultipartInterceptor.class);
+        interceptorStack.add(FlashInterceptor.class);
         interceptorStack.add(instantiator);
         interceptorStack.add(ParametersInstantiatorInterceptor.class);
         interceptorStack.add(InterceptorListPriorToExecutionExtractor.class);

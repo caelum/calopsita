@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class Card implements Identifiable, FromProject {
 
 	@Column(length=1024)
 	private String description;
-	
+
 	@ManyToOne
 	private User creator;
 
@@ -100,10 +101,13 @@ public class Card implements Identifiable, FromProject {
 		getRepository().updateGadgets(this, gadgets);
 	}
 
-	public void deleteSubCards() {
+	public List<Long> deleteSubCards() {
+		List<Long> ids = new ArrayList<Long>();
 		for (Card sub : getSubcards()) {
+			ids.add(sub.getId());
             getRepository().remove(sub);
         }
+		return ids;
 	}
 
 	public void detachSubCards() {

@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.controller;
 
+import static br.com.caelum.vraptor.view.Results.http;
 import static br.com.caelum.vraptor.view.Results.logic;
 import static br.com.caelum.vraptor.view.Results.page;
 import static org.hamcrest.Matchers.anyOf;
@@ -7,7 +8,11 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
@@ -27,7 +32,6 @@ import br.com.caelum.vraptor.validator.Validations;
 @Resource
 public class CardsController {
 
-	private static final String UPDATE_JSP = "/WEB-INF/jsp/cards/update.jsp";
 	private final User currentUser;
     private final Validator validator;
     private final Result result;
@@ -43,13 +47,14 @@ public class CardsController {
 		this.result.include("project", project.load());
     	this.result.include("cards",  project.getToDoCards());
     }
+
 	@Path("/projects/{project.id}/cards/all/") @Get
 	public void all(Project project) {
 		this.result.include("project", project.load());
 		this.result.include("cards",  project.getAllCards());
 		this.result.include("gadgets", Gadgets.values());
 		this.result.include("cardTypes", project.getCardTypes());
-		this.result.use(page()).forward("/WEB-INF/jsp/cards/list.jsp");
+		this.result.use(page()).of(CardsController.class).list(project);
 	}
 
 	@Path("/projects/{card.project.id}/cards/") @Post
@@ -94,7 +99,7 @@ public class CardsController {
 	public void saveSubcard(Card card) {
 		card.save();
 		result.include("project", card.getProject());
-		result.use(page()).forward("/WEB-INF/jsp/cards/save.jsp");
+		result.use(page()).of(CardsController.class).save(card, Collections.<Gadgets>emptyList());
 	}
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/") @Get
@@ -131,16 +136,17 @@ public class CardsController {
 						isIn(project.getColaborators()),
 						is(equalTo(project.getOwner()))));
 		}});
-		validator.onErrorUse(page()).of(CardsController.class).list(project);
+		validator.onErrorUse(http()).sendError(HttpServletResponse.SC_FORBIDDEN);
+		List<Long> deleted = new ArrayList<Long>();
+		deleted.add(card.getId());
         if (deleteSubcards) {
-            loaded.deleteSubCards();
+            deleted.addAll(loaded.deleteSubCards());
         } else {
         	loaded.detachSubCards();
         }
+
         loaded.delete();
-        result.include("cards", project.getToDoCards());
-        result.include("project", project);
-        result.use(page()).forward(UPDATE_JSP);
+        result.include("deleted", deleted);
 	}
 
 }

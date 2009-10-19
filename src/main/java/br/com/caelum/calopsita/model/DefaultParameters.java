@@ -14,10 +14,10 @@ public class DefaultParameters implements Parameters {
 	}
 
 	public boolean contains(String parameterName) {
-		return result.getIncludedObjects().get(parameterName) != null;
+		return result.included().get(parameterName) != null;
 	}
 
 	public <T> T get(String parameterName) {
-		return (T) result.getIncludedObjects().get(parameterName);
+		return (T) result.included().get(parameterName);
 	}
 }

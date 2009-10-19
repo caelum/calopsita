@@ -21,7 +21,7 @@ public class CalopsitaResult implements Result {
 		delegate = new DefaultResult(request, container);
 	}
 
-	public Map<String, Object> getIncludedObjects() {
+	public Map<String, Object> included() {
 		return included;
 	}
 

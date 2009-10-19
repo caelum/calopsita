@@ -16,12 +16,29 @@ function selectGadgets(select) {
 	}
 }
 
-function deleteCards(url, deleteSubcards) {
-	$.post(url, {_method: 'DELETE', deleteSubcards: deleteSubcards}, function(data) {
-		$('#cards').html(data);
+function deleteCards(element, url, deleteSubcards) {
+	var card = $(element).parents('li.card');
+	card.addClass('deleting');
+	$.ajax({
+		url: url,
+		data: {_method: 'DELETE', deleteSubcards: deleteSubcards},
+		success: function(data) {
+			var array = eval(data);
+			for (i in array) {
+				var sub = $('#cards_' + array[i]);
+				sub.addClass('deleting');
+				sub.fadeOut(function() {
+					sub.remove();
+				});
+			}
+		},
+		error: function() {
+			$.prompt("Error while deleting card");
+			card.removeClass('deleting');
+		}
 	});
 }
-function confirmCardDeletion(url, hasSubcards) {
+function confirmCardDeletion(element, url, hasSubcards) {
     var msg = {};
     msg['deletion'] = {
         html : 'Are you sure to delete?',
@@ -32,7 +49,7 @@ function confirmCardDeletion(url, hasSubcards) {
                     $.prompt.nextState();
                     return false;
                 } else {
-                	deleteCards(url, false);
+                	deleteCards(element, url, false);
                 }
             }
         }
@@ -41,7 +58,7 @@ function confirmCardDeletion(url, hasSubcards) {
         html : 'Delete subcards also?',
         buttons : { 'Yes' : true, 'No' : false },
         submit : function(choice) { 
-        	deleteCards(url, choice);
+        	deleteCards(element, url, choice);
         }
     };
     $.prompt(msg);
