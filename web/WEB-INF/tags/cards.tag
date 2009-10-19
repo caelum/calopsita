@@ -5,6 +5,7 @@
 <%@ attribute name="cards" description="A card" required="true" type="java.util.List" %>
 <%@ attribute name="listId" description="css id for listing" required="false" type="java.lang.String" %>
 <%@ attribute name="classes" description="css classes for listing" required="false" type="java.lang.String" %>
+<%@ attribute name="description" description="should show description?" required="false" type="java.lang.Boolean" %>
 
 
 <ul class="stories ${classes }" 
@@ -18,7 +19,11 @@
 	<c:forEach items="${cards}" var="card" varStatus="s">
 		<%@ variable name-given="card" %>
 		<li class="story card" name="${card.name }" id="cards_${card.id}">
-			<span class="name" onclick="toggleDescription(this.parentNode);">${card.name } <sub class="creator">by ${card.creator.login }</sub></span>
+			<span class="name"
+			<c:if test="${description }">
+				onclick="toggleDescription(this.parentNode);"
+			</c:if> 
+			>${card.name } <sub class="creator">by ${card.creator.login }</sub></span>
 			<span class="action">
 				<a class="ui-icon ui-icon-pencil" name="edit ${card.name }" 
 					title="<fmt:message key="edit"/>"

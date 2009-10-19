@@ -6,7 +6,7 @@
 	background: #FECA40;
 }
 
-.ui-selected {
+.ui-selected, .ui-selected:hover {
 	background: #F39814;
 	color: white;
 }
