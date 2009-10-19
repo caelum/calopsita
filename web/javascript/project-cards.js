@@ -27,10 +27,9 @@ function deleteCards(element, url, deleteSubcards) {
 			for (i in array) {
 				var sub = $('#cards_' + array[i]);
 				sub.addClass('deleting');
-				sub.fadeOut(function() {
-					sub.remove();
-				});
+				sub.fadeOut(function() { sub.remove(); });
 			}
+			card.fadeOut(function() { $(this).remove(); });
 		},
 		error: function() {
 			$.prompt("Error while deleting card");
