@@ -18,4 +18,4 @@ target/*
 build/classes/*
 web/WEB-INF/classes/
 junitvmwatcher*.properties
-bin/
+bin/infinitest.filters
