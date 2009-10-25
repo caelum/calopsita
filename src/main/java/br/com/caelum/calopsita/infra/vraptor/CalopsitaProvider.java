@@ -10,7 +10,6 @@ import br.com.caelum.vraptor.http.iogi.IogiParametersProvider;
 import br.com.caelum.vraptor.http.iogi.VRaptorInstantiator;
 import br.com.caelum.vraptor.ioc.pico.PicoProvider;
 import br.com.caelum.vraptor.ioc.pico.Scanner;
-import br.com.caelum.vraptor.util.hibernate.SessionCreator;
 import br.com.caelum.vraptor.util.hibernate.SessionFactoryCreator;
 
 public class CalopsitaProvider extends PicoProvider {
@@ -18,7 +17,7 @@ public class CalopsitaProvider extends PicoProvider {
 	@Override
 	protected void registerBundledComponents(ComponentRegistry registry) {
 		super.registerBundledComponents(registry);
-		registry.register(SessionCreator.class, SessionCreator.class);
+//		registry.register(SessionCreator.class, SessionCreator.class);
 		registry.register(SessionFactoryCreator.class, SessionFactoryCreator.class);
 		registry.register(IogiParametersProvider.class, IogiParametersProvider.class);
 		registry.register(Instantiator.class, VRaptorInstantiator.class);

@@ -1,7 +1,12 @@
 package br.com.caelum.calopsita.infra.interceptor;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
+import javax.persistence.Id;
+
+import net.vidageek.mirror.dsl.ClassController;
+import net.vidageek.mirror.dsl.Matcher;
 import net.vidageek.mirror.dsl.Mirror;
 
 import org.hibernate.CallbackException;
@@ -10,11 +15,9 @@ import org.hibernate.EntityMode;
 import org.hibernate.type.Type;
 
 import br.com.caelum.calopsita.infra.vraptor.Injector;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-@ApplicationScoped
 public class RepositoryInterceptor extends EmptyInterceptor {
 
 	/**
@@ -30,8 +33,17 @@ public class RepositoryInterceptor extends EmptyInterceptor {
 
 	@Override
 	public Object instantiate(String className, EntityMode mode, Serializable id) throws CallbackException {
-		Object object = new Mirror().on(className).invoke().constructor().withoutArgs();
+		ClassController<?> clazz = new Mirror().on(className);
+		Object object = clazz.invoke().constructor().withoutArgs();
 		injector.injectDependencies(object);
+
+		Field field = clazz.reflectAll().fieldsMatching(new Matcher<Field>() {
+			public boolean accepts(Field field) {
+				return field.isAnnotationPresent(Id.class);
+			}
+		}).get(0);
+
+		new Mirror().on(object).set().field(field).withValue(id);
 		return object;
 	}
 

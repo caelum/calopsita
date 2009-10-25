@@ -10,12 +10,10 @@ import net.vidageek.mirror.matcher.SetterMatcher;
 
 import org.picocontainer.annotations.Inject;
 
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.Container;
 
 @Component
-@ApplicationScoped
 public class Injector {
 
 	private final Container container;
