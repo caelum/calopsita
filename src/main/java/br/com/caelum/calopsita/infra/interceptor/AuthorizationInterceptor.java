@@ -53,7 +53,7 @@ public class AuthorizationInterceptor implements Interceptor {
 			return;
 		}
 		if (user.getUser() != null) {
-			user.setRepository(userRepository);
+			user.getUser().setRepository(userRepository);
 		}
 		stack.next(method, resourceInstance);
 	}

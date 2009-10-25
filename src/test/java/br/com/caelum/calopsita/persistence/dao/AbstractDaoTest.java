@@ -4,16 +4,22 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.jmock.Mockery;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+
+import br.com.caelum.calopsita.infra.interceptor.RepositoryInterceptor;
+import br.com.caelum.iogi.Instantiator;
 
 public abstract class AbstractDaoTest {
 
 	private static SessionFactory sessionFactory;
 	protected Session session;
 	private Transaction transaction;
+	protected Mockery mockery;
+	private Instantiator<Object> instantiator;
 
 	@BeforeClass
     public static void prepare() {
@@ -27,7 +33,10 @@ public abstract class AbstractDaoTest {
 
 	@Before
 	public void setUp() throws Exception {
-		session = sessionFactory.openSession();
+		mockery = new Mockery();
+		instantiator = mockery.mock(Instantiator.class);
+
+		session = sessionFactory.openSession(new RepositoryInterceptor(instantiator));
 
 		transaction = session.beginTransaction();
 	}

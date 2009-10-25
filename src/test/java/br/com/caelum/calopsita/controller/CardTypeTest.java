@@ -47,8 +47,7 @@ public class CardTypeTest {
 	}
 
 	private CardType givenACardType() {
-		CardType cardType = new CardType();
-		cardType.setRepository(repository);
+		CardType cardType = new CardType(repository);
 		return cardType;
 	}
 

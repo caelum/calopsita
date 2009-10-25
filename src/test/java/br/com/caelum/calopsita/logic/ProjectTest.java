@@ -36,9 +36,8 @@ public class ProjectTest {
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(ProjectRepository.class);
-        currentUser = currentUser();
         userRepository = mockery.mock(UserRepository.class);
-        currentUser.setRepository(userRepository);
+        currentUser = currentUser();
 
 		SessionUser sessionUser = new SessionUser(new MockHttpSession());
 		sessionUser.setUser(currentUser);
@@ -144,7 +143,7 @@ public class ProjectTest {
 
 	private Project givenProjectIsOwnedBy(final Project project, final User user) {
 
-		final Project result = new Project();
+		final Project result = new Project(repository);
 		result.setOwner(user);
 		mockery.checking(new Expectations() {
 			{
@@ -189,7 +188,7 @@ public class ProjectTest {
 
 
 	private User givenAUser() {
-		return new User();
+		return new User(userRepository);
 	}
     private void whenISaveTheProject(Project project) {
     	logic.save(project);
@@ -204,9 +203,8 @@ public class ProjectTest {
 	}
 
 	private Project givenAProject() {
-		Project project = new Project();
+		Project project = new Project(repository);
 		project.setName("A project");
-		project.setRepository(repository);
 		return project;
 	}
 
@@ -221,7 +219,7 @@ public class ProjectTest {
     }
 
     private Project givenThatOnlyExistsOneProjectForCurrentUser() {
-        final Project project = new Project();
+        final Project project = new Project(repository);
         mockery.checking(new Expectations() {
             {
                 one(userRepository).listAllFrom(currentUser);
@@ -232,7 +230,7 @@ public class ProjectTest {
     }
 
     private User currentUser() {
-        final User user = new User();
+        final User user = new User(userRepository);
         String login = "caue";
         user.setLogin(login);
         user.setEmail(login + "@caelum.com.br");

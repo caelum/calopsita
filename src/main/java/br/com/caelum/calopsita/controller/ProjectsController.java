@@ -34,8 +34,7 @@ public class ProjectsController {
     }
 
     @Path("/projects/new/") @Get
-    public Project form() {
-        return new Project();
+    public void form() {
     }
 
     @Path("/projects/{project.id}/edit/") @Get

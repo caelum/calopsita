@@ -14,7 +14,6 @@ import javax.persistence.Transient;
 
 import org.hibernate.validator.NotNull;
 
-import br.com.caelum.calopsita.infra.vraptor.Inject;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 
 @Entity
@@ -42,15 +41,8 @@ public class Project implements Identifiable {
 
     public Project() {
 	}
-
     @Transient
     private ProjectRepository repository;
-
-
-    @Inject
-    public void setRepository(ProjectRepository repository) {
-		this.repository = repository;
-	}
 
     private ProjectRepository getRepository() {
     	if (repository == null) {
@@ -77,9 +69,7 @@ public class Project implements Identifiable {
     	return repository.getCurrentIterationFromProject(this);
     }
     public Project load() {
-    	Project load = getRepository().load(this);
-    	load.setRepository(getRepository());
-		return load;
+    	return getRepository().load(this);
     }
 
     public Project refresh() {

@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -12,6 +13,8 @@ import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.plugins.PluginResultTransformer;
+import br.com.caelum.calopsita.plugins.Transformer;
 
 public class UserDaoTest extends AbstractDaoTest {
 
@@ -64,7 +67,7 @@ public class UserDaoTest extends AbstractDaoTest {
 	}
 
 	private User givenAUser() {
-		User user = new User();
+		User user = new User(dao);
 		user.setLogin("test");
 		user.setPassword("test");
 		user.setName("User test");
@@ -83,7 +86,7 @@ public class UserDaoTest extends AbstractDaoTest {
 	}
 
 	private Project givenAProject() {
-		Project project = new Project();
+		Project project = new Project(new ProjectDao(session, new PluginResultTransformer(session, new ArrayList<Transformer>())));
 		project.setName("Tuba");
 		session.save(project);
 		session.flush();

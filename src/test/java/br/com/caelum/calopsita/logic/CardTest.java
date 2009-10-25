@@ -44,10 +44,9 @@ public class CardTest {
         currentUser = new User();
         currentUser.setLogin("me");
         sessionUser.setUser(currentUser);
-        project = new Project();
 
 		projectRepository = mockery.mock(ProjectRepository.class);
-		project.setRepository(projectRepository);
+		project = new Project(projectRepository);
 
 		validator = new MockValidator();
 		logic = new CardsController(new MockResult(), validator, sessionUser);
@@ -272,7 +271,7 @@ public class CardTest {
 	}
 
 	private Card shouldLoadTheCard(final Card card) {
-		final Card newcard = new Card();
+		final Card newcard = new Card(repository);
 
 		mockery.checking(new Expectations() {
 			{
@@ -331,15 +330,13 @@ public class CardTest {
 	}
 
 	private Project givenAProject() {
-		Project project2 = new Project();
-		project2.setRepository(projectRepository);
+		Project project2 = new Project(projectRepository);
 		return project2;
 	}
 
 	private Card givenACard() {
-		Card card = new Card();
+		Card card = new Card(repository);
 		card.setProject(project);
-		card.setRepository(repository);
 		return card;
 	}
 }

@@ -130,7 +130,7 @@ public class CardDaoTest extends AbstractDaoTest {
 	}
 
 	private Card givenACard() {
-		Card card = new Card();
+		Card card = new Card(dao);
 		card.setName("Rumpelstitlskin");
 		card.setDescription("I hope I spelld his name correctly");
 		session.save(card);

@@ -30,8 +30,7 @@ public class PrioritizationTest {
         repository = mockery.mock(PrioritizationRepository.class);
 
 		projectRepository = mockery.mock(ProjectRepository.class);
-		project = new Project();
-		project.setRepository(projectRepository);
+		project = new Project(projectRepository);
 		logic = new PrioritizationController(new MockResult(), repository);
 
 		mockery.checking(new Expectations() {

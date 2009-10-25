@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-import br.com.caelum.calopsita.infra.vraptor.Inject;
 import br.com.caelum.calopsita.repository.CardRepository;
 
 import com.google.common.collect.Iterators;
@@ -61,12 +60,6 @@ public class Card implements Identifiable, FromProject {
 	}
 	public Card() {
 	}
-
-	@Inject
-	public void setRepository(CardRepository repository) {
-		this.repository = repository;
-	}
-
 	private CardRepository getRepository() {
 		if (repository == null) {
 			throw new IllegalStateException("Repository was not set. You should inject it first");
@@ -97,9 +90,7 @@ public class Card implements Identifiable, FromProject {
 		getRepository().update(this);
 	}
 	public Card load() {
-		Card loaded = getRepository().load(this);
-		loaded.setRepository(getRepository());
-		return loaded;
+		return getRepository().load(this);
 	}
 
 	public void updateGadgets(List<Gadgets> gadgets) {
@@ -166,7 +157,6 @@ public class Card implements Identifiable, FromProject {
 		this.description = description;
 	}
 
-	@Inject
 	public Project getProject() {
 		return this.project;
 	}
@@ -195,7 +185,6 @@ public class Card implements Identifiable, FromProject {
 		this.parent = parent;
 	}
 
-	@Inject
 	public Card getParent() {
 		return parent;
 	}

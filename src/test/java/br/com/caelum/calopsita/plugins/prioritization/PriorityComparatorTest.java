@@ -120,8 +120,6 @@ public class PriorityComparatorTest {
 	}
 
 	private Card givenACard() {
-		Card card = new Card();
-		card.setRepository(repository);
-		return card;
+		return new Card(repository);
 	}
 }

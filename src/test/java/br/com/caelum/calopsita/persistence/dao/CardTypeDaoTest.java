@@ -38,7 +38,7 @@ public class CardTypeDaoTest extends AbstractDaoTest {
 	}
 
 	private CardType givenACardTypeOf(Project project) {
-		CardType type = new CardType();
+		CardType type = new CardType(dao);
 		type.setProject(project);
 		session.save(type);
 		return type;

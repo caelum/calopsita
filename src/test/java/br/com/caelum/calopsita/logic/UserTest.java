@@ -135,7 +135,7 @@ public class UserTest {
 
 
 	private void givenThereIsAnUserOnSession() {
-		sessionUser.setUser(new User());
+		sessionUser.setUser(new User(repository));
 	}
 
 
@@ -205,8 +205,7 @@ public class UserTest {
     }
 
     private User givenUser(String login) {
-        final User user = new User();
-        user.setRepository(repository);
+        final User user = new User(repository);
         user.setLogin(login);
         user.setEmail(login + "@caelum.com.br");
         user.setName(login);

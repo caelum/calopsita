@@ -31,13 +31,20 @@ import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 public class ProjectDaoTest extends AbstractDaoTest {
 
 	private ProjectDao dao;
+	private IterationDao iterationDao;
+	private CardDao cardDao;
+	private UserDao userDao;
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		List<Transformer> transformers = Arrays.<Transformer>asList(new OrderByPriorityTransformer());
-		dao = new ProjectDao(session, new PluginResultTransformer(session, transformers));
+		PluginResultTransformer transformer = new PluginResultTransformer(session, transformers);
+		dao = new ProjectDao(session, transformer);
+		iterationDao = new IterationDao(session, transformer);
+		cardDao = new CardDao(session,transformer);
+		userDao = new UserDao(session);
 	}
 
 	@Test
@@ -111,9 +118,8 @@ public class ProjectDaoTest extends AbstractDaoTest {
 
 		session.evict(project);
 
-		Project project2 = new Project();
+		Project project2 = new Project(dao);
 		project2.setId(project.getId());
-		project2.setRepository(dao);
 		project2.refresh();
 
 		assertThat(project2.getName(), is(project.getName()));
@@ -224,15 +230,15 @@ public class ProjectDaoTest extends AbstractDaoTest {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void iterationWithoutProjectIdThrowsException() throws Exception {
-		Iteration projectWithoutId = new Iteration();
-		projectWithoutId.setProject(new Project());
+		Iteration projectWithoutId = new Iteration(iterationDao);
+		projectWithoutId.setProject(new Project(dao));
 
 		dao.hasInconsistentValues(new Object[] {projectWithoutId}, givenAUser());
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void iterationWithoutProjectThrowsException() throws Exception {
-		Iteration outOfProject = new Iteration();
+		Iteration outOfProject = new Iteration(iterationDao);
 		dao.hasInconsistentValues(new Object[] {outOfProject}, givenAUser());
 	}
 
@@ -278,7 +284,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	}
 
 	private Iteration givenAnIteration(LocalDate startDate, LocalDate endDate) {
-        Iteration iteration = new Iteration();
+        Iteration iteration = new Iteration(iterationDao);
         iteration.setGoal("An iteration");
         iteration.setProject(givenAProject());
         iteration.setStartDate(startDate);
@@ -289,7 +295,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
     }
 
 	private User givenAnUnrelatedUser(String name) {
-		User user = new User();
+		User user = new User(userDao);
 		user.setName(name);
 		user.setEmail(name + "@caelum.com.br");
 		user.setLogin(name);
@@ -300,7 +306,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	}
 
 	private Iteration givenAnIteration(LocalDate startDate) {
-        Iteration iteration = new Iteration();
+        Iteration iteration = new Iteration(iterationDao);
         iteration.setGoal("An iteration");
         iteration.setProject(givenAProject());
         iteration.setStartDate(startDate);
@@ -319,7 +325,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 
 
     private Iteration givenAnIteration() throws ParseException {
-	    Iteration iteration = new Iteration();
+	    Iteration iteration = new Iteration(iterationDao);
 	    iteration.setGoal("Be ready");
 	    iteration.setStartDate(new LocalDate(2000,1,1));
 	    iteration.setEndDate(new LocalDate(2000,1,10));
@@ -356,7 +362,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 
 
 	private Card givenACard() {
-		Card card = new Card();
+		Card card = new Card(cardDao);
 		card.setName("Snow White");
 		card.setDescription("She hangs out with the dwarves");
 		session.save(card);
@@ -420,7 +426,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	}
 
 	private Project givenAProject() {
-		Project project = new Project();
+		Project project = new Project(dao);
 		project.setName("Tuba");
 		session.save(project);
 		session.flush();
@@ -428,7 +434,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	}
 
 	private User givenAUser() {
-		User user = new User();
+		User user = new User(userDao);
 		user.setLogin("test");
 		user.setPassword("test");
 		user.setName("User test");

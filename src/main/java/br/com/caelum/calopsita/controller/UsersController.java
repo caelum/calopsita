@@ -31,8 +31,7 @@ public class UsersController {
     }
 
     @Path("/users/new/") @Get
-    public User formSignUp() {
-        return new User();
+    public void formSignUp() {
     }
 
     @Path("/users/") @Post

@@ -17,33 +17,23 @@ import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.calopsita.plugins.PluginResultTransformer;
 import br.com.caelum.calopsita.plugins.Transformer;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
-import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.PrioritizationRepository;
 
 public class PrioritizationDaoTest extends AbstractDaoTest{
 
 	private PrioritizationRepository dao;
 	private Project project;
+	private CardDao cardDao;
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		dao = new PrioritizationDao(session);
-		project = new Project();
+		PluginResultTransformer transformer = new PluginResultTransformer(session, Collections.<Transformer>emptyList());
+		project = new Project(new ProjectDao(session, transformer));
 		project.setName("A Project");
-		final PluginResultTransformer transformer = new PluginResultTransformer(session, Collections.<Transformer>emptyList());
-		project.setRepository(new ProjectDao(session, transformer) {
-			@Override
-			public List<Card> listTodoCardsFrom(Project project) {
-				List<Card> list = super.listTodoCardsFrom(project);
-				CardRepository repository = new CardDao(session, transformer);
-				for (Card card : list) {
-					card.setRepository(repository);
-				}
-				return list;
-			}
-		});
+		cardDao = new CardDao(session, transformer);
 		session.save(project);
 	}
 
@@ -75,7 +65,7 @@ public class PrioritizationDaoTest extends AbstractDaoTest{
 
 
 	private Card givenACard(int priority) {
-		Card card = new Card();
+		Card card = new Card(cardDao);
 		card.setProject(project);
 		session.save(card);
 		PrioritizableCard pCard = new PrioritizableCard();

@@ -13,7 +13,6 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
-import br.com.caelum.calopsita.infra.vraptor.Inject;
 import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.calopsita.repository.IterationRepository;
 
@@ -47,11 +46,6 @@ public class Iteration implements Identifiable, FromProject {
     public Iteration() {
 	}
 
-    @Inject
-    public void setRepository(IterationRepository repository) {
-		this.repository = repository;
-	}
-
     private IterationRepository getRepository() {
     	if (repository == null) {
 			throw new IllegalStateException("Repository was not set. You should inject it first");
@@ -67,9 +61,7 @@ public class Iteration implements Identifiable, FromProject {
     	getRepository().remove(this);
     }
     public Iteration load() {
-    	Iteration loaded = getRepository().load(this);
-    	loaded.setRepository(repository);
-		return loaded;
+    	return getRepository().load(this);
     }
     public void save() {
     	getRepository().add(this);
@@ -83,7 +75,6 @@ public class Iteration implements Identifiable, FromProject {
         this.id = id;
     }
 
-    @Inject
     public Project getProject() {
         return project;
     }

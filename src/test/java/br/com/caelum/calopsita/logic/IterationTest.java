@@ -22,6 +22,7 @@ import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.util.test.MockValidator;
 import br.com.caelum.vraptor.validator.ValidationException;
@@ -35,6 +36,7 @@ public class IterationTest {
     private Project project;
     private ProjectRepository projectRepository;
 	private User currentUser;
+	private UserRepository userRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -42,11 +44,11 @@ public class IterationTest {
         iterationRepository = mockery.mock(IterationRepository.class);
         cardRepository = mockery.mock(CardRepository.class);
         projectRepository = mockery.mock(ProjectRepository.class);
+        userRepository = mockery.mock(UserRepository.class);
 
-        currentUser = new User();
+        currentUser = new User(userRepository);
         currentUser.setLogin("me");
-        project = new Project();
-        project.setRepository(projectRepository);
+        project = new Project(projectRepository);
 
         SessionUser sessionUser = new SessionUser(new MockHttpSession());
         sessionUser.setUser(currentUser);
@@ -172,7 +174,7 @@ public class IterationTest {
     }
 
     private Iteration givenTheIterationNotStarted(final Iteration iteration) {
-        final Iteration result = new Iteration();
+        final Iteration result = new Iteration(iterationRepository);
         mockery.checking(new Expectations() {
             {
                 one(iterationRepository).load(iteration);
@@ -213,7 +215,7 @@ public class IterationTest {
 
 
 	private Iteration shouldLoadFromRepository(final Iteration iteration) {
-    	final Iteration result = new Iteration();
+    	final Iteration result = new Iteration(iterationRepository);
 
 
 		mockery.checking(new Expectations() {
@@ -227,7 +229,7 @@ public class IterationTest {
 
 
 	private Iteration givenTheIterationAlreadyStarted(final Iteration iteration) {
-    	final Iteration result = new Iteration();
+    	final Iteration result = new Iteration(iterationRepository);
     	result.setStartDate(today().minusDays(1));
 		mockery.checking(new Expectations() {
 			{
@@ -248,7 +250,7 @@ public class IterationTest {
 	}
 
 	private Iteration givenTheIterationHaveNoStartDate(final Iteration iteration) {
-    	final Iteration result = new Iteration();
+    	final Iteration result = new Iteration(iterationRepository);
 
 		mockery.checking(new Expectations() {
 			{
@@ -260,7 +262,7 @@ public class IterationTest {
 	}
 
 	private Iteration givenTheIterationStartedYesterday(final Iteration iteration) {
-	    final Iteration result = new Iteration();
+	    final Iteration result = new Iteration(iterationRepository);
         result.setStartDate(today().minusDays(1));
         mockery.checking(new Expectations() {
             {
@@ -289,7 +291,7 @@ public class IterationTest {
     }
 
     private User anyUser() {
-	    User user = new User();
+	    User user = new User(userRepository);
 	    user.setName("any name");
 	    return user;
     }
@@ -308,7 +310,7 @@ public class IterationTest {
     }
 
     private Iteration givenTheIterationIsInThisProject(final Iteration iteration) {
-	    final Iteration returned = new Iteration();
+	    final Iteration returned = new Iteration(iterationRepository);
         returned.setProject(this.project);
 
         mockery.checking(new Expectations() {
@@ -326,7 +328,7 @@ public class IterationTest {
 	}
 
 	private Card givenLoadedCardContainsIteration(final Card card, final Iteration iteration) {
-		final Card loaded = new Card();
+		final Card loaded = new Card(cardRepository);
 
 		mockery.checking(new Expectations() {
 			{
@@ -358,7 +360,7 @@ public class IterationTest {
 				allowing(iterationRepository).listCards(with(any(Iteration.class)));
 				allowing(projectRepository).planningCardsWithoutIteration(with(any(Project.class)));
 				allowing(iterationRepository).load(with(any(Iteration.class)));
-				will(returnValue(new Iteration()));
+				will(returnValue(new Iteration(iterationRepository)));
 			}
 		});
 	}
@@ -368,9 +370,7 @@ public class IterationTest {
 	}
 
 	private Card givenACard() {
-		Card card = new Card();
-		card.setRepository(cardRepository);
-		return card;
+		return new Card(cardRepository);
 	}
 
 	private void shouldSaveOnTheRepositoryTheIteration(final Iteration iteration) {
@@ -388,9 +388,8 @@ public class IterationTest {
     }
 
     private Iteration givenAnIteration() {
-        Iteration iteration = new Iteration();
+        Iteration iteration = new Iteration(iterationRepository);
         iteration.setProject(project);
-        iteration.setRepository(iterationRepository);
 		return iteration;
     }
 }
