@@ -12,8 +12,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
-import org.picocontainer.annotations.Inject;
 
+import br.com.caelum.calopsita.infra.vraptor.Inject;
 import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.calopsita.repository.IterationRepository;
 
@@ -39,6 +39,13 @@ public class Iteration implements Identifiable, FromProject {
 
     @Transient
     private IterationRepository repository;
+
+    public Iteration(IterationRepository repository) {
+		this.repository = repository;
+	}
+
+    public Iteration() {
+	}
 
     @Inject
     public void setRepository(IterationRepository repository) {

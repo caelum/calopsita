@@ -71,13 +71,13 @@ public class CardContexts<T extends ProjectContexts<T>> {
 	}
 
 	public CardContexts<T> prioritizable() {
-		session.save(new PrioritizableCard(card));
+		session.save(PrioritizableCard.of(card));
 		session.flush();
 		return this;
 	}
 
 	public CardContexts<T> planningCard() {
-		session.save(new PlanningCard(card));
+		session.save(PlanningCard.of(card));
 		session.flush();
 		return this;
 	}

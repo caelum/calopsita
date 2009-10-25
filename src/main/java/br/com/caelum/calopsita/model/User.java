@@ -11,8 +11,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.validator.Email;
 import org.hibernate.validator.NotNull;
-import org.picocontainer.annotations.Inject;
 
+import br.com.caelum.calopsita.infra.vraptor.Inject;
 import br.com.caelum.calopsita.repository.UserRepository;
 
 @Entity
@@ -36,6 +36,11 @@ public class User implements Identifiable {
     @Transient
     private UserRepository repository;
 
+    public User(UserRepository repository) {
+		this.repository = repository;
+	}
+    public User() {
+    }
     @Inject
     public void setRepository(UserRepository repository) {
 		this.repository = repository;

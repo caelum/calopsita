@@ -32,8 +32,10 @@ public class PlanningCard implements Gadget {
 	public PlanningCard() {
 	}
 
-	public PlanningCard(Card card) {
-		this.card = card;
+	public static PlanningCard of(Card card) {
+		PlanningCard pcard = new PlanningCard();
+		pcard.setCard(card);
+		return pcard;
 	}
 
 	public PrioritizableCard getPrioritizableCard() {

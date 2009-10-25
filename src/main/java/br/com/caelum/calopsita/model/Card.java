@@ -14,8 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-import org.picocontainer.annotations.Inject;
-
+import br.com.caelum.calopsita.infra.vraptor.Inject;
 import br.com.caelum.calopsita.repository.CardRepository;
 
 import com.google.common.collect.Iterators;
@@ -56,6 +55,12 @@ public class Card implements Identifiable, FromProject {
 
 	@Transient
 	private CardRepository repository;
+
+	public Card(CardRepository repository) {
+		this.repository = repository;
+	}
+	public Card() {
+	}
 
 	@Inject
 	public void setRepository(CardRepository repository) {

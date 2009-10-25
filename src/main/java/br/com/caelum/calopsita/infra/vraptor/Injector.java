@@ -7,9 +7,6 @@ import net.vidageek.mirror.dsl.Matcher;
 import net.vidageek.mirror.dsl.Mirror;
 import net.vidageek.mirror.matcher.GetterMatcher;
 import net.vidageek.mirror.matcher.SetterMatcher;
-
-import org.picocontainer.annotations.Inject;
-
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.Container;
 

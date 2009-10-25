@@ -30,8 +30,11 @@ public class PrioritizableCard implements Gadget {
 
 	public PrioritizableCard() {
 	}
-	public PrioritizableCard(Card card) {
-		this.card = card;
+
+	public static PrioritizableCard of(Card card) {
+		PrioritizableCard pcard = new PrioritizableCard();
+		pcard.setCard(card);
+		return pcard;
 	}
 
 	public Card getCard() {

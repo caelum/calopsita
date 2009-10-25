@@ -10,7 +10,7 @@ public enum Gadgets {
 	PRIORITIZATION {
 		@Override
 		public PrioritizableCard createGadgetFor(Card card) {
-			return new PrioritizableCard(card);
+			return PrioritizableCard.of(card);
 		}
 
 		@Override
@@ -20,7 +20,7 @@ public enum Gadgets {
 	}, PLANNING {
 		@Override
 		public PlanningCard createGadgetFor(Card card) {
-			return new PlanningCard(card);
+			return PlanningCard.of(card);
 		}
 
 		@Override

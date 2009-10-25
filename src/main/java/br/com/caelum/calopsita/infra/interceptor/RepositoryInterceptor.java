@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 
 import javax.persistence.Id;
 
-import net.vidageek.mirror.dsl.ClassController;
 import net.vidageek.mirror.dsl.Matcher;
 import net.vidageek.mirror.dsl.Mirror;
 
@@ -14,7 +13,9 @@ import org.hibernate.EmptyInterceptor;
 import org.hibernate.EntityMode;
 import org.hibernate.type.Type;
 
-import br.com.caelum.calopsita.infra.vraptor.Injector;
+import br.com.caelum.iogi.Instantiator;
+import br.com.caelum.iogi.parameters.Parameters;
+import br.com.caelum.iogi.reflection.Target;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
@@ -25,19 +26,17 @@ public class RepositoryInterceptor extends EmptyInterceptor {
 	 */
 	private static final long serialVersionUID = 5848222336834528934L;
 
-	private final Injector injector;
+	private final Instantiator<Object> instantiator;
 
-	public RepositoryInterceptor(Injector injector) {
-		this.injector = injector;
+	public RepositoryInterceptor(Instantiator<Object> instantiator) {
+		this.instantiator = instantiator;
 	}
 
 	@Override
 	public Object instantiate(String className, EntityMode mode, Serializable id) throws CallbackException {
-		ClassController<?> clazz = new Mirror().on(className);
-		Object object = clazz.invoke().constructor().withoutArgs();
-		injector.injectDependencies(object);
+		Object object = instantiator.instantiate(new Target(new Mirror().reflectClass(className), ""), new Parameters());
 
-		Field field = clazz.reflectAll().fieldsMatching(new Matcher<Field>() {
+		Field field = new Mirror().on(className).reflectAll().fieldsMatching(new Matcher<Field>() {
 			public boolean accepts(Field field) {
 				return field.isAnnotationPresent(Id.class);
 			}

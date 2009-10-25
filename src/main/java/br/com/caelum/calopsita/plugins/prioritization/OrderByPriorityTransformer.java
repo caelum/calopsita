@@ -8,10 +8,12 @@ import java.util.List;
 import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Plugin;
 import br.com.caelum.calopsita.persistence.dao.CardDao;
 import br.com.caelum.calopsita.plugins.PluginResultTransformer;
 import br.com.caelum.calopsita.plugins.Transformer;
 
+@Plugin
 public class OrderByPriorityTransformer implements Transformer<Card> {
 
 	public boolean accepts(Class<?> type) {

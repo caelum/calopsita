@@ -13,8 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.NotNull;
-import org.picocontainer.annotations.Inject;
 
+import br.com.caelum.calopsita.infra.vraptor.Inject;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 
 @Entity
@@ -36,13 +36,16 @@ public class Project implements Identifiable {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Iteration> iterations;
 
-    public Project(Long id) {
-		this.id = id;
+    public Project(ProjectRepository repository) {
+		this.repository = repository;
 	}
+
     public Project() {
 	}
+
     @Transient
     private ProjectRepository repository;
+
 
     @Inject
     public void setRepository(ProjectRepository repository) {

@@ -100,7 +100,7 @@ public class CardDaoTest extends AbstractDaoTest {
 
 	private Card givenAPlanningCard(Project project) {
 		Card card = givenACard(project);
-		session.save(new PlanningCard(card));
+		session.save(PlanningCard.of(card));
 		session.flush();
 		return card;
 	}

@@ -8,23 +8,21 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.calopsita.infra.vraptor.Injector;
 import br.com.caelum.calopsita.model.Card;
-import br.com.caelum.calopsita.repository.CardRepository;
-import br.com.caelum.vraptor.ioc.Container;
+import br.com.caelum.iogi.Instantiator;
+import br.com.caelum.iogi.parameters.Parameters;
+import br.com.caelum.iogi.reflection.Target;
 
 public class RepositoryInterceptorTest {
 
 
 	private Session session;
 	private Mockery mockery;
-	private Container container;
 	private SessionFactory factory;
 
 	@Before
 	public void setUp() throws Exception {
 		mockery = new Mockery();
-		container = mockery.mock(Container.class);
 		factory = new AnnotationConfiguration().configure().buildSessionFactory();
 
 		session = factory.openSession();
@@ -36,13 +34,14 @@ public class RepositoryInterceptorTest {
 		session.save(card);
 		session.close();
 
-		Session otherSession = factory.openSession(new RepositoryInterceptor(new Injector(container)));
+		final Instantiator instantiator = mockery.mock(Instantiator.class);
+
+		Session otherSession = factory.openSession(new RepositoryInterceptor(instantiator));
 
 
 		mockery.checking(new Expectations() {
 			{
-				one(container).instanceFor(CardRepository.class);
-
+				one(instantiator).instantiate(with(any(Target.class)), with(any(Parameters.class)));
 				ignoring(anything());
 			}
 		});

@@ -111,7 +111,8 @@ public class ProjectDaoTest extends AbstractDaoTest {
 
 		session.evict(project);
 
-		Project project2 = new Project(project.getId());
+		Project project2 = new Project();
+		project2.setId(project.getId());
 		project2.setRepository(dao);
 		project2.refresh();
 
@@ -390,7 +391,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 
 	private Card givenAPlanningCard(Project project) {
 		Card card = givenACard(project);
-		session.save(new PlanningCard(card));
+		session.save(PlanningCard.of(card));
 		session.flush();
 		return card;
 	}

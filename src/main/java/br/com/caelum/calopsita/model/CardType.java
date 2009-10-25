@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.CollectionOfElements;
-import org.picocontainer.annotations.Inject;
 
+import br.com.caelum.calopsita.infra.vraptor.Inject;
 import br.com.caelum.calopsita.repository.CardTypeRepository;
 
 @Entity
@@ -33,6 +33,12 @@ public class CardType implements FromProject {
 
 	@Transient
 	private CardTypeRepository repository;
+
+	public CardType(CardTypeRepository repository) {
+		this.repository = repository;
+	}
+	public CardType() {
+	}
 
 	@Inject
     public void setRepository(CardTypeRepository repository) {

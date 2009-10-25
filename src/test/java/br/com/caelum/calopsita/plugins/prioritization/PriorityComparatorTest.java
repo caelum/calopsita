@@ -111,7 +111,7 @@ public class PriorityComparatorTest {
 	private void givenThisCardHasPriority(final Card oneCard, final int priority) {
 		mockery.checking(new Expectations() {
 			{
-				PrioritizableCard priorityCard = new PrioritizableCard(oneCard);
+				PrioritizableCard priorityCard = PrioritizableCard.of(oneCard);
 				priorityCard.setPriority(priority);
 				allowing(repository).listGadgets(oneCard);
 				will(returnValue(Arrays.asList(priorityCard)));
