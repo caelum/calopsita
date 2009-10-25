@@ -30,7 +30,7 @@ public class ActiveRecordParametersProviderTest {
 		mockery.setImposteriser(ClassImposteriser.INSTANCE);
 		container = mockery.mock(Container.class);
 		delegate = mockery.mock(IogiParametersProvider.class);
-		provider = new ActiveRecordParametersProvider(delegate, container);
+		provider = new ActiveRecordParametersProvider(delegate, new Injector(container));
 	}
 	@Test
 	public void shouldSetDependency() throws Exception {

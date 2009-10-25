@@ -1,7 +1,9 @@
 package br.com.caelum.calopsita.persistence.dao;
 
-import static br.com.caelum.calopsita.CustomMatchers.hasItemsInThisOrder;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.assertThat;
+
+import java.util.Collections;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +11,8 @@ import org.junit.Test;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
-import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
+import br.com.caelum.calopsita.plugins.PluginResultTransformer;
+import br.com.caelum.calopsita.plugins.Transformer;
 
 public class IterationDaoTest extends AbstractDaoTest {
 
@@ -19,32 +22,25 @@ public class IterationDaoTest extends AbstractDaoTest {
 	@Before
     public void setUp() throws Exception {
     	super.setUp();
-        dao = new IterationDao(session);
+        dao = new IterationDao(session, new PluginResultTransformer(session, Collections.<Transformer>emptyList()));
     }
 
     @Test
 	public void orderingCardsByPriority() throws Exception {
     	Iteration iteration = givenAnIteration();
-    	Card card3 = givenACard(iteration, withPriority(3));
-    	Card card1 = givenACard(iteration, withPriority(1));
+    	Card card3 = givenACard(iteration);
+    	Card card1 = givenACard(iteration);
 
-    	assertThat(dao.listCardsOrderedByPriority(iteration), hasItemsInThisOrder(card1, card3));
+    	assertThat(dao.listCards(iteration), hasItems(card1, card3));
 	}
 
 
-    private int withPriority(int i) {
-		return i;
-	}
-
-	private Card givenACard(Iteration iteration, int priority) {
+	private Card givenACard(Iteration iteration) {
 		Card card = new Card();
 		card.setName("Abc");
 		card.setDescription("Def");
 		card.setIteration(iteration);
 		session.save(card);
-		PrioritizableCard pCard = new PrioritizableCard(card);
-		pCard.setPriority(priority);
-		session.save(pCard);
 		return card;
 	}
 

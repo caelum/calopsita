@@ -55,4 +55,8 @@ public class PlanningCard implements Gadget {
 		return id;
 	}
 
+	public String getHtml() {
+		return "";
+	}
+
 }

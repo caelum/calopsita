@@ -58,5 +58,15 @@ public class PrioritizableCard implements Gadget {
 		return id;
 	}
 
+	public String getHtml() {
+		return "<span class=\"priority\" title=\"Priority\">" + getHtmlPriority() + "</span>";
+	}
+	private String getHtmlPriority() {
+		if (priority == 0) {
+			return "&#8734;";
+		} else {
+			return "" + priority;
+		}
+	}
 
 }

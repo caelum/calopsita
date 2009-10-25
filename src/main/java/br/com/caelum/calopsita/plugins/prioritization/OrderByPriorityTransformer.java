@@ -9,6 +9,7 @@ import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.persistence.dao.CardDao;
+import br.com.caelum.calopsita.plugins.PluginResultTransformer;
 import br.com.caelum.calopsita.plugins.Transformer;
 
 public class OrderByPriorityTransformer implements Transformer<Card> {
@@ -18,7 +19,7 @@ public class OrderByPriorityTransformer implements Transformer<Card> {
 	}
 
 	public List<Card> transform(List<Card> list, Session session) {
-		CardDao repository = new CardDao(session, Arrays.<Transformer>asList(this));
+		CardDao repository = new CardDao(session, new PluginResultTransformer(session, Arrays.<Transformer>asList(this)));
 		for (Card card : list) {
 			card.setRepository(repository);
 		}

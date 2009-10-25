@@ -53,7 +53,7 @@ public class Iteration implements Identifiable, FromProject {
 	}
 
     public List<Card> getCards() {
-		return getRepository().listCardsOrderedByPriority(this);
+		return getRepository().listCards(this);
 	}
 
     public void delete() {

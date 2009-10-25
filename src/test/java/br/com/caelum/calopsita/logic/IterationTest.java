@@ -302,7 +302,7 @@ public class IterationTest {
 	    mockery.checking(new Expectations() {
             {
                 one(iterationRepository).remove(returned);
-                allowing(iterationRepository).listCardsOrderedByPriority(returned);
+                allowing(iterationRepository).listCards(returned);
             }
         });
     }
@@ -337,7 +337,7 @@ public class IterationTest {
 
 				one(cardRepository).update(loaded);
 
-				allowing(iterationRepository).listCardsOrderedByPriority(with(any(Iteration.class)));
+				allowing(iterationRepository).listCards(with(any(Iteration.class)));
 				allowing(projectRepository).planningCardsWithoutIteration(with(any(Project.class)));
 				allowing(iterationRepository).load(iteration);
 				will(returnValue(iteration));
@@ -355,7 +355,7 @@ public class IterationTest {
 				one(cardRepository).load(card);
 				will(returnValue(card));
 
-				allowing(iterationRepository).listCardsOrderedByPriority(with(any(Iteration.class)));
+				allowing(iterationRepository).listCards(with(any(Iteration.class)));
 				allowing(projectRepository).planningCardsWithoutIteration(with(any(Project.class)));
 				allowing(iterationRepository).load(with(any(Iteration.class)));
 				will(returnValue(new Iteration()));

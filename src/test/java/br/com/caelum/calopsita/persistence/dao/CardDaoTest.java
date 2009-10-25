@@ -19,6 +19,7 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.plugins.PluginResultTransformer;
 import br.com.caelum.calopsita.plugins.Transformer;
 import br.com.caelum.calopsita.plugins.planning.PlanningCard;
 import br.com.caelum.calopsita.plugins.prioritization.OrderByPriorityTransformer;
@@ -31,7 +32,7 @@ public class CardDaoTest extends AbstractDaoTest {
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		dao = new CardDao(session, Arrays.<Transformer>asList(new OrderByPriorityTransformer()));
+		dao = new CardDao(session, new PluginResultTransformer(session, Arrays.<Transformer>asList(new OrderByPriorityTransformer())));
 	}
 
 	@Test

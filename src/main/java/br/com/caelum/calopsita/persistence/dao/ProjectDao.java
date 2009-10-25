@@ -15,7 +15,6 @@ import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.plugins.PluginResultTransformer;
-import br.com.caelum.calopsita.plugins.Transformer;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -26,10 +25,10 @@ public class ProjectDao implements ProjectRepository {
 	private final CardDao cardDao;
 	private final PluginResultTransformer transformer;
 
-    public ProjectDao(Session session, List<Transformer> transformers) {
+    public ProjectDao(Session session, PluginResultTransformer transformer) {
         this.session = session;
-		this.cardDao = new CardDao(session, transformers);
-		transformer = new PluginResultTransformer(session, transformers, Card.class);
+		this.transformer = transformer;
+		this.cardDao = new CardDao(session, transformer);
     }
 
     public Project refresh(Project project) {
@@ -87,7 +86,9 @@ public class ProjectDao implements ProjectRepository {
 
     public List<Iteration> listIterationsFrom(Project project) {
         return this.session.createQuery("from Iteration i where i.project = :project")
-        .setParameter("project", project).list();
+        .setParameter("project", project)
+        .setResultTransformer(transformer)
+        .list();
     }
 
 	public boolean hasInconsistentValues(Object[] parameters, User user) {
@@ -134,7 +135,9 @@ public class ProjectDao implements ProjectRepository {
 	public Iteration getCurrentIterationFromProject(Project project) {
         return (Iteration) this.session.createQuery("from Iteration i where i.project = :project and " +
         ":today >= i.startDate and (i.endDate IS NULL OR :today <= i.endDate)")
-        .setParameter("project", project).setParameter("today", new LocalDate()).uniqueResult();
+        .setParameter("project", project).setParameter("today", new LocalDate())
+        .setResultTransformer(transformer)
+        .uniqueResult();
     }
 
 	public List<Card> planningCardsWithoutIteration(Project project) {

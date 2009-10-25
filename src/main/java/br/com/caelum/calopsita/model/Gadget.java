@@ -8,4 +8,5 @@ public interface Gadget {
 
 	Card getCard();
 
+	String getHtml();
 }

@@ -11,7 +11,6 @@ import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.plugins.PluginResultTransformer;
-import br.com.caelum.calopsita.plugins.Transformer;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -21,16 +20,16 @@ public class CardDao implements CardRepository {
 	private final Session session;
 	private final PluginResultTransformer transformer;
 
-	public CardDao(Session session, List<Transformer> transformers) {
+	public CardDao(Session session, PluginResultTransformer transformer) {
 		this.session = session;
-		transformer = new PluginResultTransformer(session, transformers, Card.class);
+		this.transformer = transformer;
 	}
 
 	public Card refresh(Card card) {
 		session.refresh(card);
 		return card;
 	}
-	
+
 	public void add(Card card) {
 		session.save(card);
 	}

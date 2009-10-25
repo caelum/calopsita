@@ -6,6 +6,7 @@ import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
+import br.com.caelum.calopsita.plugins.PluginResultTransformer;
 import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -13,9 +14,11 @@ import br.com.caelum.vraptor.ioc.Component;
 public class IterationDao implements IterationRepository{
 
     private final Session session;
+	private final PluginResultTransformer transformer;
 
-    public IterationDao(Session session) {
+    public IterationDao(Session session, PluginResultTransformer transformer) {
         this.session = session;
+		this.transformer = transformer;
     }
 
     public void add(Iteration iteration) {
@@ -34,10 +37,11 @@ public class IterationDao implements IterationRepository{
     	return (Iteration) session.load(Iteration.class, iteration.getId());
     }
 
-    public List<Card> listCardsOrderedByPriority(Iteration iteration) {
-		return (List<Card>) session.createQuery("select c from PrioritizableCard p right join p.card c " +
-				"where c.iteration = :iteration " +
-				"order by p.priority, c.id").setParameter("iteration", iteration).list();
+    public List<Card> listCards(Iteration iteration) {
+		return session.createQuery("from Card c where c.iteration = :iteration ")
+				.setParameter("iteration", iteration)
+				.setResultTransformer(transformer)
+				.list();
 	}
 
 }

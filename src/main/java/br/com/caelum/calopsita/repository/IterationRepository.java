@@ -8,5 +8,5 @@ import br.com.caelum.calopsita.model.Iteration;
 public interface IterationRepository extends BaseRepository<Iteration> {
 	Iteration load(Iteration iteration);
 
-	List<Card> listCardsOrderedByPriority(Iteration iteration);
+	List<Card> listCards(Iteration iteration);
 }
