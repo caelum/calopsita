@@ -1,16 +1,15 @@
 package br.com.caelum.calopsita.model;
 
-import br.com.caelum.calopsita.infra.vraptor.CalopsitaResult;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class DefaultParameters implements Parameters {
 
-	private final CalopsitaResult result;
+	private final Result result;
 
 	public DefaultParameters(Result result) {
-		this.result = (CalopsitaResult) result;
+		this.result = result;
 	}
 
 	public boolean contains(String parameterName) {

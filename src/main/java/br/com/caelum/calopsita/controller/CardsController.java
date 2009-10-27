@@ -9,7 +9,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -55,7 +54,9 @@ public class CardsController {
 		this.result.use(page()).of(CardsController.class).list(project);
 	}
 
-	@Path("/projects/{card.project.id}/cards/") @Post
+	@Path({	"/projects/{card.project.id}/cards/",
+			"/projects/{card.project.id}/cards/{card.parent.id}/subcards/"})
+	@Post
 	public void save(final Card card, List<Gadgets> gadgets) {
 		validator.checking(new Validations() {{
             and(Hibernate.validate(card));
@@ -91,13 +92,6 @@ public class CardsController {
 		result.include("parent", card.load());
 		result.include("cardTypes", card.getProject().getCardTypes());
 		result.include("gadgets", Gadgets.values());
-	}
-
-	@Path("/projects/{card.project.id}/cards/{card.parent.id}/subcards/") @Post
-	public void saveSubcard(Card card) {
-		card.save();
-		result.include("project", card.getProject());
-		result.use(page()).of(CardsController.class).save(card, Collections.<Gadgets>emptyList());
 	}
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/") @Get

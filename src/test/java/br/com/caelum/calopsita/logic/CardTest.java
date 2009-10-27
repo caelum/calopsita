@@ -242,16 +242,6 @@ public class CardTest {
 		mockery.assertIsSatisfied();
 	}
 
-    @Test
-	public void addingSubcardSavesIt() throws Exception {
-		Card card = givenACard();
-
-		shouldSaveOnTheRepositoryTheCard(card);
-
-		logic.saveSubcard(card);
-
-	}
-
     private void shouldIncludeSubcardsList(final Card card) {
 
 		mockery.checking(new Expectations() {
