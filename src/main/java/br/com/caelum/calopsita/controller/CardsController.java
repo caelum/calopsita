@@ -39,7 +39,7 @@ public class CardsController {
 	public CardsController(Result result, Validator validator, SessionUser user) {
 		this.result = result;
         this.validator = validator;
-        this.currentUser = user == null? null: user.getUser();
+        this.currentUser = user.getUser();
 	}
 
 	@Path("/projects/{project.id}/cards/") @Get
@@ -52,8 +52,6 @@ public class CardsController {
 	public void all(Project project) {
 		this.result.include("project", project.load());
 		this.result.include("cards",  project.getAllCards());
-		this.result.include("gadgets", Gadgets.values());
-		this.result.include("cardTypes", project.getCardTypes());
 		this.result.use(page()).of(CardsController.class).list(project);
 	}
 
@@ -75,7 +73,6 @@ public class CardsController {
 	@Path("/projects/{project.id}/cards/new/") @Get
     public void form(Project project) {
     	this.result.include("project", project.load());
-    	this.result.include("cards",  project.getToDoCards());
     	this.result.include("gadgets", Gadgets.values());
     	this.result.include("cardTypes", project.getCardTypes());
     }
@@ -92,6 +89,7 @@ public class CardsController {
 		result.include("project", card.getProject().load());
 		result.include("card", card);
 		result.include("parent", card.load());
+		result.include("cardTypes", card.getProject().getCardTypes());
 		result.include("gadgets", Gadgets.values());
 	}
 
@@ -104,12 +102,10 @@ public class CardsController {
 
 	@Path("/projects/{card.project.id}/cards/{card.id}/") @Get
 	public void edit(Card card) {
-	    Card loaded = card.load();
-		result.include("card", loaded);
-		result.include("project", loaded.getProject());
+	    result.include("card", card.load());
+		result.include("project", card.getProject().load());
 		result.include("gadgets", Gadgets.values());
 	    result.include("cardGadgets", Gadgets.valueOf(card.getGadgets()));
-	    result.include("subcards", card.getSubcards());
 	    result.include("cardTypes", card.getProject().getCardTypes());
 	}
 

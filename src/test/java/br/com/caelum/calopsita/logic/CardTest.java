@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.logic;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,7 +98,7 @@ public class CardTest {
         mockery.assertIsSatisfied();
 	}
 
-    @Test(expected=ValidationException.class)
+    @Test
     public void removeACardFromOtherProjectThanMine() throws Exception {
         Card card = givenACard();
         givenTheProjectIsOwnedBy(anyUser());
@@ -106,11 +107,17 @@ public class CardTest {
 
     	shouldNotRemoveTheCardFromRepository(returned);
 
-    	whenIRemove(card);
+    	try {
+			whenIRemove(card);
+			fail("Expected ValidationException");
+		} catch (ValidationException e) {
+			mockery.assertIsSatisfied();
+		}
 
-        mockery.assertIsSatisfied();
     }
-    @Test
+
+
+	@Test
     public void removeACardAndSubcards() throws Exception {
     	Card card = givenACard();
     	givenTheProjectIsOwnedBy(currentUser);
@@ -176,7 +183,110 @@ public class CardTest {
 		mockery.assertIsSatisfied();
 	}
 
-    private void whenISaveTheCard(Card card, Project project,
+    @Test
+	public void listingCardsShouldIncludeOnlyTodoCards() throws Exception {
+		shouldIncludeTodoCards();
+
+		logic.list(project);
+
+		mockery.assertIsSatisfied();
+	}
+    @Test
+    public void listingAllCardsShouldIncludeAllCards() throws Exception {
+    	shouldIncludeAllCards();
+
+    	logic.all(project);
+
+    	mockery.assertIsSatisfied();
+    }
+    @Test
+    public void formShouldIncludeAllCardTypes() throws Exception {
+    	shouldIncludeAllCardTypes();
+
+    	logic.form(project);
+
+    	mockery.assertIsSatisfied();
+    }
+
+    @Test
+    public void subcardFormShouldIncludeAllCardTypes() throws Exception {
+    	Card card = givenACard();
+    	card.setProject(project);
+
+    	shouldIncludeAllCardTypes();
+
+    	logic.subcardForm(card);
+
+    	mockery.assertIsSatisfied();
+    }
+    @Test
+    public void editFormShouldIncludeAllCardTypes() throws Exception {
+    	Card card = givenACard();
+    	card.setProject(project);
+
+    	shouldIncludeAllCardTypes();
+
+    	logic.edit(card);
+
+    	mockery.assertIsSatisfied();
+    }
+
+    @Test
+	public void listingSubcardsShouldIncludeSubcardsList() throws Exception {
+    	Card card = givenACard();
+
+		shouldIncludeSubcardsList(card);
+
+		logic.listSubcards(card);
+
+		mockery.assertIsSatisfied();
+	}
+
+    @Test
+	public void addingSubcardSavesIt() throws Exception {
+		Card card = givenACard();
+
+		shouldSaveOnTheRepositoryTheCard(card);
+
+		logic.saveSubcard(card);
+
+	}
+
+    private void shouldIncludeSubcardsList(final Card card) {
+
+		mockery.checking(new Expectations() {
+			{
+				one(repository).listSubcards(card);
+
+				ignoring(anything());
+			}
+		});
+	}
+
+	private void shouldIncludeAllCardTypes() {
+
+		mockery.checking(new Expectations() {
+			{
+				one(projectRepository).listCardTypesFrom(project);
+				ignoring(anything());
+			}
+		});
+	}
+
+
+	private void shouldIncludeAllCards() {
+
+		mockery.checking(new Expectations() {
+			{
+				one(projectRepository).listCardsFrom(project);
+
+				ignoring(anything());
+			}
+		});
+	}
+
+
+	private void whenISaveTheCard(Card card, Project project,
 			List<Gadgets> gadgets) {
     	card.setProject(project);
     	logic.save(card, gadgets);
@@ -197,6 +307,15 @@ public class CardTest {
 		});
 	}
 
+	private void shouldIncludeTodoCards() {
+		mockery.checking(new Expectations() {
+			{
+				one(projectRepository).listTodoCardsFrom(project);
+
+				ignoring(anything());
+			}
+		});
+	}
 
 	private Card givenTheCardIsInThisProject(final Card card) {
         mockery.checking(new Expectations() {
