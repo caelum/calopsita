@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.infra;
 
+import static org.junit.Assert.assertFalse;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.jmock.Expectations;
@@ -7,9 +9,12 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.calopsita.controller.HomeController;
 import br.com.caelum.calopsita.infra.interceptor.HibernateInterceptor;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.core.InterceptorStack;
+import br.com.caelum.vraptor.resource.DefaultResourceClass;
+import br.com.caelum.vraptor.resource.DefaultResourceMethod;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
 public class HibernateInterceptorTest {
@@ -47,6 +52,16 @@ public class HibernateInterceptorTest {
 		whenInterceptOccurs();
 		mockery.assertIsSatisfied();
 	}
+
+	@Test
+	public void shouldBypassUsersAndHomeController() throws Exception {
+		assertFalse(interceptor.accepts(anyResourceMethodOf(HomeController.class)));
+	}
+
+	private ResourceMethod anyResourceMethodOf(Class<?> clazz) {
+		return new DefaultResourceMethod(new DefaultResourceClass(clazz), clazz.getDeclaredMethods()[0]);
+	}
+
 	private void shouldRollbackTheTransaction(final Transaction t) {
 		mockery.checking(new Expectations() {
 			{

@@ -3,12 +3,12 @@ package br.com.caelum.calopsita.plugins.planning;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Menu;
 import br.com.caelum.calopsita.model.Parameters;
-import br.com.caelum.calopsita.model.Plugin;
 import br.com.caelum.calopsita.model.PluginConfig;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.SubmenuItem;
+import br.com.caelum.vraptor.ioc.Component;
 
-@Plugin
+@Component
 public class PlanningPlugin implements PluginConfig {
 
 	public String getDescription() {

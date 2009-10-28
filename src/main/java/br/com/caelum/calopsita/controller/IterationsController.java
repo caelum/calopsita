@@ -38,7 +38,7 @@ public class IterationsController {
     public IterationsController(Result result, Validator validator, SessionUser user) {
         this.result = result;
 		this.validator = validator;
-		this.currentUser = user == null ? null : user.getUser();
+		this.currentUser = user.getUser();
     }
 
     @Path("/projects/{iteration.project.id}/iterations/{iteration.id}/edit/") @Get
@@ -85,15 +85,12 @@ public class IterationsController {
     public void list(Project project) {
         this.result.include("project", project.load());
         this.result.include("iterations", project.getIterations());
-        result.use(page()).forward("/WEB-INF/jsp/iterations/list.jsp");
     }
 
 	@Path("/projects/{iteration.project.id}/iterations/{iteration.id}/") @Get
     public void show(Iteration iteration) {
-    	Iteration loaded = iteration.load();
-    	Project project = loaded.getProject();
-    	result.include("iteration", loaded);
-    	result.include("project", project);
+    	result.include("iteration", iteration.load());
+    	result.include("project", iteration.getProject().load());
     	result.include("otherCards", iteration.getProject().getCardsWithoutIteration());
     	result.include("today", new LocalDate());
     }

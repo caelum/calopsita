@@ -118,6 +118,8 @@ public class IterationTest {
         shouldRemoveTheIterationFromRepository(returnedIteration);
 
         whenIRemove(iteration);
+
+        assertThat(card.getIteration(), is(nullValue()));
         mockery.assertIsSatisfied();
     }
 
@@ -204,7 +206,119 @@ public class IterationTest {
 		mockery.assertIsSatisfied();
 
 	}
-    private LocalDate tomorrow() {
+
+    @Test
+	public void editingIterationShouldLoadItsFields() throws Exception {
+		Iteration iteration = givenAnIteration();
+		shouldLoadIteration(iteration);
+
+		logic.edit(iteration);
+
+		mockery.assertIsSatisfied();
+	}
+    @Test
+    public void formShouldIncludeLoadedProject() throws Exception {
+    	Project project = givenAProject();
+
+    	shouldLoadProject(project);
+
+    	logic.form(project);
+
+    	mockery.assertIsSatisfied();
+    }
+    @Test
+    public void currentShouldLoadCurrentIteration() throws Exception {
+    	Project project = givenAProject();
+
+    	shouldLoadCurrentIteration(project);
+
+    	logic.current(project);
+
+    	mockery.assertIsSatisfied();
+    }
+    @Test
+    public void shouldListIterationsOfAProject() throws Exception {
+    	Project project = givenAProject();
+
+    	shouldListIterations(project);
+
+    	logic.list(project);
+
+    	mockery.assertIsSatisfied();
+    }
+    @Test
+    public void showingIterationsShouldListBacklogCards() throws Exception {
+    	Iteration iteration = givenAnIteration();
+    	iteration.setProject(project);
+
+    	shouldListBacklogCards(iteration);
+
+    	logic.show(iteration);
+
+    	mockery.assertIsSatisfied();
+    }
+
+    private void shouldListBacklogCards(final Iteration iteration) {
+    	mockery.checking(new Expectations() {
+    		{
+    			one(projectRepository).planningCardsWithoutIteration(iteration.getProject());
+    			ignoring(anything());
+    		}
+    	});
+
+	}
+
+
+	private void shouldListIterations(final Project project2) {
+
+		mockery.checking(new Expectations() {
+			{
+				one(projectRepository).listIterationsFrom(project2);
+				ignoring(anything());
+			}
+		});
+	}
+
+
+	private void shouldLoadCurrentIteration(final Project project2) {
+
+		mockery.checking(new Expectations() {
+			{
+				one(projectRepository).getCurrentIterationFromProject(project2);
+				ignoring(anything());
+			}
+		});
+	}
+
+
+	private void shouldLoadProject(final Project project2) {
+
+		mockery.checking(new Expectations() {
+			{
+				one(projectRepository).load(project2);
+			}
+		});
+	}
+
+
+	private Project givenAProject() {
+		return new Project(projectRepository);
+	}
+
+
+	private void shouldLoadIteration(final Iteration iteration) {
+
+		mockery.checking(new Expectations() {
+			{
+				one(iterationRepository).load(iteration);
+
+				ignoring(anything());
+			}
+		});
+	}
+
+
+	private LocalDate tomorrow() {
 		return new LocalDate().plusDays(1);
 	}
 
@@ -273,9 +387,17 @@ public class IterationTest {
         return result;
 	}
 
-	private void givenTheIterationHasThisCard(Card card, Iteration returnedIteration) {
+	private void givenTheIterationHasThisCard(final Card card, final Iteration returnedIteration) {
         returnedIteration.addCard(card);
         card.setIteration(returnedIteration);
+
+
+		mockery.checking(new Expectations() {
+			{
+				one(iterationRepository).listCards(returnedIteration);
+				will(returnValue(Arrays.asList(card)));
+			}
+		});
     }
 
     private void givenTheProjectIsOwnedBy(User user) {
@@ -343,6 +465,8 @@ public class IterationTest {
 				allowing(projectRepository).planningCardsWithoutIteration(with(any(Project.class)));
 				allowing(iterationRepository).load(iteration);
 				will(returnValue(iteration));
+
+				ignoring(anything());
 			}
 		});
 		return loaded;
@@ -361,6 +485,7 @@ public class IterationTest {
 				allowing(projectRepository).planningCardsWithoutIteration(with(any(Project.class)));
 				allowing(iterationRepository).load(with(any(Iteration.class)));
 				will(returnValue(new Iteration(iterationRepository)));
+				ignoring(anything());
 			}
 		});
 	}

@@ -2,12 +2,12 @@ package br.com.caelum.calopsita.plugins.prioritization;
 
 import br.com.caelum.calopsita.model.Menu;
 import br.com.caelum.calopsita.model.Parameters;
-import br.com.caelum.calopsita.model.Plugin;
 import br.com.caelum.calopsita.model.PluginConfig;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.SubmenuItem;
+import br.com.caelum.vraptor.ioc.Component;
 
-@Plugin
+@Component
 public class PrioritizationPlugin implements PluginConfig {
 
 	public String getDescription() {

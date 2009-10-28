@@ -30,7 +30,7 @@ public class ProjectsController {
     public ProjectsController(Validator validator, Result result, SessionUser user) {
         this.result = result;
         this.validator = validator;
-        this.currentUser = (user == null? null:user.getUser());
+        this.currentUser = user.getUser();
     }
 
     @Path("/projects/new/") @Get
@@ -75,14 +75,9 @@ public class ProjectsController {
 	    result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
-    @Path("/projects/") @Get
+    @Path({"/projects/", "/"}) @Get
     public List<Project> list() {
         return currentUser.getProjects();
-    }
-
-    @Path("/") @Get
-    public void index() {
-    	result.use(logic()).redirectTo(ProjectsController.class).list();
     }
 
     @Path("/projects/{project.id}/colaborators/") @Get

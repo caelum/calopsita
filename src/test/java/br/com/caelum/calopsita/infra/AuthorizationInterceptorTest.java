@@ -1,6 +1,7 @@
 package br.com.caelum.calopsita.infra;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertFalse;
 
 import java.io.IOException;
 
@@ -12,14 +13,19 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.calopsita.controller.HomeController;
+import br.com.caelum.calopsita.controller.UsersController;
 import br.com.caelum.calopsita.infra.interceptor.AuthorizationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
+import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.core.MethodInfo;
+import br.com.caelum.vraptor.resource.DefaultResourceClass;
+import br.com.caelum.vraptor.resource.DefaultResourceMethod;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
 public class AuthorizationInterceptorTest {
@@ -76,6 +82,35 @@ public class AuthorizationInterceptorTest {
 
 		whenInterceptOccurs();
 		mockery.assertIsSatisfied();
+	}
+
+	@Test
+	public void shouldBypassUsersAndHomeController() throws Exception {
+		assertFalse(interceptor.accepts(anyResourceMethodOf(HomeController.class)));
+		assertFalse(interceptor.accepts(anyResourceMethodOf(UsersController.class)));
+	}
+
+	@Test(expected=InterceptionException.class)
+	public void shouldRethrowExceptions() throws Exception {
+		givenThereIsSomeInconsistency();
+		givenResponseThrowsException();
+
+		whenInterceptOccurs();
+	}
+	private void givenResponseThrowsException() throws IOException {
+
+		mockery.checking(new Expectations() {
+			{
+				one(response).sendRedirect(with(any(String.class)));
+				will(throwException(new IOException()));
+
+				ignoring(anything());
+			}
+		});
+	}
+
+	private ResourceMethod anyResourceMethodOf(Class<?> clazz) {
+		return new DefaultResourceMethod(new DefaultResourceClass(clazz), clazz.getDeclaredMethods()[0]);
 	}
 
 	private void givenThereIsSomeInconsistency() {
