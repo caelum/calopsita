@@ -11,7 +11,6 @@ import net.vidageek.mirror.dsl.Mirror;
 import org.hibernate.CallbackException;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.EntityMode;
-import org.hibernate.type.Type;
 
 import br.com.caelum.iogi.Instantiator;
 import br.com.caelum.iogi.parameters.Parameters;
@@ -44,11 +43,6 @@ public class RepositoryInterceptor extends EmptyInterceptor {
 
 		new Mirror().on(object).set().field(field).withValue(id);
 		return object;
-	}
-
-	@Override
-	public boolean onLoad(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
-		return super.onLoad(entity, id, state, propertyNames, types);
 	}
 
 }

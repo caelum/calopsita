@@ -1,5 +1,9 @@
 package br.com.caelum.calopsita.infra.interceptor;
 
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
@@ -42,10 +46,14 @@ public class RepositoryInterceptorTest {
 		mockery.checking(new Expectations() {
 			{
 				one(instantiator).instantiate(with(any(Target.class)), with(any(Parameters.class)));
+				will(returnValue(new Card()));
+
 				ignoring(anything());
 			}
 		});
-		otherSession.load(Card.class, card.getId());
+		Object loaded = otherSession.load(Card.class, card.getId());
+		assertThat(loaded, is(instanceOf(Card.class)));
+		assertThat(((Card)loaded).getId(), is(card.getId()));
 
 	}
 

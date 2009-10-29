@@ -12,7 +12,6 @@ public class CalopsitaProvider extends SpringProvider {
 
 	@Override
 	protected void registerCustomComponents(ComponentRegistry registry) {
-		super.registerCustomComponents(registry);
 		registry.register(SessionFactoryCreator.class, SessionFactoryCreator.class);
 		registry.register(ParametersProvider.class, IogiParametersProvider.class);
 		registry.register(Instantiator.class, VRaptorInstantiator.class);

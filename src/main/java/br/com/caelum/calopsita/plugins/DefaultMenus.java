@@ -10,10 +10,10 @@ import br.com.caelum.calopsita.model.SubmenuItem;
 public class DefaultMenus {
 
 	public void includeMenus(Menu menu, Parameters parameters) {
-		Project project = parameters.get("project");
-		if (project == null) {
+		if (!parameters.contains("project")) {
 			return;
 		}
+		Project project = parameters.get("project");
 		menu.getOrCreate("iteration.current")
 			.add(new SubmenuItem("iteration.current", "/projects/" + project.getId() + "/iterations/current/"));
 
