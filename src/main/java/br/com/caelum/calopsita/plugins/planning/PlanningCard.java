@@ -11,7 +11,6 @@ import org.hibernate.annotations.Parameter;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
-import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 
 @Entity
 public class PlanningCard implements Gadget {
@@ -25,10 +24,6 @@ public class PlanningCard implements Gadget {
 	@PrimaryKeyJoinColumn
 	private Card card;
 
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	private PrioritizableCard prioritizableCard;
-
 	public PlanningCard() {
 	}
 
@@ -38,9 +33,6 @@ public class PlanningCard implements Gadget {
 		return pcard;
 	}
 
-	public PrioritizableCard getPrioritizableCard() {
-		return prioritizableCard;
-	}
 	public Card getCard() {
 		return card;
 	}
