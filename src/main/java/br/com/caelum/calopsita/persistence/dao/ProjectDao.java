@@ -69,7 +69,7 @@ public class ProjectDao implements ProjectRepository {
     }
 
     public void update(Project project) {
-        this.session.merge(project);
+        this.session.update(project);
     }
 
     public void remove(Project project) {

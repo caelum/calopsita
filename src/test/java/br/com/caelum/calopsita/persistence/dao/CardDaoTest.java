@@ -12,6 +12,9 @@ import java.util.List;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
+import org.hibernate.Session;
+import org.jmock.Expectations;
+import org.jmock.Sequence;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,6 +30,7 @@ import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 
 public class CardDaoTest extends AbstractDaoTest {
 	private CardDao dao;
+	private Session mockSession;
 
 	@Override
 	@Before
@@ -84,6 +88,33 @@ public class CardDaoTest extends AbstractDaoTest {
 
 	}
 
+	@Test
+	public void testDelegation() throws Exception {
+		CardDao mockedDao = givenAMockedDao();
+		shouldExecuteCrudInSequence();
+		mockedDao.add(new Card());
+		mockedDao.load(new Card());
+		mockedDao.update(new Card());
+		mockedDao.remove(new Card());
+		mockery.assertIsSatisfied();
+	}
+
+	private void shouldExecuteCrudInSequence() {
+		final Sequence crud = mockery.sequence("crud");
+		mockery.checking(new Expectations() {
+			{
+				one(mockSession).save(with(any(Card.class))); inSequence(crud);
+				one(mockSession).load(Card.class, null); will(returnValue(new Card())); inSequence(crud);
+				one(mockSession).update(with(any(Card.class))); inSequence(crud);
+				one(mockSession).delete(with(any(Card.class))); inSequence(crud);
+			}
+		});
+	}
+
+	private CardDao givenAMockedDao() {
+		mockSession = mockery.mock(Session.class);
+		return new CardDao(mockSession, null);
+	}
 
 	private void whenIAddPriorizationGadget(Card card) {
 		dao.updateGadgets(card, Arrays.asList(Gadgets.PRIORITIZATION));

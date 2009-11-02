@@ -67,10 +67,6 @@ public class Card implements Identifiable, FromProject {
 		return repository;
 	}
 
-	public Card refresh() {
-		return getRepository().refresh(this);
-	}
-
 	@Transient
 	private List<Gadget> gadgets;
 
@@ -124,7 +120,7 @@ public class Card implements Identifiable, FromProject {
 	}
 	public List<Card> getSubcards() {
 		if (subcards == null) {
-			return getRepository().listSubcards(this);
+			subcards = getRepository().listSubcards(this);
 		}
 		return subcards;
 	}

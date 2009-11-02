@@ -13,6 +13,9 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.jmock.Expectations;
+import org.jmock.Sequence;
 import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +37,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	private IterationDao iterationDao;
 	private CardDao cardDao;
 	private UserDao userDao;
+	private Session mockSession;
 
 	@Override
 	@Before
@@ -268,6 +272,49 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		assertThat(users, hasItem(user));
 		assertThat(users, not(hasItem(owner)));
 	}
+
+	@Test
+	public void shouldShowOnlyLastFiveAddedCards() throws Exception {
+		Project project = givenAProject();
+		Card first = givenACard(project);
+		Card second = givenACard(project);
+		Card third = givenACard(project);
+		Card forth = givenACard(project);
+		Card fifth = givenACard(project);
+		Card sixth = givenACard(project);
+
+		List<Card> list = dao.listLastAddedCards(project);
+
+		assertThat(list.size(), is(5));
+		assertThat(list, not(hasItem(first)));
+		assertThat(list, hasItems(second, third, forth, fifth, sixth));
+	}
+	@Test
+	public void testDelegation() throws Exception {
+		ProjectDao mockedDao = givenAMockedDao();
+		shouldExecuteCrudInSequence();
+		mockedDao.add(new Project());
+		mockedDao.load(new Project());
+		mockedDao.update(new Project());
+		mockery.assertIsSatisfied();
+	}
+
+    private ProjectDao givenAMockedDao() {
+		mockSession = mockery.mock(Session.class);
+		return new ProjectDao(mockSession, null);
+	}
+
+	private void shouldExecuteCrudInSequence() {
+		final Sequence crud = mockery.sequence("crud");
+		mockery.checking(new Expectations() {
+			{
+				one(mockSession).save(with(any(Project.class))); inSequence(crud);
+				one(mockSession).load(Project.class, null); will(returnValue(new Project())); inSequence(crud);
+				one(mockSession).update(with(any(Project.class))); inSequence(crud);
+			}
+		});
+	}
+
 
 	private User givenAnUserColaboratorOf(Project project) {
 		User user = givenAnUnrelatedUser("caue");

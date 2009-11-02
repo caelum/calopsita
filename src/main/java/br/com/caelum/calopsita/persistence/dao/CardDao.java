@@ -25,11 +25,6 @@ public class CardDao implements CardRepository {
 		this.transformer = transformer;
 	}
 
-	public Card refresh(Card card) {
-		session.refresh(card);
-		return card;
-	}
-
 	public void add(Card card) {
 		session.save(card);
 	}
@@ -57,10 +52,6 @@ public class CardDao implements CardRepository {
 		return session.createQuery("from Card s where s.parent = :card")
 			.setResultTransformer(transformer)
 			.setParameter("card", card).list();
-	}
-
-	public <T extends Gadget> T load(T gadget) {
-		return (T) session.load(gadget.getClass(), gadget.getCard().getId());
 	}
 
 	public void add(Gadget gadget) {

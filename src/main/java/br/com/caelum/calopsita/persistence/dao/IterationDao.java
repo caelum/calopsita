@@ -30,7 +30,7 @@ public class IterationDao implements IterationRepository{
     }
 
     public void update(Iteration iteration) {
-        session.merge(iteration);
+        session.update(iteration);
     }
 
     public Iteration load(Iteration iteration) {

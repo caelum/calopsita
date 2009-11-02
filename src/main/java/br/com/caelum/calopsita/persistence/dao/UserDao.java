@@ -22,19 +22,8 @@ public class UserDao implements UserRepository {
         this.session.save(user);
     }
 
-    public void update(User user) {
-        this.session.merge(user);
-    }
-
-    public void remove(User user) {
-    }
-
     public User find(String login) {
         return (User) this.session.createQuery("from User where login = :login").setParameter("login", login).uniqueResult();
-    }
-
-    public List<User> listAll() {
-    	return session.createQuery("from User").list();
     }
 
     public List<Project> listAllFrom(User user) {

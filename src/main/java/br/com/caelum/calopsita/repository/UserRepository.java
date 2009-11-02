@@ -5,11 +5,11 @@ import java.util.List;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 
-public interface UserRepository extends BaseRepository<User> {
+public interface UserRepository {
+
+	void add(User user);
 
     User find(String login);
-
-	List<User> listAll();
 
 	List<Project> listAllFrom(User user);
 

@@ -15,8 +15,6 @@ public interface CardRepository extends BaseRepository<Card>{
 
 	List<Card> listSubcards(Card card);
 
-	<T extends Gadget> T load(T card);
-
 	List<Card> listFrom(Project project);
 
 	void add(Gadget gadget);
@@ -24,7 +22,5 @@ public interface CardRepository extends BaseRepository<Card>{
 	List<Gadget> listGadgets(Card card);
 
 	void updateGadgets(Card card, List<Gadgets> gadgets);
-
-	Card refresh(Card card);
 
 }
