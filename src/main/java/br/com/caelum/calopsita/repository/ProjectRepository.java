@@ -12,7 +12,7 @@ public interface ProjectRepository extends BaseRepository<Project> {
 
 	Project get(Long id);
 
-	List<Card> listCardsFrom(Project project);
+	List<Card> listRootCardsFrom(Project project);
 
 	Project load(Project project);
 

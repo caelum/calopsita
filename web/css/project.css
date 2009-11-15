@@ -48,6 +48,17 @@
 	padding: 0;
 }
 
+.subcards {
+	display: none;	
+	padding-left: 10px;
+}
+.sign {
+	color: gray;
+	float: left;
+	font-size: 6pt;
+	margin-top: 3pt;	
+	cursor: pointer;
+}
 .story,.card,.iteration,.pretty li {
 	float: left;
 	clear: both;

@@ -50,7 +50,7 @@ public class CardsController {
 	@Path("/projects/{project.id}/cards/all/") @Get
 	public void all(Project project) {
 		this.result.include("project", project.load());
-		this.result.include("cards",  project.getAllCards());
+		this.result.include("cards",  project.getAllRootCards());
 		this.result.use(page()).of(CardsController.class).list(project);
 	}
 

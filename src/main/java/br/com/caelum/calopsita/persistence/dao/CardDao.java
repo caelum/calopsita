@@ -41,8 +41,8 @@ public class CardDao implements CardRepository {
 		session.delete(card);
 	}
 
-	public List<Card> listFrom(Project project) {
-		return this.session.createQuery("from Card c where c.project = :project")
+	public List<Card> listRootFrom(Project project) {
+		return this.session.createQuery("from Card c where c.project = :project and c.parent is null")
 			.setParameter("project", project)
 			.setResultTransformer(transformer)
 			.list();

@@ -57,7 +57,16 @@ public class CardDaoTest extends AbstractDaoTest {
 		Card card3 = givenAPlanningCard(project, withPriority(3));
 		Card card1 = givenAPlanningCard(project, withPriority(1));
 
-		assertThat(dao.listFrom(project), hasItemsInThisOrder(card1, card3));
+		assertThat(dao.listRootFrom(project), hasItemsInThisOrder(card1, card3));
+	}
+	@Test
+	public void shouldNotListCardsWithParent() throws Exception {
+		Project project = givenAProject();
+		Card parent = givenACard(project);
+		Card subcard = givenASubcard(parent);
+
+		assertThat(dao.listRootFrom(project), hasItem(parent));
+		assertThat(dao.listRootFrom(project), not(hasItem(subcard)));
 	}
 
 	@Test

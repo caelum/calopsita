@@ -15,7 +15,7 @@ public interface CardRepository extends BaseRepository<Card>{
 
 	List<Card> listSubcards(Card card);
 
-	List<Card> listFrom(Project project);
+	List<Card> listRootFrom(Project project);
 
 	void add(Gadget gadget);
 

@@ -80,8 +80,8 @@ public class ProjectDao implements ProjectRepository {
     	this.session.delete(project);
     }
 
-	public List<Card> listCardsFrom(Project project) {
-		return cardDao.listFrom(project);
+	public List<Card> listRootCardsFrom(Project project) {
+		return cardDao.listRootFrom(project);
 	}
 
     public List<Iteration> listIterationsFrom(Project project) {

@@ -5,6 +5,15 @@ function toggleDescription(el) {
 		$('.description').slideToggle();
 		
 }
+function toggleSubcards(li, id) {
+	if ($(li).html().indexOf('+') >= 0) {
+		$('#subcards_' + id).show();
+		$(li).html('[-]');
+	} else {
+		$('#subcards_' + id).hide();
+		$(li).html('[+]');
+	}
+}
 
 function selectGadgets(select) {
 	$('.gadget').attr('checked', false);

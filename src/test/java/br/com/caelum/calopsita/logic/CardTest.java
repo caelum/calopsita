@@ -268,7 +268,7 @@ public class CardTest {
 
 		mockery.checking(new Expectations() {
 			{
-				one(projectRepository).listCardsFrom(project);
+				one(projectRepository).listRootCardsFrom(project);
 
 				ignoring(anything());
 			}

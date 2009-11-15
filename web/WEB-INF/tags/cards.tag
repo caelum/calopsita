@@ -19,11 +19,16 @@
 	<c:forEach items="${cards}" var="card" varStatus="s">
 		<%@ variable name-given="card" %>
 		<li class="story card" name="${card.name }" id="cards_${card.id}">
+			<c:if test="${not empty card.subcards }">
+				<span class="sign" onclick="toggleSubcards(this, ${card.id});">[+]</span>
+			</c:if>
 			<span class="name"
 			<c:if test="${description }">
 				onclick="toggleDescription(this.parentNode);"
 			</c:if> 
-			>${card.name } <sub class="creator">by ${card.creator.login }</sub></span>
+			>
+			${card.name } <sub class="creator">by ${card.creator.login }</sub></span>
+			
 			<div class="description"><pre>${fn:escapeXml(card.description) }</pre></div>
 			<div class="gadgets">
 				<c:forEach items="${card.gadgets}" var="gadget">
@@ -39,6 +44,12 @@
 					onclick="confirmCardDeletion(this, '<c:url value="/projects/${card.project.id}/cards/${card.id}/"/>', ${not empty card.subcards })"></a>
 			</div>			
 			<jsp:doBody/>
+			<c:if test="${not empty card.subcards}">
+				<c:set var="__subcards" value="${card.subcards}" scope="request" />
+				<c:set var="__description" value="${description}" scope="request" />
+				<c:set var="__id" value="${card.id}" scope="request" />
+				<jsp:include page="/WEB-INF/subcards.jsp"/>
+			</c:if>
 		</li>
 	</c:forEach>
 </ul>

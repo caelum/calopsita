@@ -135,7 +135,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
         Card cardFromOtherProject = givenACard();
         Card cardFromThisProject = givenACardOfProject(project);
 
-        List<Card> list = dao.listCardsFrom(project);
+        List<Card> list = dao.listRootCardsFrom(project);
 
         assertThat(list, not(hasItem(hasSameId(cardFromOtherProject))));
         assertThat(list, hasItem(hasSameId(cardFromThisProject)));
@@ -175,7 +175,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		dao.remove(project);
 
 		assertThat(dao.listIterationsFrom(project), isEmpty());
-		assertThat(dao.listCardsFrom(project), isEmpty());
+		assertThat(dao.listRootCardsFrom(project), isEmpty());
 	}
 
 	@Test
