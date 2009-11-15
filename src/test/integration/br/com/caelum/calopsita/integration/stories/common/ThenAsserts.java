@@ -254,6 +254,7 @@ public class ThenAsserts {
 	}
 
 	public void isPlannable() {
+		session.flush();
 		Long count = (Long) session.createQuery("select count(*) from PlanningCard c where c.card.name = :name")
 			.setParameter("name", name).uniqueResult();
 

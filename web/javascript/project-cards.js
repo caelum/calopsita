@@ -20,6 +20,7 @@ function deleteCards(element, url, deleteSubcards) {
 	var card = $(element).parents('li.card');
 	card.addClass('deleting');
 	$.ajax({
+		type: 'POST',
 		url: url,
 		data: {_method: 'DELETE', deleteSubcards: deleteSubcards},
 		success: function(data) {

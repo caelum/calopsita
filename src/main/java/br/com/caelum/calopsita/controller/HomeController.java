@@ -13,4 +13,5 @@ public class HomeController {
     @Get @Path("/home/notAllowed/")
     public void notAllowed() {
     }
+
 }
