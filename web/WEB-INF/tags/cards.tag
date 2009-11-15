@@ -44,12 +44,12 @@
 					onclick="confirmCardDeletion(this, '<c:url value="/projects/${card.project.id}/cards/${card.id}/"/>', ${not empty card.subcards })"></a>
 			</div>			
 			<jsp:doBody/>
-			<c:if test="${not empty card.subcards}">
-				<c:set var="__subcards" value="${card.subcards}" scope="request" />
-				<c:set var="__description" value="${description}" scope="request" />
-				<c:set var="__id" value="${card.id}" scope="request" />
-				<jsp:include page="/WEB-INF/subcards.jsp"/>
-			</c:if>
 		</li>
+		<c:if test="${not empty card.subcards}">
+			<c:set var="__subcards" value="${card.subcards}" scope="request" />
+			<c:set var="__description" value="${description}" scope="request" />
+			<c:set var="__id" value="${card.id}" scope="request" />
+			<jsp:include page="/WEB-INF/subcards.jsp"/>
+		</c:if>
 	</c:forEach>
 </ul>

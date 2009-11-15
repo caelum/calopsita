@@ -141,6 +141,16 @@ public class ProjectDaoTest extends AbstractDaoTest {
         assertThat(list, hasItem(hasSameId(cardFromThisProject)));
     }
 	@Test
+	public void doNotListSubCardsWhenListingCards() throws Exception {
+		Project project = givenAProject();
+		Card parent = givenACardOfProject(project);
+		Card subcard = givenASubcardOf(parent);
+		List<Card> list = dao.listRootCardsFrom(project);
+
+		assertThat(list, not(hasItem(hasSameId(subcard))));
+		assertThat(list, hasItem(hasSameId(parent)));
+	}
+	@Test
 	public void onlyListToDoCardsFromTheGivenProject() throws Exception {
 		Project project = givenAProject();
 		Card cardFromOtherProject = givenACard();
@@ -154,6 +164,16 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		assertThat(list, hasItem(hasSameId(cardFromThisProject)));
 	}
 
+	@Test
+	public void doNotListSubCardsWhenListingTodoCards() throws Exception {
+		Project project = givenAProject();
+		Card parent = givenACardOfProject(project);
+		Card subcard = givenASubcardOf(parent);
+		List<Card> list = dao.listTodoCardsFrom(project);
+
+		assertThat(list, not(hasItem(hasSameId(subcard))));
+		assertThat(list, hasItem(hasSameId(parent)));
+	}
 	@Test
     public void onlyListIterationsFromTheGivenProject() throws Exception {
         Project project = givenAProject();
@@ -407,6 +427,13 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		return card;
 	}
 
+	private Card givenASubcardOf(Card card) {
+		Card subcard = givenACardOfProject(card.getProject());
+		subcard.setParent(card);
+		session.update(subcard);
+		session.flush();
+		return subcard;
+	}
 
 	private Card givenACard() {
 		Card card = new Card(cardDao);

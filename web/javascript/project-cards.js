@@ -28,6 +28,8 @@ function selectGadgets(select) {
 function deleteCards(element, url, deleteSubcards) {
 	var card = $(element).parents('li.card');
 	card.addClass('deleting');
+	card.next('.subcards').children().insertAfter(card);
+	
 	$.ajax({
 		type: 'POST',
 		url: url,

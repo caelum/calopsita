@@ -43,7 +43,7 @@ public class ProjectDao implements ProjectRepository {
     }
 
     public List<Card> listTodoCardsFrom(Project project) {
-    	return this.session.createQuery("from Card c where c.project = :project and c.status != 'DONE'")
+    	return this.session.createQuery("from Card c where c.project = :project and c.parent is null and c.status != 'DONE'")
     		.setResultTransformer(transformer)
 			.setParameter("project", project).list();
     }
