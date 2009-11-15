@@ -34,7 +34,8 @@ public class PrioritizationDao implements PrioritizationRepository {
 		});
 		for (Card card : project.getToDoCards()) {
 			PrioritizableCard gadget = card.getGadget(PrioritizableCard.class);
-			result.get(gadget.getPriority()).add(card);
+			if(gadget != null)
+				result.get(gadget.getPriority()).add(card);
 		}
 		for (int i = 0; i < result.size(); i++) {
 			result.get(i);
