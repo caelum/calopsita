@@ -30,10 +30,11 @@ import br.com.caelum.calopsita.plugins.Transformer;
 import br.com.caelum.calopsita.plugins.planning.PlanningCard;
 import br.com.caelum.calopsita.plugins.prioritization.OrderByPriorityTransformer;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
+import br.com.caelum.calopsita.repository.ProjectRepository;
 
 public class ProjectDaoTest extends AbstractDaoTest {
 
-	private ProjectDao dao;
+	private ProjectRepository dao;
 	private IterationDao iterationDao;
 	private CardDao cardDao;
 	private UserDao userDao;
@@ -311,7 +312,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	}
 	@Test
 	public void testDelegation() throws Exception {
-		ProjectDao mockedDao = givenAMockedDao();
+		ProjectRepository mockedDao = givenAMockedDao();
 		shouldExecuteCrudInSequence();
 		mockedDao.add(new Project());
 		mockedDao.load(new Project());
@@ -319,7 +320,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		mockery.assertIsSatisfied();
 	}
 
-    private ProjectDao givenAMockedDao() {
+    private ProjectRepository givenAMockedDao() {
 		mockSession = mockery.mock(Session.class);
 		return new ProjectDao(mockSession, null);
 	}

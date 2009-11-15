@@ -86,6 +86,9 @@ public class Project implements Identifiable {
     public List<Card> getToDoCards() {
     	return getRepository().listTodoCardsFrom(this);
     }
+    public List<Card> getAllToDoCards() {
+    	return getRepository().listAllTodoCardsFrom(this);
+    }
 
     public List<Card> getAllRootCards() {
     	return getRepository().listRootCardsFrom(this);

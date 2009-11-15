@@ -47,6 +47,12 @@ public class ProjectDao implements ProjectRepository {
     		.setResultTransformer(transformer)
 			.setParameter("project", project).list();
     }
+    
+	public List<Card> listAllTodoCardsFrom(Project project) {
+    	return this.session.createQuery("from Card c where c.project = :project and c.status != 'DONE'")
+    	.setResultTransformer(transformer)
+    	.setParameter("project", project).list();
+    }
 
     public List<User> listUnrelatedUsers(Project project) {
 		String hql = "select u from User u, Project p where p = :project " +
