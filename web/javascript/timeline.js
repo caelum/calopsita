@@ -18,10 +18,10 @@ function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
     }
     if (!(daysBetweenEndDateAndStartDate > 0)) {
         $('#start_today_line').css( {
-            'width' : 300
+            'width' : 290
         });
         $('#start_end_line').css( {
-            'width' : 300
+            'width' : 290
         });
 
         if (isNaN(daysBetweenEndDateAndToday)) {
@@ -36,12 +36,12 @@ function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
             $('#start_today_line')
                     .css(
                             {
-                                'width' : 600 * ((daysBetweenTodayAndStartDate - 1) / daysBetweenEndDateAndStartDate)
+                                'width' : 580 * ((daysBetweenTodayAndStartDate - 1) / daysBetweenEndDateAndStartDate)
                             });
             $('#start_end_line')
                     .css(
                             {
-                                'width' : 600 * ((daysBetweenEndDateAndToday - 1) / daysBetweenEndDateAndStartDate)
+                                'width' : 580 * ((daysBetweenEndDateAndToday - 1) / daysBetweenEndDateAndStartDate)
                             });
         }
     }
@@ -63,13 +63,13 @@ function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
             $('#start_today_line')
                     .css(
                             {
-                                'width' : -600
+                                'width' : -580
                                         * ((daysBetweenTodayAndStartDate + 1) / daysBetweenEndDateAndToday)
                             });
             $('#start_end_line')
                     .css(
                             {
-                                'width' : 600 * ((daysBetweenEndDateAndToday - 1) / daysBetweenEndDateAndToday)
+                                'width' : 580 * ((daysBetweenEndDateAndToday - 1) / daysBetweenEndDateAndToday)
                             });
         }
     }
@@ -81,12 +81,12 @@ function timeline(daysBetweenTodayAndStartDate, daysBetweenEndDateAndToday,
         $('#start_end_line')
                 .css(
                         {
-                            'width' : 600 * ((daysBetweenEndDateAndStartDate - 1) / daysBetweenTodayAndStartDate)
+                            'width' : 580 * ((daysBetweenEndDateAndStartDate - 1) / daysBetweenTodayAndStartDate)
                         });
         $('#today_end_line')
                 .css(
                         {
-                            'width' : -600
+                            'width' : -580
                                     * ((daysBetweenEndDateAndToday + 1) / daysBetweenTodayAndStartDate)
                         });
     }
