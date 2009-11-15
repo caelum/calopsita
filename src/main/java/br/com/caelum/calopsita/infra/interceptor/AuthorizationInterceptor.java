@@ -37,7 +37,8 @@ public class AuthorizationInterceptor implements Interceptor {
 	}
 
 	public boolean accepts(ResourceMethod method) {
-		return !Arrays.asList(UsersController.class, HomeController.class)
+		return method.getMethod().getName().equals("toggleNewbie")
+			|| !Arrays.asList(UsersController.class, HomeController.class)
 				.contains(method.getMethod().getDeclaringClass());
 	}
 

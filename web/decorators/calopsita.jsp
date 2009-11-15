@@ -12,7 +12,7 @@
 	<script type="text/javascript">
 	  //<![CDATA[
 	  	setNewbie(${currentUser.newbie});
-	  	setUrl('<c:url value="/users/toggleNewbie"/>');
+	  	setUrl('<c:url value="/users/toggleNewbie/"/>');
 	  //]]>
 	</script>
 </head>
