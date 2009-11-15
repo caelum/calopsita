@@ -118,6 +118,7 @@ public class WhenActions {
 			form.select("cardType").choose(type);
 		}
 		form.submit();
+		waitForAjax();
 		iClickOn(linkName);
 		browser.currentPage().waitUntil("!($('#cards').is(':empty'))", 1000);
 		return this;

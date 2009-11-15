@@ -85,10 +85,6 @@ $( function() {
             "card.name" : {
                 required : true,
                 minlength : 4
-            },
-            "card.description" : {
-                required : true,
-                minlength : 8
             }
         },
         submitHandler : function(form) {
