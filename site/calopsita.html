@@ -32,35 +32,39 @@
 		}
 		
 		a:link, a:visited, a:active, a:hover {
-			text-decoration: none;
 			color: #000000;
 		}
 		
 		#demo {
 			clear:both;
 			margin: 0px 180px 20px 15px;
-			padding: 15px;
+			/*padding: 15px;*/
 			height: 70px;
-			width: 780px;
+			width: 817px;
 			text-align:center;
 			background: #CCCCCC no-repeat center center;
 			border:4px solid #000000;
 		}		
 		#demo #left {
-			float: left;
-			font-size: 62px;
+			/*font-size: 62px;*/
+			font-size: 38pt;
+			padding-right: 20px;
+			border-color: black;
+			border-width: 10px;
+			border-right: solid;
 		}
 		
-		#demo #middle {
-			float: left;
+		/*#demo #middle {
 			margin: -20px 30px 0px 30px;
 			font-size: 100px;
-		}
+			font-size: 50pt;
+			
+		}*/
 		
 		#demo #right {
-			float: left;
-			padding-top: 30px;
+			/*padding-top: 30px;*/
 			font-size: 16px;
+			padding-left: 10px;
 		}
 
 		#text {
@@ -73,19 +77,11 @@
 		}
 
 		.frame {
-			border:10px solid #000000;
+			border:7px solid #000000;
 			float:left;
 			margin:0;
 			padding:0;
-			margin: 0px 15px;
-		}
-
-		.login {
-			width:360px;
-		}
-
-		.user {
-			width:387px;
+			margin: 0px 3px;
 		}
 
 		#screenshots {
@@ -94,7 +90,7 @@
 		}		
 
 		#screenshots img {
-			height: 250px;
+			height: 240px;
 		}
 	--></style>
 
@@ -113,23 +109,25 @@
 		not to stay in your way, usability is our first concern. Calopsita is built from agile teams for 
 		agile teams. Agile, not for a specific methodology - it is flexible so you can work under 
 		whichever methodology you choose.</p>
+
 	</div>
 
 	<br/><br/>
-	
-	<div id="demo">
-		<span id="left"><a href="#">Try it now</a></span>
-		<span id="middle">|</span>
-		<span id="right">Please note that the demo version might be erased at anytime</span>
-	</div>
 
+	<table id="demo">
+		<tr>
+			<td id="left"><a href="demo/">Try it now</a></td>
+			<td id="right">Please note that the demo version might be erased at anytime</td>
+		</tr>
+	</table>
 	<div id="screenshots">
 		<div class="frame login">
-			<img src="login-page.png" alt="login page screenshot" />
+			<a href="demo/"><img src="login-page.png" alt="login page screenshot" /></a>
 		</div>
 		<div class="frame user">
-			<img src="user-page.png" alt="user page screenshot" />
+			<a href="demo/"><img src="planning.png" alt="user page screenshot" /></a>
 		</div>
+
 	</div>
 </div>
 
