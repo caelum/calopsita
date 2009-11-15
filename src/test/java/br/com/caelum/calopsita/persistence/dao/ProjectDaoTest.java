@@ -54,7 +54,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 
 	@Test
     public void gettingCurrentIterationWithNoDates() throws Exception {
-        Iteration iteration = givenAnIteration();
+        Iteration iteration = givenAnIteration(null, null);
         Iteration current = dao.getCurrentIterationFromProject(iteration.getProject());
 
         assertThat(current, not(is(iteration)));
@@ -320,7 +320,75 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		mockery.assertIsSatisfied();
 	}
 
-    private ProjectRepository givenAMockedDao() {
+	@Test
+	public void cardsWithoutIterationDontIncludeCardsFromOtherProject() throws Exception {
+		Project project = givenAProject();
+		Card cardFromProject = givenAPlanningCard(project);
+		Card cardFromOtherProject = givenAPlanningCard(givenAProject());
+		List<Card> cards = dao.planningCardsWithoutIteration(project);
+		assertThat(cards, hasItem(cardFromProject));
+		assertThat(cards, not(hasItem(cardFromOtherProject)));
+		mockery.assertIsSatisfied();
+	}
+	@Test
+	public void cardsWithoutIterationDontIncludeCardsInAnIteration() throws Exception {
+		Project project = givenAProject();
+		Iteration iteration = givenAnIteration(project);
+
+		Card cardFromOtherIteration = givenAPlanningCard(project);
+		Card cardWithoutIteration = givenAPlanningCardOfIteration(iteration);
+
+		List<Card> cards = dao.planningCardsWithoutIteration(project);
+		assertThat(cards, hasItem(cardFromOtherIteration));
+		assertThat(cards, not(hasItem(cardWithoutIteration)));
+		mockery.assertIsSatisfied();
+	}
+	@Test
+	public void cardsWithoutIterationIncludeTodoCardsOfAnPastIteration() throws Exception {
+		Project project = givenAProject();
+		Iteration pastIteration = givenAnIteration(yesterday(), yesterday(), project);
+		Iteration futureIteration = givenAnIteration(tomorrow(), tomorrow(), project);
+
+		Card donePastCard = givenAPlanningCardOfIteration(pastIteration);
+		donePastCard.setStatus(Status.DONE);
+
+		Card todoPastCard = givenAPlanningCardOfIteration(pastIteration);
+		todoPastCard.setStatus(Status.TODO);
+
+		Card doneFutureCard = givenAPlanningCardOfIteration(futureIteration);
+		doneFutureCard.setStatus(Status.DONE);
+
+		Card todoFutureCard = givenAPlanningCardOfIteration(futureIteration);
+		todoFutureCard.setStatus(Status.TODO);
+
+		List<Card> cards = dao.planningCardsWithoutIteration(project);
+		assertThat(cards, not(hasItem(doneFutureCard)));
+		assertThat(cards, not(hasItem(todoFutureCard)));
+		assertThat(cards, not(hasItem(donePastCard)));
+		assertThat(cards, hasItem(todoPastCard));
+		mockery.assertIsSatisfied();
+	}
+
+    private Iteration givenAnIteration(LocalDate startDate, LocalDate endDate, Project project) {
+    	Iteration iteration = givenAnIteration(startDate, endDate);
+    	iteration.setProject(project);
+    	session.flush();
+		return iteration;
+	}
+
+	private Iteration givenAnIteration(Project project) throws ParseException {
+    	Iteration iteration = givenAnIteration();
+    	iteration.setProject(project);
+		return iteration;
+	}
+
+	private Card givenAPlanningCardOfIteration(Iteration iteration) {
+    	Card card = givenAPlanningCard(iteration.getProject());
+    	card.setIteration(iteration);
+    	return card;
+	}
+
+	private ProjectRepository givenAMockedDao() {
 		mockSession = mockery.mock(Session.class);
 		return new ProjectDao(mockSession, null);
 	}
@@ -395,8 +463,8 @@ public class ProjectDaoTest extends AbstractDaoTest {
     private Iteration givenAnIteration() throws ParseException {
 	    Iteration iteration = new Iteration(iterationDao);
 	    iteration.setGoal("Be ready");
-	    iteration.setStartDate(new LocalDate(2000,1,1));
-	    iteration.setEndDate(new LocalDate(2000,1,10));
+	    iteration.setStartDate(yesterday());
+	    iteration.setEndDate(tomorrow());
 	    iteration.setProject(givenAProject());
 	    session.save(iteration);
 	    session.flush();

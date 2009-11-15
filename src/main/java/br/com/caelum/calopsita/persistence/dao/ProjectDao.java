@@ -47,7 +47,7 @@ public class ProjectDao implements ProjectRepository {
     		.setResultTransformer(transformer)
 			.setParameter("project", project).list();
     }
-    
+
 	public List<Card> listAllTodoCardsFrom(Project project) {
     	return this.session.createQuery("from Card c where c.project = :project and c.status != 'DONE'")
     	.setResultTransformer(transformer)
@@ -147,8 +147,12 @@ public class ProjectDao implements ProjectRepository {
     }
 
 	public List<Card> planningCardsWithoutIteration(Project project) {
-		return session.createQuery("select c.card from PlanningCard c " +
-				"where c.card.project = :project and c.card.iteration is null")
-				.setParameter("project", project).setResultTransformer(transformer).list();
+		return session.createQuery("select c from PlanningCard p " +
+				"join p.card c left join c.iteration i " +
+				"where c.project = :project and " +
+				"(i is null or (i.endDate is not null and i.endDate < :today and c.status <> 'DONE'))")
+				.setParameter("project", project)
+				.setParameter("today", new LocalDate())
+				.setResultTransformer(transformer).list();
 	}
 }
