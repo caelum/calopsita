@@ -18,7 +18,8 @@ import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.calopsita.plugins.PluginResultTransformer;
 import br.com.caelum.calopsita.plugins.Transformer;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
-import br.com.caelum.calopsita.repository.PrioritizationRepository;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizationDao;
+import br.com.caelum.calopsita.plugins.prioritization.PrioritizationRepository;
 
 public class PrioritizationDaoTest extends AbstractDaoTest{
 

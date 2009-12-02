@@ -7,7 +7,6 @@ import javax.persistence.OneToOne;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
-import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 
 @Entity
 public class ValuableCard implements Gadget{
@@ -54,7 +53,7 @@ public class ValuableCard implements Gadget{
 	
 	@Override
 	public String getHtml() {
-		return "<span class=\"roi\" title=\"Return of Investment\">" + roiValue + "</span>";
+		return "<span class=\"roi\" title=\"Return of Investment\">ROI: " + roiValue + "</span>";
 	}
 
 }
