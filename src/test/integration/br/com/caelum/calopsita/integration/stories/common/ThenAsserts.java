@@ -12,6 +12,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hibernate.Session;
 import org.joda.time.LocalDate;
+import org.junit.Assert;
 
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.ContentTag;
@@ -269,5 +270,9 @@ public class ThenAsserts {
 
 	public void hasCreator(String creator) {
 		this.div("cards").contains(" by " + creator);
+	}
+
+	public void hasROI(int roiValue) {
+		assertThat(div(divName), containsText("" + roiValue));
 	}
 }

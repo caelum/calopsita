@@ -9,6 +9,7 @@ import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.calopsita.plugins.planning.PlanningCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
+import br.com.caelum.calopsita.plugins.roi.ValuableCard;
 import br.com.caelum.seleniumdsl.Browser;
 
 public class CardContexts<T extends ProjectContexts<T>> {
@@ -81,7 +82,7 @@ public class CardContexts<T extends ProjectContexts<T>> {
 		session.flush();
 		return this;
 	}
-
+	
 	public CardContexts<T> done() {
 		card.setStatus(Status.DONE);
 		session.flush();
@@ -94,5 +95,14 @@ public class CardContexts<T extends ProjectContexts<T>> {
 		session.flush();
 		return this;
 	}
+
+	public CardContexts<T> withROI(int value) {
+		ValuableCard valuableCard = new ValuableCard();
+		valuableCard.setCard(card);
+		valuableCard.setRoiValue(value);
+		session.save(valuableCard);
+		session.flush();
+		return this;
+ 	}
 
 }

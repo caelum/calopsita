@@ -25,5 +25,6 @@
         
         <mapping class="br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard" />
 		<mapping class="br.com.caelum.calopsita.plugins.planning.PlanningCard" />
+		<mapping class="br.com.caelum.calopsita.plugins.roi.ValuableCard" />
 	</session-factory>
 </hibernate-configuration>
