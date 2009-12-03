@@ -1,7 +1,11 @@
 package br.com.caelum.calopsita.plugins.roi;
 
+import br.com.caelum.vraptor.Path;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+
+import static br.com.caelum.vraptor.view.Results.*;
 
 @Resource
 public class RoiController {
@@ -14,7 +18,9 @@ public class RoiController {
 		this.result = result;
 	}
 	
-    public void form() {
-    	return ;
+	@Path("/roi/{card.id}/") @Post
+    public void save(ValuableCard card) {
+		repository.update(card);
+		result.use(nothing());
     }
 }

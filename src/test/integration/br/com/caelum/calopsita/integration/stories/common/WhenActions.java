@@ -380,4 +380,16 @@ public class WhenActions {
 	public void iOpenSubcardsPage() {
 		iClickOn("Subcards");
 	}
+	
+	public WhenActions onCard(String cardName) {
+		this.cardName = cardName;
+		return this;
+	}
+
+	public void changeRoiTo(String roiValue) {
+		browser.currentPage().invoke("$('[name=\""+cardName+"\"] .roi').click()");
+		browser.currentPage().form("roiForm").field("newRoi").type(roiValue);
+		browser.currentPage().invoke("$('.roiForm').submit()");
+		waitForAjax();
+	}
 }

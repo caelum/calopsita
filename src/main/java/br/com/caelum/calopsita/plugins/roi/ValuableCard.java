@@ -53,7 +53,7 @@ public class ValuableCard implements Gadget{
 	
 	@Override
 	public String getHtml() {
-		return "<span class=\"roi\" title=\"Return of Investment\">ROI: " + roiValue + "</span>";
+		return "<span class=\"roi\" name=\"ROI "+ roiValue +"\" onClick=\"editROI("+ id + ", this)\" title=\"Return of Investment\">" + roiValue + "</span>";
 	}
 
 }

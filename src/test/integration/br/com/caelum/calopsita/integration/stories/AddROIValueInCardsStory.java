@@ -27,4 +27,18 @@ public class AddROIValueInCardsStory extends DefaultStory{
 		then.theCard("Controller validation").hasROI(5);
 	}
 
+	@Test
+	public void editROIValueInCard() throws Exception {
+		given.thereIsAnUserNamed("Caue").and()
+			.thereIsAProjectNamed("RestfulieRails").ownedBy("Caue")
+			.withACardNamed("Hypermedia support")
+				.whichDescriptionIs("use http codes for transitions")
+				.withROI(12).and()
+			.iAmLoggedInAs("Caue");
+		when.iOpenProjectPageOf("RestfulieRails").and()
+			.iOpenCardsPage().and()
+				.onCard("Hypermedia support")
+				.changeRoiTo("15");
+		then.theCard("Hypermedia support").hasROI(15);
+	}
 }

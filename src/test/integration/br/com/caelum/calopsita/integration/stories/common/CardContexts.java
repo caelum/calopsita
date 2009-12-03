@@ -104,5 +104,5 @@ public class CardContexts<T extends ProjectContexts<T>> {
 		session.flush();
 		return this;
  	}
-
+	
 }

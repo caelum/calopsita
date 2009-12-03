@@ -1,3 +1,16 @@
+.gadgets .roiForm input{
+	text-align: right;	
+	width: 2em;
+}
+.gadgets .roiForm{
+	display: inline;
+}
+.gadgets .roi {
+	font-weight: bold;
+	color: #33CC00;	
+	font-size: 9pt;
+	cursor: pointer;
+}
 .gadgets .priority {
 	font-weight: bold;
 	color: red;	
