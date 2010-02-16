@@ -1,70 +1,85 @@
 package br.com.caelum.calopsita.infra.vraptor;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.jmock.Expectations;
-import org.jmock.Mockery;
+import javax.servlet.ServletContext;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import br.com.caelum.vraptor.ComponentRegistry;
-
 public class CalopsitaPluginParserTest {
 
 	private CalopsitaPluginParser parser;
-	private ComponentRegistry registry;
-	private Mockery mockery;
+	private @Mock ComponentRegistry registry;
+	private @Mock ServletContext context;
 
 	@Before
 	public void configure() {
-		this.mockery = new Mockery();
-		registry = mockery.mock(ComponentRegistry.class);
-		parser = new CalopsitaPluginParser(registry);
+		MockitoAnnotations.initMocks(this);
+		parser = new CalopsitaPluginParser(registry, context);
 	}
 
 	@Test
 	public void whenThereIsNoCalopsitaSectionDoNothing() throws IOException {
-		File f = createJar("");
-		parser.parse(f);
+		parser.parse(jarWithManifest(""));
 	}
 
 	@Test
 	public void whenThereIsNoManifestDoNothing() throws IOException {
-		File f = createJar(null);
-		parser.parse(f);
+		parser.parse(jarWithManifest(null));
 	}
 
 	@Test
 	public void registersClassIfItIsAVRaptorType() throws IOException {
-		File f = createJarWithClass("Manifest-Version: 1.0\nClassPath: \n\nName: br.com.caelum.calopsita\na: b\n\n", AVRaptorResource.class);
-		mockery.checking(new Expectations() {
-			{
-				one(registry).register(AVRaptorResource.class, AVRaptorResource.class);
-			}
-		});
-		parser.parse(f);
-		mockery.assertIsSatisfied();
+		parser.parse(jarWithClass(AVRaptorResource.class));
+		
+		verify(registry).register(AVRaptorResource.class, AVRaptorResource.class);
 	}
 	
 	@Test
 	public void doesNotRegisterClassIfItIsNotAVRaptorType() throws IOException {
-		File f = createJarWithClass("Manifest-Version: 1.0\nClassPath: \n\nName: br.com.caelum.calopsita\na: b\n\n", NotAVRaptorResource.class);
-		mockery.checking(new Expectations() {
-			{
-				never(registry).register(NotAVRaptorResource.class, NotAVRaptorResource.class);
-			}
-		});
-		parser.parse(f);
-		mockery.assertIsSatisfied();
+		parser.parse(jarWithClass(NotAVRaptorResource.class));
+		
+		verify(registry, never()).register(NotAVRaptorResource.class, NotAVRaptorResource.class);
 	}	
 
-	private File createJar(String manifest) throws IOException {
+	@Test
+	public void findsPluginMessagePropertiesAndAppendToCalopsitas() throws Exception {
+		File messages = File.createTempFile("messages", ".properties");
+		messages.deleteOnExit();
+		PrintWriter writer = new PrintWriter(messages);
+		writer.println("some.existing = content");
+		writer.close();
+		
+		when(context.getRealPath("/messages.properties")).thenReturn(messages.getAbsolutePath());
+		
+		parser.parse(jarWithFile("messages.properties", "another = content"));
+		
+		Properties properties = new Properties();
+		properties.load(new FileReader(messages));
+		
+		assertThat(properties.getProperty("some.existing"), is("content"));
+		assertThat(properties.getProperty("another"), is("content"));
+	}
+	
+	private File jarWithManifest(String manifest) throws IOException {
 		File tmp = File.createTempFile("test-calopsita-plugin", ".jar");
 		tmp.deleteOnExit();
 		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(tmp));
@@ -75,19 +90,33 @@ public class CalopsitaPluginParserTest {
 		out.close();
 		return tmp;
 	}
-
-	private File createJarWithClass(String manifest, Class<?> clazz) throws IOException {
+	
+	
+	
+	private File jarWithClass(Class<?> clazz) throws IOException {
 		String typePath = clazz.getName().replace('.', '/') + ".class";
 		InputStream resourceAsStream = CalopsitaPluginParserTest.class.getResourceAsStream("/" + typePath);
 		File tmp = File.createTempFile("test-calopsita-plugin", ".jar");
 		tmp.deleteOnExit();
 		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(tmp));
 		createEntry(out, typePath, resourceAsStream);
-		if (manifest != null) {
-			createEntry(out, "META-INF/MANIFEST.MF", manifest);
-		}
+		addManifest(out);
 		out.close();
 		return tmp;
+	}
+
+	private File jarWithFile(String filename, String content) throws IOException {
+		File tmp = File.createTempFile("test-calopsita-plugin", ".jar");
+		tmp.deleteOnExit();
+		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(tmp));
+		createEntry(out, filename, content);
+		addManifest(out);
+		out.close();
+		return tmp;
+	}
+	private void addManifest(ZipOutputStream out) throws IOException {
+		String manifest = "Manifest-Version: 1.0\nClassPath: \n\nName: br.com.caelum.calopsita\na: b\n\n";
+		createEntry(out, "META-INF/MANIFEST.MF", manifest);
 	}
 
 	private void createEntry(ZipOutputStream out, String filename, InputStream is) throws IOException {

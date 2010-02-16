@@ -1,7 +1,10 @@
 package br.com.caelum.calopsita.infra.vraptor;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.util.Enumeration;
 import java.util.jar.Attributes;
@@ -9,15 +12,19 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
+import javax.servlet.ServletContext;
+
 import br.com.caelum.vraptor.ComponentRegistry;
 import br.com.caelum.vraptor.ioc.Stereotype;
 
 public class CalopsitaPluginParser implements JarParser {
 
 	private final ComponentRegistry registry;
+	private final ServletContext context;
 
-	public CalopsitaPluginParser(ComponentRegistry registry) {
+	public CalopsitaPluginParser(ComponentRegistry registry, ServletContext context) {
 		this.registry = registry;
+		this.context = context;
 	}
 
 	public void parse(File file) {
@@ -30,16 +37,49 @@ public class CalopsitaPluginParser implements JarParser {
 		while (entries.hasMoreElements()) {
 			JarEntry jarEntry = entries.nextElement();
 			if (jarEntry.getName().endsWith(".class")) {
-				String className = jarEntry.getName().replaceFirst("\\.class$", "").replace('/', '.');
-				try {
-					Class<?> clazz = Class.forName(className);
-					if (isAnnotatedWithVRaptorStereotype(clazz))
-						registry.register(clazz, clazz);													
-				} catch (ClassNotFoundException e) {
-					throw new IllegalArgumentException(e);
-				}
-				
+				registerClass(jarEntry);
+			} else if (jarEntry.getName().endsWith("messages.properties")) {
+				appendMessages(getInputStream(jar, jarEntry));
 			}
+		}
+	}
+
+	private InputStream getInputStream(JarFile jar, JarEntry jarEntry) {
+		try {
+			return jar.getInputStream(jarEntry);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	private void appendMessages(InputStream input) {
+		String messages = context.getRealPath("/messages.properties");
+		try {
+			FileOutputStream writer = new FileOutputStream(new File(messages), true);
+			move(input, writer);
+			writer.close();
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+	
+	private void move(InputStream input, FileOutputStream writer) throws IOException {
+		BufferedInputStream bis = new BufferedInputStream(input);
+		byte[] content = new byte[1024*10];
+		int len;
+		while((len = bis.read(content))!=-1) {
+			writer.write(content, 0, len);
+		}
+	}
+
+	private void registerClass(JarEntry jarEntry) {
+		String className = jarEntry.getName().replaceFirst("\\.class$", "").replace('/', '.');
+		try {
+			Class<?> clazz = Class.forName(className);
+			if (isAnnotatedWithVRaptorStereotype(clazz))
+				registry.register(clazz, clazz);													
+		} catch (ClassNotFoundException e) {
+			throw new IllegalArgumentException(e);
 		}
 	}
 
