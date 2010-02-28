@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.infra.interceptor.RepositoryInterceptor;
+import br.com.caelum.vraptor.proxy.ObjenesisProxifier;
 
 public class SessionCreatorTest {
 
@@ -16,14 +17,16 @@ public class SessionCreatorTest {
 	private SessionCreator creator;
 	private SessionFactory factory;
 	private RepositoryInterceptor interceptor;
+	private org.hibernate.classic.Session session;
 
 	@Before
 	public void setUp() throws Exception {
 		mockery = new Mockery();
 		factory = mockery.mock(SessionFactory.class);
 		interceptor = new RepositoryInterceptor(null);
+		session = mockery.mock(org.hibernate.classic.Session.class);
 
-		creator = new SessionCreator(factory, interceptor);
+		creator = new SessionCreator(factory, interceptor, new ObjenesisProxifier());
 	}
 
 	@Test
@@ -31,12 +34,23 @@ public class SessionCreatorTest {
 		shouldOpenSessionWithInterceptor();
 		creator.create();
 		Session session = creator.getInstance();
-		shouldCloseSessionOnDestroy(session);
+		callAnyMethodOn(session);
+		shouldCloseSessionOnDestroy();
 		creator.destroy();
 		mockery.assertIsSatisfied();
 	}
 
-	private void shouldCloseSessionOnDestroy(final Session session) {
+	private void callAnyMethodOn(Session sess) {
+
+		mockery.checking(new Expectations() {
+			{
+				one(session).beginTransaction();
+			}
+		});
+		sess.beginTransaction();
+	}
+
+	private void shouldCloseSessionOnDestroy() {
 
 		mockery.checking(new Expectations() {
 			{
@@ -50,7 +64,7 @@ public class SessionCreatorTest {
 		mockery.checking(new Expectations() {
 			{
 				one(factory).openSession(interceptor);
-				will(returnValue(mockery.mock(org.hibernate.classic.Session.class)));
+				will(returnValue(session));
 			}
 		});
 	}
