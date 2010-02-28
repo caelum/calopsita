@@ -12,6 +12,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
+import javax.persistence.Entity;
 import javax.servlet.ServletContext;
 
 import br.com.caelum.vraptor.ComponentRegistry;
@@ -62,7 +63,7 @@ public class CalopsitaPluginParser implements JarParser {
 			throw new IllegalStateException(e);
 		}
 	}
-	
+
 	private void move(InputStream input, FileOutputStream writer) throws IOException {
 		BufferedInputStream bis = new BufferedInputStream(input);
 		byte[] content = new byte[1024*10];
@@ -76,8 +77,12 @@ public class CalopsitaPluginParser implements JarParser {
 		String className = jarEntry.getName().replaceFirst("\\.class$", "").replace('/', '.');
 		try {
 			Class<?> clazz = Class.forName(className);
-			if (isAnnotatedWithVRaptorStereotype(clazz))
-				registry.register(clazz, clazz);													
+			if (isAnnotatedWithVRaptorStereotype(clazz)) {
+				registry.register(clazz, clazz);
+			}
+			if (clazz.isAnnotationPresent(Entity.class)) {
+				AnnotationConfigurationFactory.addEntity(clazz);
+			}
 		} catch (ClassNotFoundException e) {
 			throw new IllegalArgumentException(e);
 		}
@@ -85,8 +90,9 @@ public class CalopsitaPluginParser implements JarParser {
 
 	private boolean isAnnotatedWithVRaptorStereotype(Class<?> clazz) {
 		for (Annotation annotation : clazz.getAnnotations()) {
-			if(annotation.annotationType().isAnnotationPresent(Stereotype.class))
+			if(annotation.annotationType().isAnnotationPresent(Stereotype.class)) {
 				return true;
+			}
 		}
 		return false;
 	}

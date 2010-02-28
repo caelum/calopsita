@@ -1,6 +1,7 @@
 package br.com.caelum.calopsita.infra.vraptor;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -49,16 +50,24 @@ public class CalopsitaPluginParserTest {
 	@Test
 	public void registersClassIfItIsAVRaptorType() throws IOException {
 		parser.parse(jarWithClass(AVRaptorResource.class));
-		
+
 		verify(registry).register(AVRaptorResource.class, AVRaptorResource.class);
 	}
-	
+
+	@Test
+	public void shouldAddEntitiesToAnnotationConfiguration() throws IOException {
+		parser.parse(jarWithClass(AnEntity.class));
+
+		assertThat(AnnotationConfigurationFactory.getEntities().size(), is(1));
+		assertEquals(AnnotationConfigurationFactory.getEntities().get(0), AnEntity.class);
+	}
+
 	@Test
 	public void doesNotRegisterClassIfItIsNotAVRaptorType() throws IOException {
 		parser.parse(jarWithClass(NotAVRaptorResource.class));
-		
+
 		verify(registry, never()).register(NotAVRaptorResource.class, NotAVRaptorResource.class);
-	}	
+	}
 
 	@Test
 	public void findsPluginMessagePropertiesAndAppendToCalopsitas() throws Exception {
@@ -67,18 +76,18 @@ public class CalopsitaPluginParserTest {
 		PrintWriter writer = new PrintWriter(messages);
 		writer.println("some.existing = content");
 		writer.close();
-		
+
 		when(context.getRealPath("/messages.properties")).thenReturn(messages.getAbsolutePath());
-		
+
 		parser.parse(jarWithFile("messages.properties", "another = content"));
-		
+
 		Properties properties = new Properties();
 		properties.load(new FileReader(messages));
-		
+
 		assertThat(properties.getProperty("some.existing"), is("content"));
 		assertThat(properties.getProperty("another"), is("content"));
 	}
-	
+
 	private File jarWithManifest(String manifest) throws IOException {
 		File tmp = File.createTempFile("test-calopsita-plugin", ".jar");
 		tmp.deleteOnExit();
@@ -90,9 +99,9 @@ public class CalopsitaPluginParserTest {
 		out.close();
 		return tmp;
 	}
-	
-	
-	
+
+
+
 	private File jarWithClass(Class<?> clazz) throws IOException {
 		String typePath = clazz.getName().replace('.', '/') + ".class";
 		InputStream resourceAsStream = CalopsitaPluginParserTest.class.getResourceAsStream("/" + typePath);
