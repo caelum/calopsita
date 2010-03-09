@@ -27,9 +27,10 @@ public class AnnotationConfigurationTest {
 
 	@Test
 	public void shouldAddGivenClassesToAnnotationConfiguration() throws Exception {
-		factory.addEntity(MockedClass.class);
+		AnnotationConfigurationFactory.addEntity(MockedClass.class);
 		factory.addEntitiesToConfiguration();
 		verify(configuration).addAnnotatedClass(MockedClass.class);
+		AnnotationConfigurationFactory.getEntities().clear();
 
 	}
 }

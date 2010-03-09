@@ -58,7 +58,7 @@ public class CalopsitaPluginParserTest {
 	public void shouldAddEntitiesToAnnotationConfiguration() throws IOException {
 		parser.parse(jarWithClass(AnEntity.class));
 
-		assertThat(AnnotationConfigurationFactory.getEntities().size(), is(1));
+		assertThat(AnnotationConfigurationFactory.getEntities().toString(), AnnotationConfigurationFactory.getEntities().size(), is(1));
 		assertEquals(AnnotationConfigurationFactory.getEntities().get(0), AnEntity.class);
 	}
 
