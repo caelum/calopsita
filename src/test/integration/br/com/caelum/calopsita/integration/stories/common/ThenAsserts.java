@@ -20,8 +20,8 @@ import br.com.caelum.seleniumdsl.ContentTag;
 public class ThenAsserts {
 
     private final Browser browser;
-    private String name;
-	private String divName;
+    private String expectedContent;
+	private String assertingDivName;
 	private final Session session;
 
     public ThenAsserts(Browser browser, Session session) {
@@ -52,18 +52,18 @@ public class ThenAsserts {
     }
 
     public ThenAsserts project(String projectName) {
-        this.name = projectName;
-        this.divName = "projects";
+        this.expectedContent = projectName;
+        this.assertingDivName = "projects";
         return this;
     }
 
     public ThenAsserts appearsOnList() {
-        assertThat(div(divName), containsText(name));
+        assertThat(div(assertingDivName), containsText(expectedContent));
         return this;
     }
 
     public ThenAsserts appearsOnTodoList() {
-    	this.divName = "todo_cards";
+    	this.assertingDivName = "todo_cards";
     	appearsOnList();
     	return this;
     }
@@ -73,7 +73,7 @@ public class ThenAsserts {
 	}
 
     public void notAppearsOnList() {
-        assertThat(div(divName), not(containsText(name)));
+        assertThat(div(assertingDivName), not(containsText(expectedContent)));
     }
 
 	public void iAmNotAllowedToSeeTheProject() {
@@ -81,7 +81,7 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts appearsOnScreen() {
-		assertThat(div("projects"), containsText(name));
+		assertThat(div("projects"), containsText(expectedContent));
 		return this;
 	}
 
@@ -104,18 +104,18 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts theCard(String cardName) {
-		this.name = cardName;
-		this.divName = "cards";
+		this.expectedContent = cardName;
+		this.assertingDivName = "cards";
 		return this;
 	}
 
 	public void hasDescription(String description) {
-		assertThat(div(divName), containsText(description));
+		assertThat(div(assertingDivName), containsText(description));
 	}
 
 	public ThenAsserts theIteration(String iterationGoal) {
-        this.name = iterationGoal;
-        this.divName = "iterations";
+        this.expectedContent = iterationGoal;
+        this.assertingDivName = "iterations";
         return this;
     }
 
@@ -129,12 +129,12 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts atPosition(int i) {
-		assertThat(browser.currentPage().invoke("$('#" + divName + " li:nth(" + (i - 1) + ")').html()"), containsString(name));
+		assertThat(browser.currentPage().invoke("$('#" + assertingDivName + " li:nth(" + (i - 1) + ")').html()"), containsString(expectedContent));
 		return this;
 	}
 
 	public ThenAsserts appearsOnBacklog() {
-		this.divName = "backlog";
+		this.assertingDivName = "backlog";
 		appearsOnList();
 		return this;
 	}
@@ -144,22 +144,22 @@ public class ThenAsserts {
 	}
 
 	public void appearsAsDone() {
-		assertThat(div("done_cards"), containsText(name));
+		assertThat(div("done_cards"), containsText(expectedContent));
 	}
 
 	public ThenAsserts notAppearsOnBacklog() {
-		assertThat(div("backlog"), not(containsText(name)));
+		assertThat(div("backlog"), not(containsText(expectedContent)));
 		return this;
 	}
 
 	public ThenAsserts appearsOnList(String divName) {
-		this.divName = divName;
+		this.assertingDivName = divName;
 		appearsOnList();
 		return this;
 	}
 
 	public ThenAsserts shouldNotAppearOnCardList() {
-		assertThat(div("cards"), not(containsText(name)));
+		assertThat(div("cards"), not(containsText(expectedContent)));
 		return this;
 	}
 
@@ -195,7 +195,7 @@ public class ThenAsserts {
 	public void isPrioritizable() {
 		session.flush();
 		Long count = (Long) session.createQuery("select count(*) from PrioritizableCard c where c.card.name = :name")
-			.setParameter("name", name).uniqueResult();
+			.setParameter("name", expectedContent).uniqueResult();
 
 		assertThat(count, is(1l));
 
@@ -204,7 +204,7 @@ public class ThenAsserts {
 	public ThenAsserts isNotPrioritizable() {
 		session.flush();
 		Long count = (Long) session.createQuery("select count(*) from PrioritizableCard c where c.card.name = :name")
-			.setParameter("name", name).uniqueResult();
+			.setParameter("name", expectedContent).uniqueResult();
 
 		assertThat(count, is(0l));
 		return this;
@@ -212,7 +212,7 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts theIterationTimeline() {
-		this.divName = "timeline";
+		this.assertingDivName = "timeline";
 		return this;
 	}
 
@@ -246,25 +246,25 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts appearsOnPriority(int priority) {
-		assertThat(div("level_" + priority), containsText(this.name));
+		assertThat(div("level_" + priority), containsText(this.expectedContent));
 		return this;
 	}
 
 	public void notAppearsOnPage() {
-		assertThat(div("main"), not(containsText(this.name)));
+		assertThat(div("main"), not(containsText(this.expectedContent)));
 	}
 
 	public void isPlannable() {
 		session.flush();
 		Long count = (Long) session.createQuery("select count(*) from PlanningCard c where c.card.name = :name")
-			.setParameter("name", name).uniqueResult();
+			.setParameter("name", expectedContent).uniqueResult();
 
 		assertThat(count, is(1l));
 	}
 
 	public ThenAsserts theCardType(String name) {
-		this.divName = "cardTypes";
-		this.name = name;
+		this.assertingDivName = "cardTypes";
+		this.expectedContent = name;
 		return this;
 	}
 
@@ -273,6 +273,12 @@ public class ThenAsserts {
 	}
 
 	public void hasROI(int roiValue) {
-		assertThat(div(divName), containsText("" + roiValue));
+		assertThat(div(assertingDivName), containsText("" + roiValue));
+	}
+
+	public ThenAsserts theKanbanColumn(String columnName) {
+		this.assertingDivName = "columns";
+		this.expectedContent = columnName;
+		return this;
 	}
 }

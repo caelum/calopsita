@@ -23,6 +23,14 @@
 			<h2><fmt:message key="toDo"/></h2>
 			<calopsita:cards cards="${iteration.todoCards}" classes="board" listId="todo_list" />
 		</div>
+		
+		<c:forEach items="${project.columns}" var="column">
+			<div id="${column.name}" class="selectable cards column">
+				<h2>${column.name }</h2>
+				<calopsita:cards cards="${column.cards}" classes="board" listId="${column.name }_list" />
+			</div>
+		</c:forEach>
+		
 		<div id="done_cards" class="selectable cards column">
 			<h2><fmt:message key="done"/></h2>
 			<calopsita:cards cards="${iteration.doneCards}" classes="board" listId="done_list" />

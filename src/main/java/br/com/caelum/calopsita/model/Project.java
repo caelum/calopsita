@@ -44,6 +44,9 @@ public class Project implements Identifiable {
     @Transient
     private ProjectRepository repository;
 
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+	private List<Column> columns;
+
     private ProjectRepository getRepository() {
     	if (repository == null) {
     		throw new IllegalStateException("Repository was not set. You should inject it first");
@@ -144,5 +147,9 @@ public class Project implements Identifiable {
     public void setColaborators(List<User> colaborators) {
         this.colaborators = colaborators;
     }
+
+	public List<Column> getColumns() {
+		return this.columns;
+	}
 
 }

@@ -22,6 +22,8 @@
 		<mapping class="br.com.caelum.calopsita.model.CardType" />
 		<mapping class="br.com.caelum.calopsita.model.User" />
 		<mapping class="br.com.caelum.calopsita.model.Iteration" />
+        <mapping class="br.com.caelum.calopsita.model.Column"/>
+        <mapping class="br.com.caelum.calopsita.model.KanbanCard"/>
 		
 		<mapping class="br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard" />
 		<mapping class="br.com.caelum.calopsita.plugins.planning.PlanningCard" />

@@ -392,4 +392,14 @@ public class WhenActions {
 		browser.currentPage().invoke("$('.roiForm').submit()");
 		waitForAjax();
 	}
+
+	public WhenActions iOpenKanbanConfigurationPage() {
+		iClickOn("Kanban Configuration");
+		return this;
+	}
+
+	public void addAKanbanColumnNamed(String name) {
+		browser.currentPage().form("formKanban").field("column.name")
+		.type(name).submit();
+	}
 }

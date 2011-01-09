@@ -1,7 +1,5 @@
 package br.com.caelum.calopsita.integration.stories;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
