@@ -1,12 +1,8 @@
 package br.com.caelum.calopsita.infra;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertFalse;
 
 import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -21,7 +17,7 @@ import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
-import br.com.caelum.vraptor.InterceptionException;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.core.MethodInfo;
 import br.com.caelum.vraptor.resource.DefaultResourceClass;
@@ -35,11 +31,10 @@ public class AuthorizationInterceptorTest {
 	private ProjectRepository repository;
 	private User user;
 	private AuthorizationInterceptor interceptor;
-	private HttpServletRequest request;
-	private HttpServletResponse response;
 	private InterceptorStack stack;
 	private MethodInfo info;
 	private SessionUser sessionUser;
+	private Result result;
 
 	@Before
 	public void setUp() throws Exception {
@@ -49,11 +44,10 @@ public class AuthorizationInterceptorTest {
 		sessionUser = new SessionUser(new MockHttpSession());
 		sessionUser.setUser(user);
 
-		request = mockery.mock(HttpServletRequest.class);
-		response = mockery.mock(HttpServletResponse.class);
 		stack = mockery.mock(InterceptorStack.class);
+		result = mockery.mock(Result.class);
 		info = mockery.mock(MethodInfo.class);
-		interceptor = new AuthorizationInterceptor(sessionUser, mockery.mock(UserRepository.class), repository, request, response, info);
+		interceptor = new AuthorizationInterceptor(sessionUser, mockery.mock(UserRepository.class), repository, result, info);
 		mockery.checking(new Expectations() {
 			{
 				allowing(info).getParameters();
@@ -90,25 +84,6 @@ public class AuthorizationInterceptorTest {
 		assertFalse(interceptor.accepts(anyResourceMethodOf(UsersController.class)));
 	}
 
-	@Test(expected=InterceptionException.class)
-	public void shouldRethrowExceptions() throws Exception {
-		givenThereIsSomeInconsistency();
-		givenResponseThrowsException();
-
-		whenInterceptOccurs();
-	}
-	private void givenResponseThrowsException() throws IOException {
-
-		mockery.checking(new Expectations() {
-			{
-				one(response).sendRedirect(with(any(String.class)));
-				will(throwException(new IOException()));
-
-				ignoring(anything());
-			}
-		});
-	}
-
 	private ResourceMethod anyResourceMethodOf(Class<?> clazz) {
 		return new DefaultResourceMethod(new DefaultResourceClass(clazz), clazz.getDeclaredMethods()[0]);
 	}
@@ -136,8 +111,8 @@ public class AuthorizationInterceptorTest {
 
 		mockery.checking(new Expectations() {
 			{
-				one(response).sendRedirect(with(containsString("/home/notAllowed/")));
-				allowing(request);
+				one(result).redirectTo(HomeController.class);
+				will(returnValue(new HomeController()));
 			}
 		});
 	}

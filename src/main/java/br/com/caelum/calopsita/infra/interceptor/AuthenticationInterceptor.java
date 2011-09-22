@@ -1,10 +1,6 @@
 package br.com.caelum.calopsita.infra.interceptor;
 
-import java.io.IOException;
 import java.util.Arrays;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.calopsita.controller.HomeController;
 import br.com.caelum.calopsita.controller.UsersController;
@@ -19,14 +15,10 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 @Intercepts
 public class AuthenticationInterceptor implements Interceptor {
 	private final SessionUser sessionUser;
-	private final HttpServletRequest request;
-	private final HttpServletResponse response;
 	private final Result result;
 
-    public AuthenticationInterceptor(SessionUser sessionUser, HttpServletRequest request, HttpServletResponse response, Result result) {
+    public AuthenticationInterceptor(SessionUser sessionUser, Result result) {
 		this.sessionUser = sessionUser;
-		this.request = request;
-		this.response = response;
 		this.result = result;
     }
 
@@ -38,11 +30,7 @@ public class AuthenticationInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
 		if (this.sessionUser.getUser() == null) {
-			try {
-				response.sendRedirect(request.getContextPath() + "/home/login/");
-			} catch (IOException e) {
-				throw new InterceptionException(e);
-			}
+			result.redirectTo(HomeController.class).login();
         } else {
         	result.include("currentUser", sessionUser.getUser());
             stack.next(method, resourceInstance);
