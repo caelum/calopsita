@@ -1,12 +1,8 @@
 package br.com.caelum.calopsita.infra;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertFalse;
 
 import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -20,32 +16,29 @@ import br.com.caelum.calopsita.infra.interceptor.AuthenticationInterceptor;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.model.User;
-import br.com.caelum.vraptor.InterceptionException;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.resource.DefaultResourceClass;
 import br.com.caelum.vraptor.resource.DefaultResourceMethod;
 import br.com.caelum.vraptor.resource.ResourceMethod;
-import br.com.caelum.vraptor.util.test.MockResult;
 
 public class AuthenticationInterceptorTest {
 
 
 	private Mockery mockery;
 	private AuthenticationInterceptor interceptor;
-	private HttpServletRequest request;
-	private HttpServletResponse response;
 	private InterceptorStack stack;
 	private SessionUser sessionUser;
+	private Result result;
 
 	@Before
 	public void setUp() throws Exception {
 		mockery = new Mockery();
 
-		request = mockery.mock(HttpServletRequest.class);
-		response = mockery.mock(HttpServletResponse.class);
 		stack = mockery.mock(InterceptorStack.class);
 		sessionUser = new SessionUser(new MockHttpSession());
-		interceptor = new AuthenticationInterceptor(sessionUser, request, response, new MockResult());
+		result = mockery.mock(Result.class);
+		interceptor = new AuthenticationInterceptor(sessionUser, result);
 	}
 
 	@After
@@ -58,6 +51,7 @@ public class AuthenticationInterceptorTest {
 		givenThereIsAUserInTheSession();
 
 		shouldExecuteFlow();
+		shouldAddLoggedUserIntoRequest();
 
 		whenInterceptOccurs();
 	}
@@ -76,25 +70,6 @@ public class AuthenticationInterceptorTest {
 		assertFalse(interceptor.accepts(anyResourceMethodOf(UsersController.class)));
 	}
 
-	@Test(expected=InterceptionException.class)
-	public void shouldRethrowExceptions() throws Exception {
-		givenThereIsNotAUserInTheSession();
-		givenResponseThrowsException();
-
-		whenInterceptOccurs();
-	}
-	private void givenResponseThrowsException() throws IOException {
-
-		mockery.checking(new Expectations() {
-			{
-				one(response).sendRedirect(with(any(String.class)));
-				will(throwException(new IOException()));
-
-				ignoring(anything());
-			}
-		});
-	}
-
 	private ResourceMethod anyResourceMethodOf(Class<?> clazz) {
 		return new DefaultResourceMethod(new DefaultResourceClass(clazz), clazz.getDeclaredMethods()[0]);
 	}
@@ -102,8 +77,8 @@ public class AuthenticationInterceptorTest {
 	private void shouldRedirectToLoginPage() throws IOException {
 		mockery.checking(new Expectations() {
 			{
-				one(response).sendRedirect(with(containsString("/")));
-				allowing(request);
+				one(result).redirectTo(HomeController.class);
+				will(returnValue(new HomeController()));
 			}
 		});
 	}
@@ -131,6 +106,14 @@ public class AuthenticationInterceptorTest {
 			}
 		});
 
+	}
+
+	private void shouldAddLoggedUserIntoRequest() {
+		mockery.checking(new Expectations() {
+			{
+				one(result).include("currentUser", sessionUser.getUser());
+			}
+		});
 	}
 
 	private void whenInterceptOccurs() {

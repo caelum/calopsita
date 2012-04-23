@@ -1,10 +1,6 @@
 package br.com.caelum.calopsita.infra.interceptor;
 
-import java.io.IOException;
 import java.util.Arrays;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.calopsita.controller.HomeController;
 import br.com.caelum.calopsita.controller.UsersController;
@@ -13,6 +9,7 @@ import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.core.MethodInfo;
 import br.com.caelum.vraptor.interceptor.Interceptor;
@@ -22,17 +19,15 @@ public class AuthorizationInterceptor implements Interceptor {
 
 	private final ProjectRepository repository;
 	private final SessionUser user;
-	private final HttpServletResponse response;
-	private final HttpServletRequest request;
 	private final MethodInfo parameters;
 	private final UserRepository userRepository;
+	private final Result result;
 
-	public AuthorizationInterceptor(SessionUser user, UserRepository userRepository, ProjectRepository repository, HttpServletRequest request, HttpServletResponse response, MethodInfo parameters) {
+	public AuthorizationInterceptor(SessionUser user, UserRepository userRepository, ProjectRepository repository, Result result, MethodInfo parameters) {
 		this.user = user;
 		this.userRepository = userRepository;
 		this.repository = repository;
-		this.request = request;
-		this.response = response;
+		this.result = result;
 		this.parameters = parameters;
 	}
 
@@ -46,11 +41,7 @@ public class AuthorizationInterceptor implements Interceptor {
 			Object resourceInstance) throws InterceptionException {
 
 		if (user.getUser() != null && repository.hasInconsistentValues(parameters.getParameters(), user.getUser())) {
-			try {
-				response.sendRedirect(request.getContextPath() + "/home/notAllowed/");
-			} catch (IOException e) {
-				throw new InterceptionException(e);
-			}
+			result.redirectTo(HomeController.class).notAllowed();
 			return;
 		}
 		if (user.getUser() != null) {
